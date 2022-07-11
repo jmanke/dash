@@ -1,0 +1,20 @@
+:host::-webkit-scrollbar {
+  width: 6px;
+}
+
+:host::-webkit-scrollbar-track {
+  border-radius: var(--dash-spacing-full);
+}
+
+:host::-webkit-scrollbar-thumb {
+  background-color: var(--dash-border-1);
+  border-radius: var(--dash-spacing-full);
+}
+
+:root[data-theme='dark'] :host::-webkit-scrollbar-track {
+  background-color: var(--dash-background-3);
+}
+
+:root[data-theme='dark'] :host::-webkit-scrollbar-thumb {
+  background-color: var(--dash-background-1);
+}

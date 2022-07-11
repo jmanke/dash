@@ -1,0 +1,27 @@
+:host {
+  display: block;
+}
+
+.container {
+  padding: var(--dash-spacing-1) 0;
+  display: flex;
+  align-items: center;
+}
+
+dash-inline-edit {
+  flex: auto;
+  margin-inline-end: var(--dash-spacing-4);
+}
+
+.delete-button {
+  margin: 0 var(--dash-spacing-2);
+}
+
+.delete-confirm {
+  padding: var(--dash-spacing-1);
+}
+
+.delete-dropdown {
+  --dash-dropdown-min-width: 0;
+}
+

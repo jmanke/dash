@@ -1,0 +1,10 @@
+@import '../../../assets/styles/_app.css';
+
+.page-container {
+  display: block;
+  padding: 0 var(--dash-spacing-4);
+
+  &.full-page {
+    height: calc(100vh - var(--dash-nav-bar-height));
+  }
+}

@@ -1,0 +1,49 @@
+dash-text-editor {
+  position: relative;
+
+  &.loading {
+    .tox.tox-tinymce {
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .tox {
+    &.tox-tinymce {
+      transition: filter var(--dash-scrim-transition);
+      width: inherit;
+      max-width: inherit;
+      transition: opacity ease-in-out 45ms;
+
+      .tox-heading-input {
+        padding: var(--dash-spacing-3) var(--dash-spacing-4) var(--dash-spacing-1) var(--dash-spacing-4);
+        font-size: 1.5rem;
+        width: 100%;
+      }
+    }
+
+    .tox-tbtn,
+    .tox-mbtn {
+      border-radius: var(--dash-border-radius);
+    }
+
+    .tox-tbtn.tox-fullscreen-btn {
+      margin-left: auto;
+    }
+  }
+
+  dash-loader {
+    position: absolute;
+    top: 0;
+  }
+}
+
+.global-scrim dash-text-editor .tox.tox-tinymce {
+  filter: brightness(var(--dash-scrim-opacity));
+  pointer-events: none;
+}
+
+:root[data-theme='dark'] dash-text-editor .tox.tox-tinymce .tox-heading-input {
+  background-color: var(--dash-background-1);
+  color: var(--dash-text-color-1);
+}

@@ -1,0 +1,58 @@
+@import '../../../assets/styles/_app.css';
+@import '../../../assets/styles/_focus-outline.css';
+
+:host {
+  display: inline-block;
+  --dash-icon-button-padding: var(--dash-spacing-2);
+  line-height: 1;
+
+  &([loading]) {
+    dash-icon {
+      visibility: hidden;
+    }
+  }
+
+  &([disabled]) {
+    button {
+      cursor: initial;
+      color: var(--dash-text-color-3);
+    }
+  }
+
+  &(:not([loading]):not([disabled])) {
+    button {
+      &:hover {
+        background-color: var(--dash-bg-darken-1);
+      }
+
+      &:focus-visible {
+        @extend .focus-outline;
+      }
+
+      &:active {
+        background-color: var(--dash-bg-darken-2);
+      }
+    }
+  }
+}
+
+button {
+  position: relative;
+  border-radius: var(--dash-spacing-full);
+  padding: var(--dash-icon-button-padding);
+  transition: background-color 50ms ease-out;
+  border-color: transparent;
+  border-width: 1px;
+  background-color: transparent;
+}
+
+dash-icon {
+  color: var(--dash-icon-color);
+}
+
+dash-loader {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}

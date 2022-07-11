@@ -1,0 +1,40 @@
+dash-label-select {
+  .container {
+    padding: var(--dash-spacing-2);
+    width: 250px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--dash-background-2);
+    border-radius: var(--dash-border-radius);
+    overflow: hidden;
+
+    .labels-list {
+      overflow-y: auto;
+    }
+  }
+
+  .no-labels {
+    font-size: var(--dash-font-size-1);
+    padding: var(--dash-spacing-3);
+    text-align: center;
+  }
+
+  .add-label {
+    padding-top: var(--dash-spacing-1);
+    margin-top: auto;
+  }
+
+  dash-filter {
+    margin-bottom: var(--dash-spacing-3);
+  }
+
+  dash-label-color-picker {
+    height: 100%;
+  }
+
+  .label-text {
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+}

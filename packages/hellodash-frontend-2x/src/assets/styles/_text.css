@@ -1,0 +1,33 @@
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--dash-text-color-1);
+}
+
+h1 {
+  font-size: var(--dont-size-7);
+}
+
+h2 {
+  font-size: var(--dont-size-5);
+}
+
+h3 {
+  font-size: var(--dont-size-4);
+}
+
+h4 {
+  font-size: var(--dont-size-3);
+}
+
+h5 {
+  font-size: var(--dont-size-2);
+}
+
+h6 {
+  font-size: var(--dont-size-1);
+}

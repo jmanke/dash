@@ -1,0 +1,57 @@
+@import '../../../assets/styles/_app.css';
+@import '../../../assets/styles/_focus-outline.css';
+
+:host {
+  display: inline-block;
+  --dash-button-background-color: unset;
+  --dash-button-background-color-hover: var(--dash-bg-darken-1);
+  --dash-button-background-color-active: var(--dash-bg-darken-2);
+
+  &([status="error"]) {
+    --dash-button-background-color: var(--dash-danger);
+    --dash-button-background-color-hover: var(--dash-danger-hover);
+    --dash-button-background-color-active: var(--dash-danger-active);
+  }
+
+  &([disabled]) {
+    button {
+      cursor: initial;
+      color: var(--dash-text-color-3);
+    }
+  }
+
+  &(:not([disabled])) {
+    button {
+      background-color: var(--dash-button-background-color);
+
+      &:hover {
+        background-color: var(--dash-button-background-color-hover);
+      }
+
+      &:focus-visible {
+        @extend .focus-outline;
+      }
+
+      &:active {
+        background-color: var(--dash-button-background-color-active);
+      }
+    }
+  }
+}
+
+button {
+  padding: var(--dash-spacing-1) var(--dash-spacing-2);
+  height: var(--dash-spacing-8);
+  width: 100%;
+  border-radius: var(--dash-border-radius);
+  display: flex;
+  flex: none;
+  color: var(--dash-text-color-1);
+  text-align: left;
+  overflow: hidden;
+}
+
+dash-icon {
+  margin-right: var(--dash-spacing-2);
+  align-self: center;
+}

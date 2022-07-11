@@ -1,0 +1,35 @@
+dash-menu {
+  display: block;
+  --dash-menu-width: var(--dash-spacing-80);
+
+  .dash-menu--sidebar {
+    background-color: var(--dash-background-1);
+    border-radius: 0 4px 4px 0;
+    z-index: var(--dash-z-index-aside);
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    width: var(--dash-menu-width);
+    position: fixed;
+    top: 0;
+    left: 0;
+    transform: translateX(calc((var(--dash-menu-width)) * -1));
+    transition: transform var(--dash-transition-time-fast) ease-out;
+
+    &.visible {
+      visibility: visible;
+      transform: translateX(0);
+    }
+  }
+
+  .dash-menu--header {
+    padding: var(--dash-spacing-4) var(--dash-spacing-3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .disable-menu {
+    visibility: hidden;
+  }
+}

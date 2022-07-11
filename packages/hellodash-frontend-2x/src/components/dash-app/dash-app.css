@@ -1,0 +1,9 @@
+:host {
+  display: block;
+}
+
+dash-side-bar {
+  dash-sidebar-button:not(last-child) {
+    margin-bottom: var(--dash-spacing-1);
+  }
+}

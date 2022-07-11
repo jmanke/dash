@@ -1,0 +1,10 @@
+:host {
+  display: inline-block;
+}
+
+a {
+  padding: var(--dash-spacing-2);
+  margin: 0 var(--dash-spacing-2);
+  color: var(--dash-brand);
+  text-decoration: none; /* no underline */
+}

@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+}
+
+dash-input {
+  flex: auto;
+}
+
+dash-button {
+  flex: auto;
+}
+
+.hidden {
+  display: none;
+}
