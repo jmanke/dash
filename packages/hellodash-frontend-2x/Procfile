@@ -1,1 +1,1 @@
-npm install -g npx && npx stencil build --prod
+web: npm install -g npx && npx stencil build --prod
