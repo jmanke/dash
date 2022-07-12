@@ -6,7 +6,7 @@ import { appState } from '../../../stores/app-state';
 import { refreshAuthToken } from '../../../api/auth0-api';
 import { wait } from '../../../utils/wait';
 
-const REFRESH_TOKEN_TIMEOUT = 10 * 60 * 1000;
+const REFRESH_TOKEN_TIMEOUT = 60 * 60 * 1000;
 
 @Component({
   tag: 'dash-auth0-provider',

@@ -2,6 +2,7 @@ import axios, { AxiosError } from 'axios';
 import qs from 'qs';
 import appState from '../stores/app-state';
 import CancelationToken from './cancellation-token';
+import { CONSTANTS } from '../constants';
 
 //#region interfaces
 
@@ -22,7 +23,7 @@ export interface PagedResponse<T> {
 
 //#region constants
 
-export const baseApiUrl = (): string => (process.env.LIVE_SERVER ? 'https://hellodash-server-2x.herokuapp.com/api' : 'http://localhost:5000/api');
+export const baseApiUrl = (): string => (CONSTANTS.LIVE_SERVER ? 'https://hellodash-server-2x.herokuapp.com/api' : 'http://localhost:5000/api');
 
 //#endregion
 

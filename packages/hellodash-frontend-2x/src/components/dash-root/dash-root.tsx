@@ -1,6 +1,7 @@
 import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js';
 import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil/router';
+import { CONSTANTS } from '../../constants';
 import { appState } from '../../stores/app-state';
 import { Theme } from '../../types/types';
 import { AppSettingsViewModel } from '../../view-models/app-settings-view-model';
@@ -57,9 +58,9 @@ export class DashRoot {
   async componentWillLoad() {
     dashRootService.dashRoot = this;
     appState.authClient = await createAuth0Client({
-      domain: process.env.AUTH0_DOMAIN,
-      client_id: process.env.AUTH0_CLIENTID,
-      audience: process.env.AUTH0_AUDIENCE,
+      domain: CONSTANTS.AUTH0_DOMAIN,
+      client_id: CONSTANTS.AUTH0_CLIENTID,
+      audience: CONSTANTS.AUTH0_AUDIENCE,
       useRefreshTokens: true,
     });
 
