@@ -164,7 +164,7 @@ export class DashRouteNotes {
     return (
       <Host>
         <dash-section stickyHeader>
-          {!!this.notes.length && [
+          {!!notesState.notes.length && [
             <div slot='header' class='notes-search-container'>
               <dash-filter class='notes-filter' placeholder='Search...' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
               <dash-dropdown class='sort-dropdown' placement='bottom-end' autoClose>
@@ -194,24 +194,27 @@ export class DashRouteNotes {
               <dash-tooltip class='add-note-tooltip' target={this.addNoteButton} text={'Add note'} placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>
             </div>,
 
-            <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-              {this.notes.map(note => (
-                <dash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} note={note}>
-                  <dash-note-edit-dropdown
-                    slot='actions-end'
-                    note={note}
-                    onDashNoteEditDropdownVisibleChanged={e => (this.noteWithDropdownActive = e.detail ? note : null)}
-                  ></dash-note-edit-dropdown>
-                </dash-note-card>
-              ))}
-            </dash-grid>,
+            !!this.notes.length ? (
+              <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
+                {this.notes.map(note => (
+                  <dash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} note={note}>
+                    <dash-note-edit-dropdown
+                      slot='actions-end'
+                      note={note}
+                      onDashNoteEditDropdownVisibleChanged={e => (this.noteWithDropdownActive = e.detail ? note : null)}
+                    ></dash-note-edit-dropdown>
+                  </dash-note-card>
+                ))}
+              </dash-grid>
+            ) : (
+              <div>No matching notes...</div>
+            ),
             <dash-fab class='add-note-fab' icon='plus' onClick={() => this.addNote()}></dash-fab>,
           ]}
 
-          {!this.notes.length && (
+          {!notesState.notes.length && (
             <div class='note-message-wrapper'>
               <div class='note-message'>
-                <span class='note-message-heading'>{isNumber(this.selectedLabelId) ? 'No matching notes...' : 'Create note'}</span>
                 <dash-fab icon='plus' onClick={() => this.addNote()}></dash-fab>
               </div>
             </div>
