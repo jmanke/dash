@@ -75,7 +75,7 @@ export class DashLabelEdit {
             <dash-label-color-picker></dash-label-color-picker>
           </dash-dropdown>
 
-          <dash-dropdown class='delete-dropdown' placement='bottom-end' onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)} autoClose>
+          <dash-dropdown class='delete-dropdown' placement='bottom-end' placementStrategy='fixed' onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)} autoClose>
             <dash-icon-button class='delete-button' slot='dropdown-trigger' icon='trash'></dash-icon-button>
 
             <dash-button ref={element => (this.confirmDeleteButton = element)} class='delete-confirm' status='error' onClick={() => this.dashDeleteLabel.emit(this.label)}>

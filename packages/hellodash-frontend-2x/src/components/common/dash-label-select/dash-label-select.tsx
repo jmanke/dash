@@ -142,7 +142,7 @@ export class DashLabelEdit {
         ))}
       </dash-list>
     ) : (
-      <div class='no-labels'>No labels...</div>
+      <div class='no-labels'>No labels</div>
     );
 
     const showAddLabel = !isEmpty(this.filterValue) && !labelsState.labels.find(l => l.text.trim() === this.filterValue);
@@ -163,7 +163,7 @@ export class DashLabelEdit {
         <dash-filter
           class='filter'
           ref={element => (this.filterElement = element)}
-          placeholder='Filter labels...'
+          placeholder='Filter labels'
           items={labelsState.labels}
           objKey='text'
           onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}

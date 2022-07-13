@@ -166,7 +166,7 @@ export class DashRouteNotes {
         <dash-section stickyHeader>
           {!!notesState.notes.length && [
             <div slot='header' class='notes-search-container'>
-              <dash-filter class='notes-filter' placeholder='Search...' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
+              <dash-filter class='notes-filter' placeholder='Search' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
               <dash-dropdown class='sort-dropdown' placement='bottom-end' autoClose>
                 <dash-icon-button slot='dropdown-trigger' icon='filter' scale='l'></dash-icon-button>
 
@@ -207,7 +207,7 @@ export class DashRouteNotes {
                 ))}
               </dash-grid>
             ) : (
-              <div>No matching notes...</div>
+              <div>No matching notes</div>
             ),
             <dash-fab class='add-note-fab' icon='plus' onClick={() => this.addNote()}></dash-fab>,
           ]}

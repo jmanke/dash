@@ -31,6 +31,9 @@ export class DashRoot {
   appStateLoaded: boolean;
 
   @State()
+  appElementReady: boolean;
+
+  @State()
   authClient: Auth0Client;
   //#endregion
 
@@ -85,6 +88,11 @@ export class DashRoot {
   //#endregion
 
   //#region Local methods
+  async appElementConnected(e: HTMLDashAppElement) {
+    await e.componentOnReady();
+
+    this.appElementReady = true;
+  }
   //#endregion
 
   render() {
@@ -92,11 +100,13 @@ export class DashRoot {
       <Host>
         {this.appStateLoaded && (
           <dash-auth0-provider authClient={appState.authClient}>
-            {!appState.error && appState.currentUser && [<dash-app></dash-app>, <div class='modal-root'>{this.modalContent}</div>]}
+            {!appState.error && appState.currentUser && [<dash-app ref={this.appElementConnected.bind(this)}></dash-app>, <div class='modal-root'>{this.modalContent}</div>]}
 
             {appState.error && <div class='root-error-message'>Oops! Something went wrong...</div>}
           </dash-auth0-provider>
         )}
+
+        {(!this.appStateLoaded || !this.appElementReady) && <dash-loader></dash-loader>}
       </Host>
     );
   }

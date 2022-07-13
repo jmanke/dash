@@ -56,7 +56,7 @@ export class DashFilter implements Focusable {
   @Prop({
     reflect: true,
   })
-  placeholder?: string = 'Filter...';
+  placeholder?: string = 'Filter';
 
   @Prop({
     reflect: true,

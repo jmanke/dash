@@ -163,7 +163,7 @@ export class DashRouteBin {
           </dash-grid>,
         ]}
 
-        {!notesState.archivedNotes.length && <div class='bin-empty-message'>Bin is empty...</div>}
+        {!notesState.archivedNotes.length && <div class='bin-empty-message'>Bin is empty</div>}
       </dash-section>
     );
   }

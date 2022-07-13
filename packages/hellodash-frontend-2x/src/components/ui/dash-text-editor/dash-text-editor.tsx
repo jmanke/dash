@@ -281,7 +281,7 @@ export class DashTextEditor implements Focusable {
     // create custom input for heading
     const headingInput = document.createElement('input') as HTMLInputElement;
     headingInput.classList.add('tox-heading-input');
-    headingInput.placeholder = 'Title...';
+    headingInput.placeholder = 'Title';
     headingInput.addEventListener('change', (e: any) => {
       this.dashTextEditorHeadingChanged.emit(e.currentTarget.value);
       this.dashTextEditorIsDirty.emit(true);

@@ -104,16 +104,12 @@ export class DashAuth0Provider {
     user.userId = auth0User.sub;
     appState.currentUser = new UserViewModel(user);
 
-    console.log('user signed in!');
-    console.log(await this.authClient.getTokenSilently());
-    console.log(user);
-
     this.refreshAuthToken();
   }
   //#endregion
 
   render() {
-    const content = this.isAuthenticated && appState.currentUser ? <slot></slot> : <dash-loader></dash-loader>;
+    const content = this.isAuthenticated && appState.currentUser ? <slot></slot> : undefined;
 
     return <Host>{content}</Host>;
   }

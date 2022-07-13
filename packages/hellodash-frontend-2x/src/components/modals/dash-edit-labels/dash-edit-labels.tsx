@@ -101,7 +101,7 @@ export class DashEditLabels implements Modal {
           <dash-input
             ref={element => element.setFocus()}
             class='new-label-input'
-            placeholder='Add label...'
+            placeholder='Add label'
             scale='l'
             value={this.newLabelText}
             onDashInputInput={e => (this.newLabelText = e.detail)}

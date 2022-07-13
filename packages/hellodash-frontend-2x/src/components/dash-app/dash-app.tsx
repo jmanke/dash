@@ -116,8 +116,6 @@ export class DashApp {
   render() {
     return (
       <Host>
-        {!this.initialized && <dash-loader></dash-loader>}
-
         {this.initialized && (
           <dash-shell>
             <dash-nav-bar slot='header' onDashMenuToggled={() => (appState.settings.sidebarCollapsed = !appState.settings.sidebarCollapsed)}>
@@ -164,6 +162,8 @@ export class DashApp {
             </dash-page-container>
           </dash-shell>
         )}
+
+        {!this.initialized && <dash-loader></dash-loader>}
       </Host>
     );
   }
