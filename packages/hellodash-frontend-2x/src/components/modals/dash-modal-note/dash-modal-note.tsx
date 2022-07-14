@@ -1,4 +1,5 @@
 import { Component, Event, EventEmitter, h, Method, Prop, State } from '@stencil/core';
+import { isNumber } from 'lodash';
 import CancelationToken from '../../../api/cancellation-token';
 import { fetchNote } from '../../../api/note-api';
 import { Modal } from '../../../interfaces/modal';
@@ -45,6 +46,9 @@ export class DashModalNote implements Modal {
   // if true, creates a new note
   @Prop()
   newNote: boolean;
+
+  @Prop()
+  newLabelId?: number;
   //#endregion
 
   //#region @Event
@@ -80,6 +84,10 @@ export class DashModalNote implements Modal {
     if (this.newNote) {
       const note = new Note();
       note.title = 'New note';
+      if (isNumber(this.newLabelId)) {
+        note.labels = [this.newLabelId];
+      }
+
       const createdNote = await notesState.addNote(note);
       this.note = new NoteViewModel(createdNote);
       return;

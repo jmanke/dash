@@ -155,7 +155,7 @@ export class DashRouteNotes {
   }
 
   addNote() {
-    const noteModal = <dash-modal-note newNote={true}></dash-modal-note>;
+    const noteModal = <dash-modal-note newNote={true} newLabelId={this.selectedLabelId}></dash-modal-note>;
     dashRootService.showModal(noteModal);
   }
   //#endregion

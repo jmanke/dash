@@ -82,12 +82,17 @@ export class DashFilter implements Focusable {
   @Event({
     eventName: 'dashFilterFilteredItems',
   })
-  dashFilterFilteredItems: EventEmitter<{}[]>;
+  dashFilterFilteredItems: EventEmitter<object[]>;
 
   @Event({
     eventName: 'dashFilterValueChanged',
   })
   dashFilterValueChanged: EventEmitter<string>;
+
+  @Event({
+    eventName: 'dashFilterSubmit',
+  })
+  dashFilterSubmit: EventEmitter<string>;
   //#endregion
 
   //#region Component lifecycle
@@ -108,6 +113,11 @@ export class DashFilter implements Focusable {
   @Method()
   async select() {
     this.inputElement.select();
+  }
+
+  @Method()
+  async clear() {
+    this.filterValue = '';
   }
   //#endregion
 
@@ -151,6 +161,7 @@ export class DashFilter implements Focusable {
         scale={this.scale}
         clearable
         onDashInputInput={e => (this.filterValue = e.detail?.trim())}
+        onDashInputSubmit={() => this.dashFilterSubmit.emit(this.filterValue)}
         debounce={this.debounce}
       ></dash-input>
     );

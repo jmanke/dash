@@ -17,6 +17,8 @@ export class DashLabelEdit {
   colorSwatches = new Map<number, HTMLDashColorSwatchElement>();
 
   editingLabel: LabelViewModel;
+
+  canCreateLabel = true;
   //#endregion
 
   //#region @Element
@@ -107,10 +109,20 @@ export class DashLabelEdit {
   }
 
   async createLabel(text: string) {
+    if (!this.canCreateLabel) {
+      return;
+    }
+    this.canCreateLabel = false;
+
     const createdLabel = { id: 0, text, color: 'red' } as Label;
-    const label = await labelsState.addLabel(createdLabel);
-    this.selectedLabelChanged(label, true);
-    this.filterElement.select();
+    try {
+      const label = await labelsState.addLabel(createdLabel);
+      this.selectedLabelChanged(label, true);
+      this.filterElement.clear();
+      this.filterElement.select();
+    } finally {
+      this.canCreateLabel = true;
+    }
   }
 
   labelColorChanged(label: LabelViewModel, color: Color) {
@@ -147,16 +159,10 @@ export class DashLabelEdit {
 
     const showAddLabel = !isEmpty(this.filterValue) && !labelsState.labels.find(l => l.text.trim() === this.filterValue);
     const addLabel = showAddLabel ? (
-      <dash-button
-        class='add-label'
-        startIcon='plus-circle'
-        onClick={() => {
-          this.createLabel(this.filterValue);
-        }}
-      >
-        Create '{this.filterValue}'
-      </dash-button>
-    ) : null;
+      <div class='add-label-message'>
+        <dash-icon icon='plus' scale='m'></dash-icon>Press enter to add "{this.filterValue}"
+      </div>
+    ) : undefined;
 
     return (
       <dash-drill-menu class='container' active={this.drillMenuActive} drillHeading='Select a color'>
@@ -166,11 +172,12 @@ export class DashLabelEdit {
           placeholder='Filter labels'
           items={labelsState.labels}
           objKey='text'
+          onDashFilterSubmit={showAddLabel ? (e: CustomEvent<string>) => this.createLabel(e.detail) : undefined}
           onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
           onDashFilterValueChanged={e => (this.filterValue = e.detail)}
         ></dash-filter>
-        {listContent}
         {addLabel}
+        {listContent}
 
         <dash-label-color-picker
           slot='drill-content'

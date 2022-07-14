@@ -48,4 +48,13 @@ dash-label-select {
       display: none;
     }
   }
+
+  .add-label-message {
+    display: flex;
+    align-items: center;
+
+    dash-icon {
+      margin-inline-end: var(--dash-spacing-2);
+    }
+  }
 }

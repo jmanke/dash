@@ -144,7 +144,7 @@ export class DashApp {
               ))}
               <dash-sidebar-button icon='pencil' text='Edit labels' collapsed={appState.settings.sidebarCollapsed} onClick={this.editLabels.bind(this)}></dash-sidebar-button>
               <dash-sidebar-button
-                icon='trash'
+                icon='trash3'
                 text='Bin'
                 active={this.pathName === RootUrls.Bin}
                 collapsed={appState.settings.sidebarCollapsed}

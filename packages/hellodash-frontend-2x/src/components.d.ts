@@ -71,6 +71,7 @@ export namespace Components {
         "icon": string;
     }
     interface DashFilter {
+        "clear": () => Promise<void>;
         "debounce": number;
         "items": {}[] | string[];
         "objKey": string;
@@ -159,6 +160,7 @@ export namespace Components {
     }
     interface DashModalNote {
         "close": () => Promise<void>;
+        "newLabelId"?: number;
         "newNote": boolean;
         "noteId": number;
     }
@@ -741,7 +743,8 @@ declare namespace LocalJSX {
         "debounce"?: number;
         "items"?: {}[] | string[];
         "objKey"?: string;
-        "onDashFilterFilteredItems"?: (event: DashFilterCustomEvent<{}[]>) => void;
+        "onDashFilterFilteredItems"?: (event: DashFilterCustomEvent<object[]>) => void;
+        "onDashFilterSubmit"?: (event: DashFilterCustomEvent<string>) => void;
         "onDashFilterValueChanged"?: (event: DashFilterCustomEvent<string>) => void;
         "placeholder"?: string;
         "scale"?: Scale;
@@ -833,6 +836,7 @@ declare namespace LocalJSX {
         "scale"?: Scale;
     }
     interface DashModalNote {
+        "newLabelId"?: number;
         "newNote"?: boolean;
         "noteId"?: number;
         "onDashModalBeforeClose"?: (event: DashModalNoteCustomEvent<any>) => void;
