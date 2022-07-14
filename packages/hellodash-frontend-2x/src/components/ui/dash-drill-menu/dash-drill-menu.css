@@ -28,11 +28,19 @@
   align-items: center;
   justify-content: center;
   padding: var(--dash-spacing-2);
+
+  @media only screen and (max-width: 600px) {
+    padding: var(--dash-spacing-2) 0;
+  }
 }
 
 .back-button {
   position: absolute;
   left: var(--dash-spacing-2);
+
+  @media only screen and (max-width: 600px) {
+    left: 0;
+  }
 }
 
 @keyframes fadeIn {

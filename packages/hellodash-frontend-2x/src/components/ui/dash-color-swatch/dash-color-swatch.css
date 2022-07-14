@@ -19,7 +19,7 @@
   height: var(--dash-spacing-6);
   cursor: pointer;
   background: var(--dash-color-swatch-background);
-  border: solid 2px var(--dash-text-color-1);
+  border: solid 2px var(--dash-text-color-3);
 
   &:hover {
     filter: brightness(80%);

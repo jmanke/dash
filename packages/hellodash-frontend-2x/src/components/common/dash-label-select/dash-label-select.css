@@ -42,4 +42,10 @@ dash-label-select {
     overflow-wrap: anywhere;
     word-break: normal;
   }
+
+  dash-filter {
+    @media only screen and (max-width: 600px) {
+      display: none;
+    }
+  }
 }
