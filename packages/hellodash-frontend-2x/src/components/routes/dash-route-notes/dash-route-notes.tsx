@@ -100,6 +100,7 @@ export class DashRouteNotes {
     this.filterNotes();
     this.notesChangedListener = this.filterNotes.bind(this);
     notesState.addNotesChangedListener(this.notesChangedListener);
+    this.matchChanged(this.match);
   }
 
   disconnectedCallback() {
