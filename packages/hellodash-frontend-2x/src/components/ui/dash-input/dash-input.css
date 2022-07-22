@@ -16,10 +16,10 @@
     height: var(--dash-spacing-12);
 
     .wrapper {
-      border: var(--dash-border-style-1-thick);
+      border: var(--dash-border-style-1);
 
       &:focus-within {
-        border: var(--dash-border-style-brand-thick);
+        border: var(--dash-border-style-brand);
       }
     }
   }

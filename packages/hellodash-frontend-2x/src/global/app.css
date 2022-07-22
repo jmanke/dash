@@ -71,9 +71,7 @@
 
   /* border style */
   --dash-border-style-brand: 1px solid var(--dash-brand);
-  --dash-border-style-brand-thick: 2px solid var(--dash-brand);
   --dash-border-style-1: 1px solid var(--dash-border-1);
-  --dash-border-style-1-thick: 2px solid var(--dash-border-1);
   --dash-border-style-transparent: 1px solid transparent;
 
   --dash-border-style-focus-hidden: 2px solid transparent;
@@ -159,7 +157,7 @@
 
   /* outline */
   --dash-focus-outline-thin: 1px solid var(--dash-brand);
-  --dash-focus-outline: 2px solid var(--dash-brand);
+  --dash-focus-outline: 2px solid var(--dash-brafnd);
   --dash-focus-outline-offset: 1px;
 
   /* colors rgb */
