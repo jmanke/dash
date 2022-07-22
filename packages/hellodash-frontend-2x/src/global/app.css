@@ -157,7 +157,7 @@
 
   /* outline */
   --dash-focus-outline-thin: 1px solid var(--dash-brand);
-  --dash-focus-outline: 2px solid var(--dash-brafnd);
+  --dash-focus-outline: 2px solid var(--dash-brand);
   --dash-focus-outline-offset: 1px;
 
   /* colors rgb */
