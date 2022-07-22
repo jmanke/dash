@@ -7,3 +7,12 @@ dash-side-bar {
     margin-bottom: var(--dash-spacing-1);
   }
 }
+
+.logo-header {
+  font-size: var(--dash-font-size-6);
+  cursor: default;
+
+  @media only screen and (max-width: 600px) {
+    font-size: var(--dash-font-size-4);
+  }
+}

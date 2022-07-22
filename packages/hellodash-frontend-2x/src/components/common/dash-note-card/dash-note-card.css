@@ -66,6 +66,8 @@
     margin-bottom: var(--dash-spacing-3);
     font-size: var(--dash-font-size-1);
     color: var(--dash-text-color-3);
+    overflow-wrap: anywhere;
+    word-break: normal;
   }
 
   .preview-container {
