@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, EventEmitter, Event, State } from '@stencil/core';
+import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
 
 type EditMode = 'button' | 'input';
 
@@ -15,11 +15,22 @@ export class DashInlineEdit {
   //#endregion
 
   //#region @Element
+  @Element()
+  element: HTMLDashInlineEditElement;
   //#endregion
 
   //#region @State
   @State()
   mode: EditMode = 'button';
+  @Watch('mode')
+  modeChanged(mode: EditMode) {
+    if (mode === 'input') {
+      this.setFocusOnVisible(this.inputElement);
+    } else {
+      this.setFocusOnVisible(this.buttonElement);
+    }
+  }
+
   //#endregion
 
   //#region @Prop
@@ -46,15 +57,37 @@ export class DashInlineEdit {
   //#endregion
 
   //#region Local methods
+  setFocusOnVisible(element: HTMLDashInputElement | HTMLDashButtonElement) {
+    const isVisible = (target: HTMLElement) => {
+      const classNames = target.className?.split(' ') ?? [];
+      return !classNames.find(className => className === 'hidden');
+    };
+
+    if (isVisible(element)) {
+      element.setFocus();
+      return;
+    }
+
+    const observer = new MutationObserver(mutations => {
+      for (let mutationRecord of mutations) {
+        if (isVisible(mutationRecord.target as HTMLElement)) {
+          element.setFocus();
+          return;
+        }
+      }
+
+      observer.disconnect();
+    });
+
+    observer.observe(element, { attributes: true });
+  }
+
   inputChanged(e: CustomEvent<string>) {
     this.currentValue = e.detail;
   }
 
   switchToInputMode() {
     this.mode = 'input';
-    setTimeout(() => {
-      this.inputElement.setFocus();
-    }, 0);
   }
 
   updateValue() {
@@ -68,9 +101,6 @@ export class DashInlineEdit {
   }
 
   submit() {
-    setTimeout(() => {
-      this.buttonElement.setFocus();
-    }, 0);
     this.updateValue();
   }
   //#endregion

@@ -22,9 +22,46 @@ dash-text-editor {
       }
     }
 
-    .tox-tbtn,
+    .tox-tbtn {
+      border-radius: var(--dash-border-radius);
+
+      &:active,
+      &:focus:not(.tox-tbtn--disabled) {
+        background-color: initial;
+      }
+
+      &:not(.tox-tbtn--enabled):hover {
+        background-color: var(--dash-bg-darken-1);
+      }
+
+      &.tox-tbtn--enabled {
+        background-color: var(--dash-bg-darken-3);
+
+        &:hover {
+          background-color: var(--dash-bg-darken-4);
+        }
+      }
+    }
+
     .tox-mbtn {
       border-radius: var(--dash-border-radius);
+
+      &:active, 
+      &:focus:not(:disabled) {
+        background-color: initial;
+      }
+
+      &.tox-mbtn--active {
+        background-color: var(--dash-bg-darken-3);
+
+        &:hover {
+          background-color: var(--dash-bg-darken-4);
+        }
+      }
+
+      &:hover:not(:disabled):not(.tox-mbtn--active) {
+        background-color: var(--dash-bg-darken-1);
+      }
     }
 
     .tox-tbtn.tox-fullscreen-btn {

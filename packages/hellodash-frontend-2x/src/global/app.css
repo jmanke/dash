@@ -94,7 +94,8 @@
   /* bg darken */
   --dash-bg-darken-1: rgba(0, 0, 0, 0.08);
   --dash-bg-darken-2: rgba(0, 0, 0, 0.12);
-  --dash-bg-darken-3: rgba(0, 0, 0, 0.3);
+  --dash-bg-darken-3: rgba(0, 0, 0, 0.2);
+  --dash-bg-darken-4: rgba(0, 0, 0, 0.24);
 
   /* font size */
   --dash-font-size--1: 10px;
