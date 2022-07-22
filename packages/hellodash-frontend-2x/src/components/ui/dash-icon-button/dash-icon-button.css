@@ -40,7 +40,7 @@ button {
   position: relative;
   border-radius: var(--dash-spacing-full);
   padding: var(--dash-icon-button-padding);
-  transition: background-color 50ms ease-out;
+  transition: background-color var(--dash-transition-time-fast) ease-out;
   border-color: transparent;
   border-width: 1px;
   background-color: transparent;

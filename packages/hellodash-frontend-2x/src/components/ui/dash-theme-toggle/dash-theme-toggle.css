@@ -22,6 +22,7 @@ button {
   -webkit-tap-highlight-color: transparent;
   outline-offset: 5px;
   color: var(--dash-text-color-1);
+  transition: background-color var(--dash-transition-time-fast) ease-out;
 
   &:focus-visible {
     @extend .focus-outline;

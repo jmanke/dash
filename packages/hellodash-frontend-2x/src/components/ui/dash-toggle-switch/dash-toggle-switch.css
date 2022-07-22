@@ -19,7 +19,7 @@ span {
   border: 1px solid rgba(var(--dash-rgb-brand), 0.25);
   background-color: var(--dash-background-3);
   border-radius: 15px;
-  transition: background 0.1s linear;
+  transition: background var(--dash-transition-time-fast) linear;
   cursor: pointer;
 
   &:focus-visible {
@@ -39,7 +39,7 @@ span:after {
   border-color: var(--dash-brand);
   background-color: #ffffff;
   border-style: solid;
-  transition: left 0.1s ease-out;
+  transition: left var(--dash-transition-time-fast) ease-out;
 }
 
 input:checked + span {

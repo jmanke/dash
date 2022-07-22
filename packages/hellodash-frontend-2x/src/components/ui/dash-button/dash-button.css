@@ -49,6 +49,7 @@ button {
   color: var(--dash-text-color-1);
   text-align: left;
   overflow: hidden;
+  transition: background-color var(--dash-transition-time-fast) ease-out;
 }
 
 dash-icon {
