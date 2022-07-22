@@ -70,7 +70,7 @@ export class DashApp {
 
   //#region Component lifecycle
   async componentWillLoad() {
-    this.logoPath = getAssetPath('./assets/icon/android-icon-48x48.png');
+    this.logoPath = getAssetPath('./assets/icon/pomeranian.svg');
 
     try {
       await Promise.all([notesState.init(), labelsState.init()]);
@@ -123,7 +123,7 @@ export class DashApp {
         {this.initialized && (
           <dash-shell>
             <dash-nav-bar slot='header' onDashMenuToggled={() => (appState.settings.sidebarCollapsed = !appState.settings.sidebarCollapsed)}>
-              <img src={this.logoPath} alt='Hellodash logo' />
+              <img src={this.logoPath} alt='Hellodash logo' width='48' height='48' />
               <span class='logo-header'>Hellodash</span>
 
               <dash-theme-toggle slot='content-end' class='theme-toggle' onClick={this.toggleTheme.bind(this)}></dash-theme-toggle>
