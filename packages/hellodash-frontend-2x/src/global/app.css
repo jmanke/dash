@@ -91,12 +91,6 @@
     --dash-transition-time-default: 0ms;
   }
 
-  /* bg darken */
-  --dash-bg-darken-1: rgba(0, 0, 0, 0.08);
-  --dash-bg-darken-2: rgba(0, 0, 0, 0.12);
-  --dash-bg-darken-3: rgba(0, 0, 0, 0.2);
-  --dash-bg-darken-4: rgba(0, 0, 0, 0.24);
-
   /* font size */
   --dash-font-size--1: 10px;
   --dash-font-size-0: 12px;
@@ -118,6 +112,11 @@
   --dash-line-height-default: 1.35;
 
   /* theme light */
+  --dash-bg-darken-1-light: rgba(0, 0, 0, 0.08);
+  --dash-bg-darken-2-light: rgba(0, 0, 0, 0.12);
+  --dash-bg-darken-3-light: rgba(0, 0, 0, 0.2);
+  --dash-bg-darken-4-light: rgba(0, 0, 0, 0.24);
+
   --dash-brand-light: #4da0ff;
   --dash-brand-light-faded: #4da0ff3d;
 
@@ -136,6 +135,11 @@
   --dash-danger-light-active: #cc3636;
 
   /* theme dark */
+  --dash-bg-darken-1-dark: rgba(255, 255, 255, 0.08);
+  --dash-bg-darken-2-dark: rgba(255, 255, 255, 0.12);
+  --dash-bg-darken-3-dark: rgba(255, 255, 255, 0.2);
+  --dash-bg-darken-4-dark: rgba(255, 255, 255, 0.24);
+
   --dash-brand-dark: #4da0ff;
   --dash-brand-dark-faded: #4da0ff3d;
 
@@ -196,6 +200,11 @@
   --dash-background-2: var(--dash-background-2-light);
   --dash-background-3: var(--dash-background-3-light);
 
+  --dash-bg-darken-1: var(--dash-bg-darken-1-light);
+  --dash-bg-darken-2: var(--dash-bg-darken-2-light);
+  --dash-bg-darken-3: var(--dash-bg-darken-3-light);
+  --dash-bg-darken-4: var(--dash-bg-darken-4-light);
+
   --dash-danger: var(--dash-danger-light);
   --dash-danger-hover: var(--dash-danger-light-hover);
   --dash-danger-active: var(--dash-danger-light-active);
@@ -225,6 +234,11 @@
   --dash-background-1: var(--dash-background-1-dark);
   --dash-background-2: var(--dash-background-2-dark);
   --dash-background-3: var(--dash-background-3-dark);
+
+  --dash-bg-darken-1: var(--dash-bg-darken-1-dark);
+  --dash-bg-darken-2: var(--dash-bg-darken-2-dark);
+  --dash-bg-darken-3: var(--dash-bg-darken-3-dark);
+  --dash-bg-darken-4: var(--dash-bg-darken-4-dark);
 
   --dash-danger: var(--dash-danger-dark);
   --dash-danger-hover: var(--dash-danger-dark-hover);
