@@ -1,0 +1,13 @@
+:host {
+  display: block;
+
+  &([layout='inline']) label {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+}

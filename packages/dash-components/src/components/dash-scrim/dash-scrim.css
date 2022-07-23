@@ -1,0 +1,18 @@
+div {
+  z-index: var(--dash-z-index-scrim);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, var(--dash-scrim-opacity));
+  transition: backdrop-filter var(--dash-scrim-transition), opacity var(--dash-scrim-transition);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.active {
+  opacity: 1;
+  backdrop-filter: blur(3px);
+  pointer-events: all;
+}

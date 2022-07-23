@@ -1,0 +1,266 @@
+/* media breakpoints reference */
+/* --media-s: 600px;
+   --media-m: 768px;
+   --media-l: 992px;
+   --media-xl: 1200px;
+   --media-xxl: 1600px */
+
+:root {
+  /* spacing */
+  --dash-spacing-px: 1px;
+  --dash-spacing-half: 0.125rem;
+  --dash-spacing-1: 0.25rem;
+  --dash-spacing-1-half: 0.3125rem;
+  --dash-spacing-2: 0.5rem;
+  --dash-spacing-3: 0.75rem;
+  --dash-spacing-4: 1rem;
+  --dash-spacing-5: 1.25rem;
+  --dash-spacing-6: 1.5rem;
+  --dash-spacing-7: 1.75rem;
+  --dash-spacing-8: 2rem;
+  --dash-spacing-9: 2.25rem;
+  --dash-spacing-10: 2.5rem;
+  --dash-spacing-11: 2.75rem;
+  --dash-spacing-12: 3rem;
+  --dash-spacing-14: 3.5rem;
+  --dash-spacing-16: 4rem;
+  --dash-spacing-20: 5rem;
+  --dash-spacing-24: 6rem;
+  --dash-spacing-28: 7rem;
+  --dash-spacing-32: 8rem;
+  --dash-spacing-36: 9rem;
+  --dash-spacing-40: 10rem;
+  --dash-spacing-44: 11rem;
+  --dash-spacing-48: 12rem;
+  --dash-spacing-52: 13rem;
+  --dash-spacing-56: 14rem;
+  --dash-spacing-60: 15rem;
+  --dash-spacing-64: 16rem;
+  --dash-spacing-68: 17rem;
+  --dash-spacing-72: 18rem;
+  --dash-spacing-76: 19rem;
+  --dash-spacing-80: 20rem;
+  --dash-spacing-120: 30rem;
+  --dash-spacing-192: 48rem;
+  --dash-spacing-full: 9999px;
+
+  /* z-index */
+  --dash-z-index-section-header: 20;
+  --dash-z-index-aside: 30;
+  --dash-z-index-scrim: 50;
+  --dash-z-index-modal: 998;
+  --dash-z-index-popover: 999;
+
+  /* box shadow */
+  --dash-box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  --dash-box-shadow-line: rgba(var(--dash-rgb-box-shadow-primary), 0.02) 0px 1px 3px 0px, rgba(var(--dash-rgb-box-shadow-secondary), 0.15) 0px 0px 0px 1px;
+  --dash-box-shadow-line-active: rgba(var(--dash-rgb-box-shadow-primary), 0.02) 0px 1px 3px 0px, rgba(var(--dash-rgb-brand), 1) 0px 0px 0px 2px;
+
+  /* scrim */
+  --dash-scrim-opacity: 0.4;
+  --dash-scrim-transition: var(--dash-transition-time-default) ease-out;
+
+  /* nav bar */
+  --dash-nav-bar-height: var(--dash-spacing-12);
+
+  /* border radius */
+  --dash-border-radius-xs: 3px;
+  --dash-border-radius-s: 6px;
+  --dash-border-radius: 8px;
+  --dash-border-radius-l: 12px;
+
+  /* border style */
+  --dash-border-style-brand: 1px solid var(--dash-brand);
+  --dash-border-style-1: 1px solid var(--dash-border-1);
+  --dash-border-style-transparent: 1px solid transparent;
+
+  --dash-border-style-focus-hidden: 2px solid transparent;
+  --dash-border-style-focus-visible: 2px solid var(--dash-brand);
+
+  /* transition for border focus */
+  --dash-focus-border-transition: border ease-in-out var(--dash-transition-time-fast);
+
+  /* transition time */
+  --dash-transition-time-fast: 100ms;
+  --dash-transition-time-default: 250ms;
+
+  @media (prefers-reduced-motion) {
+    --dash-transition-time-fast: 0ms;
+    --dash-transition-time-default: 0ms;
+  }
+
+  /* font size */
+  --dash-font-size--1: 10px;
+  --dash-font-size-0: 12px;
+  --dash-font-size-1: 14px;
+  --dash-font-size-2: 16px;
+  --dash-font-size-3: 18px;
+  --dash-font-size-4: 20px;
+  --dash-font-size-5: 24px;
+  --dash-font-size-6: 30px;
+  --dash-font-size-7: 36px;
+
+  /* font weight */
+  --dash-font-weight-light: 300;
+  --dash-font-weight-regular: 400;
+  --dash-font-weight-medium: 500;
+  --dash-font-weight-bold: 600;
+
+  /* line-height */
+  --dash-line-height-default: 1.35;
+
+  /* theme light */
+  --dash-bg-darken-1-light: rgba(0, 0, 0, 0.08);
+  --dash-bg-darken-2-light: rgba(0, 0, 0, 0.12);
+  --dash-bg-darken-3-light: rgba(0, 0, 0, 0.2);
+  --dash-bg-darken-4-light: rgba(0, 0, 0, 0.24);
+
+  --dash-brand-light: #4da0ff;
+  --dash-brand-light-faded: #4da0ff3d;
+
+  --dash-text-color-1-light: #293241;
+  --dash-text-color-2-light: #404040;
+  --dash-text-color-3-light: #525252;
+
+  --dash-background-1-light: #f2f2f2;
+  --dash-background-2-light: #ffffff;
+  --dash-background-3-light: #e2e2e2;
+
+  --dash-border-1-light: #9c9da1;
+
+  --dash-danger-light: #ff4444;
+  --dash-danger-light-hover: #e53d3d;
+  --dash-danger-light-active: #cc3636;
+
+  /* theme dark */
+  --dash-bg-darken-1-dark: rgba(255, 255, 255, 0.08);
+  --dash-bg-darken-2-dark: rgba(255, 255, 255, 0.12);
+  --dash-bg-darken-3-dark: rgba(255, 255, 255, 0.2);
+  --dash-bg-darken-4-dark: rgba(255, 255, 255, 0.24);
+
+  --dash-brand-dark: #4da0ff;
+  --dash-brand-dark-faded: #4da0ff3d;
+
+  --dash-text-color-1-dark: #fff;
+  --dash-text-color-2-dark: #e6e3e3;
+  --dash-text-color-3-dark: #bfbfbf;
+
+  --dash-background-1-dark: #27292d;
+  --dash-background-2-dark: #37393d;
+  --dash-background-3-dark: #3f4146;
+
+  --dash-border-1-dark: #54575c;
+
+  --dash-danger-dark: #ed4245;
+  --dash-danger-dark-hover: #d53b3e;
+  --dash-danger-dark-active: #bd3437;
+
+  /* outline */
+  --dash-focus-outline-thin: 1px solid var(--dash-brand);
+  --dash-focus-outline: 2px solid var(--dash-brand);
+  --dash-focus-outline-offset: 1px;
+
+  /* colors rgb */
+  --dash-color-red-rgb: 255, 130, 130;
+  --dash-color-orange-rgb: 255, 177, 109;
+  --dash-color-yellow-rgb: 242, 211, 85;
+  --dash-color-green-apple-rgb: 154, 239, 71;
+  --dash-color-green-grass-rgb: 90, 236, 104;
+  --dash-color-baby-blue-rgb: 143, 203, 255;
+  --dash-color-dark-blue-rgb: 154, 164, 255;
+  --dash-color-purple-rgb: 203, 121, 212;
+  --dash-color-pink-rgb: 255, 154, 218;
+  --dash-color-gray-rgb: 176, 176, 176;
+
+  /* colors */
+  --dash-color-red: rgba(var(--dash-color-red-rgb), 0.6);
+  --dash-color-orange: rgba(var(--dash-color-orange-rgb), 0.6);
+  --dash-color-yellow: rgba(var(--dash-color-yellow-rgb), 0.6);
+  --dash-color-green-apple: rgba(var(--dash-color-green-apple-rgb), 0.6);
+  --dash-color-green-grass: rgba(var(--dash-color-green-grass-rgb), 0.6);
+  --dash-color-baby-blue: rgba(var(--dash-color-baby-blue-rgb), 0.6);
+  --dash-color-dark-blue: rgba(var(--dash-color-dark-blue-rgb), 0.6);
+  --dash-color-purple: rgba(var(--dash-color-purple-rgb), 0.6);
+  --dash-color-pink: rgba(var(--dash-color-pink-rgb), 0.6);
+  --dash-color-gray: rgba(var(--dash-color-gray-rgb), 0.6);
+}
+
+:root,
+.light-theme {
+  --dash-brand: var(--dash-brand-light);
+  --dash-brand-faded: var(--dash-brand-light-faded);
+
+  --dash-text-color-1: var(--dash-text-color-1-light);
+  --dash-text-color-2: var(--dash-text-color-2-light);
+  --dash-text-color-3: var(--dash-text-color-3-light);
+
+  --dash-background-1: var(--dash-background-1-light);
+  --dash-background-2: var(--dash-background-2-light);
+  --dash-background-3: var(--dash-background-3-light);
+
+  --dash-bg-darken-1: var(--dash-bg-darken-1-light);
+  --dash-bg-darken-2: var(--dash-bg-darken-2-light);
+  --dash-bg-darken-3: var(--dash-bg-darken-3-light);
+  --dash-bg-darken-4: var(--dash-bg-darken-4-light);
+
+  --dash-danger: var(--dash-danger-light);
+  --dash-danger-hover: var(--dash-danger-light-hover);
+  --dash-danger-active: var(--dash-danger-light-active);
+
+  --dash-border-1: var(--dash-border-1-light);
+
+  --dash-svg-filter-light: 1;
+  --dash-svg-filter-dark: 0.2;
+
+  --dash-svg-filter: var(--dash-svg-filter-dark);
+  --dash-svg-filter-invert: var(--dash-svg-filter-light);
+
+  --dash-rgb-brand: 77, 160, 255;
+  --dash-rgb-box-shadow-primary: 0, 0, 0;
+  --dash-rgb-box-shadow-secondary: 27, 31, 35;
+}
+
+:root[data-theme='dark'],
+.dark-theme {
+  --dash-brand: var(--dash-brand-dark);
+  --dash-brand-faded: var(--dash-brand-dark-faded);
+
+  --dash-text-color-1: var(--dash-text-color-1-dark);
+  --dash-text-color-2: var(--dash-text-color-2-dark);
+  --dash-text-color-3: var(--dash-text-color-3-dark);
+
+  --dash-background-1: var(--dash-background-1-dark);
+  --dash-background-2: var(--dash-background-2-dark);
+  --dash-background-3: var(--dash-background-3-dark);
+
+  --dash-bg-darken-1: var(--dash-bg-darken-1-dark);
+  --dash-bg-darken-2: var(--dash-bg-darken-2-dark);
+  --dash-bg-darken-3: var(--dash-bg-darken-3-dark);
+  --dash-bg-darken-4: var(--dash-bg-darken-4-dark);
+
+  --dash-danger: var(--dash-danger-dark);
+  --dash-danger-hover: var(--dash-danger-dark-hover);
+  --dash-danger-active: var(--dash-danger-dark-active);
+
+  --dash-border-1: var(--dash-border-1-dark);
+
+  --dash-svg-filter: var(--dash-svg-filter-light);
+  --dash-svg-filter-invert: var(--dash-svg-filter-dark);
+
+  --dash-rgb-brand: 77, 160, 255;
+  --dash-rgb-box-shadow-primary: 255, 255, 255;
+  --dash-rgb-box-shadow-secondary: 228, 224, 220;
+}
+
+body {
+  background-color: var(--dash-background-1);
+
+  margin: 0px;
+  padding: 0px;
+  text-rendering: optimizeLegibility;
+  webkit-font-smoothing: subpixel-antialiased;
+  font-family: 'Open Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+  font-size: var(--dash-font-size-2);
+  color: var(--dash-text-color-1);
+  line-height: var(--dash-line-height-default);
+}

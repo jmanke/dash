@@ -1,0 +1,69 @@
+@import '../../assets/styles/_app.css';
+@import '../../assets/styles/_focus-outline.css';
+
+:host {
+  display: block;
+}
+
+button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  padding: 0;
+  inline-size: var(--dash-spacing-12);
+  block-size: var(--dash-spacing-12);
+  aspect-ratio: 1;
+  border-radius: var(--dash-spacing-full);
+
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  outline-offset: 5px;
+  color: var(--dash-text-color-1);
+  transition: background-color var(--dash-transition-time-fast) ease-out;
+
+  &:focus-visible {
+    @extend .focus-outline;
+  }
+
+  &:hover {
+    background-color: var(--dash-bg-darken-1);
+  }
+
+  &:active {
+    background-color: var(--dash-bg-darken-2);
+  }
+
+  & > svg {
+    width: var(--dash-spacing-8);
+    height: var(--dash-spacing-8);
+  }
+
+  .sun,
+  .sun-beams,
+  .moon circle {
+    transform-origin: center;
+    transition: all var(--dash-transition-time-default) ease-out;
+  }
+
+  &.theme-dark {
+    .sun {
+      transition-delay: var(--dash-transition-time-default);
+      transition-property: transform;
+      transform-origin: center;
+      transform: scale(1.5);
+    }
+
+    .sun-beams {
+      opacity: 0;
+      transform: rotate(45deg);
+    }
+
+    .moon circle {
+      transition-property: transform;
+      transform: translateX(-8px);
+    }
+  }
+}
