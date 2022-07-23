@@ -1,0 +1,6 @@
+bootstrap-icons/
+src/
+.prettier.json
+CONTRIBUTING.md
+stencil.config.ts
+tsconfig.json
