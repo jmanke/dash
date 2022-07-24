@@ -2,7 +2,7 @@ import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil/router';
 import { isEmpty, isNumber } from 'lodash';
 import notesState from '../../../stores/notes-state';
-import { stringSearch } from '../../../utils/string-search';
+import { stringSearch } from 'didyoumeantoast-dash-utils';
 import { NoteViewModel } from '../../../view-models/note-view-model';
 import { dashRootService } from '../../dash-root/dash-root-service';
 

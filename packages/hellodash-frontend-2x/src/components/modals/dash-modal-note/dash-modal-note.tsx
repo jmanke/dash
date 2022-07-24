@@ -2,13 +2,13 @@ import { Component, Event, EventEmitter, h, Method, Prop, State } from '@stencil
 import { isNumber } from 'lodash';
 import CancelationToken from '../../../api/cancellation-token';
 import { fetchNote } from '../../../api/note-api';
-import { Modal } from '../../../interfaces/modal';
+import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/modal';
 import { Note } from '../../../models/note';
 import labelsState from '../../../stores/labels-store';
 import notesState from '../../../stores/notes-state';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 import { NoteViewModel } from '../../../view-models/note-view-model';
-import { TextEditorContent } from '../../ui/dash-text-editor/dash-text-editor';
+import { TextEditorContent } from '../../common/dash-text-editor/dash-text-editor';
 
 const PREVIEW_CONTENT_LENGTH = 100;
 const SAVE_DELAY = 5 * 1000;

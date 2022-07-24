@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import { updateLabel } from '../../../api/labels-api';
 import { Label } from '../../../models/label';
 import labelsState from '../../../stores/labels-store';
-import { Color } from '../../../types/types';
+import { Color } from 'didyoumeantoast-dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 
 @Component({

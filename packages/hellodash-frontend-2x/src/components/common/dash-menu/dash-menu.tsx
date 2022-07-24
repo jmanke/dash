@@ -1,7 +1,7 @@
 import { Component, Element, Event, EventEmitter, h, Prop, State, Watch } from '@stencil/core';
 import { appState } from '../../../stores/app-state';
-import { focus } from '../../../utils/focus';
-import { spaceConcat } from '../../../utils/space-concat';
+import { focus } from 'didyoumeantoast-dash-utils';
+import { spaceConcat } from 'didyoumeantoast-dash-utils';
 
 @Component({
   tag: 'dash-menu',

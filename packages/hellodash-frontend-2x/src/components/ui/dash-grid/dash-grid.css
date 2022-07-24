@@ -1,5 +1,0 @@
-:host {
-  display: grid;
-  gap: var(--dash-spacing-3) var(--dash-spacing-3);
-  grid-auto-flow: row;
-}

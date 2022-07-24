@@ -14,6 +14,6 @@
     "jsx": "react",
     "jsxFactory": "h"
   },
-  "include": ["src", "bootstrap-icons", "assets"],
+  "include": ["src", "assets"],
   "exclude": ["node_modules"]
 }

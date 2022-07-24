@@ -1,8 +1,9 @@
 import { Component, Event, EventEmitter, h, Listen, Method, State, Watch } from '@stencil/core';
-import { Modal } from '../../../interfaces/modal';
+import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/modal';
 import { Label } from '../../../models/label';
 import labelsState from '../../../stores/labels-store';
 import { LabelViewModel } from '../../../view-models/label-view-model';
+import { dashRootService } from '../../dash-root/dash-root-service';
 
 @Component({
   tag: 'dash-edit-labels',
@@ -12,6 +13,8 @@ import { LabelViewModel } from '../../../view-models/label-view-model';
 export class DashEditLabels implements Modal {
   //#region Own properties
   modal: HTMLDashModalElement;
+
+  closeModalCb: () => void;
   //#endregion
 
   //#region @Element
@@ -48,6 +51,15 @@ export class DashEditLabels implements Modal {
   //#endregion
 
   //#region Component lifecycle
+  connectedCallback() {
+    this.closeModalCb = () => this.modal.close();
+    dashRootService.addHistoryChangedListener(this.closeModalCb);
+  }
+
+  disconnectedCallback() {
+    dashRootService.removeHistoryChangedListener(this.closeModalCb);
+    this.closeModalCb = null;
+  }
   //#endregion
 
   //#region Listeners
@@ -96,7 +108,7 @@ export class DashEditLabels implements Modal {
 
   render() {
     return (
-      <dash-modal ref={element => (this.modal = element)} heading='Edit labels' scale='s' autoFocus closeOnHistoryChanged>
+      <dash-modal ref={element => (this.modal = element)} heading='Edit labels' scale='s' autoFocus>
         <form class='new-label-container'>
           <dash-input
             ref={element => element.setFocus()}

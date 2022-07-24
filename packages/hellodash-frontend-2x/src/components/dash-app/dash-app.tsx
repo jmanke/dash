@@ -126,7 +126,7 @@ export class DashApp {
               <img src={this.logoPath} alt='Hellodash logo' width='48' height='48' />
               <span class='logo-header'>Hellodash</span>
 
-              <dash-theme-toggle slot='content-end' class='theme-toggle' onClick={this.toggleTheme.bind(this)}></dash-theme-toggle>
+              <dash-theme-toggle slot='content-end' class='theme-toggle' theme={appState.settings.theme} onClick={this.toggleTheme.bind(this)}></dash-theme-toggle>
               <dash-profile-settings slot='content-end' user={appState.currentUser}></dash-profile-settings>
             </dash-nav-bar>
 

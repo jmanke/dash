@@ -1,6 +1,7 @@
 import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
-import { Modal } from '../../../interfaces/modal';
-import { Status } from '../../../types/types';
+import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/modal';
+import { Status } from 'didyoumeantoast-dash-components/dist/types/types/types';
+import { dashRootService } from '../../dash-root/dash-root-service';
 
 @Component({
   tag: 'dash-confirm',
@@ -11,6 +12,7 @@ export class DashConfirm implements Modal {
   //#region Own properties
   modal: HTMLDashModalElement;
   cancelButton: HTMLDashButtonElement;
+  closeModalCb: () => void;
   //#endregion
 
   //#region @Element
@@ -62,6 +64,16 @@ export class DashConfirm implements Modal {
   componentDidLoad() {
     this.cancelButton.setFocus();
   }
+
+  connectedCallback() {
+    this.closeModalCb = () => this.modal.close();
+    dashRootService.addHistoryChangedListener(this.closeModalCb);
+  }
+
+  disconnectedCallback() {
+    dashRootService.removeHistoryChangedListener(this.closeModalCb);
+    this.closeModalCb = null;
+  }
   //#endregion
 
   //#region Listeners
@@ -83,14 +95,7 @@ export class DashConfirm implements Modal {
 
   render() {
     return (
-      <dash-modal
-        ref={element => (this.modal = element)}
-        heading={this.heading ? this.heading : 'Are you sure?'}
-        scale='s'
-        hideCloseButton
-        disableFullscreenMobileView
-        closeOnHistoryChanged
-      >
+      <dash-modal ref={element => (this.modal = element)} heading={this.heading ? this.heading : 'Are you sure?'} scale='s' hideCloseButton disableFullscreenMobileView>
         <slot></slot>
 
         <div slot='footer-end'>

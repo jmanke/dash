@@ -17,8 +17,11 @@ export const config: Config = {
       type: 'www',
       // comment the following line to disable service workers in production
       serviceWorker: null,
-      baseUrl: 'https://myapp.local/',
-      copy: [{ src: 'assets', dest: 'build/assets' }],
+      copy: [
+        { src: 'assets', dest: 'build/assets' },
+        // need to copy over component assets into this project
+        { src: '../node_modules/didyoumeantoast-dash-components/dist/dash-components/assets', dest: 'build/assets' },
+      ],
     },
   ],
   //add postcss as a plugin

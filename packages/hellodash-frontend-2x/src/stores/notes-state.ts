@@ -4,7 +4,7 @@ import { createNote, deleteNote, fetchNote, fetchNotes, updateNote } from '../ap
 import { Status } from '../enums/status';
 import EventEmitter from '../lib/event-emitter';
 import { Note } from '../models/note';
-import { replaceAt } from '../utils/array';
+import { replaceAt } from 'didyoumeantoast-dash-utils';
 import { NoteViewModel } from '../view-models/note-view-model';
 import labelsState from './labels-store';
 

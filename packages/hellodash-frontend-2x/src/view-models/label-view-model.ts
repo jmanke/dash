@@ -1,6 +1,6 @@
 import { tracked } from '../decorators/tracked';
 import { Label } from '../models/label';
-import { Color } from '../types/types';
+import { Color } from 'didyoumeantoast-dash-components/dist/types/types/types';
 import ViewModel from './view-model';
 
 export class LabelViewModel extends ViewModel<Label> {

@@ -1,9 +1,0 @@
-:host {
-  display: block;
-  padding: var(--dash-spacing-4) var(--dash-spacing-3);
-}
-
-article {
-  display: flex;
-  flex-direction: column;
-}
