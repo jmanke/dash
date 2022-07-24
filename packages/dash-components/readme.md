@@ -1,10 +1,10 @@
-### Welcome to Dash Components!
+# Welcome to Dash Components!
 
 Dash components is a shared component library built entirely in StencilJS. 
 
 ## How to integrate
 
-# StencilJS
+### StencilJS
 
 1. Run `yarn add didyoumeantoast-dash-components`
 2. Import `didyoumeantoast-dash-components/dist/dash-components/dash-components.css` into the global css file
