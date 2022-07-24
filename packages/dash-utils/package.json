@@ -1,10 +1,7 @@
 {
-  "name": "didyoumeantoast-dash-utils",
+  "name": "dash-utils",
   "version": "0.0.1",
   "description": "Utils library by Jeff Manke",
-  "files": [
-    "lib/"
-  ],
   "scripts": {
     "build": "npx tsc"
   },
