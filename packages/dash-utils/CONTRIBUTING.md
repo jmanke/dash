@@ -11,13 +11,13 @@
 
 `package.json`:
 
-{
-  "name": "didyoumeantoast-dash-utils",
-  "version": "0.0.6",
-  "description": "Utils library by Jeff Manke",
-  "type": "module",
-  "main": "index.js",
-  "dependencies": {
-    "@a11y/focus-trap": "^1.0.5"
-  }
-}
+    {
+    "name": "didyoumeantoast-dash-utils",
+    "version": "0.0.6",
+    "description": "Utils library by Jeff Manke",
+    "type": "module",
+    "main": "index.js",
+    "dependencies": {
+        "@a11y/focus-trap": "^1.0.5"
+    }
+    }
