@@ -1,5 +1,5 @@
 import { Component, Host, h, Element } from '@stencil/core';
-import { focus, SKIP_NODE_CLASS } from '../../utils/focus';
+import { focus, SKIP_NODE_CLASS } from 'didyoumeantoast-dash-utils';
 
 @Component({
   tag: 'dash-focus-trap',

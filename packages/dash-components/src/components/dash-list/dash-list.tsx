@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, Element, Watch } from '@stencil/core';
-import { isDefined } from '../../utils/is-defined';
+import { isDefined } from 'didyoumeantoast-dash-utils';
 
 export type SelectionMode = 'single' | 'multiple' | 'none';
 

@@ -1,6 +1,6 @@
 import { Component, h, Prop, Event, EventEmitter, Element, Host, Method } from '@stencil/core';
-import { contains } from '../../utils/contains';
-import { isClick } from '../../utils/is-click';
+import { contains } from 'didyoumeantoast-dash-utils';
+import { isClick } from 'didyoumeantoast-dash-utils';
 import { SelectionMode } from '../dash-list/dash-list';
 
 @Component({

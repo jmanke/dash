@@ -1,6 +1,6 @@
 import { AutoPlacement, BasePlacement, createPopper, Instance, VariationPlacement } from '@popperjs/core';
 import { Component, Host, h, Element, Prop, Watch, Event, EventEmitter, Listen } from '@stencil/core';
-import { contains } from '../../utils/contains';
+import { contains } from 'didyoumeantoast-dash-utils';
 
 export type PlacementStrategy = 'absolute' | 'fixed';
 export type Placement = AutoPlacement | BasePlacement | VariationPlacement;

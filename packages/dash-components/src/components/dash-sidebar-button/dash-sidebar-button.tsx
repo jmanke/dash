@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop, State } from '@stencil/core';
-import { isHex } from '../../utils/is-hex';
+import { isHex } from 'didyoumeantoast-dash-utils';
 
 @Component({
   tag: 'dash-sidebar-button',
