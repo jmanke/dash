@@ -7,7 +7,7 @@
   &(:focus-visible) {
     outline: none;
 
-    .list-item {
+    .list-item-wrapper {
       border: var(--dash-border-style-focus-visible);
     }
   }
@@ -19,7 +19,7 @@
   }
 
   &(:not([disabled])) {
-    .list-item {
+    .list-item-wrapper {
       cursor: pointer;
 
       &:hover {
@@ -27,11 +27,19 @@
         background-color: var(--dash-bg-darken-1);
       }
 
-      &:active {
+      &.active {
         background-color: var(--dash-bg-darken-2);
       }
     }
   }
+}
+
+.list-item-wrapper {
+  display: flex;
+  flex: auto;
+  border-radius: var(--dash-border-radius);
+  transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition);
+  border: var(--dash-border-style-focus-hidden);
 }
 
 .list-item {
@@ -40,8 +48,6 @@
   display: flex;
   align-items: center;
   flex: auto;
-  transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition);
-  border: var(--dash-border-style-focus-hidden);
   user-select: none;
 }
 

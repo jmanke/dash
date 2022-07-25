@@ -1,6 +1,5 @@
-import { Component, h, Prop, Event, EventEmitter, Element, Host, Method } from '@stencil/core';
-import { contains } from 'didyoumeantoast-dash-utils';
-import { isClick } from 'didyoumeantoast-dash-utils';
+import { Component, h, Prop, Event, EventEmitter, Element, Host, Method, State } from '@stencil/core';
+import { contains, isClick, spaceConcat } from 'didyoumeantoast-dash-utils';
 import { SelectionMode } from '../dash-list/dash-list';
 
 @Component({
@@ -19,6 +18,8 @@ export class DashListItem {
   //#endregion
 
   //#region @State
+  @State()
+  isActive: boolean;
   //#endregion
 
   //#region @Prop
@@ -83,6 +84,7 @@ export class DashListItem {
     }
 
     if (isClick(e) && !this.disabled) {
+      this.setActive(true);
       this.dashListItemSelectedChanged.emit(!this.selected);
     }
 
@@ -98,6 +100,21 @@ export class DashListItem {
     }
   }
 
+  keyUp(e: KeyboardEvent) {
+    if (isClick(e)) {
+      this.setActive(false);
+    }
+  }
+
+  setActive(active: boolean) {
+    if (this.disabled) {
+      this.isActive = false;
+      return;
+    }
+
+    this.isActive = active;
+  }
+
   get checkElement() {
     return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='check2' color='primary' scale='s'></dash-icon>;
   }
@@ -109,12 +126,25 @@ export class DashListItem {
 
   render() {
     return (
-      <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)}>
-        <div class='list-item' ref={e => (this.listItem = e)} onClick={e => this.handleClick(e)} onKeyDown={e => this.keyDown(e)}>
-          {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
-          <slot></slot>
+      <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
+        <div class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}>
+          <div
+            class='list-item'
+            ref={e => (this.listItem = e)}
+            onClick={e => this.handleClick(e)}
+            onPointerDown={this.setActive.bind(this, true)}
+            onPointerUp={this.setActive.bind(this, false)}
+            onPointerLeave={this.setActive.bind(this, false)}
+            onFocusout={this.setActive.bind(this, false)}
+          >
+            {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+            <slot></slot>
+          </div>
+
+          <div class='actions-end-wrapper'>
+            <slot name='actions-end'></slot>
+          </div>
         </div>
-        <slot name='actions-end'></slot>
       </Host>
     );
   }
