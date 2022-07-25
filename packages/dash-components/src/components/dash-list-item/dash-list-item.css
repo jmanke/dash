@@ -37,7 +37,7 @@
   display: flex;
   flex: auto;
   align-items: center;
-  border-radius: var(--dash-border-radius);
+  border-radius: var(--dash-border-radius-s);
   transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition);
   border: var(--dash-border-style-focus-hidden);
 }
