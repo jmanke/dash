@@ -52,6 +52,11 @@ export class DashIconButton {
     reflect: true,
   })
   type: string;
+
+  @Prop({
+    reflect: true,
+  })
+  rounded: boolean;
   //#endregion
 
   //#region @Event
