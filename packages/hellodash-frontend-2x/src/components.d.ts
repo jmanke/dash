@@ -74,6 +74,7 @@ export namespace Components {
         "deferLoadTime"?: number;
         "getContent": () => Promise<string>;
         "heading": string;
+        "isEditorDirty": () => Promise<boolean>;
         "loading"?: boolean;
         "resize"?: boolean;
         "save": (emitEvent?: boolean) => Promise<void>;

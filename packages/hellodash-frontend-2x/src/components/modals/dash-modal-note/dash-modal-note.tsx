@@ -144,6 +144,11 @@ export class DashModalNote implements Modal {
   async beforeModalClose() {
     this.cancelationToken.cancel();
     try {
+      const isDirty = await this.textEditor.isEditorDirty();
+      if (!isDirty) {
+        return;
+      }
+
       await this.textEditor.save(false);
       const content = await this.textEditor.getContent();
       this.textEditorContentChanged(content);

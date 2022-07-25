@@ -151,6 +151,15 @@ export class DashTextEditor implements Focusable {
   }
 
   @Method()
+  async isEditorDirty() {
+    if (!this.editor) {
+      throw Error('Editor must be defined');
+    }
+
+    return !this.editor.isNotDirty;
+  }
+
+  @Method()
   async save(emitEvent: boolean = true) {
     if (!this.editor) {
       throw Error('Editor must be defined');
