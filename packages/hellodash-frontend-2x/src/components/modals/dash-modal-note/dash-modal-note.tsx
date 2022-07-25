@@ -6,7 +6,6 @@ import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/mod
 import { Note } from '../../../models/note';
 import labelsState from '../../../stores/labels-store';
 import notesState from '../../../stores/notes-state';
-import { LabelViewModel } from '../../../view-models/label-view-model';
 import { NoteViewModel } from '../../../view-models/note-view-model';
 
 const SAVE_DELAY = 5 * 1000;
@@ -22,6 +21,7 @@ export class DashModalNote implements Modal {
   cancelationToken = new CancelationToken();
   dropdownElement: HTMLDashDropdownElement;
   saveDefer: any;
+  isNoteDirty: boolean;
   //#endregion
 
   //#region @Element
@@ -96,8 +96,13 @@ export class DashModalNote implements Modal {
     this.note = new NoteViewModel(note);
   }
 
-  removeLabel(label: LabelViewModel) {
-    this.note.labels = this.note.labels.filter(l => l !== label.id);
+  addLabel(id: number) {
+    this.note.labels = [...this.note.labels, id];
+    this.noteUpdated();
+  }
+
+  removeLabel(id: number) {
+    this.note.labels = this.note.labels.filter(l => l !== id);
     this.noteUpdated();
   }
 
@@ -146,6 +151,10 @@ export class DashModalNote implements Modal {
     try {
       const isDirty = await this.textEditor.isEditorDirty();
       if (!isDirty) {
+        if (this.saveDefer) {
+          this.saveNote();
+        }
+
         return;
       }
 
@@ -184,7 +193,7 @@ export class DashModalNote implements Modal {
           {this.note &&
             this.noteEditorLoaded &&
             labels.map(l => (
-              <dash-chip heading={l.text} color={l.color} removeable onDashChipRemove={() => this.removeLabel(l)} dismissTooltipText='Remove label' selectable></dash-chip>
+              <dash-chip heading={l.text} color={l.color} removeable onDashChipRemove={() => this.removeLabel(l.id)} dismissTooltipText='Remove label' selectable></dash-chip>
             ))}
         </div>
 
@@ -194,10 +203,10 @@ export class DashModalNote implements Modal {
           <dash-label-select
             labels={labels}
             onDashLabelSelectLabelAdded={e => {
-              this.note.labels = [...this.note.labels, e.detail.id];
+              this.addLabel(e.detail.id);
             }}
             onDashLabelSelectLabelRemoved={e => {
-              this.note.labels = this.note.labels.filter(l => l !== e.detail.id);
+              this.removeLabel(e.detail.id);
             }}
           ></dash-label-select>
         </dash-dropdown>

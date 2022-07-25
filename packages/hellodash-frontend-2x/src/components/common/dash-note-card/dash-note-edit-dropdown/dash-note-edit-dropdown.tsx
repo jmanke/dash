@@ -90,11 +90,11 @@ export class DashNoteEditDropdown {
             labels={noteLabels}
             onDashLabelSelectLabelAdded={e => {
               this.note.labels = [...this.note.labels, e.detail.id];
-              notesState.updateNote(this.note);
+              notesState.updateNotePreview(this.note);
             }}
             onDashLabelSelectLabelRemoved={e => {
               this.note.labels = this.note.labels.filter(l => l !== e.detail.id);
-              notesState.updateNote(this.note);
+              notesState.updateNotePreview(this.note);
             }}
             autoFocus
           ></dash-label-select>
