@@ -1,4 +1,4 @@
-import { Component, h, Event, EventEmitter, Listen } from '@stencil/core';
+import { Component, h, Event, EventEmitter, Listen, Prop } from '@stencil/core';
 import { Color } from 'didyoumeantoast-dash-components/dist/types/types/types';
 
 @Component({
@@ -17,6 +17,10 @@ export class DashLabelColorPicker {
   //#endregion
 
   //#region @Prop
+  @Prop({
+    reflect: true,
+  })
+  color: Color;
   //#endregion
 
   //#region @Event
@@ -42,6 +46,12 @@ export class DashLabelColorPicker {
   //#region Local methods
   //#endregion
   render() {
-    return <dash-color-picker colors={['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink']} cols={3}></dash-color-picker>;
+    return (
+      <dash-color-picker
+        colors={['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink']}
+        cols={3}
+        selectedColor={this.color}
+      ></dash-color-picker>
+    );
   }
 }

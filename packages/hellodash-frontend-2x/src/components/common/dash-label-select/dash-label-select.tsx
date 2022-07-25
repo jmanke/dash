@@ -181,6 +181,7 @@ export class DashLabelEdit {
 
         <dash-label-color-picker
           slot='drill-content'
+          color={this.editingLabel?.color}
           onDashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
             this.labelColorChanged(this.editingLabel, e.detail);
             this.drillMenuActive = false;

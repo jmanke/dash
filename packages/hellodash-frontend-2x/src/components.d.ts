@@ -30,6 +30,7 @@ export namespace Components {
         "close": () => Promise<void>;
     }
     interface DashLabelColorPicker {
+        "color": Color;
     }
     interface DashLabelEdit {
         "label": LabelViewModel;
@@ -257,6 +258,7 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: DashEditLabelsCustomEvent<any>) => void;
     }
     interface DashLabelColorPicker {
+        "color"?: Color;
         "onDashLabelColorPickerColorChanged"?: (event: DashLabelColorPickerCustomEvent<Color>) => void;
     }
     interface DashLabelEdit {

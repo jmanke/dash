@@ -72,7 +72,7 @@ export class DashLabelEdit {
           >
             <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
 
-            <dash-label-color-picker></dash-label-color-picker>
+            <dash-label-color-picker color={this.label.color}></dash-label-color-picker>
           </dash-dropdown>
 
           <dash-dropdown class='delete-dropdown' placement='bottom-end' placementStrategy='fixed' onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)} autoClose>
