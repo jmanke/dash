@@ -9,7 +9,7 @@ import { RouterHistory } from "@stencil/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
 import { Color, Status } from "didyoumeantoast-dash-components/dist/types/types/types";
 import { LabelViewModel } from "./view-models/label-view-model";
-import { NoteViewModel } from "./view-models/note-view-model";
+import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
 import { UserViewModel } from "./view-models/user-view-model";
 export namespace Components {
@@ -50,11 +50,11 @@ export namespace Components {
     interface DashNoteCard {
         "history": RouterHistory;
         "mode": NoteCardMode;
-        "note": NoteViewModel;
+        "notePreview": NotePreviewViewModel;
         "selected": boolean;
     }
     interface DashNoteEditDropdown {
-        "note": NoteViewModel;
+        "notePreview": NotePreviewViewModel;
     }
     interface DashProfileSettings {
         "user": UserViewModel;
@@ -282,11 +282,11 @@ declare namespace LocalJSX {
     interface DashNoteCard {
         "history"?: RouterHistory;
         "mode"?: NoteCardMode;
-        "note"?: NoteViewModel;
+        "notePreview"?: NotePreviewViewModel;
         "selected"?: boolean;
     }
     interface DashNoteEditDropdown {
-        "note"?: NoteViewModel;
+        "notePreview"?: NotePreviewViewModel;
         "onDashNoteEditDropdownVisibleChanged"?: (event: DashNoteEditDropdownCustomEvent<boolean>) => void;
     }
     interface DashProfileSettings {

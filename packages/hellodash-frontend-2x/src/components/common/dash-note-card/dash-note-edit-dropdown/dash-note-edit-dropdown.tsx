@@ -1,7 +1,7 @@
 import { Component, Event, EventEmitter, h, Listen, Prop, State } from '@stencil/core';
 import labelsState from '../../../../stores/labels-store';
 import notesState from '../../../../stores/notes-state';
-import { NoteViewModel } from '../../../../view-models/note-view-model';
+import { NotePreviewViewModel } from '../../../../view-models/note-preview-view-model';
 
 type MENU_PANEL = 'default' | 'addLabel';
 
@@ -30,7 +30,7 @@ export class DashNoteEditDropdown {
   @Prop({
     reflect: true,
   })
-  note: NoteViewModel;
+  notePreview: NotePreviewViewModel;
   //#endregion
 
   //#region @Event
@@ -61,17 +61,17 @@ export class DashNoteEditDropdown {
 
   //#region Local methods
   duplicateNote() {
-    notesState.duplicateNote(this.note);
+    notesState.duplicateNote(this.notePreview);
     this.dropdown.close();
   }
 
   deleteNote() {
-    notesState.archiveNote(this.note);
+    notesState.archiveNote(this.notePreview);
   }
   //#endregion
 
   render() {
-    const noteLabels = labelsState.getLabelsByIds(this.note.labels);
+    const noteLabels = labelsState.getLabelsByIds(this.notePreview.labels);
 
     return (
       <dash-dropdown ref={element => (this.dropdown = element)} placement='bottom-end' autoClose>
@@ -89,12 +89,12 @@ export class DashNoteEditDropdown {
           <dash-label-select
             labels={noteLabels}
             onDashLabelSelectLabelAdded={e => {
-              this.note.labels = [...this.note.labels, e.detail.id];
-              notesState.updateNotePreview(this.note);
+              this.notePreview.labels = [...this.notePreview.labels, e.detail.id];
+              notesState.updateNotePreview(this.notePreview);
             }}
             onDashLabelSelectLabelRemoved={e => {
-              this.note.labels = this.note.labels.filter(l => l !== e.detail.id);
-              notesState.updateNotePreview(this.note);
+              this.notePreview.labels = this.notePreview.labels.filter(l => l !== e.detail.id);
+              notesState.updateNotePreview(this.notePreview);
             }}
             autoFocus
           ></dash-label-select>

@@ -1,15 +1,17 @@
 import { createStore } from '@stencil/store';
 import { without } from 'lodash';
-import { createNote, deleteNote, fetchNote, fetchNotes, updateNote, updateNotePreview } from '../api/note-api';
+import { createNote, deleteNote, fetchNote, fetchNotePreviews, updateNote, updateNotePreview } from '../api/note-api';
 import { Status } from '../enums/status';
 import EventEmitter from '../lib/event-emitter';
 import { Note } from '../models/note';
 import { replaceAt } from 'didyoumeantoast-dash-utils';
 import { NoteViewModel } from '../view-models/note-view-model';
 import labelsState from './labels-store';
+import { NotePreviewViewModel } from '../view-models/note-preview-view-model';
+import { NotePreview } from '../models/note-preview';
 
 interface INotesState {
-  notes?: NoteViewModel[];
+  notePreviews?: NotePreviewViewModel[];
 }
 
 // create a wrapper class around the state and add get, replace, delete, add methods
@@ -19,12 +21,10 @@ class NotesState {
 
   constructor() {
     const { state, onChange } = createStore<INotesState>({
-      notes: undefined,
+      notePreviews: undefined,
     });
     this.state = state;
-    onChange('notes', () => {
-      // this.notes = notes?.filter(note => note.status === Status.Active) ?? [];
-      // this.archivedNotes = notes?.filter(note => note.status === Status.Archived) ?? [];
+    onChange('notePreviews', () => {
       this.eventEmitter.emit('notesChanged');
     });
 
@@ -36,50 +36,47 @@ class NotesState {
       const labelsMap = new Map<number, number>();
       labels.forEach(label => labelsMap.set(label.id, label.id));
 
-      this.notes.forEach(note => {
-        const isDirty = note.__isDirty;
+      this.notePreviews.forEach(notePreview => {
+        const isDirty = notePreview.__isDirty;
         const labelsToRemove = [];
 
-        note.labels.forEach(labelId => {
+        notePreview.labels.forEach(labelId => {
           if (!labelsMap.get(labelId)) {
             labelsToRemove.push(labelId);
           }
         });
 
         if (labelsToRemove.length) {
-          note.labels = without(note.labels, ...labelsToRemove);
+          notePreview.labels = without(notePreview.labels, ...labelsToRemove);
         }
 
         // shouldn't modify is note is dirty, labelsState will handle removing labels on notes in backend
-        note.__isDirty = isDirty;
+        notePreview.__isDirty = isDirty;
       });
     });
   }
 
   async init() {
-    const notes = (await fetchNotes()) ?? [];
-    this.state.notes = notes.map(note => new NoteViewModel(note));
+    const notePreviews = (await fetchNotePreviews()) ?? [];
+    this.state.notePreviews = notePreviews.map(notePreview => new NotePreviewViewModel(notePreview));
   }
 
-  // @tracked notes: NoteViewModel[] = [];
-  // @tracked archivedNotes: NoteViewModel[] = [];
-
-  get notes() {
-    return this.state.notes?.filter(note => note.status === Status.Active) ?? [];
+  get notePreviews() {
+    return this.state.notePreviews?.filter(notePreview => notePreview.status === Status.Active) ?? [];
   }
 
-  get archivedNotes() {
-    return this.state.notes?.filter(note => note.status === Status.Archived) ?? [];
+  get archivedNotePreviews() {
+    return this.state.notePreviews?.filter(notePreview => notePreview.status === Status.Archived) ?? [];
   }
 
   async updateNote(note: NoteViewModel) {
-    if (!this.state.notes || !note.__isDirty) {
+    if (!this.state.notePreviews || !note.__isDirty) {
       return;
     }
-    const noteWithoutContent = new NoteViewModel({ ...note.__toModel(), content: undefined });
+    const notePreview = new NotePreviewViewModel({ ...note.__toModel() });
 
     // replace the note with the same id
-    this.state.notes = replaceAt(this.state.notes, n => n.id === note.id, noteWithoutContent);
+    this.state.notePreviews = replaceAt(this.state.notePreviews, n => n.id === note.id, notePreview);
     // sync with server
     // TODO: if update fails, revert back to previous note
     const resp = await updateNote(note.__toModel());
@@ -87,68 +84,68 @@ class NotesState {
     return resp;
   }
 
-  async updateNotePreview(note: NoteViewModel) {
-    if (!this.state.notes || !note.__isDirty) {
+  async updateNotePreview(notePreview: NotePreviewViewModel) {
+    if (!this.state.notePreviews || !notePreview.__isDirty) {
       return;
     }
 
     // replace the note with the same id
-    this.state.notes = replaceAt(this.state.notes, n => n.id === note.id, note);
+    this.state.notePreviews = replaceAt(this.state.notePreviews, n => n.id === notePreview.id, notePreview);
     // sync with server
     // TODO: if update fails, revert back to previous note
-    const resp = await updateNotePreview(note.__toModel());
-    note.__isDirty = false;
+    const resp = await updateNotePreview(notePreview.__toModel());
+    notePreview.__isDirty = false;
     return resp;
   }
 
-  async archiveNote(note: NoteViewModel) {
+  async archiveNote(note: NotePreviewViewModel | NoteViewModel) {
     note.status = Status.Archived;
     // sync with server
     // TODO: if update fails, revert back to previous state
     return this.updateNotePreview(note);
   }
 
-  async restoreNote(note: NoteViewModel) {
+  async restoreNote(note: NotePreviewViewModel | NoteViewModel) {
     note.status = Status.Active;
     // sync with server
     // TODO: if update fails, revert back to previous state
     return this.updateNotePreview(note);
   }
 
-  async deleteNote(note: NoteViewModel) {
-    this.state.notes = without(this.state.notes, note);
+  async deleteNote(note: NotePreviewViewModel | NoteViewModel) {
+    this.state.notePreviews = without(this.state.notePreviews, note);
     // sync with server
     // TODO: if update fails, revert back to previous state
     return deleteNote(note.__toModel());
   }
 
-  async addNote(note: Note) {
+  async addNote(note: Note | NotePreview) {
     const noteId = (await createNote(note)) as number;
     const newNote = await fetchNote(noteId);
     // sync with server
     // TODO: if update fails, revert back to previous state
-    this.state.notes = [new NoteViewModel(newNote), ...this.state.notes];
+    this.state.notePreviews = [new NotePreviewViewModel(newNote), ...this.state.notePreviews];
 
     return newNote;
   }
 
-  async duplicateNote(note: NoteViewModel) {
-    const noteModel = note.__toModel();
+  async duplicateNote(notePreview: NotePreviewViewModel) {
+    const noteModel = await fetchNote(notePreview.id);
     noteModel.title += ' (copy)';
     const noteId = (await createNote(noteModel)) as number;
     const newNote = await fetchNote(noteId);
     // sync with server
     // TODO: if update fails, revert back to previous state
-    this.state.notes = [new NoteViewModel(newNote), ...this.state.notes];
+    this.state.notePreviews = [new NotePreviewViewModel(newNote), ...this.state.notePreviews];
 
     return newNote;
   }
 
-  addNotesChangedListener(callbackFn: () => any) {
+  addNotesChangedListener(callbackFn: () => void) {
     this.eventEmitter.on('notesChanged', callbackFn);
   }
 
-  removeNotesChangedListener(callbackFn: () => any) {
+  removeNotesChangedListener(callbackFn: () => void) {
     this.eventEmitter.removeListener('notesChanged', callbackFn);
   }
 }

@@ -3,8 +3,8 @@ import { injectHistory, RouterHistory } from '@stencil/router';
 import { isEmpty, isNumber } from 'lodash';
 import notesState from '../../../stores/notes-state';
 import { stringSearch } from 'didyoumeantoast-dash-utils';
-import { NoteViewModel } from '../../../view-models/note-view-model';
 import { dashRootService } from '../../dash-root/dash-root-service';
+import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 
 type SortOption = 'date' | 'title';
 
@@ -23,7 +23,7 @@ export class DashRouteNotes {
 
   //#region @State
   @State()
-  notes: NoteViewModel[] = [];
+  notePreviews: NotePreviewViewModel[] = [];
 
   @State()
   notesFilter: string;
@@ -63,7 +63,7 @@ export class DashRouteNotes {
   }
 
   @State()
-  noteWithDropdownActive: NoteViewModel;
+  noteWithDropdownActive: NotePreviewViewModel;
 
   @State()
   addNoteButton: HTMLDashIconButtonElement;
@@ -117,32 +117,32 @@ export class DashRouteNotes {
 
   //#region Local methods
   filterNotes() {
-    const filterFns: ((note: NoteViewModel) => boolean)[] = [];
+    const filterFns: ((note: NotePreviewViewModel) => boolean)[] = [];
 
     // string filter
     if (!isEmpty(this.notesFilter)) {
-      const noteFilter = (note: NoteViewModel) => stringSearch(note.title, this.notesFilter);
+      const noteFilter = (note: NotePreviewViewModel) => stringSearch(note.title, this.notesFilter);
       filterFns.push(noteFilter);
     }
 
     // labels filter
     if (this.selectedLabelId) {
-      const labelFilter = (note: NoteViewModel) => {
+      const labelFilter = (note: NotePreviewViewModel) => {
         return note.labels?.some(label => this.selectedLabelId === label);
       };
       filterFns.push(labelFilter);
     }
 
-    const notes = filterFns.length ? notesState.notes.filter(note => filterFns.every(fn => fn(note))) : [...notesState.notes];
+    const notePreviews = filterFns.length ? notesState.notePreviews.filter(note => filterFns.every(fn => fn(note))) : [...notesState.notePreviews];
 
     // sort logic
     if (this.sortBy === 'title') {
-      notes.sort((a, b) => a.title.localeCompare(b.title));
+      notePreviews.sort((a, b) => a.title.localeCompare(b.title));
     } else if (this.sortBy === 'date') {
-      notes.sort((a, b) => b.dateCreated.toMillis() - a.dateCreated.toMillis());
+      notePreviews.sort((a, b) => b.dateCreated.toMillis() - a.dateCreated.toMillis());
     }
 
-    this.notes = notes;
+    this.notePreviews = notePreviews;
   }
 
   updateNotesFilterValue(e: CustomEvent<string>) {
@@ -165,7 +165,7 @@ export class DashRouteNotes {
     return (
       <Host>
         <dash-section stickyHeader>
-          {!!notesState.notes.length && [
+          {!!notesState.notePreviews.length && [
             <div slot='header' class='notes-search-container'>
               <dash-filter class='notes-filter' placeholder='Search' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
               <dash-dropdown class='sort-dropdown' placement='bottom-end' autoClose>
@@ -195,13 +195,13 @@ export class DashRouteNotes {
               <dash-tooltip class='add-note-tooltip' target={this.addNoteButton} text={'Add note'} placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>
             </div>,
 
-            !!this.notes.length ? (
+            !!this.notePreviews.length ? (
               <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-                {this.notes.map(note => (
-                  <dash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} note={note}>
+                {this.notePreviews.map(note => (
+                  <dash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} notePreview={note}>
                     <dash-note-edit-dropdown
                       slot='actions-end'
-                      note={note}
+                      notePreview={note}
                       onDashNoteEditDropdownVisibleChanged={e => (this.noteWithDropdownActive = e.detail ? note : null)}
                     ></dash-note-edit-dropdown>
                   </dash-note-card>
@@ -213,7 +213,7 @@ export class DashRouteNotes {
             <dash-fab class='add-note-fab' icon='plus' onClick={() => this.addNote()}></dash-fab>,
           ]}
 
-          {!notesState.notes.length && (
+          {!notesState.notePreviews.length && (
             <div class='note-message-wrapper'>
               <div class='note-message'>
                 <dash-fab icon='plus' onClick={() => this.addNote()}></dash-fab>

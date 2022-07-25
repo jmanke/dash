@@ -1,6 +1,6 @@
 import { Component, h, State } from '@stencil/core';
 import notesState from '../../../stores/notes-state';
-import { NoteViewModel } from '../../../view-models/note-view-model';
+import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 import { dashRootService } from '../../dash-root/dash-root-service';
 
 @Component({
@@ -18,10 +18,10 @@ export class DashRouteBin {
 
   //#region @State
   @State()
-  noteWithDropdownActive: NoteViewModel;
+  noteWithDropdownActive: NotePreviewViewModel;
 
   @State()
-  selectedNotes: Map<number, NoteViewModel> = new Map<number, NoteViewModel>();
+  selectedNotes: Map<number, NotePreviewViewModel> = new Map<number, NotePreviewViewModel>();
 
   @State()
   mobileView: boolean;
@@ -63,14 +63,14 @@ export class DashRouteBin {
     }
   }
 
-  noteClicked(note: NoteViewModel) {
-    if (this.selectedNotes.has(note.id)) {
-      this.selectedNotes.delete(note.id);
+  noteClicked(notePreview: NotePreviewViewModel) {
+    if (this.selectedNotes.has(notePreview.id)) {
+      this.selectedNotes.delete(notePreview.id);
       this.selectedNotes = new Map(this.selectedNotes);
       return;
     }
 
-    this.selectedNotes.set(note.id, note);
+    this.selectedNotes.set(notePreview.id, notePreview);
     this.selectedNotes = new Map(this.selectedNotes);
   }
 
@@ -100,7 +100,7 @@ export class DashRouteBin {
   }
 
   selectAll() {
-    this.selectedNotes = new Map(notesState.archivedNotes.map(n => [n.id, n]));
+    this.selectedNotes = new Map(notesState.archivedNotePreviews.map(n => [n.id, n]));
   }
 
   deselectAll() {
@@ -109,7 +109,7 @@ export class DashRouteBin {
   //#endregion
 
   render() {
-    const archivedNotes = notesState.archivedNotes;
+    const archivedNotes = notesState.archivedNotePreviews;
 
     return (
       <dash-section stickyHeader>
@@ -128,7 +128,7 @@ export class DashRouteBin {
                   Delete
                 </dash-button>,
               ]}
- 
+
               {this.mobileView && (
                 <dash-dropdown placement='bottom-end' autoClose>
                   <dash-icon-button slot='dropdown-trigger' icon='three-dots-vertical' scale='l'></dash-icon-button>
@@ -150,20 +150,20 @@ export class DashRouteBin {
           </div>,
 
           <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-            {notesState.archivedNotes.map(note => (
+            {notesState.archivedNotePreviews.map(notePreview => (
               <dash-note-card
-                key={note.id}
-                class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}
-                selected={this.selectedNotes.has(note.id)}
-                note={note}
+                key={notePreview.id}
+                class={this.noteWithDropdownActive === notePreview ? 'note-overlay' : undefined}
+                selected={this.selectedNotes.has(notePreview.id)}
+                notePreview={notePreview}
                 mode='selectable'
-                onClick={() => this.noteClicked(note)}
+                onClick={() => this.noteClicked(notePreview)}
               ></dash-note-card>
             ))}
           </dash-grid>,
         ]}
 
-        {!notesState.archivedNotes.length && <div class='bin-empty-message'>Bin is empty</div>}
+        {!notesState.archivedNotePreviews.length && <div class='bin-empty-message'>Bin is empty</div>}
       </dash-section>
     );
   }

@@ -3,7 +3,7 @@ import { injectHistory, RouterHistory } from '@stencil/router';
 import { DateTime } from 'luxon';
 import labelsState from '../../../stores/labels-store';
 import { LabelViewModel } from '../../../view-models/label-view-model';
-import { NoteViewModel } from '../../../view-models/note-view-model';
+import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 
 // max labels to display in the card
 const MAX_LABELS = 2;
@@ -29,7 +29,7 @@ export class DashNoteCard {
   @Prop({
     reflect: true,
   })
-  note: NoteViewModel;
+  notePreview: NotePreviewViewModel;
 
   @Prop()
   history: RouterHistory;
@@ -61,7 +61,7 @@ export class DashNoteCard {
       return;
     }
 
-    this.history.push(`/note/${this.note.id}`);
+    this.history.push(`/note/${this.notePreview.id}`);
   }
 
   toLocaleDate(dateTime: DateTime) {
@@ -75,46 +75,58 @@ export class DashNoteCard {
     return dateTime.toLocaleString(DateTime.DATE_MED);
   }
 
-  notePreview({ dateCreated, title, previewContent, previewLabels, labels }: { dateCreated: DateTime, title: string, previewContent: string, previewLabels: LabelViewModel[], labels: number[] }) {
-    return <div class='preview-container'>
-      <header>
-        <h6 class='date-label'>{this.toLocaleDate(dateCreated)}</h6>
-        <h2 class='title'>{title}</h2>
-      </header>
-      <section class='preview'>{previewContent}</section>
-      {!!previewLabels.length && (
-        <div class='labels-container'>
-          {previewLabels.map(label => (
-            <dash-chip heading={label.text} selectable color={label.color}></dash-chip>
-          ))}
-          {labels.length > MAX_LABELS && <dash-chip heading={`+ ${labels.length - MAX_LABELS}`} selectable></dash-chip>}
-        </div>
-      )}
-    </div>
+  notePreviewFragment({
+    dateCreated,
+    title,
+    previewContent,
+    previewLabels,
+    labels,
+  }: {
+    dateCreated: DateTime;
+    title: string;
+    previewContent: string;
+    previewLabels: LabelViewModel[];
+    labels: number[];
+  }) {
+    return (
+      <div class='preview-container'>
+        <header>
+          <h6 class='date-label'>{this.toLocaleDate(dateCreated)}</h6>
+          <h2 class='title'>{title}</h2>
+        </header>
+        <section class='preview'>{previewContent}</section>
+        {!!previewLabels.length && (
+          <div class='labels-container'>
+            {previewLabels.map(label => (
+              <dash-chip heading={label.text} selectable color={label.color}></dash-chip>
+            ))}
+            {labels.length > MAX_LABELS && <dash-chip heading={`+ ${labels.length - MAX_LABELS}`} selectable></dash-chip>}
+          </div>
+        )}
+      </div>
+    );
   }
   //#endregion
 
   render() {
-    const { title, labels, previewContent, dateCreated } = this.note;
-    const noteLabels = labelsState.getLabelsByIds(this.note.labels);
+    const { title, labels, previewContent, dateCreated } = this.notePreview;
+    const noteLabels = labelsState.getLabelsByIds(this.notePreview.labels);
     const previewLabels = noteLabels.slice(0, MAX_LABELS) ?? [];
 
     return (
       <div class='note-card'>
-        {(this.mode === 'edit') && ([
-          <button onClick={this.openNoteModal.bind(this)}>
-            {this.notePreview({ dateCreated, title, previewContent, previewLabels, labels })}
-          </button>,
+        {this.mode === 'edit' && [
+          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ dateCreated, title, previewContent, previewLabels, labels })}</button>,
 
           <div class='actions-end-wrapper'>
             <slot name='actions-end'></slot>
-          </div>
-        ])}
+          </div>,
+        ]}
 
         {this.mode === 'selectable' && (
-          <button class={this.selected ? 'selected' : ''} onClick={() => this.selected = !this.selected}>
+          <button class={this.selected ? 'selected' : ''} onClick={() => (this.selected = !this.selected)}>
             {this.selected && <dash-icon class='card-selected-icon' icon='check-circle' scale='m'></dash-icon>}
-            {this.notePreview({ dateCreated, title, previewContent, previewLabels, labels })}
+            {this.notePreviewFragment({ dateCreated, title, previewContent, previewLabels, labels })}
           </button>
         )}
       </div>
