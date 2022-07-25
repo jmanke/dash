@@ -286,7 +286,7 @@ export class DashTextEditor implements Focusable {
 
         input.click();
       },
-      content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color: ${theme === 'dark' ? '#ffffff' : '#000000'}; }`,
+      content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color: ${theme === 'dark' ? '#ffffff' : '#000000'}; } a { color: rgb(88, 166, 255); } .mce-content-body [data-mce-selected="inline-boundary"] { background-color: ${theme === 'dark' ? '#000000' : '#b4d7ff'} }`,
       setup: ed => {
         ed.on('change', () => {
           this.contentChangedHandler();
