@@ -14,6 +14,7 @@ import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, Popov
 export namespace Components {
     interface DashButton {
         "disabled": boolean;
+        "scale": Scale;
         "setFocus": () => Promise<void>;
         "startIcon": string;
         "status": Status;
@@ -448,6 +449,7 @@ declare global {
 declare namespace LocalJSX {
     interface DashButton {
         "disabled"?: boolean;
+        "scale"?: Scale;
         "startIcon"?: string;
         "status"?: Status;
     }

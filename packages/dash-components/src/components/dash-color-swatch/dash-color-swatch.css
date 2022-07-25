@@ -5,10 +5,14 @@
 
   &([scale='l']) {
     .color-swatch {
-      width: var(--dash-spacing-10);
-      height: var(--dash-spacing-10);
+      width: var(--dash-spacing-8);
+      height: var(--dash-spacing-8);
     }
   }
+}
+
+dash-button {
+  --dash-button-padding: 0;
 }
 
 .color-swatch {
@@ -17,19 +21,5 @@
   border: none;
   width: var(--dash-spacing-6);
   height: var(--dash-spacing-6);
-  cursor: pointer;
   background: var(--dash-color-swatch-background);
-  border: solid 2px var(--dash-text-color-3);
-
-  &:hover {
-    filter: brightness(80%);
-  }
-
-  &:focus-visible {
-    @extend .focus-outline;
-  }
-
-  &:active {
-    filter: brightness(75%);
-  }
 }

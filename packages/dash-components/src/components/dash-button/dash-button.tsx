@@ -1,5 +1,5 @@
 import { Component, Element, h, Method, Prop } from '@stencil/core';
-import { Status } from '../../types/types';
+import { Scale, Status } from '../../types/types';
 
 @Component({
   tag: 'dash-button',
@@ -35,6 +35,11 @@ export class DashButton {
     reflect: true,
   })
   disabled: boolean;
+
+  @Prop({
+    reflect: true,
+  })
+  scale: Scale;
   //#endregion
 
   //#region @Event

@@ -2,7 +2,6 @@
 
 :host {
   display: flex;
-  align-items: center;
 
   &(:focus-visible) {
     outline: none;
@@ -37,6 +36,7 @@
 .list-item-wrapper {
   display: flex;
   flex: auto;
+  align-items: center;
   border-radius: var(--dash-border-radius);
   transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition);
   border: var(--dash-border-style-focus-hidden);

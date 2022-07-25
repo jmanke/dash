@@ -141,9 +141,7 @@ export class DashListItem {
             <slot></slot>
           </div>
 
-          <div class='actions-end-wrapper'>
-            <slot name='actions-end'></slot>
-          </div>
+          <slot name='actions-end'></slot>
         </div>
       </Host>
     );

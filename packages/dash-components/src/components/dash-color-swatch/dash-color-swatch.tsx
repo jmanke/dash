@@ -9,7 +9,7 @@ import { isHex } from 'didyoumeantoast-dash-utils';
 })
 export class DashColorSwatch {
   //#region Own properties
-  button: HTMLButtonElement;
+  button: HTMLDashButtonElement;
   //#endregion
 
   //#region @Element
@@ -52,6 +52,10 @@ export class DashColorSwatch {
   render() {
     const style = { '--dash-color-swatch-background': `${isHex(this.color) ? this.color : `var(--dash-color-${this.color})`}` };
 
-    return <button class='color-swatch' role='button' style={style} ref={element => (this.button = element)}></button>;
+    return (
+      <dash-button ref={element => (this.button = element)} scale={this.scale}>
+        <div class='color-swatch' style={style}></div>
+      </dash-button>
+    );
   }
 }
