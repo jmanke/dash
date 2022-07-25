@@ -13,6 +13,7 @@
 | `icon`     | `icon`     |             | `string`                    | `undefined` |
 | `iconUrl`  | `icon-url` |             | `string`                    | `undefined` |
 | `loading`  | `loading`  |             | `boolean`                   | `undefined` |
+| `rounded`  | `rounded`  |             | `boolean`                   | `undefined` |
 | `scale`    | `scale`    |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
 | `type`     | `type`     |             | `string`                    | `undefined` |
 | `width`    | `width`    |             | `number`                    | `undefined` |

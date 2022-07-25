@@ -79,6 +79,7 @@ export namespace Components {
         "icon": string;
         "iconUrl": string;
         "loading": boolean;
+        "rounded": boolean;
         "scale"?: Scale;
         "setFocus": () => Promise<void>;
         "type": string;
@@ -515,6 +516,7 @@ declare namespace LocalJSX {
         "icon"?: string;
         "iconUrl"?: string;
         "loading"?: boolean;
+        "rounded"?: boolean;
         "scale"?: Scale;
         "type"?: string;
         "width"?: number;

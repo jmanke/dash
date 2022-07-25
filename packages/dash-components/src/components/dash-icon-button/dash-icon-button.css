@@ -36,7 +36,9 @@
   }
 
   &([rounded]) {
-    border-radius: var(--dash-spacing-full);
+    button {
+      border-radius: var(--dash-spacing-full);
+    }
   }
 }
 
