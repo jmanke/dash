@@ -17,7 +17,7 @@ export async function createNote(note: Note) {
 }
 
 export async function updateNotePreview(note: Note) {
-  return put(`${noteBaseUrl}/${note.id}`, note, { params: { ExcludeContent: true } });
+  return put(`${noteBaseUrl}/Preview/${note.id}`, note);
 }
 
 export async function updateNote(note: Note) {
