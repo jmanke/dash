@@ -8,18 +8,22 @@
       width: var(--dash-spacing-8);
       height: var(--dash-spacing-8);
     }
+
+    dash-button {
+      --dash-button-padding: var(--dash-spacing-1);
+    }
   }
 }
 
 dash-button {
-  --dash-button-padding: 0;
+  --dash-button-padding: 0 var(--dash-spacing-1);
 }
 
 .color-swatch {
   margin: var(--dash-spacing-1);
   border-radius: var(--dash-spacing-full);
   border: none;
-  width: var(--dash-spacing-6);
-  height: var(--dash-spacing-6);
+  width: var(--dash-spacing-4);
+  height: var(--dash-spacing-4);
   background: var(--dash-color-swatch-background);
 }

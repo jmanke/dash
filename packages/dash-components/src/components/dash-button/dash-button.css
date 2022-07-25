@@ -41,7 +41,7 @@
 
   &([scale='l']) {
     button {
-      height: var(--dash-spacing-10);
+      height: var(--dash-spacing-12);
     }
   }
 }
