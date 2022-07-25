@@ -29,6 +29,7 @@ export namespace Components {
     interface DashColorPicker {
         "colors": Color[];
         "cols": number;
+        "selectedColor": Color;
     }
     interface DashColorSwatch {
         "color": Color | string;
@@ -467,6 +468,7 @@ declare namespace LocalJSX {
         "colors"?: Color[];
         "cols"?: number;
         "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<Color>) => void;
+        "selectedColor"?: Color;
     }
     interface DashColorSwatch {
         "color"?: Color | string;

@@ -25,6 +25,11 @@ export class DashColorPicker {
   @Prop({
     reflect: true,
   })
+  selectedColor: Color;
+
+  @Prop({
+    reflect: true,
+  })
   cols: number;
   //#endregion
 
@@ -52,7 +57,7 @@ export class DashColorPicker {
     return (
       <div class='color-swatch-container' style={{ 'grid-template-columns': `repeat(${this.cols ?? this.colors.length}, 1fr)` }}>
         {this.colors.map(color => (
-          <dash-color-swatch color={color} onClick={() => this.dashColorPickerColorChanged.emit(color)} scale='l'></dash-color-swatch>
+          <dash-color-swatch color={color} onClick={() => this.dashColorPickerColorChanged.emit(color)} scale='l' selected={this.selectedColor === color}></dash-color-swatch>
         ))}
       </div>
     );

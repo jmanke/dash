@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type      | Default     |
-| -------- | --------- | ----------- | --------- | ----------- |
-| `colors` | --        |             | `Color[]` | `[]`        |
-| `cols`   | `cols`    |             | `number`  | `undefined` |
+| Property        | Attribute        | Description | Type                                                                                                                  | Default     |
+| --------------- | ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `colors`        | --               |             | `Color[]`                                                                                                             | `[]`        |
+| `cols`          | `cols`           |             | `number`                                                                                                              | `undefined` |
+| `selectedColor` | `selected-color` |             | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
 
 
 ## Events
