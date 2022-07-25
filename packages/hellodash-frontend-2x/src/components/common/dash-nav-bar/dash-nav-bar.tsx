@@ -47,7 +47,7 @@ export class DashNavBar {
     return (
       <Host>
         <header>
-          <dash-icon-button ref={element => (this.menuButton = element)} icon='list' onClick={() => this.menuToggled.emit()} scale='l' />
+          <dash-icon-button ref={element => (this.menuButton = element)} icon='list' onClick={() => this.menuToggled.emit()} scale='l' rounded />
 
           <div class='content'>
             <slot />

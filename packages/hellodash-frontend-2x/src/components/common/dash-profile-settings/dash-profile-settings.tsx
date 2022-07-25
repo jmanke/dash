@@ -43,7 +43,7 @@ export class DashProfileSettings {
       this.user && (
         <Host>
           <dash-dropdown placement='bottom-end' placement-strategy='fixed' autoClose>
-            <dash-icon-button slot='dropdown-trigger' iconUrl={this.user.picture} icon='person' scale='l'></dash-icon-button>
+            <dash-icon-button slot='dropdown-trigger' iconUrl={this.user.picture} icon='person' scale='l' rounded></dash-icon-button>
             <dash-list selection-mode='none'>
               <dash-list-item onClick={() => logout(appState.authClient)}>Logout</dash-list-item>
             </dash-list>

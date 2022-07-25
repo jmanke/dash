@@ -8,11 +8,6 @@ import { Focusable } from 'didyoumeantoast-dash-components/dist/types/interfaces
 
 const MIN_EDITOR_HEIGHT = 230;
 
-export interface TextEditorContent {
-  rawContent: string;
-  textContent: string;
-}
-
 @Component({
   tag: 'dash-text-editor',
   styleUrl: 'dash-text-editor.css',
@@ -82,7 +77,7 @@ export class DashTextEditor implements Focusable {
   @Event({
     eventName: 'dashTextEditorContentChanged',
   })
-  dashTextEditorContentChanged: EventEmitter<TextEditorContent>;
+  dashTextEditorContentChanged: EventEmitter<string>;
 
   @Event({
     eventName: 'dashTextEditorHeadingChanged',
@@ -121,7 +116,13 @@ export class DashTextEditor implements Focusable {
   }
 
   componentDidLoad() {
-    this.contentChangedHandler = debounce(() => this.save(), this.debounce);
+    this.contentChangedHandler = debounce(() => {
+      try {
+        this.save();
+      } catch (error) {
+        console.error(error);
+      }
+    }, this.debounce);
   }
 
   disconnectedCallback() {
@@ -151,20 +152,30 @@ export class DashTextEditor implements Focusable {
 
   @Method()
   async save(emitEvent: boolean = true) {
-    if (!this.editor || this.editor.isNotDirty) {
+    if (!this.editor) {
+      throw Error('Editor must be defined');
+    }
+
+    if (this.editor.isNotDirty) {
       return;
     }
 
     this.editor.save();
-    const content = {
-      rawContent: this.editor.getContent(),
-      textContent: this.editor.getContent({ format: 'text' }),
-    };
+    const content = await this.getContent();
     if (emitEvent) {
       this.dashTextEditorContentChanged.emit(content);
     }
-    return content;
   }
+
+  @Method()
+  async getContent() {
+    if (!this.editor) {
+      throw Error('Editor must be defined');
+    }
+
+    return this.editor.getContent();
+  }
+
   //#endregion
 
   //#region Local methods

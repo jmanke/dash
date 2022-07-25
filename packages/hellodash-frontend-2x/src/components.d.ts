@@ -12,7 +12,6 @@ import { LabelViewModel } from "./view-models/label-view-model";
 import { NoteViewModel } from "./view-models/note-view-model";
 import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
 import { UserViewModel } from "./view-models/user-view-model";
-import { TextEditorContent } from "./components/common/dash-text-editor/dash-text-editor";
 export namespace Components {
     interface DashApp {
         "history": RouterHistory;
@@ -38,10 +37,6 @@ export namespace Components {
     interface DashLabelSelect {
         "autoFocus": boolean;
         "labels": LabelViewModel[];
-    }
-    interface DashMenu {
-        "heading"?: string;
-        "visible"?: boolean;
     }
     interface DashModalNote {
         "close": () => Promise<void>;
@@ -77,10 +72,11 @@ export namespace Components {
         "content": string;
         "debounce": number;
         "deferLoadTime"?: number;
+        "getContent": () => Promise<string>;
         "heading": string;
         "loading"?: boolean;
         "resize"?: boolean;
-        "save": (emitEvent?: boolean) => Promise<{ rawContent: string; textContent: string; }>;
+        "save": (emitEvent?: boolean) => Promise<void>;
         "selectTitle": () => Promise<void>;
         "setFocus": () => Promise<void>;
         "showFullscreen"?: boolean;
@@ -106,10 +102,6 @@ export interface DashLabelEditCustomEvent<T> extends CustomEvent<T> {
 export interface DashLabelSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashLabelSelectElement;
-}
-export interface DashMenuCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLDashMenuElement;
 }
 export interface DashModalNoteCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -169,12 +161,6 @@ declare global {
     var HTMLDashLabelSelectElement: {
         prototype: HTMLDashLabelSelectElement;
         new (): HTMLDashLabelSelectElement;
-    };
-    interface HTMLDashMenuElement extends Components.DashMenu, HTMLStencilElement {
-    }
-    var HTMLDashMenuElement: {
-        prototype: HTMLDashMenuElement;
-        new (): HTMLDashMenuElement;
     };
     interface HTMLDashModalNoteElement extends Components.DashModalNote, HTMLStencilElement {
     }
@@ -238,7 +224,6 @@ declare global {
         "dash-label-color-picker": HTMLDashLabelColorPickerElement;
         "dash-label-edit": HTMLDashLabelEditElement;
         "dash-label-select": HTMLDashLabelSelectElement;
-        "dash-menu": HTMLDashMenuElement;
         "dash-modal-note": HTMLDashModalNoteElement;
         "dash-nav-bar": HTMLDashNavBarElement;
         "dash-note-card": HTMLDashNoteCardElement;
@@ -283,11 +268,6 @@ declare namespace LocalJSX {
         "onDashLabelSelectLabelAdded"?: (event: DashLabelSelectCustomEvent<LabelViewModel>) => void;
         "onDashLabelSelectLabelRemoved"?: (event: DashLabelSelectCustomEvent<LabelViewModel>) => void;
     }
-    interface DashMenu {
-        "heading"?: string;
-        "onDashMenuClose"?: (event: DashMenuCustomEvent<any>) => void;
-        "visible"?: boolean;
-    }
     interface DashModalNote {
         "newLabelId"?: number;
         "newNote"?: boolean;
@@ -326,7 +306,7 @@ declare namespace LocalJSX {
         "deferLoadTime"?: number;
         "heading"?: string;
         "loading"?: boolean;
-        "onDashTextEditorContentChanged"?: (event: DashTextEditorCustomEvent<TextEditorContent>) => void;
+        "onDashTextEditorContentChanged"?: (event: DashTextEditorCustomEvent<string>) => void;
         "onDashTextEditorFullscreenChanged"?: (event: DashTextEditorCustomEvent<boolean>) => void;
         "onDashTextEditorHeadingChanged"?: (event: DashTextEditorCustomEvent<string>) => void;
         "onDashTextEditorInit"?: (event: DashTextEditorCustomEvent<HTMLDashTextEditorElement>) => void;
@@ -344,7 +324,6 @@ declare namespace LocalJSX {
         "dash-label-color-picker": DashLabelColorPicker;
         "dash-label-edit": DashLabelEdit;
         "dash-label-select": DashLabelSelect;
-        "dash-menu": DashMenu;
         "dash-modal-note": DashModalNote;
         "dash-nav-bar": DashNavBar;
         "dash-note-card": DashNoteCard;
@@ -367,7 +346,6 @@ declare module "@stencil/core" {
             "dash-label-color-picker": LocalJSX.DashLabelColorPicker & JSXBase.HTMLAttributes<HTMLDashLabelColorPickerElement>;
             "dash-label-edit": LocalJSX.DashLabelEdit & JSXBase.HTMLAttributes<HTMLDashLabelEditElement>;
             "dash-label-select": LocalJSX.DashLabelSelect & JSXBase.HTMLAttributes<HTMLDashLabelSelectElement>;
-            "dash-menu": LocalJSX.DashMenu & JSXBase.HTMLAttributes<HTMLDashMenuElement>;
             "dash-modal-note": LocalJSX.DashModalNote & JSXBase.HTMLAttributes<HTMLDashModalNoteElement>;
             "dash-nav-bar": LocalJSX.DashNavBar & JSXBase.HTMLAttributes<HTMLDashNavBarElement>;
             "dash-note-card": LocalJSX.DashNoteCard & JSXBase.HTMLAttributes<HTMLDashNoteCardElement>;

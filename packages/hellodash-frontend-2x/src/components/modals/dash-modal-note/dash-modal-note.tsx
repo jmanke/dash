@@ -8,9 +8,7 @@ import labelsState from '../../../stores/labels-store';
 import notesState from '../../../stores/notes-state';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 import { NoteViewModel } from '../../../view-models/note-view-model';
-import { TextEditorContent } from '../../common/dash-text-editor/dash-text-editor';
 
-const PREVIEW_CONTENT_LENGTH = 100;
 const SAVE_DELAY = 5 * 1000;
 
 @Component({
@@ -103,15 +101,8 @@ export class DashModalNote implements Modal {
     this.noteUpdated();
   }
 
-  textEditorContentChanged(event: TextEditorContent) {
-    if (!event || !event.textContent) {
-      return;
-    }
-
-    // remove new lines, breaks and truncate string to reasonable length for a preview
-    const previewContent = event.textContent.replace(/(\r\n|\n|\r)/gm, '').substring(0, PREVIEW_CONTENT_LENGTH);
-    this.note.content = event.rawContent;
-    this.note.previewContent = previewContent;
+  textEditorContentChanged(content: string) {
+    this.note.content = content;
     this.noteUpdated();
   }
 
@@ -152,10 +143,14 @@ export class DashModalNote implements Modal {
 
   async beforeModalClose() {
     this.cancelationToken.cancel();
-    const content = await this.textEditor.save();
-    this.textEditorContentChanged(content);
-
-    this.saveNote();
+    try {
+      await this.textEditor.save(false);
+      const content = await this.textEditor.getContent();
+      this.textEditorContentChanged(content);
+      this.saveNote();
+    } catch (error) {
+      console.error(error);
+    }
   }
   //#endregion
 
