@@ -103,6 +103,11 @@ export class DashTextEditor implements Focusable {
     eventName: 'dashTextEditorIsDirty',
   })
   dashTextEditorIsDirty: EventEmitter;
+
+  @Event({
+    eventName: 'dashTextEditorNodeChanged',
+  })
+  dashTextEditorNodeChanged: EventEmitter<object>;
   //#endregion
 
   //#region Component lifecycle
@@ -268,6 +273,9 @@ export class DashTextEditor implements Focusable {
         });
         ed.on('dirty', () => {
           this.dashTextEditorIsDirty.emit(true);
+        });
+        ed.on('nodeChange', e => {
+          this.dashTextEditorNodeChanged.emit(e);
         });
       },
       skin_url: theme === 'dark' ? getAssetPath('./assets/tinymce/skins/ui/dark') : undefined,

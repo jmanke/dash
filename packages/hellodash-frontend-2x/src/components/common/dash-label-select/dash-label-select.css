@@ -35,7 +35,9 @@ dash-label-select {
   }
 
   dash-label-color-picker {
-    height: 100%;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
   }
 
   .label-text {

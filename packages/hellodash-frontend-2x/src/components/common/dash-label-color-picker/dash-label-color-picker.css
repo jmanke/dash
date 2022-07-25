@@ -4,5 +4,5 @@
 
 dash-color-picker {
   display: flex;
-  height: 100%;
+  flex: auto;
 }

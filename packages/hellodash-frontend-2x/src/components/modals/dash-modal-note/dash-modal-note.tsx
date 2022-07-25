@@ -22,6 +22,7 @@ export class DashModalNote implements Modal {
   modal: HTMLDashModalElement;
   textEditor: HTMLDashTextEditorElement;
   cancelationToken = new CancelationToken();
+  dropdownElement: HTMLDashDropdownElement;
   saveDefer: any;
   //#endregion
 
@@ -145,6 +146,10 @@ export class DashModalNote implements Modal {
     }
   }
 
+  textEditorNodeChanged() {
+    this.dropdownElement?.close();
+  }
+
   async beforeModalClose() {
     this.cancelationToken.cancel();
     const content = await this.textEditor.save();
@@ -170,6 +175,7 @@ export class DashModalNote implements Modal {
           onDashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
           onDashTextEditorHeadingChanged={e => this.textEditorHeadingChanged(e.detail)}
           onDashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
+          onDashTextEditorNodeChanged={this.textEditorNodeChanged.bind(this)}
           onDashTextEditorInit={e => this.textEditorInit(e.detail)}
           showFullscreen
         ></dash-text-editor>
@@ -182,7 +188,7 @@ export class DashModalNote implements Modal {
             ))}
         </div>
 
-        <dash-dropdown slot='footer-start' placementStrategy='fixed' placement='top-start' autoClose>
+        <dash-dropdown slot='footer-start' ref={element => (this.dropdownElement = element)} placementStrategy='fixed' placement='top-start' autoClose>
           <dash-icon-button slot='dropdown-trigger' class='show-label-edit' icon='plus-circle'></dash-icon-button>
 
           <dash-label-select
