@@ -5,7 +5,7 @@
 }
 
 .container {
-  border-radius: var(--dash-border-radius-s);
+  border-radius: var(--dash-border-radius);
   box-shadow: var(--dash-box-shadow);
   background-color: var(--dash-background-2);
   min-width: var(--dash-dropdown-min-width);

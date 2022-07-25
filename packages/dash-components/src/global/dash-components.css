@@ -66,10 +66,7 @@
   --dash-nav-bar-height: var(--dash-spacing-12);
 
   /* border radius */
-  --dash-border-radius-xs: 3px;
-  --dash-border-radius-s: 6px;
-  --dash-border-radius: 8px;
-  --dash-border-radius-l: 12px;
+  --dash-border-radius: 6px;
 
   /* border style */
   --dash-border-style-brand: 1px solid var(--dash-brand);

@@ -45,7 +45,7 @@ input {
 
 .wrapper {
   padding: var(--dash-input-padding);
-  border-radius: var(--dash-border-radius-s);
+  border-radius: var(--dash-border-radius);
   border: var(--dash-border-style-1);
   transition: var(--dash-focus-border-transition);
   cursor: text;
