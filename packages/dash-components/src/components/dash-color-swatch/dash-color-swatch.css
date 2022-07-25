@@ -13,17 +13,30 @@
       --dash-button-padding: var(--dash-spacing-1);
     }
   }
+
+  &([selected]) {
+    .color-swatch {
+      border: 2px solid white;
+    }
+  }
 }
 
 dash-button {
   --dash-button-padding: 0 var(--dash-spacing-1);
 }
 
+dash-icon {
+  color: white;
+}
+
 .color-swatch {
+  border: 2px solid transparent;
   margin: var(--dash-spacing-1);
   border-radius: var(--dash-spacing-full);
   border: none;
   width: var(--dash-spacing-4);
   height: var(--dash-spacing-4);
   background: var(--dash-color-swatch-background);
+  display: flex;
+  align-items: center;
 }

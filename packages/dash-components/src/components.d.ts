@@ -33,6 +33,7 @@ export namespace Components {
     interface DashColorSwatch {
         "color": Color | string;
         "scale": Scale;
+        "selected": boolean;
         "setFocus": () => Promise<void>;
     }
     interface DashDrillMenu {
@@ -470,6 +471,7 @@ declare namespace LocalJSX {
     interface DashColorSwatch {
         "color"?: Color | string;
         "scale"?: Scale;
+        "selected"?: boolean;
     }
     interface DashDrillMenu {
         "active"?: boolean;

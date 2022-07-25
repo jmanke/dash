@@ -31,6 +31,7 @@
 graph TD;
   dash-color-picker --> dash-color-swatch
   dash-color-swatch --> dash-button
+  dash-color-swatch --> dash-icon
   dash-button --> dash-icon
   style dash-color-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

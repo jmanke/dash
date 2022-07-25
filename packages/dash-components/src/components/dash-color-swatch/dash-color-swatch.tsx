@@ -28,6 +28,11 @@ export class DashColorSwatch {
     reflect: true,
   })
   scale: Scale;
+
+  @Prop({
+    reflect: true,
+  })
+  selected: boolean;
   //#endregion
 
   //#region @Event
@@ -54,7 +59,9 @@ export class DashColorSwatch {
 
     return (
       <dash-button ref={element => (this.button = element)} scale={this.scale}>
-        <div class='color-swatch' style={style}></div>
+        <div class='color-swatch' style={style}>
+          {this.selected && <dash-icon icon='check' scale={this.scale}></dash-icon>}
+        </div>
       </dash-button>
     );
   }

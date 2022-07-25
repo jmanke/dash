@@ -23,6 +23,7 @@
 
  - [dash-button](../dash-button)
  - [dash-chip](../dash-chip)
+ - [dash-color-swatch](../dash-color-swatch)
  - [dash-icon-button](../dash-icon-button)
  - [dash-input](../dash-input)
  - [dash-list-item](../dash-list-item)
@@ -33,6 +34,7 @@
 graph TD;
   dash-button --> dash-icon
   dash-chip --> dash-icon
+  dash-color-swatch --> dash-icon
   dash-icon-button --> dash-icon
   dash-input --> dash-icon
   dash-list-item --> dash-icon
