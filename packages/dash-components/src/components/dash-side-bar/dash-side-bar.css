@@ -3,8 +3,8 @@
 
   @media only screen and (max-width: 768px) {
     position: relative;
-    width: var(--dash-spacing-16);
-    min-width: var(--dash-spacing-16);
+    width: var(--dash-spacing-12);
+    min-width: var(--dash-spacing-12);
     z-index: var(--dash-z-index-aside);
 
     aside {
@@ -17,8 +17,8 @@
 
 :host([collapsed]) {
   aside {
-    width: var(--dash-spacing-16);
-    min-width: var(--dash-spacing-16);
+    width: var(--dash-spacing-12);
+    min-width: var(--dash-spacing-12);
 
     @media only screen and (max-width: 768px) {
       box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px;
