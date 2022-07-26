@@ -10,6 +10,14 @@
     <link href="/build/dash-components.css" rel="stylesheet" />
   </head>
   <body>
-    <dash-icon-button icon="trash3"></dash-color-swatch>
+    <dash-list selection-mode="none">
+      <dash-list-item>Hello there <dash-color-swatch slot="actions-start" color="red" scale="l"></dash-color-swatch></dash-list-item>
+      <dash-list-item>What <dash-color-swatch slot="actions-start" color="red"></dash-color-swatch></dash-list-item>
+    </dash-list>
+
+    <dash-input placeholder="Hello"></dash-input>
+
+    <dash-color-swatch color="red"></dash-color-swatch>
+    <dash-color-swatch color="red"></dash-color-swatch>
   </body>
 </html>

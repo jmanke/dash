@@ -128,6 +128,8 @@ export class DashListItem {
     return (
       <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
         <div class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}>
+          <slot name='actions-start'></slot>
+
           <div
             class='list-item'
             ref={e => (this.listItem = e)}
