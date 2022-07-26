@@ -3,7 +3,8 @@
 
   @media only screen and (max-width: 768px) {
     position: relative;
-    width: var(--dash-spacing-12);
+    width: var(--dash-spacing-16);
+    min-width: var(--dash-spacing-16);
     z-index: var(--dash-z-index-aside);
 
     aside {
@@ -16,7 +17,8 @@
 
 :host([collapsed]) {
   aside {
-    width: var(--dash-spacing-12);
+    width: var(--dash-spacing-16);
+    min-width: var(--dash-spacing-16);
 
     @media only screen and (max-width: 768px) {
       box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px;
@@ -28,6 +30,7 @@ aside {
   display: flex;
   flex-direction: column;
   width: var(--dash-spacing-48);
+  min-width: var(--dash-spacing-48);
   background-color: var(--dash-background-1);
   padding: var(--dash-spacing-3) var(--dash-spacing-2);
   transition: width var(--dash-transition-time-fast) ease-out, box-shadow var(--dash-transition-time-fast) ease-in-out;
