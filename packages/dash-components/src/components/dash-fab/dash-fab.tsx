@@ -40,7 +40,7 @@ export class DashFab {
   render() {
     return (
       <Host>
-        <dash-icon-button icon={this.icon} scale='xl'></dash-icon-button>
+        <dash-icon-button icon={this.icon} scale='xl' rounded></dash-icon-button>
         <slot></slot>
       </Host>
     );
