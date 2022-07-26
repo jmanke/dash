@@ -7,7 +7,7 @@ export type IconColor = 'primary' | 'secondary' | 'neutral';
 const SIZES = {
   s: '16',
   m: '24',
-  l: '36',
+  l: '32',
   xl: '48'
 };
 
