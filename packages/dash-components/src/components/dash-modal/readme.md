@@ -44,6 +44,7 @@ Type: `Promise<void>`
 
 - [dash-scrim](../dash-scrim)
 - [dash-focus-trap](../dash-focus-trap)
+- [dash-icon-button](../dash-icon-button)
 - [dash-button](../dash-button)
 
 ### Graph
@@ -51,7 +52,10 @@ Type: `Promise<void>`
 graph TD;
   dash-modal --> dash-scrim
   dash-modal --> dash-focus-trap
+  dash-modal --> dash-icon-button
   dash-modal --> dash-button
+  dash-icon-button --> dash-icon
+  dash-icon-button --> dash-loader
   dash-button --> dash-icon
   style dash-modal fill:#f9f,stroke:#333,stroke-width:4px
 ```
