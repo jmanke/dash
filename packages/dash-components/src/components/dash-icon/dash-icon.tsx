@@ -5,7 +5,7 @@ import { Scale } from '../../types/types';
 export type IconColor = 'primary' | 'secondary' | 'neutral';
 
 const SIZES = {
-  s: '18',
+  s: '16',
   m: '24',
   l: '32',
 };
