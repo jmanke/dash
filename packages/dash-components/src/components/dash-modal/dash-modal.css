@@ -67,8 +67,8 @@ dash-modal {
 
       .close-button-x {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: var(--dash-spacing-2);
+        right: var(--dash-spacing-2);
       }
     }
 
