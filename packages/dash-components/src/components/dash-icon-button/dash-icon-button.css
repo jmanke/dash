@@ -40,10 +40,6 @@
       border-radius: var(--dash-spacing-full);
     }
   }
-
-  &([scale='l']) {
-    --dash-icon-button-padding: var(--dash-spacing-3);
-  }
 }
 
 button {

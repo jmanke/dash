@@ -87,7 +87,7 @@ export class DashIconButton {
       case 'xl':
         return 'xl';
       case 'l':
-        return 'm';
+        return 'l';
       case 'm':
         return 's';
       default:
