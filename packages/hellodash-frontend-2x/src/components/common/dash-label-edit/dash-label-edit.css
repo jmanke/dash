@@ -10,7 +10,6 @@
 
 dash-inline-edit {
   flex: auto;
-  margin-inline-end: var(--dash-spacing-4);
 }
 
 .delete-button {

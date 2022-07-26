@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Listen, Event, EventEmitter } from '@stencil/core';
+import { Component, h, Prop, Listen, Event, EventEmitter } from '@stencil/core';
 import { Color } from 'didyoumeantoast-dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 
@@ -60,30 +60,28 @@ export class DashLabelEdit {
 
   render() {
     return (
-      <Host>
-        <div class='container'>
-          <dash-inline-edit value={this.label.text}></dash-inline-edit>
-          <dash-dropdown
-            ref={element => (this.labelColorPickerDropdown = element)}
-            placement='bottom-end'
-            placementStrategy='fixed'
-            onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)}
-            autoClose
-          >
-            <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
+      <div class='container'>
+        <dash-dropdown
+          ref={element => (this.labelColorPickerDropdown = element)}
+          placement='bottom'
+          placementStrategy='fixed'
+          onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)}
+          autoClose
+        >
+          <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
 
-            <dash-label-color-picker color={this.label.color}></dash-label-color-picker>
-          </dash-dropdown>
+          <dash-label-color-picker color={this.label.color}></dash-label-color-picker>
+        </dash-dropdown>
+        <dash-inline-edit value={this.label.text}></dash-inline-edit>
 
-          <dash-dropdown class='delete-dropdown' placement='bottom-end' placementStrategy='fixed' onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)} autoClose>
-            <dash-icon-button class='delete-button' slot='dropdown-trigger' icon='trash3'></dash-icon-button>
+        <dash-dropdown class='delete-dropdown' placement='bottom-end' placementStrategy='fixed' onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)} autoClose>
+          <dash-icon-button class='delete-button' slot='dropdown-trigger' icon='trash3'></dash-icon-button>
 
-            <dash-button ref={element => (this.confirmDeleteButton = element)} class='delete-confirm' status='error' onClick={() => this.dashDeleteLabel.emit(this.label)}>
-              Delete
-            </dash-button>
-          </dash-dropdown>
-        </div>
-      </Host>
+          <dash-button ref={element => (this.confirmDeleteButton = element)} class='delete-confirm' status='error' onClick={() => this.dashDeleteLabel.emit(this.label)}>
+            Delete
+          </dash-button>
+        </dash-dropdown>
+      </div>
     );
   }
 }
