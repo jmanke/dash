@@ -84,6 +84,8 @@ export class DashIconButton {
 
   iconScale(): Scale {
     switch (this.scale) {
+      case 'xl':
+        return 'xl';
       case 'l':
         return 'm';
       case 'm':
