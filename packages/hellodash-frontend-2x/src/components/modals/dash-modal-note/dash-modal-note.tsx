@@ -198,7 +198,7 @@ export class DashModalNote implements Modal {
         </div>
 
         <dash-dropdown slot='footer-start' ref={element => (this.dropdownElement = element)} placementStrategy='fixed' placement='top-start' autoClose>
-          <dash-icon-button slot='dropdown-trigger' class='show-label-edit' icon='plus-circle'></dash-icon-button>
+          <dash-icon-button slot='dropdown-trigger' class='show-label-edit' icon='plus-circle' scale='l'></dash-icon-button>
 
           <dash-label-select
             labels={labels}
