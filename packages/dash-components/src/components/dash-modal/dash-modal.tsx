@@ -108,7 +108,13 @@ export class DashModal implements Modal {
       <Host class={this.closing && 'closing'}>
         <dash-scrim active={!this.closing} onClick={() => this.close()}></dash-scrim>
         <dash-focus-trap class='body'>
-          {this.heading && <div class='heading'>{this.heading}</div>}
+          {this.heading && (
+            <div class='heading'>
+              <div class='heading-text'>{this.heading}</div>
+
+              {!this.hideCloseButton && <dash-icon-button class='close-button-x' icon='x' scale='l' onClick={() => this.close()}></dash-icon-button>}
+            </div>
+          )}
 
           <div class='content'>
             <slot></slot>

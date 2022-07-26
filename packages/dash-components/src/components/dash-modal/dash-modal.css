@@ -57,6 +57,19 @@ dash-modal {
       padding-top: var(--dash-spacing-2);
       padding-bottom: var(--dash-spacing-2);
       font-size: var(--dash-font-size-6);
+      display: flex;
+      flex: auto;
+      position: relative;
+
+      .heading-text {
+        flex: auto;
+      }
+
+      .close-button-x {
+        position: absolute;
+        top: 0;
+        right: 0;
+      }
     }
 
     .content {
