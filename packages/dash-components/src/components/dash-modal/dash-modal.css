@@ -58,7 +58,6 @@ dash-modal {
       padding-bottom: var(--dash-spacing-2);
       font-size: var(--dash-font-size-6);
       display: flex;
-      flex: auto;
       position: relative;
 
       .heading-text {
