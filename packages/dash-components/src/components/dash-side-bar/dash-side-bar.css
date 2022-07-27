@@ -1,7 +1,7 @@
 :host {
   display: flex;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 600px) {
     position: relative;
     width: var(--dash-spacing-12);
     min-width: var(--dash-spacing-12);
@@ -20,7 +20,7 @@
     width: var(--dash-spacing-12);
     min-width: var(--dash-spacing-12);
 
-    @media only screen and (max-width: 768px) {
+    @media only screen and (max-width: 600px) {
       box-shadow: rgba(0, 0, 0, 0) 0px 0px 0px 0px;
     }
   }
@@ -40,7 +40,7 @@ aside {
 .backdrop {
   display: none;
 
-  @media only screen and (max-width: 768px) {
+  @media only screen and (max-width: 600px) {
     display: initial;
     position: absolute;
     height: 100%;

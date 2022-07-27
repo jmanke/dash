@@ -35,7 +35,7 @@
 }
 
 button {
-  padding-inline-start: var(--dash-spacing-2);
+  padding-inline-start: var(--dash-spacing-2-half);
   padding-inline-end: var(--dash-spacing-2);
   border-radius: var(--dash-border-radius);
   display: flex;
