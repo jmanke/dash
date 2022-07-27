@@ -185,6 +185,15 @@ export class DashTextEditor implements Focusable {
     return this.editor.getContent();
   }
 
+  @Method()
+  async getTextContent() {
+    if (!this.editor) {
+      throw Error('Editor must be defined');
+    }
+
+    return this.editor.getContent({ format: 'text' });
+  }
+
   //#endregion
 
   //#region Local methods
@@ -286,7 +295,9 @@ export class DashTextEditor implements Focusable {
 
         input.click();
       },
-      content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color: ${theme === 'dark' ? '#ffffff' : '#000000'}; } a { color: rgb(88, 166, 255); } .mce-content-body [data-mce-selected="inline-boundary"] { background-color: ${theme === 'dark' ? '#000000' : '#b4d7ff'} }`,
+      content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color: ${
+        theme === 'dark' ? '#ffffff' : '#000000'
+      }; } a { color: rgb(88, 166, 255); } .mce-content-body [data-mce-selected="inline-boundary"] { background-color: ${theme === 'dark' ? '#000000' : '#b4d7ff'} }`,
       setup: ed => {
         ed.on('change', () => {
           this.contentChangedHandler();

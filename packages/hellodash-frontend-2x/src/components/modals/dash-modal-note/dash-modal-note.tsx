@@ -8,6 +8,7 @@ import labelsState from '../../../stores/labels-store';
 import notesState from '../../../stores/notes-state';
 import { NoteViewModel } from '../../../view-models/note-view-model';
 
+const PREVIEW_CONTENT_LENGTH = 140;
 const SAVE_DELAY = 5 * 1000;
 
 @Component({
@@ -127,7 +128,8 @@ export class DashModalNote implements Modal {
   async saveNote() {
     clearTimeout(this.saveDefer);
     this.saveDefer = null;
-    this.note.updatePreviewContent();
+    const textContent = await this.textEditor.getTextContent();
+    this.note.previewContent = textContent.substring(0, PREVIEW_CONTENT_LENGTH);
 
     await notesState.updateNote(this.note);
   }

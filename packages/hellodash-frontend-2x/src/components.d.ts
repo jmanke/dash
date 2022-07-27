@@ -74,6 +74,7 @@ export namespace Components {
         "debounce": number;
         "deferLoadTime"?: number;
         "getContent": () => Promise<string>;
+        "getTextContent": () => Promise<string>;
         "heading": string;
         "isEditorDirty": () => Promise<boolean>;
         "loading"?: boolean;
