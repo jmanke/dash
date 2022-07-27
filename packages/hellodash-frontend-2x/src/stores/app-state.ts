@@ -9,10 +9,12 @@ interface AppState {
   authClient?: Auth0Client;
   loaded: boolean;
   error?: any;
+  mobileView: boolean;
 }
 
 const { state, onChange } = createStore<AppState>({
   loaded: false,
+  mobileView: false,
 });
 const appState = state;
 

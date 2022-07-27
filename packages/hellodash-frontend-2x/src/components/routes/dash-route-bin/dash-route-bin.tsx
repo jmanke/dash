@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import appState from '../../../stores/app-state';
 import notesState from '../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 import { dashRootService } from '../../dash-root/dash-root-service';
@@ -10,7 +11,6 @@ import { dashRootService } from '../../dash-root/dash-root-service';
 })
 export class DashRouteBin {
   //#region Own properties
-  windowResizeCallback: (e: UIEvent) => void;
   //#endregion
 
   //#region @Element
@@ -22,9 +22,6 @@ export class DashRouteBin {
 
   @State()
   selectedNotes: Map<number, NotePreviewViewModel> = new Map<number, NotePreviewViewModel>();
-
-  @State()
-  mobileView: boolean;
   //#endregion
 
   //#region @Prop
@@ -34,18 +31,6 @@ export class DashRouteBin {
   //#endregion
 
   //#region Component lifecycle
-  connectedCallback() {
-    this.windowResizeCallback = () => {
-      this.setMobileView();
-    };
-    window.addEventListener('resize', this.windowResizeCallback);
-
-    this.setMobileView();
-  }
-
-  disconnectedCallback() {
-    window.removeEventListener('resize', this.windowResizeCallback);
-  }
   //#endregion
 
   //#region Listeners
@@ -55,14 +40,6 @@ export class DashRouteBin {
   //#endregion
 
   //#region Local methods
-  setMobileView() {
-    if (document.body.clientWidth < 600 && !this.mobileView) {
-      this.mobileView = true;
-    } else if (document.body.clientWidth >= 600 && this.mobileView) {
-      this.mobileView = false;
-    }
-  }
-
   noteClicked(notePreview: NotePreviewViewModel) {
     if (this.selectedNotes.has(notePreview.id)) {
       this.selectedNotes.delete(notePreview.id);
@@ -117,7 +94,7 @@ export class DashRouteBin {
           <div class='header' slot='header'>
             <span class='notes-selected'>{this.selectedNotes.size ? `Selected: ${this.selectedNotes.size}` : ''}</span>
             <div class='content-end'>
-              {!this.mobileView && [
+              {!appState.mobileView && [
                 <dash-button onClick={() => (this.selectedNotes.size === archivedNotes.length ? this.deselectAll() : this.selectAll())}>
                   {this.selectedNotes.size === archivedNotes.length ? 'Deselect all' : 'Select all'}
                 </dash-button>,
@@ -129,7 +106,7 @@ export class DashRouteBin {
                 </dash-button>,
               ]}
 
-              {this.mobileView && (
+              {appState.mobileView && (
                 <dash-dropdown placement='bottom-end' autoClose>
                   <dash-icon-button slot='dropdown-trigger' icon='three-dots-vertical' scale='l'></dash-icon-button>
 

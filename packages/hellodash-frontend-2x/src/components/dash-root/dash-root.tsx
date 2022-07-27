@@ -13,6 +13,7 @@ import { dashRootService } from './dash-root-service';
 })
 export class DashRoot {
   //#region Own properties
+  windowResizeCallback: (e: UIEvent) => void;
   //#endregion
 
   //#region @Element
@@ -78,6 +79,27 @@ export class DashRoot {
     appSettings.__onChange('theme', updateTheme);
 
     this.appStateLoaded = true;
+  }
+
+  setMobileView() {
+    if (document.body.clientWidth < 600 && !appState.mobileView) {
+      appState.mobileView = true;
+    } else if (document.body.clientWidth >= 600 && appState.mobileView) {
+      appState.mobileView = false;
+    }
+  }
+
+  connectedCallback() {
+    this.windowResizeCallback = () => {
+      this.setMobileView();
+    };
+    window.addEventListener('resize', this.windowResizeCallback);
+
+    this.setMobileView();
+  }
+
+  disconnectedCallback() {
+    window.removeEventListener('resize', this.windowResizeCallback);
   }
   //#endregion
 

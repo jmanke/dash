@@ -1,6 +1,6 @@
 import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, LocationSegments, RouterHistory } from '@stencil/router';
-import { appState } from '../../stores/app-state';
+import { appState, onAppChange } from '../../stores/app-state';
 import labelsState from '../../stores/labels-store';
 import notesState from '../../stores/notes-state';
 import { LabelViewModel } from '../../view-models/label-view-model';
@@ -70,6 +70,11 @@ export class DashApp {
 
   //#region Component lifecycle
   async componentWillLoad() {
+    onAppChange('mobileView', mobileView => {
+      if (mobileView) {
+        appState.settings.sidebarCollapsed = true;
+      }
+    });
     this.logoPath = getAssetPath('./assets/icon/pomeranian.svg');
 
     try {
@@ -98,6 +103,10 @@ export class DashApp {
   }
 
   navigateTo(url: string) {
+    if (appState.mobileView) {
+      appState.settings.sidebarCollapsed = true;
+    }
+
     this.history.push(url);
   }
 
@@ -112,6 +121,10 @@ export class DashApp {
   }
 
   editLabels() {
+    if (appState.mobileView) {
+      appState.settings.sidebarCollapsed = true;
+    }
+
     const labelsModal = <dash-edit-labels></dash-edit-labels>;
     dashRootService.showModal(labelsModal);
   }
