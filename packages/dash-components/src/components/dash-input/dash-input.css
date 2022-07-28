@@ -6,14 +6,13 @@
   }
 
   &([scale='m']) {
-    --dash-input-padding: var(--dash-spacing-1-half) var(--dash-spacing-2);
+    --dash-input-padding: var(--dash-spacing-1) var(--dash-spacing-2);
     --dash-input-font-size: var(--dash-font-size-1);
   }
 
   &([scale='l']) {
-    --dash-input-padding: var(--dash-spacing-2) var(--dash-spacing-3);
-    --dash-input-font-size: var(--dash-font-size-2);
-    height: var(--dash-spacing-12);
+    --dash-input-padding: var(--dash-spacing-3) var(--dash-spacing-4);
+    --dash-input-font-size: var(--dash-font-size-3);
 
     .wrapper {
       border: var(--dash-border-style-1);
@@ -32,6 +31,7 @@ input {
   border: none;
   min-width: 0;
   font-size: var(--dash-input-font-size);
+  height: var(--dash-spacing-5);
 
   &:focus-visible {
     outline: none;
