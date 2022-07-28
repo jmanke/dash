@@ -127,7 +127,7 @@ export class DashModal implements Modal {
               <slot name='footer-end'></slot>
 
               {!this.hideCloseButton && (
-                <dash-button ref={element => (this.closeButton = element)} class='close-button' onClick={() => this.close()}>
+                <dash-button ref={element => (this.closeButton = element)} class='close-button' scale='l' onClick={() => this.close()}>
                   Close
                 </dash-button>
               )}
