@@ -6,7 +6,7 @@ import { LabelViewModel } from '../../../view-models/label-view-model';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 
 // max labels to display in the card
-const MAX_LABELS = 2;
+const MAX_LABELS = 3;
 
 export type NoteCardMode = 'edit' | 'selectable';
 
