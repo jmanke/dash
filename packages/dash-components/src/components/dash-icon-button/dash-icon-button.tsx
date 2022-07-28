@@ -81,25 +81,12 @@ export class DashIconButton {
       e.stopPropagation();
     }
   }
-
-  iconScale(): Scale {
-    switch (this.scale) {
-      case 'xl':
-        return 'xl';
-      case 'l':
-        return 'l';
-      case 'm':
-        return 's';
-      default:
-        return 's';
-    }
-  }
   //#endregion
 
   render() {
     return (
       <button ref={element => (this.button = element)} disabled={this.loading || this.disabled} onClick={this.click.bind(this)} type={this.type ?? 'button'}>
-        <dash-icon scale={this.iconScale()} width={this.width} icon={this.icon} iconUrl={this.iconUrl} rounded />
+        <dash-icon scale={this.scale || 'm'} width={this.width} icon={this.icon} iconUrl={this.iconUrl} rounded />
         {this.loading && <dash-loader scale='s'></dash-loader>}
       </button>
     );

@@ -22,6 +22,18 @@
       }
     }
   }
+
+  &([value][clearable]) {
+    .input-wrapper {
+      padding-inline-end: var(--dash-spacing-6);
+    }
+  }
+
+  &([value][clearable][scale="l"]) {
+    .input-wrapper {
+      padding-inline-end: var(--dash-spacing-8);
+    }
+  }
 }
 
 input {
@@ -61,10 +73,14 @@ input {
   display: flex;
   align-items: center;
   height: 100%;
+  position: relative;
 }
 
 .clear-btn {
-  margin-left: var(--dash-spacing-2);
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(0, -50%);
 }
 
 dash-icon-button {
