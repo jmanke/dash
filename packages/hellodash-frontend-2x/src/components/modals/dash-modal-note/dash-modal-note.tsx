@@ -65,7 +65,7 @@ export class DashModalNote implements Modal {
 
   //#region Component lifecycle
   async componentWillLoad() {
-    await this.getNote();
+    this.getNote();
   }
   //#endregion
 
@@ -171,7 +171,7 @@ export class DashModalNote implements Modal {
   //#endregion
 
   render() {
-    const labels = labelsState.getLabelsByIds(this.note.labels);
+    const labels = this.note ? labelsState.getLabelsByIds(this.note.labels) : [];
 
     return (
       <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
