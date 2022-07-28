@@ -21,6 +21,10 @@
         border: var(--dash-border-style-brand);
       }
     }
+
+    dash-icon-button { 
+      right: calc(-1 * var(--dash-spacing-2));
+    }
   }
 
   &([value][clearable]) {
@@ -76,15 +80,12 @@ input {
   position: relative;
 }
 
-.clear-btn {
+dash-icon-button {
+  --dash-icon-button-padding: var(--dash-spacing-half);
   position: absolute;
   top: 50%;
-  right: 0;
+  right: calc(-1 * var(--dash-spacing-1));
   transform: translate(0, -50%);
-}
-
-dash-icon-button {
-  --dash-icon-button-padding: --dash-spacing-half;
   visibility: hidden;
 
   &.visible {
