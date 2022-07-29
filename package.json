@@ -10,8 +10,7 @@
   "scripts": {
     "build": "lerna run build",
     "new-version": "lerna version --conventional-commits --yes",
-    "start:app": "lerna exec --parallel yarn start:app",
-    "publish:npm": "yarn new-version && lerna run publish:npm"
+    "start:app": "lerna exec --parallel yarn start:app"
   },
   "workspaces": [
     "packages/*"
