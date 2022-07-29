@@ -1,1 +1,1 @@
-web: node ./packages/hellodash-frontend-2x/server.js
+web: cd ./packages/hellodash-frontend-2x/ && node server.js
