@@ -5,6 +5,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "npx tsc",
+    "publish:npm": "npm publish",
     "start:app": "yarn build"
   },
   "files": [

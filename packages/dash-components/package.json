@@ -20,6 +20,7 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
+    "publish:npm": "npm publish",
     "start": "stencil build --dev --watch --serve",
     "start:app": "stencil build --watch",
     "test": "stencil test --spec --e2e",
