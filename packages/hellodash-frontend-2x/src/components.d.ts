@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RouterHistory } from "@stencil/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import { Color, Status } from "didyoumeantoast-dash-components/dist/types/types/types";
+import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 import { LabelViewModel } from "./view-models/label-view-model";
 import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";

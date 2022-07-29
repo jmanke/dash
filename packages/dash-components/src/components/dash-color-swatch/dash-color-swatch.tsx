@@ -1,6 +1,6 @@
 import { Component, h, Prop, Method } from '@stencil/core';
 import { Color, Scale } from '../../types/types';
-import { isHex } from 'didyoumeantoast-dash-utils';
+import { isHex } from '@didyoumeantoast/dash-utils';
 
 @Component({
   tag: 'dash-color-swatch',

@@ -1,4 +1,4 @@
-import 'didyoumeantoast-dash-components';
+import '@didyoumeantoast/dash-components';
 
 export default async () => {
   /**

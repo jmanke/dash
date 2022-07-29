@@ -1,5 +1,5 @@
 {
-  "name": "hellodash",
+  "name": "@didyoumeantoast/hellodash",
   "private": true,
   "version": "0.0.1",
   "description": "Stencil App Starter",
@@ -36,8 +36,8 @@
     "@popperjs/core": "^2.11.0",
     "@types/qs": "^6.9.7",
     "axios": "^0.24.0",
-    "didyoumeantoast-dash-components": "^0.3.6",
-    "didyoumeantoast-dash-utils": "^0.0.6",
+    "@didyoumeantoast/dash-components": "^0.3.6",
+    "@didyoumeantoast/dash-utils": "^0.0.6",
     "express": "^4.18.1",
     "lodash": "^4.17.21",
     "luxon": "^2.4.0",

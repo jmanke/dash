@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import { Focusable } from '../../interfaces/focusable';
 import { debounce, DebouncedFunc } from 'lodash';
 import { Scale } from '../../types/types';
-import { spaceConcat } from 'didyoumeantoast-dash-utils';
+import { spaceConcat } from '@didyoumeantoast/dash-utils';
 
 @Component({
   tag: 'dash-input',

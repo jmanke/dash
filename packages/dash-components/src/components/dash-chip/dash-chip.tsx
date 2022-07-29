@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, Event, EventEmitter, Element, State } from '@stencil/core';
 import { Color } from '../../types/types';
-import { isHex } from 'didyoumeantoast-dash-utils';
+import { isHex } from '@didyoumeantoast/dash-utils';
 
 @Component({
   tag: 'dash-chip',

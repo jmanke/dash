@@ -1,6 +1,6 @@
 import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
-import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/modal';
-import { Status } from 'didyoumeantoast-dash-components/dist/types/types/types';
+import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
+import { Status } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { dashRootService } from '../../dash-root/dash-root-service';
 
 @Component({

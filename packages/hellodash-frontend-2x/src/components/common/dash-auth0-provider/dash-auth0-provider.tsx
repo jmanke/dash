@@ -4,7 +4,7 @@ import { User } from '../../../models/user';
 import { UserViewModel } from '../../../view-models/user-view-model';
 import { appState } from '../../../stores/app-state';
 import { refreshAuthToken } from '../../../api/auth0-api';
-import { wait } from 'didyoumeantoast-dash-utils';
+import { wait } from '@didyoumeantoast/dash-utils';
 
 const REFRESH_TOKEN_TIMEOUT = 60 * 60 * 1000;
 

@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Listen, Method, State, Watch } from '@stencil/core';
-import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/modal';
+import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Label } from '../../../models/label';
 import labelsState from '../../../stores/labels-store';
 import { LabelViewModel } from '../../../view-models/label-view-model';

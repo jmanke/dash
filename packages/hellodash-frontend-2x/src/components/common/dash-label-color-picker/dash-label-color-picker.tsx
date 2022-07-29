@@ -1,5 +1,5 @@
 import { Component, h, Event, EventEmitter, Listen, Prop } from '@stencil/core';
-import { Color } from 'didyoumeantoast-dash-components/dist/types/types/types';
+import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 
 @Component({
   tag: 'dash-label-color-picker',

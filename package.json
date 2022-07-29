@@ -1,5 +1,5 @@
 {
-  "name": "didyoumeantoast-dash",
+  "name": "@didyoumeantoast/dash",
   "version": "1.0.0",
   "description": "Dash monorepo",
   "main": "index.js",

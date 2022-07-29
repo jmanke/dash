@@ -2,7 +2,7 @@ import { Component, Event, EventEmitter, h, Method, Prop, State } from '@stencil
 import { isNumber } from 'lodash';
 import CancelationToken from '../../../api/cancellation-token';
 import { fetchNote } from '../../../api/note-api';
-import { Modal } from 'didyoumeantoast-dash-components/dist/types/interfaces/modal';
+import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Note } from '../../../models/note';
 import labelsState from '../../../stores/labels-store';
 import notesState from '../../../stores/notes-state';

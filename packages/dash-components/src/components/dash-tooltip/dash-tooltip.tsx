@@ -1,7 +1,7 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
 import { Scale } from '../../types/types';
-import { queryElementById } from 'didyoumeantoast-dash-utils';
+import { queryElementById } from '@didyoumeantoast/dash-utils';
 import { Placement, PlacementStrategy } from '../dash-popover/dash-popover';
 
 @Component({

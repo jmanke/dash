@@ -1,5 +1,5 @@
 import { Component, h, Prop, Listen, Event, EventEmitter } from '@stencil/core';
-import { Color } from 'didyoumeantoast-dash-components/dist/types/types/types';
+import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 
 @Component({

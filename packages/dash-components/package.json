@@ -1,5 +1,5 @@
 {
-  "name": "didyoumeantoast-dash-components",
+  "name": "@didyoumeantoast/dash-components",
   "version": "0.3.6",
   "description": "Shared components library by Jeff Manke",
   "main": "dist/index.cjs.js",
@@ -30,7 +30,7 @@
     "@a11y/focus-trap": "^1.0.5",
     "@popperjs/core": "^2.11.5",
     "@stencil/core": "^2.13.0",
-    "didyoumeantoast-dash-utils": "^0.0.6"
+    "@didyoumeantoast/dash-utils": "^0.0.6"
   },
   "devDependencies": {
     "@stencil/postcss": "^2.1.0",

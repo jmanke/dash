@@ -1,6 +1,5 @@
 import { Component, Host, h, State, Prop, Watch, Event, EventEmitter, Method, Listen, Element } from '@stencil/core';
-import { contains } from 'didyoumeantoast-dash-utils';
-import { focus, SKIP_NODE_CLASS } from 'didyoumeantoast-dash-utils';
+import { contains, focus, SKIP_NODE_CLASS } from '@didyoumeantoast/dash-utils';
 import { Placement, PlacementStrategy, PopoverCloseEvent } from '../dash-popover/dash-popover';
 
 @Component({

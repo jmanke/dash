@@ -3,7 +3,7 @@ import { without } from 'lodash';
 import { createLabel, fetchLabel, fetchLabels, removeLabel, updateLabel } from '../api/labels-api';
 import EventEmitter from '../lib/event-emitter';
 import { Label } from '../models/label';
-import { replaceAt } from 'didyoumeantoast-dash-utils';
+import { replaceAt } from '@didyoumeantoast/dash-utils';
 import { LabelViewModel } from '../view-models/label-view-model';
 
 interface ILabelsState {

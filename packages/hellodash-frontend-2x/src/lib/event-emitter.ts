@@ -1,4 +1,4 @@
-import { isDefined } from 'didyoumeantoast-dash-utils';
+import { isDefined } from '@didyoumeantoast/dash-utils';
 
 export default class EventEmitter {
   private listeners: Map<string, ((...args: any[]) => void)[]>;
