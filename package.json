@@ -9,7 +9,8 @@
   "private": true,
   "scripts": {
     "build": "lerna run build",
-    "start:hellodash": "cd packages/hellodash-frontend-2x && yarn start"
+    "new-version": "lerna version --conventional-commits --yes",
+    "start:app": "lerna exec --parallel yarn start:app"
   },
   "workspaces": [
     "packages/*"

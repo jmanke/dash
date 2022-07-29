@@ -4,7 +4,8 @@
   "description": "Utils library by Jeff Manke",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npx tsc"
+    "build": "npx tsc",
+    "start:app": "yarn build"
   },
   "files": [
     "lib/"
