@@ -1,6 +1,6 @@
 {
   "name": "@didyoumeantoast/dash-utils",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Utils library by Jeff Manke",
   "main": "lib/index.js",
   "scripts": {
