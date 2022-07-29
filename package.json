@@ -7,6 +7,10 @@
   "author": "jmanke <jeffman879@gmail.com>",
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "build": "lerna run build",
+    "start:hellodash": "cd packages/hellodash-frontend-2x && yarn start"
+  },
   "workspaces": [
     "packages/*"
   ],

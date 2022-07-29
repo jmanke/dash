@@ -20,7 +20,7 @@ export const config: Config = {
       copy: [
         { src: 'assets', dest: 'build/assets' },
         // need to copy over component assets into this project
-        { src: '../node_modules/@didyoumeantoast/dash-components/dist/dash-components/assets', dest: 'build/assets' },
+        { src: '../../../node_modules/@didyoumeantoast/dash-components/dist/dash-components/assets', dest: 'build/assets' },
       ],
     },
   ],
