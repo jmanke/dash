@@ -13,7 +13,7 @@ if (process.env.NODE_ENV === 'production') {
 
 app.use((request, response) => {
   return handler(request, response, {
-    public: 'www/',
+    public: 'packages/hellodash-frontend-2x/www/',
   });
 });
 
