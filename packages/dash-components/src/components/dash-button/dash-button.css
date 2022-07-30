@@ -55,6 +55,7 @@ button {
   border-radius: var(--dash-border-radius);
   display: flex;
   align-items: center;
+  justify-content: flex-start;
   flex: none;
   color: var(--dash-text-color-1);
   text-align: left;

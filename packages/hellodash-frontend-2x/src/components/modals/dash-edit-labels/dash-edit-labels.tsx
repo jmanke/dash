@@ -87,7 +87,7 @@ export class DashEditLabels implements Modal {
   }
 
   async addLabel() {
-    if (this.creatingLabel) {
+    if (this.creatingLabel || !this.canAddLabel) {
       return;
     }
 
@@ -119,6 +119,8 @@ export class DashEditLabels implements Modal {
             onDashInputInput={e => (this.newLabelText = e.detail)}
             onDashInputSubmit={this.addLabel.bind(this)}
           ></dash-input>
+
+          <dash-icon-button icon='plus-lg' disabled={!this.canAddLabel} scale='l' loading={this.creatingLabel} onClick={this.addLabel.bind(this)}></dash-icon-button>
         </form>
 
         <div class='labels-container'>
