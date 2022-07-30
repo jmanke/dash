@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.17](https://github.com/ionic-team/stencil-component-starter/compare/@didyoumeantoast/dash-components@0.3.16...@didyoumeantoast/dash-components@0.3.17) (2022-07-30)
+
+**Note:** Version bump only for package @didyoumeantoast/dash-components
+
+
+
+
+
 ## [0.3.16](https://github.com/ionic-team/stencil-component-starter/compare/@didyoumeantoast/dash-components@0.3.15...@didyoumeantoast/dash-components@0.3.16) (2022-07-30)
 
 **Note:** Version bump only for package @didyoumeantoast/dash-components
