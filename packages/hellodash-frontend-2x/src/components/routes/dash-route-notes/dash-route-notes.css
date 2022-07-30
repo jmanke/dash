@@ -52,19 +52,16 @@ dash-route-notes {
     display: flex;
     justify-content: center;
     margin-top: var(--dash-spacing-16);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 
     .note-message {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      .note-message-heading {
-        font-size: var(--dash-font-size-6);
-        margin-bottom: var(--dash-spacing-6);
-
-        @media only screen and (max-width: 768px) {
-          font-size: var(--dash-font-size-5);
-        }
+      font-size: var(--dash-font-size-6);
+      margin-bottom: var(--dash-spacing-6);
+      
+      @media only screen and (max-width: 768px) {
+        font-size: var(--dash-font-size-5);
       }
     }
   }

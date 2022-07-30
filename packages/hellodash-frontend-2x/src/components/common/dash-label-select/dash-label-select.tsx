@@ -166,27 +166,39 @@ export class DashLabelEdit {
 
     return (
       <dash-drill-menu class='container' active={this.drillMenuActive} drillHeading='Select a color'>
-        <dash-filter
-          class='filter'
-          ref={element => (this.filterElement = element)}
-          placeholder='Filter labels'
-          items={labelsState.labels}
-          objKey='text'
-          onDashFilterSubmit={showAddLabel ? (e: CustomEvent<string>) => this.createLabel(e.detail) : undefined}
-          onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
-          onDashFilterValueChanged={e => (this.filterValue = e.detail)}
-        ></dash-filter>
-        {addLabel}
-        {listContent}
+        {!!labelsState.labels.length && [
+          <dash-filter
+            class='filter'
+            ref={element => (this.filterElement = element)}
+            placeholder='Filter labels'
+            items={labelsState.labels}
+            objKey='text'
+            onDashFilterSubmit={showAddLabel ? (e: CustomEvent<string>) => this.createLabel(e.detail) : undefined}
+            onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
+            onDashFilterValueChanged={e => (this.filterValue = e.detail)}
+          ></dash-filter>,
+          { addLabel },
+          { listContent },
 
-        <dash-label-color-picker
-          slot='drill-content'
-          color={this.editingLabel?.color}
-          onDashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
-            this.labelColorChanged(this.editingLabel, e.detail);
-            this.drillMenuActive = false;
-          }}
-        ></dash-label-color-picker>
+          <dash-label-color-picker
+            slot='drill-content'
+            color={this.editingLabel?.color}
+            onDashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
+              this.labelColorChanged(this.editingLabel, e.detail);
+              this.drillMenuActive = false;
+            }}
+          ></dash-label-color-picker>,
+        ]}
+
+        {!labelsState.labels.length && (
+          <form>
+            <dash-label>
+              Add your first label
+               
+              <dash-input placeholder='Add label'></dash-input>
+            </dash-label>
+          </form>
+        )}
       </dash-drill-menu>
     );
   }
