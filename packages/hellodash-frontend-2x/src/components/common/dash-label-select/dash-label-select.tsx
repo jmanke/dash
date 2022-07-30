@@ -76,10 +76,6 @@ export class DashLabelEdit {
   componentWillLoad() {
     this.updateLabelsMap();
   }
-
-  componentDidLoad() {
-    // (this.element.querySelector('dash-filter.filter') as HTMLDashFilterElement).setFocus();
-  }
   //#endregion
 
   //#region Listeners
@@ -148,15 +144,6 @@ export class DashLabelEdit {
     await element.componentOnReady();
     element.setFocus();
   }
-
-  async inputElementAdded(element: HTMLDashInputElement) {
-    if (!element) {
-      return;
-    }
-
-    await element.componentOnReady();
-    element.setFocus();
-  }
   //#endregion
 
   render() {
@@ -189,52 +176,25 @@ export class DashLabelEdit {
 
     return (
       <dash-drill-menu class='container' active={this.drillMenuActive} drillHeading='Select a color'>
-        {!!labelsState.labels.length && [
-          <dash-filter
-            class='filter'
-            ref={this.filterElementAdded.bind(this)}
-            placeholder='Filter labels'
-            items={labelsState.labels}
-            objKey='text'
-            onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
-            onDashFilterValueChanged={e => (this.filterValue = e.detail)}
-          ></dash-filter>,
-          addLabel,
-          listContent,
-
-          <dash-label-color-picker
-            slot='drill-content'
-            color={this.editingLabel?.color}
-            onDashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
-              this.labelColorChanged(this.editingLabel, e.detail);
-              this.drillMenuActive = false;
-            }}
-          ></dash-label-color-picker>,
-        ]}
-
-        {!labelsState.labels.length && (
-          <form class='add-first-label-form'>
-            <dash-label>
-              Add your first label
-              <dash-input
-                ref={this.inputElementAdded.bind(this)}
-                placeholder='Add label'
-                scale='m'
-                onDashInputInput={e => (this.filterValue = e.detail?.trim())}
-                onDashInputSubmit={this.createLabel.bind(this)}
-              ></dash-input>
-            </dash-label>
-
-            <div class='add-first-label-footer'>
-              <dash-button scale='m' status='error'>
-                Cancel
-              </dash-button>
-              <dash-button scale='m' disabled={isEmpty(this.filterValue)} onClick={this.createLabel.bind(this)}>
-                Ok
-              </dash-button>
-            </div>
-          </form>
-        )}
+        <dash-filter
+          class='filter'
+          ref={this.filterElementAdded.bind(this)}
+          placeholder='Filter labels'
+          items={labelsState.labels}
+          objKey='text'
+          onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
+          onDashFilterValueChanged={e => (this.filterValue = e.detail)}
+        ></dash-filter>
+        {addLabel}
+        {listContent}
+        <dash-label-color-picker
+          slot='drill-content'
+          color={this.editingLabel?.color}
+          onDashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
+            this.labelColorChanged(this.editingLabel, e.detail);
+            this.drillMenuActive = false;
+          }}
+        ></dash-label-color-picker>
       </dash-drill-menu>
     );
   }
