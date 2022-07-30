@@ -86,7 +86,10 @@ export class DashIconButton {
   render() {
     return (
       <button ref={element => (this.button = element)} disabled={this.loading || this.disabled} onClick={this.click.bind(this)} type={this.type ?? 'button'}>
-        <dash-icon scale={this.scale || 'm'} width={this.width} icon={this.icon} iconUrl={this.iconUrl} rounded />
+        {this.icon && <dash-icon scale={this.scale || 'm'} width={this.width} icon={this.icon} iconUrl={this.iconUrl} rounded />}
+        <div class='content'>
+          <slot />
+        </div>
         {this.loading && <dash-loader scale='s'></dash-loader>}
       </button>
     );

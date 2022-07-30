@@ -1,7 +1,8 @@
 @import '../../assets/styles/_focus-outline.css';
 
 :host {
-  display: block;
+  display: inline-block;
+  line-height: 1;
 
   &([scale='l']) {
     .color-swatch {
@@ -9,8 +10,9 @@
       height: var(--dash-spacing-8);
     }
 
-    dash-button {
-      --dash-button-padding: var(--dash-spacing-1);
+    dash-icon-button {
+      width: var(--dash-spacing-12);
+      height: var(--dash-spacing-12);
     }
   }
 
@@ -21,8 +23,10 @@
   }
 }
 
-dash-button {
-  --dash-button-padding: 0 var(--dash-spacing-1);
+dash-icon-button {
+  --dash-icon-button-padding: var(--dash-spacing-1);
+  width: var(--dash-spacing-8);
+  height: var(--dash-spacing-8);
 }
 
 dash-icon {
@@ -39,4 +43,5 @@ dash-icon {
   background: var(--dash-color-swatch-background);
   display: flex;
   align-items: center;
+  margin: auto;
 }
