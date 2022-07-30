@@ -33,7 +33,7 @@ aside {
   min-width: var(--dash-spacing-48);
   background-color: var(--dash-background-1);
   padding: var(--dash-spacing-3) var(--dash-spacing-2);
-  transition: all var(--dash-transition-time-fast) linear;
+  transition: width var(--dash-transition-time-fast) ease-out, min-width var(--dash-transition-time-fast) ease-out, box-shadow var(--dash-transition-time-fast) ease-in-out;
   overflow: auto;
 }
 
