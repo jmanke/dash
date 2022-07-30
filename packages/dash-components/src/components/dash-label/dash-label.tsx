@@ -43,7 +43,9 @@ export class DashLabel {
   render() {
     return (
       <label>
-        <slot />
+        <div class='content-wrapper'>
+          <slot />
+        </div>
       </label>
     );
   }

@@ -11,3 +11,7 @@ label {
   display: flex;
   flex-direction: column;
 }
+
+.content-wrapper {
+  margin-bottom: var(--dash-spacing-1);
+}
