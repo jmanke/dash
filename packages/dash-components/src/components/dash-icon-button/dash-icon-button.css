@@ -3,7 +3,7 @@
 
 :host {
   display: inline-block;
-  --dash-icon-button-padding: var(--dash-spacing-2);
+  --dash-icon-button-padding: var(--dash-spacing-1);
   line-height: 1;
 
   &([scale="l"]) {
@@ -58,6 +58,9 @@
 }
 
 button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   position: relative;
   border-radius: var(--dash-border-radius);
   padding: var(--dash-icon-button-padding);
