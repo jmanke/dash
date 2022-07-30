@@ -13,6 +13,7 @@ import { dashRootService } from '../../dash-root/dash-root-service';
 export class DashEditLabels implements Modal {
   //#region Own properties
   modal: HTMLDashModalElement;
+  addLabelButton: HTMLDashIconButtonElement;
 
   closeModalCb: () => void;
   //#endregion
@@ -120,7 +121,20 @@ export class DashEditLabels implements Modal {
             onDashInputSubmit={this.addLabel.bind(this)}
           ></dash-input>
 
-          <dash-icon-button icon='plus-lg' disabled={!this.canAddLabel} scale='l' loading={this.creatingLabel} onClick={this.addLabel.bind(this)}></dash-icon-button>
+          <dash-icon-button
+            ref={element => {
+              setTimeout(() => {
+                this.addLabelButton = element;
+              }, 0);
+            }}
+            icon='plus-lg'
+            disabled={!this.canAddLabel}
+            scale='l'
+            loading={this.creatingLabel}
+            onClick={this.addLabel.bind(this)}
+          ></dash-icon-button>
+
+          {this.canAddLabel && <dash-tooltip target={this.addLabelButton} text='Add label' placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>}
         </form>
 
         <div class='labels-container'>
