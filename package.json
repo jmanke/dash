@@ -13,7 +13,7 @@
     "publish:patch": "lerna publish patch",
     "publish:minor": "lerna publish minor",
     "publish:major": "lerna publish major",
-    "start:app": "lerna exec --parallel yarn start:app"
+    "start:app": "lerna run start:app"
   },
   "workspaces": [
     "packages/*"
