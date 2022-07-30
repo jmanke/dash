@@ -215,9 +215,8 @@ export class DashRouteNotes {
 
           {!notesState.notePreviews.length && (
             <div class='note-message-wrapper'>
-              <div class='note-message'>
-                <dash-fab icon='plus' onClick={() => this.addNote()}></dash-fab>
-              </div>
+              <div class='note-message'>Create your first note!</div>
+              <dash-fab icon='plus' onClick={() => this.addNote()}></dash-fab>
             </div>
           )}
         </dash-section>
