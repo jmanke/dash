@@ -13,6 +13,13 @@
     }
   }
 
+  &([scale="xl"]) {
+    button {
+      width: var(--dash-spacing-16);
+      height: var(--dash-spacing-16);
+    }
+  }
+
   &([loading]) {
     dash-icon,
     .content {
