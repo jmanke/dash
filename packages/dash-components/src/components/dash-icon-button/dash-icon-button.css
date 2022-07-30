@@ -6,6 +6,13 @@
   --dash-icon-button-padding: var(--dash-spacing-2);
   line-height: 1;
 
+  &([scale="l"]) {
+    button {
+      width: var(--dash-spacing-12);
+      height: var(--dash-spacing-12);
+    }
+  }
+
   &([loading]) {
     dash-icon,
     .content {
@@ -51,6 +58,8 @@ button {
   border-color: transparent;
   border-width: 1px;
   background-color: transparent;
+  width: var(--dash-spacing-8);
+  height: var(--dash-spacing-8);
 }
 
 dash-icon {

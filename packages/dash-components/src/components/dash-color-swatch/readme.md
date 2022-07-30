@@ -35,15 +35,16 @@ Type: `Promise<void>`
 
 ### Depends on
 
-- [dash-button](../dash-button)
+- [dash-icon-button](../dash-icon-button)
 - [dash-icon](../dash-icon)
 
 ### Graph
 ```mermaid
 graph TD;
-  dash-color-swatch --> dash-button
+  dash-color-swatch --> dash-icon-button
   dash-color-swatch --> dash-icon
-  dash-button --> dash-icon
+  dash-icon-button --> dash-icon
+  dash-icon-button --> dash-loader
   dash-color-picker --> dash-color-swatch
   style dash-color-swatch fill:#f9f,stroke:#333,stroke-width:4px
 ```

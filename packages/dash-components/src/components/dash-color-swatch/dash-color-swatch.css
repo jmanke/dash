@@ -9,11 +9,6 @@
       width: var(--dash-spacing-8);
       height: var(--dash-spacing-8);
     }
-
-    dash-icon-button {
-      width: var(--dash-spacing-12);
-      height: var(--dash-spacing-12);
-    }
   }
 
   &([selected]) {
@@ -25,8 +20,6 @@
 
 dash-icon-button {
   --dash-icon-button-padding: var(--dash-spacing-1);
-  width: var(--dash-spacing-8);
-  height: var(--dash-spacing-8);
 }
 
 dash-icon {
