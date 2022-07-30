@@ -8,6 +8,10 @@
   align-items: center;
 }
 
+dash-dropdown {
+  display: inline-flex;
+}
+
 dash-inline-edit {
   flex: auto;
 }
@@ -23,4 +27,3 @@ dash-inline-edit {
 .delete-dropdown {
   --dash-dropdown-min-width: 0;
 }
-
