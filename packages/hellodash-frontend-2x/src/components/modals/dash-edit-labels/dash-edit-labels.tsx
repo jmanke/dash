@@ -117,7 +117,7 @@ export class DashEditLabels implements Modal {
             placeholder='Add label'
             scale='l'
             value={this.newLabelText}
-            onDashInputInput={e => (this.newLabelText = e.detail)}
+            onDashInputInput={e => (this.newLabelText = e.detail?.trim())}
             onDashInputSubmit={this.addLabel.bind(this)}
           ></dash-input>
 

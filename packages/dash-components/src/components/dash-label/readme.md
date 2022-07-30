@@ -9,6 +9,7 @@
 
 | Property | Attribute | Description | Type     | Default     |
 | -------- | --------- | ----------- | -------- | ----------- |
+| `for`    | `for`     |             | `string` | `undefined` |
 | `layout` | `layout`  |             | `string` | `undefined` |
 
 

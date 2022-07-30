@@ -51,12 +51,25 @@ dash-label-select {
     }
   }
 
-  .add-label-message {
+  .add-label-wrapper {
+    flex: auto;
     display: flex;
-    align-items: center;
+  }
 
-    dash-icon {
-      margin-inline-end: var(--dash-spacing-2);
-    }
+  .add-first-label-form {
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: var(--dash-spacing-1);
+
+    .add-first-label-footer {
+      display: flex;
+      justify-content: flex-end;
+
+      dash-button:first-child {
+        margin-inline-end: var(--dash-spacing-2);
+      }
+    } 
   }
 }

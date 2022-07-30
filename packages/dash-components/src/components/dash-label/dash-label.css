@@ -10,8 +10,6 @@
 label {
   display: flex;
   flex-direction: column;
-}
-
-.content-wrapper {
-  margin-top: var(--dash-spacing-1);
+  font-size: var(--dash-font-size-1);
+  gap: var(--dash-spacing-2-half);
 }

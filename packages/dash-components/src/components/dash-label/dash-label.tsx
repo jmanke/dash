@@ -27,11 +27,6 @@ export class DashLabel {
   @Prop({
     reflect: true,
   })
-  label: string;
-
-  @Prop({
-    reflect: true,
-  })
   for: string;
   //#endregion
 
@@ -53,11 +48,7 @@ export class DashLabel {
   render() {
     return (
       <label htmlfor={this.for}>
-        {this.label}
-
-        <div class='content-wrapper'>
-          <slot />
-        </div>
+        <slot />
       </label>
     );
   }

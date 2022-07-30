@@ -102,6 +102,7 @@ export namespace Components {
         "value": string;
     }
     interface DashLabel {
+        "for": string;
         "layout": string;
     }
     interface DashList {
@@ -541,6 +542,7 @@ declare namespace LocalJSX {
         "value"?: string;
     }
     interface DashLabel {
+        "for"?: string;
         "layout"?: string;
     }
     interface DashList {

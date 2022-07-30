@@ -78,7 +78,7 @@ export class DashLabelEdit {
   }
 
   componentDidLoad() {
-    (this.element.querySelector('dash-filter.filter') as HTMLDashFilterElement).setFocus();
+    // (this.element.querySelector('dash-filter.filter') as HTMLDashFilterElement).setFocus();
   }
   //#endregion
 
@@ -108,18 +108,18 @@ export class DashLabelEdit {
     this.dashPopupLabelEditLabelRemoved.emit(label);
   }
 
-  async createLabel(text: string) {
+  async createLabel() {
     if (!this.canCreateLabel) {
       return;
     }
     this.canCreateLabel = false;
 
-    const createdLabel = { id: 0, text, color: 'red' } as Label;
+    const createdLabel = { id: 0, text: this.filterValue, color: 'red' } as Label;
     try {
       const label = await labelsState.addLabel(createdLabel);
       this.selectedLabelChanged(label, true);
-      this.filterElement.clear();
-      this.filterElement.select();
+      this.filterElement?.clear();
+      this.filterElement?.select();
     } finally {
       this.canCreateLabel = true;
     }
@@ -133,6 +133,29 @@ export class DashLabelEdit {
   editLabel(label: LabelViewModel) {
     this.editingLabel = label;
     this.drillMenuActive = true;
+  }
+
+  async filterElementAdded(element: HTMLDashFilterElement) {
+    if (this.filterElement) {
+      return;
+    }
+
+    this.filterElement = element;
+    if (!element) {
+      return;
+    }
+
+    await element.componentOnReady();
+    element.setFocus();
+  }
+
+  async inputElementAdded(element: HTMLDashInputElement) {
+    if (!element) {
+      return;
+    }
+
+    await element.componentOnReady();
+    element.setFocus();
   }
   //#endregion
 
@@ -159,9 +182,9 @@ export class DashLabelEdit {
 
     const showAddLabel = !isEmpty(this.filterValue) && !labelsState.labels.find(l => l.text.trim() === this.filterValue);
     const addLabel = showAddLabel ? (
-      <div class='add-label-message'>
-        <dash-icon icon='plus' scale='m'></dash-icon>Press enter to add "{this.filterValue}"
-      </div>
+      <dash-button startIcon='plus' onClick={this.createLabel.bind(this)}>
+        Add "{this.filterValue}"
+      </dash-button>
     ) : undefined;
 
     return (
@@ -169,16 +192,15 @@ export class DashLabelEdit {
         {!!labelsState.labels.length && [
           <dash-filter
             class='filter'
-            ref={element => (this.filterElement = element)}
+            ref={this.filterElementAdded.bind(this)}
             placeholder='Filter labels'
             items={labelsState.labels}
             objKey='text'
-            onDashFilterSubmit={showAddLabel ? (e: CustomEvent<string>) => this.createLabel(e.detail) : undefined}
             onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
             onDashFilterValueChanged={e => (this.filterValue = e.detail)}
           ></dash-filter>,
-          { addLabel },
-          { listContent },
+          addLabel,
+          listContent,
 
           <dash-label-color-picker
             slot='drill-content'
@@ -191,12 +213,26 @@ export class DashLabelEdit {
         ]}
 
         {!labelsState.labels.length && (
-          <form>
+          <form class='add-first-label-form'>
             <dash-label>
               Add your first label
-               
-              <dash-input placeholder='Add label'></dash-input>
+              <dash-input
+                ref={this.inputElementAdded.bind(this)}
+                placeholder='Add label'
+                scale='m'
+                onDashInputInput={e => (this.filterValue = e.detail?.trim())}
+                onDashInputSubmit={this.createLabel.bind(this)}
+              ></dash-input>
             </dash-label>
+
+            <div class='add-first-label-footer'>
+              <dash-button scale='m' status='error'>
+                Cancel
+              </dash-button>
+              <dash-button scale='m' disabled={isEmpty(this.filterValue)} onClick={this.createLabel.bind(this)}>
+                Ok
+              </dash-button>
+            </div>
           </form>
         )}
       </dash-drill-menu>

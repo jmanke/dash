@@ -9,6 +9,7 @@
 }
 
 .main-content-wrapper {
+  padding: var(--dash-spacing-1);
   overflow: hidden;
   display: flex;
   flex-direction: column;

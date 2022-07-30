@@ -43,7 +43,7 @@
     button {
       height: var(--dash-spacing-12);
       --dash-button-padding: var(--dash-spacing-2) var(--dash-spacing-4);
-      font-size: var(--dash-font-size-5);
+      font-size: var(--dash-font-size-4);
     }
   }
 }
