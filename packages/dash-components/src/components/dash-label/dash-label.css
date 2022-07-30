@@ -13,5 +13,5 @@ label {
 }
 
 .content-wrapper {
-  margin-bottom: var(--dash-spacing-1);
+  margin-top: var(--dash-spacing-1);
 }

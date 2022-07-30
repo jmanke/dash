@@ -23,6 +23,16 @@ export class DashLabel {
     reflect: true,
   })
   layout: string;
+
+  @Prop({
+    reflect: true,
+  })
+  label: string;
+
+  @Prop({
+    reflect: true,
+  })
+  for: string;
   //#endregion
 
   //#region @Event
@@ -42,7 +52,9 @@ export class DashLabel {
 
   render() {
     return (
-      <label>
+      <label htmlfor={this.for}>
+        {this.label}
+
         <div class='content-wrapper'>
           <slot />
         </div>
