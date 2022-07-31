@@ -20,5 +20,6 @@
   },
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5"
-  }
+  },
+  "license": "MIT"
 }
