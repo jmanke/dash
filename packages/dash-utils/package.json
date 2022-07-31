@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Utils library by Jeff Manke",
   "main": "lib/index.js",
   "scripts": {

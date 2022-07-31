@@ -1,7 +1,7 @@
 {
   "name": "@didyoumeantoast/hellodash",
   "private": true,
-  "version": "0.0.17",
+  "version": "0.0.18",
   "description": "Stencil App Starter",
   "scripts": {
     "build": "stencil build",
@@ -34,8 +34,8 @@
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
-    "@didyoumeantoast/dash-components": "^0.3.22",
-    "@didyoumeantoast/dash-utils": "^0.0.11",
+    "@didyoumeantoast/dash-components": "^0.3.23",
+    "@didyoumeantoast/dash-utils": "^0.0.12",
     "@popperjs/core": "^2.11.0",
     "@types/qs": "^6.9.7",
     "axios": "^0.24.0",
