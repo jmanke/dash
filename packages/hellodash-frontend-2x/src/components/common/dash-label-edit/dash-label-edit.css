@@ -10,10 +10,12 @@
 
 dash-dropdown {
   display: inline-flex;
+  margin-inline-end: var(--dash-spacing-2);
 }
 
 dash-inline-edit {
   flex: auto;
+  margin-inline-end: var(--dash-spacing-2);
 }
 
 .delete-button {
