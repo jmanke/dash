@@ -46,7 +46,7 @@ dash-text-editor {
     .tox-mbtn {
       border-radius: var(--dash-border-radius);
 
-      &:active, 
+      &:active,
       &:focus:not(:disabled) {
         background-color: initial;
       }

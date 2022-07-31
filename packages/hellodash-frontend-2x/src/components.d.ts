@@ -78,6 +78,7 @@ export namespace Components {
         "heading": string;
         "isEditorDirty": () => Promise<boolean>;
         "loading"?: boolean;
+        "readonly": boolean;
         "resize"?: boolean;
         "save": (emitEvent?: boolean) => Promise<void>;
         "selectTitle": () => Promise<void>;
@@ -316,6 +317,7 @@ declare namespace LocalJSX {
         "onDashTextEditorInit"?: (event: DashTextEditorCustomEvent<HTMLDashTextEditorElement>) => void;
         "onDashTextEditorIsDirty"?: (event: DashTextEditorCustomEvent<any>) => void;
         "onDashTextEditorNodeChanged"?: (event: DashTextEditorCustomEvent<object>) => void;
+        "readonly"?: boolean;
         "resize"?: boolean;
         "showFullscreen"?: boolean;
         "showTitleInput"?: boolean;

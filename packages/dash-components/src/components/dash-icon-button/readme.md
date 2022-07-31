@@ -7,16 +7,17 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                        | Default     |
-| ---------- | ---------- | ----------- | --------------------------- | ----------- |
-| `disabled` | `disabled` |             | `boolean`                   | `undefined` |
-| `icon`     | `icon`     |             | `string`                    | `undefined` |
-| `iconUrl`  | `icon-url` |             | `string`                    | `undefined` |
-| `loading`  | `loading`  |             | `boolean`                   | `undefined` |
-| `rounded`  | `rounded`  |             | `boolean`                   | `undefined` |
-| `scale`    | `scale`    |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
-| `type`     | `type`     |             | `string`                    | `undefined` |
-| `width`    | `width`    |             | `number`                    | `undefined` |
+| Property    | Attribute    | Description | Type                        | Default     |
+| ----------- | ------------ | ----------- | --------------------------- | ----------- |
+| `disabled`  | `disabled`   |             | `boolean`                   | `undefined` |
+| `icon`      | `icon`       |             | `string`                    | `undefined` |
+| `iconScale` | `icon-scale` |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
+| `iconUrl`   | `icon-url`   |             | `string`                    | `undefined` |
+| `loading`   | `loading`    |             | `boolean`                   | `undefined` |
+| `rounded`   | `rounded`    |             | `boolean`                   | `undefined` |
+| `scale`     | `scale`      |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
+| `type`      | `type`       |             | `string`                    | `undefined` |
+| `width`     | `width`      |             | `number`                    | `undefined` |
 
 
 ## Methods

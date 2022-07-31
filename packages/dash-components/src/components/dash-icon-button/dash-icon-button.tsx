@@ -36,6 +36,11 @@ export class DashIconButton {
   @Prop({
     reflect: true,
   })
+  iconScale?: Scale;
+
+  @Prop({
+    reflect: true,
+  })
   width?: number;
 
   @Prop({
@@ -86,7 +91,7 @@ export class DashIconButton {
   render() {
     return (
       <button ref={element => (this.button = element)} disabled={this.loading || this.disabled} onClick={this.click.bind(this)} type={this.type ?? 'button'}>
-        {this.icon && <dash-icon scale={this.scale || 'm'} width={this.width} icon={this.icon} iconUrl={this.iconUrl} rounded />}
+        {this.icon && <dash-icon scale={this.iconScale || this.scale || 'm'} width={this.width} icon={this.icon} iconUrl={this.iconUrl} rounded />}
         <div class='content'>
           <slot />
         </div>

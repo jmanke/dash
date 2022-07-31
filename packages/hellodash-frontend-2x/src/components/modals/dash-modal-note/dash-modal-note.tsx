@@ -7,6 +7,7 @@ import { Note } from '../../../models/note';
 import labelsState from '../../../stores/labels-store';
 import notesState from '../../../stores/notes-state';
 import { NoteViewModel } from '../../../view-models/note-view-model';
+import appState from '../../../stores/app-state';
 
 const PREVIEW_CONTENT_LENGTH = 140;
 const SAVE_DELAY = 5 * 1000;
@@ -37,6 +38,9 @@ export class DashModalNote implements Modal {
 
   @State()
   noteEditorLoaded: boolean;
+
+  @State()
+  disableReadonly: boolean = false;
   //#endregion
 
   //#region @Prop
@@ -183,6 +187,7 @@ export class DashModalNote implements Modal {
           showTitleInput={true}
           loading={!this.note}
           deferLoadTime={250}
+          readonly={appState.mobileView && !this.disableReadonly}
           onDashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
           onDashTextEditorHeadingChanged={e => this.textEditorHeadingChanged(e.detail)}
           onDashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
@@ -212,6 +217,12 @@ export class DashModalNote implements Modal {
             }}
           ></dash-label-select>
         </dash-dropdown>
+
+        {appState.mobileView && (
+          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={() => (this.disableReadonly = !this.disableReadonly)}>
+            {this.disableReadonly ? 'View' : 'Edit'}
+          </dash-button>
+        )}
       </dash-modal>
     );
   }

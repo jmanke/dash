@@ -49,6 +49,7 @@ export namespace Components {
     }
     interface DashFab {
         "icon": string;
+        "iconScale": Scale;
     }
     interface DashFilter {
         "clear": () => Promise<void>;
@@ -79,6 +80,7 @@ export namespace Components {
     interface DashIconButton {
         "disabled": boolean;
         "icon": string;
+        "iconScale"?: Scale;
         "iconUrl": string;
         "loading": boolean;
         "rounded": boolean;
@@ -489,6 +491,7 @@ declare namespace LocalJSX {
     }
     interface DashFab {
         "icon"?: string;
+        "iconScale"?: Scale;
     }
     interface DashFilter {
         "debounce"?: number;
@@ -519,6 +522,7 @@ declare namespace LocalJSX {
     interface DashIconButton {
         "disabled"?: boolean;
         "icon"?: string;
+        "iconScale"?: Scale;
         "iconUrl"?: string;
         "loading"?: boolean;
         "rounded"?: boolean;

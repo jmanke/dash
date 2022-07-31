@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, Event, EventEmitter, Element, State, Watch, Method, getAssetPath } from '@stencil/core';
-import tinymce, { Editor } from 'tinymce';
+import tinymce, { Editor, RawEditorSettings } from 'tinymce';
 import { appState } from '../../../stores/app-state';
 import { debounce, DebouncedFunc } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
@@ -70,6 +70,17 @@ export class DashTextEditor implements Focusable {
     }
 
     this.loadTinyMce();
+  }
+
+  @Prop({
+    reflect: true,
+  })
+  readonly: boolean;
+  @Watch('readonly')
+  readonlyChanged() {
+    if (!this.loading) {
+      this.loadTinyMce();
+    }
   }
   //#endregion
 
@@ -238,81 +249,98 @@ export class DashTextEditor implements Focusable {
   }
 
   initTinyMce(theme: string) {
-    return tinymce.init({
+    const sharedConfig: RawEditorSettings = {
       selector: `#${this.id}`,
-      plugins:
-        'paste importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
-      menubar: 'view insert format table',
-      toolbar:
-        'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | insertfile image media link codesample | forecolor backcolor removeformat | pagebreak | charmap emoticons',
-      toolbar_sticky: true,
-      image_advtab: true,
       importcss_append: true,
-      image_caption: true,
-      quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
-      noneditable_noneditable_class: 'mceNonEditable',
-      toolbar_mode: 'sliding',
-      paste_data_images: true,
-      /* enable automatic uploads of images represented by blob or data URIs*/
-      automatic_uploads: true,
       /* and here's our custom image picker*/
-      file_picker_callback: function (cb) {
-        const input = document.createElement('input');
-        input.setAttribute('type', 'file');
-        input.setAttribute('accept', 'image/*');
-
-        /*
-      Note: In modern browsers input[type="file"] is functional without
-      even adding it to the DOM, but that might not be the case in some older
-      or quirky browsers like IE, so you might want to add it to the DOM
-      just in case, and visually hide it. And do not forget do remove it
-      once you do not need it anymore.
-    */
-
-        input.onchange = function () {
-          // @ts-ignore
-          const file = this.files[0];
-
-          const reader = new FileReader();
-          reader.onload = function () {
-            /*
-          Note: Now we need to register the blob in TinyMCEs image blob
-          registry. In the next release this part hopefully won't be
-          necessary, as we are looking to handle it internally.
-        */
-            const id = 'blobid' + new Date().getTime();
-            const blobCache = tinymce.activeEditor.editorUpload.blobCache;
-            // @ts-ignore
-            const base64 = reader.result.split(',')[1];
-            const blobInfo = blobCache.create(id, file, base64);
-            blobCache.add(blobInfo);
-
-            /* call the callback and populate the Title field with the file name */
-            cb(blobInfo.blobUri(), { title: file.name });
-          };
-          reader.readAsDataURL(file);
-        };
-
-        input.click();
-      },
       content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color: ${
         theme === 'dark' ? '#ffffff' : '#000000'
       }; } a { color: rgb(88, 166, 255); } .mce-content-body [data-mce-selected="inline-boundary"] { background-color: ${theme === 'dark' ? '#000000' : '#b4d7ff'} }`,
-      setup: ed => {
-        ed.on('change', () => {
-          this.contentChangedHandler();
-        });
-        ed.on('dirty', () => {
-          this.dashTextEditorIsDirty.emit(true);
-        });
-        ed.on('nodeChange', e => {
-          this.dashTextEditorNodeChanged.emit(e);
-        });
-      },
       skin_url: theme === 'dark' ? getAssetPath('./assets/tinymce/skins/ui/dark') : undefined,
       resize: this.resize,
       min_height: MIN_EDITOR_HEIGHT,
-    });
+    };
+
+    let config: RawEditorSettings;
+
+    if (this.readonly) {
+      config = {
+        ...sharedConfig,
+        readonly: true,
+        menubar: false,
+        toolbar: false,
+      };
+    } else {
+      config = {
+        ...sharedConfig,
+        image_caption: true,
+        quickbars_selection_toolbar: 'bold italic | quicklink h2 h3 blockquote quickimage quicktable',
+        noneditable_noneditable_class: 'mceNonEditable',
+        toolbar_mode: 'sliding',
+        paste_data_images: true,
+        /* enable automatic uploads of images represented by blob or data URIs*/
+        automatic_uploads: true,
+        toolbar_sticky: true,
+        image_advtab: true,
+        menubar: 'view insert format table',
+        toolbar:
+          'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | insertfile image media link codesample | forecolor backcolor removeformat | pagebreak | charmap emoticons',
+        plugins:
+          'paste importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+        file_picker_callback: function (cb) {
+          const input = document.createElement('input');
+          input.setAttribute('type', 'file');
+          input.setAttribute('accept', 'image/*');
+
+          /*
+        Note: In modern browsers input[type="file"] is functional without
+        even adding it to the DOM, but that might not be the case in some older
+        or quirky browsers like IE, so you might want to add it to the DOM
+        just in case, and visually hide it. And do not forget do remove it
+        once you do not need it anymore.
+      */
+
+          input.onchange = function () {
+            // @ts-ignore
+            const file = this.files[0];
+
+            const reader = new FileReader();
+            reader.onload = function () {
+              /*
+            Note: Now we need to register the blob in TinyMCEs image blob
+            registry. In the next release this part hopefully won't be
+            necessary, as we are looking to handle it internally.
+          */
+              const id = 'blobid' + new Date().getTime();
+              const blobCache = tinymce.activeEditor.editorUpload.blobCache;
+              // @ts-ignore
+              const base64 = reader.result.split(',')[1];
+              const blobInfo = blobCache.create(id, file, base64);
+              blobCache.add(blobInfo);
+
+              /* call the callback and populate the Title field with the file name */
+              cb(blobInfo.blobUri(), { title: file.name });
+            };
+            reader.readAsDataURL(file);
+          };
+
+          input.click();
+        },
+        setup: ed => {
+          ed.on('change', () => {
+            this.contentChangedHandler();
+          });
+          ed.on('dirty', () => {
+            this.dashTextEditorIsDirty.emit(true);
+          });
+          ed.on('nodeChange', e => {
+            this.dashTextEditorNodeChanged.emit(e);
+          });
+        },
+      };
+    }
+
+    return tinymce.init(config);
   }
 
   createHeadingInput() {
@@ -330,6 +358,11 @@ export class DashTextEditor implements Focusable {
         this.editor.focus();
       }
     });
+
+    if (this.readonly) {
+      headingInput.setAttribute('disabled', 'true');
+    }
+
     headingInput.value = this.heading;
     tinyMceHeaderElement.appendChild(headingInput);
     this.headingInput = headingInput;
