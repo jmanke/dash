@@ -74,13 +74,7 @@ export class DashLabelEdit {
         </dash-dropdown>
         <dash-inline-edit value={this.label.text}></dash-inline-edit>
 
-        <dash-dropdown class='delete-dropdown' placement='bottom-end' placementStrategy='fixed' onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)} autoClose>
-          <dash-icon-button class='delete-button' slot='dropdown-trigger' icon='trash3'></dash-icon-button>
-
-          <dash-button ref={element => (this.confirmDeleteButton = element)} class='delete-confirm' status='error' onClick={() => this.dashDeleteLabel.emit(this.label)}>
-            Delete
-          </dash-button>
-        </dash-dropdown>
+        <dash-confirm-button icon='trash3' onDashConfirmButtonConfirmed={() => this.dashDeleteLabel.emit(this.label)}></dash-confirm-button>
       </div>
     );
   }

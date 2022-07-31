@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property    | Attribute    | Description | Type                        | Default     |
-| ----------- | ------------ | ----------- | --------------------------- | ----------- |
-| `icon`      | `icon`       |             | `string`                    | `undefined` |
-| `iconScale` | `icon-scale` |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
+| Property | Attribute | Description | Type     | Default     |
+| -------- | --------- | ----------- | -------- | ----------- |
+| `icon`   | `icon`    |             | `string` | `undefined` |
 
 
 ## Dependencies

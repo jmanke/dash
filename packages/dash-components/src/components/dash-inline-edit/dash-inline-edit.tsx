@@ -1,3 +1,4 @@
+import { classExists } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
 
 type EditMode = 'button' | 'input';
@@ -57,29 +58,9 @@ export class DashInlineEdit {
   //#endregion
 
   //#region Local methods
-  setFocusOnVisible(element: HTMLDashInputElement | HTMLDashButtonElement) {
-    const isVisible = (target: HTMLElement) => {
-      const classNames = target.className?.split(' ') ?? [];
-      return !classNames.find(className => className === 'hidden');
-    };
-
-    if (isVisible(element)) {
-      element.setFocus();
-      return;
-    }
-
-    const observer = new MutationObserver(mutations => {
-      for (let mutationRecord of mutations) {
-        if (isVisible(mutationRecord.target as HTMLElement)) {
-          element.setFocus();
-          return;
-        }
-      }
-
-      observer.disconnect();
-    });
-
-    observer.observe(element, { attributes: true });
+  async setFocusOnVisible(element: HTMLDashInputElement | HTMLDashButtonElement) {
+    await classExists(element, 'hidden', false);
+    element.setFocus();
   }
 
   inputChanged(e: CustomEvent<string>) {
