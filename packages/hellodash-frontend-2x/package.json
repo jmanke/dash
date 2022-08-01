@@ -1,7 +1,7 @@
 {
   "name": "@didyoumeantoast/hellodash",
   "private": true,
-  "version": "0.0.18",
+  "version": "0.0.19",
   "description": "Stencil App Starter",
   "scripts": {
     "build": "stencil build",
