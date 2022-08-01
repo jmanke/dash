@@ -106,6 +106,11 @@ export class DashTextEditor implements Focusable {
   dashTextEditorInit: EventEmitter<HTMLDashTextEditorElement>;
 
   @Event({
+    eventName: 'dashTextEditorUnload',
+  })
+  dashTextEditorUnload: EventEmitter;
+
+  @Event({
     eventName: 'dashTextEditorIsDirty',
   })
   dashTextEditorIsDirty: EventEmitter;
@@ -218,6 +223,8 @@ export class DashTextEditor implements Focusable {
         } catch (e) {}
       });
       this.editor = null;
+
+      this.dashTextEditorUnload.emit();
     }
   }
 
@@ -400,7 +407,7 @@ export class DashTextEditor implements Focusable {
     return (
       <Host class={spaceConcat(this.isFullscreen && 'fullscreen', this.isLoading && 'loading')}>
         {this.isLoading && <dash-loader></dash-loader>}
-        <div id={this.id}></div>
+        <div class={this.isEditorLoading ? 'text-editor-loading' : undefined} id={this.id}></div>
       </Host>
     );
   }

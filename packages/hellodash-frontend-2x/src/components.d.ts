@@ -337,6 +337,7 @@ declare namespace LocalJSX {
         "onDashTextEditorInit"?: (event: DashTextEditorCustomEvent<HTMLDashTextEditorElement>) => void;
         "onDashTextEditorIsDirty"?: (event: DashTextEditorCustomEvent<any>) => void;
         "onDashTextEditorNodeChanged"?: (event: DashTextEditorCustomEvent<object>) => void;
+        "onDashTextEditorUnload"?: (event: DashTextEditorCustomEvent<any>) => void;
         "readonly"?: boolean;
         "resize"?: boolean;
         "showFullscreen"?: boolean;

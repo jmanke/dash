@@ -193,6 +193,7 @@ export class DashModalNote implements Modal {
           onDashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
           onDashTextEditorNodeChanged={this.textEditorNodeChanged.bind(this)}
           onDashTextEditorInit={e => this.textEditorInit(e.detail)}
+          onDashTextEditorUnload={() => (this.noteEditorLoaded = false)}
           showFullscreen
         ></dash-text-editor>
 
@@ -219,7 +220,7 @@ export class DashModalNote implements Modal {
         </dash-dropdown>
 
         {appState.mobileView && (
-          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={() => (this.disableReadonly = !this.disableReadonly)}>
+          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={() => (this.disableReadonly = !this.disableReadonly)} disabled={!this.noteEditorLoaded}>
             {this.disableReadonly ? 'View' : 'Edit'}
           </dash-button>
         )}

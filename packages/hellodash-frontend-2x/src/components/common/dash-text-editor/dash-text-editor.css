@@ -73,6 +73,10 @@ dash-text-editor {
     position: absolute;
     top: 0;
   }
+
+  .text-editor-loading {
+    visibility: hidden;
+  }
 }
 
 .global-scrim dash-text-editor .tox.tox-tinymce {
