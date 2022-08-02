@@ -106,8 +106,8 @@ export class DashConfirmButton {
           class={spaceConcat(this.isConfirming ? undefined : 'hidden', 'confirm-wrapper')}
           onFocusout={this.confirmFocusedOut.bind(this)}
         >
-          <dash-icon-button ref={element => (this.cancelButton = element)} icon='x' scale={this.scale} onClick={this.cancel.bind(this)}></dash-icon-button>
           <dash-icon-button icon='check2' scale={this.scale} onClick={this.confirm.bind(this)}></dash-icon-button>
+          <dash-icon-button ref={element => (this.cancelButton = element)} icon='x' scale={this.scale} onClick={this.cancel.bind(this)}></dash-icon-button>
         </div>
       </Host>
     );
