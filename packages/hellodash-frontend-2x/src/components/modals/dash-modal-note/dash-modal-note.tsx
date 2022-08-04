@@ -86,6 +86,7 @@ export class DashModalNote implements Modal {
   //#region Local methods
   async getNote() {
     if (this.newNote) {
+      this.disableReadonly = true;
       const note = new Note();
       note.title = 'New note';
       if (isNumber(this.newLabelId)) {
