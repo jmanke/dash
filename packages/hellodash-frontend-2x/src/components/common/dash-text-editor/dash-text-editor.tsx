@@ -5,6 +5,7 @@ import { debounce, DebouncedFunc } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Focusable } from '@didyoumeantoast/dash-components/dist/types/interfaces/focusable';
+import { checklist } from '@didyoumeantoast/tinymce-plugins';
 
 const MIN_EDITOR_HEIGHT = 230;
 
@@ -256,6 +257,9 @@ export class DashTextEditor implements Focusable {
   }
 
   initTinyMce(theme: string) {
+    // add custom plugins
+    tinymce.PluginManager.add('checklist', checklist);
+
     const sharedConfig: RawEditorSettings = {
       selector: `#${this.id}`,
       importcss_append: true,
@@ -291,9 +295,9 @@ export class DashTextEditor implements Focusable {
         image_advtab: true,
         menubar: 'view insert format table',
         toolbar:
-          'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | insertfile image media link codesample | forecolor backcolor removeformat | pagebreak | charmap emoticons',
+          'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | insertfile image media link codesample | forecolor backcolor removeformat | pagebreak | charmap emoticons | code',
         plugins:
-          'paste importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists wordcount imagetools textpattern noneditable help charmap quickbars emoticons',
+          'paste importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists checklist wordcount imagetools textpattern noneditable help charmap quickbars emoticons code',
         file_picker_callback: function (cb) {
           const input = document.createElement('input');
           input.setAttribute('type', 'file');
