@@ -130,15 +130,6 @@ export class DashModalNote implements Modal {
     }, SAVE_DELAY);
   }
 
-  async saveNote() {
-    clearTimeout(this.saveDefer);
-    this.saveDefer = null;
-    const textContent = await this.textEditor.getTextContent();
-    this.note.previewContent = textContent.substring(0, PREVIEW_CONTENT_LENGTH);
-
-    await notesState.updateNote(this.note);
-  }
-
   textEditorInit(textEditor: HTMLDashTextEditorElement) {
     this.noteEditorLoaded = true;
 
@@ -153,13 +144,24 @@ export class DashModalNote implements Modal {
     this.dropdownElement?.close();
   }
 
-  async beforeModalClose() {
-    this.cancelationToken.cancel();
+  /**
+   * Saves the current state of the note text editor
+   */
+  async saveNote() {
+    const save = async () => {
+      clearTimeout(this.saveDefer);
+      this.saveDefer = null;
+      const textContent = await this.textEditor.getTextContent();
+      this.note.previewContent = textContent.substring(0, PREVIEW_CONTENT_LENGTH);
+
+      return notesState.updateNote(this.note);
+    };
+
     try {
       const isDirty = await this.textEditor.isEditorDirty();
       if (!isDirty) {
         if (this.saveDefer) {
-          this.saveNote();
+          return save();
         }
 
         return;
@@ -168,10 +170,24 @@ export class DashModalNote implements Modal {
       await this.textEditor.save(false);
       const content = await this.textEditor.getContent();
       this.textEditorContentChanged(content);
-      this.saveNote();
+      return save();
     } catch (error) {
       console.error(error);
     }
+  }
+
+  beforeModalClose() {
+    this.cancelationToken.cancel();
+    this.saveNote();
+  }
+
+  beforeTextEditorUnload(e: CustomEvent<Promise<unknown>[]>) {
+    if (!appState.mobileView || this.disableReadonly) {
+      return;
+    }
+
+    const promises = e.detail;
+    promises.push(this.saveNote());
   }
   //#endregion
 
@@ -194,6 +210,7 @@ export class DashModalNote implements Modal {
           onDashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
           onDashTextEditorNodeChanged={this.textEditorNodeChanged.bind(this)}
           onDashTextEditorInit={e => this.textEditorInit(e.detail)}
+          onDashTextEditorBeforeUnload={this.beforeTextEditorUnload.bind(this)}
           onDashTextEditorUnload={() => (this.noteEditorLoaded = false)}
           showFullscreen
         ></dash-text-editor>

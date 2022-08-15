@@ -107,6 +107,11 @@ export class DashTextEditor implements Focusable {
   dashTextEditorInit: EventEmitter<HTMLDashTextEditorElement>;
 
   @Event({
+    eventName: 'dashTextEditorBeforeUnload',
+  })
+  dashTextEditorBeforeUnload: EventEmitter<Promise<unknown>[]>;
+
+  @Event({
     eventName: 'dashTextEditorUnload',
   })
   dashTextEditorUnload: EventEmitter;
@@ -187,8 +192,9 @@ export class DashTextEditor implements Focusable {
     }
 
     this.editor.save();
-    const content = await this.getContent();
+
     if (emitEvent) {
+      const content = await this.getContent();
       this.dashTextEditorContentChanged.emit(content);
     }
   }
@@ -216,6 +222,14 @@ export class DashTextEditor implements Focusable {
   //#region Local methods
   async unloadEditor() {
     if (this.editor) {
+      const listeners = [];
+      this.dashTextEditorBeforeUnload.emit(listeners);
+
+      // allow listeners to perform their respective tasks before unloading the editor
+      if (listeners.length) {
+        await Promise.all(listeners);
+      }
+
       // remove current editor before loading a new one
       await new Promise<void>(resolve => {
         this.editor.on('detach', () => resolve());

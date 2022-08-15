@@ -331,6 +331,7 @@ declare namespace LocalJSX {
         "deferLoadTime"?: number;
         "heading"?: string;
         "loading"?: boolean;
+        "onDashTextEditorBeforeUnload"?: (event: DashTextEditorCustomEvent<Promise<unknown>[]>) => void;
         "onDashTextEditorContentChanged"?: (event: DashTextEditorCustomEvent<string>) => void;
         "onDashTextEditorFullscreenChanged"?: (event: DashTextEditorCustomEvent<boolean>) => void;
         "onDashTextEditorHeadingChanged"?: (event: DashTextEditorCustomEvent<string>) => void;
