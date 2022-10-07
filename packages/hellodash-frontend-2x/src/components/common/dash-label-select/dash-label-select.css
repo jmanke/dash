@@ -13,7 +13,8 @@ dash-label-select {
       overflow-y: auto;
 
       dash-color-swatch {
-        margin-inline-end: var(--dash-spacing-half);
+        --dash-focus-outline-offset: 0px;
+        --dash-focus-outline-max-offset: 1px;
       }
     }
 

@@ -1,5 +1,4 @@
 .focus-outline {
-  --dash-focus-outline-max-offset: 3px;
   animation: focusanim var(--dash-transition-time-fast);
   outline: var(--dash-focus-outline);
   outline-offset: var(--dash-focus-outline-offset);
@@ -7,7 +6,7 @@
 
 @keyframes focusanim {
   0% {
-    outline-offset: var(--dash-focus-outline-offset-thin);
+    outline-offset: var(--dash-focus-outline-offset);
   }
   50% {
     outline-offset: var(--dash-focus-outline-max-offset);

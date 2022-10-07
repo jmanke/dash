@@ -44,7 +44,7 @@
 
 .list-item {
   font-size: var(--dash-font-size-1);
-  padding: var(--dash-spacing-2);
+  padding: var(--dash-spacing-1-half);
   display: flex;
   align-items: center;
   flex: auto;
