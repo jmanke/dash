@@ -11,6 +11,11 @@ dash-label-select {
 
     .labels-list {
       overflow-y: auto;
+
+      dash-color-swatch {
+        --dash-focus-outline-offset: 0px;
+        --dash-focus-outline-max-offset: 1px;
+      }
     }
 
     @media only screen and (max-width: 600px) {

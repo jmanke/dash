@@ -43,7 +43,7 @@ export class DashLabelEdit {
     if (!drillMenuActive) {
       setTimeout(() => {
         this.colorSwatches.get(this.editingLabel?.id)?.setFocus();
-      }, 0);
+      }, 50);
     }
   }
   //#endregion

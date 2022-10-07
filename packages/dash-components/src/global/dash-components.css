@@ -84,6 +84,9 @@
   --dash-transition-time-fast: 100ms;
   --dash-transition-time-default: 250ms;
 
+  /* focus outline */
+  --dash-focus-outline-max-offset: 3px;
+
   @media (prefers-reduced-motion) {
     --dash-transition-time-fast: 0ms;
     --dash-transition-time-default: 0ms;
