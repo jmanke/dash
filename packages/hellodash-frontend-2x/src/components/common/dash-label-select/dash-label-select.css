@@ -11,6 +11,10 @@ dash-label-select {
 
     .labels-list {
       overflow-y: auto;
+
+      dash-color-swatch {
+        margin-inline-end: var(--dash-spacing-half);
+      }
     }
 
     @media only screen and (max-width: 600px) {
