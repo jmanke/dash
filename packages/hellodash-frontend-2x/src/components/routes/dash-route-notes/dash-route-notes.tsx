@@ -64,9 +64,6 @@ export class DashRouteNotes {
 
   @State()
   noteWithDropdownActive: NotePreviewViewModel;
-
-  @State()
-  addNoteButton: HTMLDashIconButtonElement;
   //#endregion
 
   //#region @Prop
@@ -169,7 +166,7 @@ export class DashRouteNotes {
             <div slot='header' class='notes-search-container'>
               <dash-filter class='notes-filter' placeholder='Search' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
               <dash-dropdown class='sort-dropdown' placement='bottom-end' autoClose>
-                <dash-icon-button slot='dropdown-trigger' icon='filter' scale='l'></dash-icon-button>
+                <dash-icon-button slot='dropdown-trigger' icon='filter' scale='l' tooltipText='Filter notes' tooltipPlacement='right'></dash-icon-button>
 
                 <dash-list selectionMode='single'>
                   <dash-list-item selected={this.sortBy === 'date'} onDashListItemSelectedChanged={this.updateSortBy.bind(this, 'date')}>
@@ -183,16 +180,12 @@ export class DashRouteNotes {
 
               <dash-icon-button
                 class='add-note-button'
-                ref={element => {
-                  setTimeout(() => {
-                    this.addNoteButton = element;
-                  }, 0);
-                }}
                 icon='plus-lg'
                 scale='l'
+                tooltipText='Add note'
+                tooltipPlacement='right'
                 onClick={this.addNote.bind(this)}
               ></dash-icon-button>
-              <dash-tooltip class='add-note-tooltip' target={this.addNoteButton} text={'Add note'} placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>
             </div>,
 
             !!this.notePreviews.length ? (

@@ -34,7 +34,7 @@
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
-    "@didyoumeantoast/dash-components": "^0.3.26",
+    "@didyoumeantoast/dash-components": "^0.3.31",
     "@didyoumeantoast/dash-utils": "^0.0.12",
     "@didyoumeantoast/tinymce-plugins": "^1.1.4",
     "@popperjs/core": "^2.11.0",

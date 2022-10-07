@@ -68,6 +68,8 @@ graph TD;
   dash-input --> dash-icon-button
   dash-icon-button --> dash-icon
   dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   dash-filter --> dash-input
   dash-inline-edit --> dash-input
   style dash-input fill:#f9f,stroke:#333,stroke-width:4px

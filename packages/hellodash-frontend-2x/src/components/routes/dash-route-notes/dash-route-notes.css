@@ -24,8 +24,7 @@ dash-route-notes {
     }
   }
 
-  .add-note-button,
-  .add-note-tooltip {
+  .add-note-button {
     @media only screen and (max-width: 768px) {
       display: none;
     }

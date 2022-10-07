@@ -24,6 +24,8 @@ graph TD;
   dash-fab --> dash-icon-button
   dash-icon-button --> dash-icon
   dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   style dash-fab fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
