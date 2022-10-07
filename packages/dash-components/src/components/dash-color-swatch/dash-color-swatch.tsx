@@ -47,7 +47,7 @@ export class DashColorSwatch {
   //#region @Method
   @Method()
   async setFocus() {
-    this.button.focus();
+    this.button.setFocus();
   }
   //#endregion
 

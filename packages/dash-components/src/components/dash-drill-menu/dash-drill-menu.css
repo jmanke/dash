@@ -3,7 +3,7 @@
 
   &([active]) {
     .main-content-wrapper {
-      display: none;
+      visibility: collapse;
     }
   }
 }
