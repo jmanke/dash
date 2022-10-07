@@ -82,3 +82,9 @@ dash-loader {
   top: 50%;
   transform: translate(-50%, -50%);
 }
+
+dash-tooltip {
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}

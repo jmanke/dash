@@ -25,6 +25,7 @@
 ### Used by
 
  - [dash-chip](../dash-chip)
+ - [dash-icon-button](../dash-icon-button)
  - [dash-sidebar-button](../dash-sidebar-button)
 
 ### Depends on
@@ -36,6 +37,7 @@
 graph TD;
   dash-tooltip --> dash-popover
   dash-chip --> dash-tooltip
+  dash-icon-button --> dash-tooltip
   dash-sidebar-button --> dash-tooltip
   style dash-tooltip fill:#f9f,stroke:#333,stroke-width:4px
 ```

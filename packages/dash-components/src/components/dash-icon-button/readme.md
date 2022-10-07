@@ -7,17 +7,19 @@
 
 ## Properties
 
-| Property    | Attribute    | Description | Type                        | Default     |
-| ----------- | ------------ | ----------- | --------------------------- | ----------- |
-| `disabled`  | `disabled`   |             | `boolean`                   | `undefined` |
-| `icon`      | `icon`       |             | `string`                    | `undefined` |
-| `iconScale` | `icon-scale` |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
-| `iconUrl`   | `icon-url`   |             | `string`                    | `undefined` |
-| `loading`   | `loading`    |             | `boolean`                   | `undefined` |
-| `rounded`   | `rounded`    |             | `boolean`                   | `undefined` |
-| `scale`     | `scale`      |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
-| `type`      | `type`       |             | `string`                    | `undefined` |
-| `width`     | `width`      |             | `number`                    | `undefined` |
+| Property           | Attribute           | Description | Type                                                                                                                                                                                                         | Default     |
+| ------------------ | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `disabled`         | `disabled`          |             | `boolean`                                                                                                                                                                                                    | `undefined` |
+| `icon`             | `icon`              |             | `string`                                                                                                                                                                                                     | `undefined` |
+| `iconScale`        | `icon-scale`        |             | `"l" \| "m" \| "s" \| "xl"`                                                                                                                                                                                  | `undefined` |
+| `iconUrl`          | `icon-url`          |             | `string`                                                                                                                                                                                                     | `undefined` |
+| `loading`          | `loading`           |             | `boolean`                                                                                                                                                                                                    | `undefined` |
+| `rounded`          | `rounded`           |             | `boolean`                                                                                                                                                                                                    | `undefined` |
+| `scale`            | `scale`             |             | `"l" \| "m" \| "s" \| "xl"`                                                                                                                                                                                  | `undefined` |
+| `tooltipPlacement` | `tooltip-placement` |             | `"auto" \| "auto-end" \| "auto-start" \| "bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined` |
+| `tooltipText`      | `tooltip-text`      |             | `string`                                                                                                                                                                                                     | `undefined` |
+| `type`             | `type`              |             | `string`                                                                                                                                                                                                     | `undefined` |
+| `width`            | `width`             |             | `number`                                                                                                                                                                                                     | `undefined` |
 
 
 ## Methods
@@ -47,12 +49,15 @@ Type: `Promise<void>`
 
 - [dash-icon](../dash-icon)
 - [dash-loader](../dash-loader)
+- [dash-tooltip](../dash-tooltip)
 
 ### Graph
 ```mermaid
 graph TD;
   dash-icon-button --> dash-icon
   dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   dash-color-swatch --> dash-icon-button
   dash-drill-menu --> dash-icon-button
   dash-fab --> dash-icon-button

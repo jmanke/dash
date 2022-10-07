@@ -85,6 +85,8 @@ export namespace Components {
         "rounded": boolean;
         "scale"?: Scale;
         "setFocus": () => Promise<void>;
+        "tooltipPlacement": Placement;
+        "tooltipText"?: string;
         "type": string;
         "width"?: number;
     }
@@ -525,6 +527,8 @@ declare namespace LocalJSX {
         "loading"?: boolean;
         "rounded"?: boolean;
         "scale"?: Scale;
+        "tooltipPlacement"?: Placement;
+        "tooltipText"?: string;
         "type"?: string;
         "width"?: number;
     }

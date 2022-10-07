@@ -1,4 +1,4 @@
-import { Component, h, Prop, State, Watch } from '@stencil/core';
+import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
 import { Scale } from '../../types/types';
 import { queryElementById } from '@didyoumeantoast/dash-utils';
@@ -93,6 +93,19 @@ export class DashTooltip {
   //#endregion
 
   //#region Listeners
+
+  // stop propagation of popover open event since tooltip behaves differently
+  @Listen('dashPopoverOpen')
+  handleDashPopoverOpen(e: CustomEvent) {
+    e.stopPropagation();
+  }
+
+  // stop propagation of popover close event since tooltip behaves differently
+  @Listen('dashPopoverClose')
+  handleDashPopoverClose(e: CustomEvent) {
+    e.stopPropagation();
+  }
+
   //#endregion
 
   //#region @Method

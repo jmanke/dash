@@ -35,6 +35,8 @@ graph TD;
   dash-color-swatch --> dash-icon
   dash-icon-button --> dash-icon
   dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   style dash-color-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
