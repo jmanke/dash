@@ -3,7 +3,7 @@
 
   &([active]) {
     .main-content-wrapper {
-      visibility: hidden;
+      display: none;
     }
   }
 }
