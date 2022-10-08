@@ -29,7 +29,9 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js"
+    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js",
+    "storybook": "stencil build --watch & start-storybook -p 6006",
+    "build-storybook": "build-storybook"
   },
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
@@ -38,11 +40,20 @@
     "@stencil/core": "^2.13.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.19.3",
     "@stencil/postcss": "^2.1.0",
+    "@storybook/addon-actions": "^6.5.12",
+    "@storybook/addon-essentials": "^6.5.12",
+    "@storybook/addon-links": "^6.5.12",
+    "@storybook/builder-webpack4": "^6.5.12",
+    "@storybook/manager-webpack4": "^6.5.12",
+    "@storybook/web-components": "^6.5.12",
     "@types/jest": "^27.0.3",
     "autoprefixer": "^10.4.7",
+    "babel-loader": "^8.2.5",
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
+    "lit-html": "^2.4.0",
     "postcss-extend-rule": "^4.0.0",
     "postcss-nested": "^5.0.6",
     "postcss-replace": "^2.0.0",

@@ -131,6 +131,10 @@
 
   --dash-border-1-light: #9c9da1;
 
+  --dash-success-light: #53a551;
+  --dash-success-light-hover: #469e44;
+  --dash-success-light-active: #3e963c;
+
   --dash-danger-light: #ff4444;
   --dash-danger-light-hover: #e53d3d;
   --dash-danger-light-active: #cc3636;
@@ -153,6 +157,10 @@
   --dash-background-3-dark: #3f4146;
 
   --dash-border-1-dark: #54575c;
+
+  --dash-success-dark: #53a551;
+  --dash-success-dark-hover: #469e44;
+  --dash-success-dark-active: #3e963c;
 
   --dash-danger-dark: #ed4245;
   --dash-danger-dark-hover: #d53b3e;
@@ -206,6 +214,10 @@
   --dash-bg-darken-3: var(--dash-bg-darken-3-light);
   --dash-bg-darken-4: var(--dash-bg-darken-4-light);
 
+  --dash-success: var(--dash-success-light);
+  --dash-success-hover: var(--dash-success-light-hover);
+  --dash-success-active: var(--dash-success-light-active);
+
   --dash-danger: var(--dash-danger-light);
   --dash-danger-hover: var(--dash-danger-light-hover);
   --dash-danger-active: var(--dash-danger-light-active);
@@ -240,6 +252,10 @@
   --dash-bg-darken-2: var(--dash-bg-darken-2-dark);
   --dash-bg-darken-3: var(--dash-bg-darken-3-dark);
   --dash-bg-darken-4: var(--dash-bg-darken-4-dark);
+
+  --dash-success: var(--dash-success-dark);
+  --dash-success-hover: var(--dash-success-dark-hover);
+  --dash-success-active: var(--dash-success-dark-active);
 
   --dash-danger: var(--dash-danger-dark);
   --dash-danger-hover: var(--dash-danger-dark-hover);

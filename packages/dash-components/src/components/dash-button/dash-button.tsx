@@ -68,7 +68,7 @@ export class DashButton {
   //#endregion
 
   render() {
-    const startIcon = this.startIcon ? <dash-icon icon={this.startIcon} width={20}></dash-icon> : null;
+    const startIcon = this.startIcon ? <dash-icon icon={this.startIcon} scale={this.scale}></dash-icon> : null;
 
     return (
       <button ref={element => (this.button = element)} disabled={this.disabled} onClick={this.handleClick.bind(this)}>

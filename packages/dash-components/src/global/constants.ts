@@ -3,3 +3,5 @@ export enum Breakpoint {
   medium = 1200,
   large = 1600,
 }
+
+export const assetPath = '/build/assets';

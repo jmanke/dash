@@ -8,7 +8,7 @@ const SIZES = {
   s: '16',
   m: '20',
   l: '32',
-  xl: '48'
+  xl: '48',
 };
 
 @Component({
@@ -102,8 +102,12 @@ export class DashIcon {
       return <img width={width} src={this.iconUrl} onError={() => (this.iconUrlError = true)} />;
     }
 
-    return <svg xmlns="http://www.w3.org/2000/svg" width='100%' height='100%' fill='currentColor' viewBox='0 0 16 16'>
-      {this.paths.map((path: any) => <path d={path.d}></path>)}
-    </svg>;
+    return (
+      <svg xmlns='http://www.w3.org/2000/svg' width='100%' height='100%' fill='currentColor' viewBox='0 0 16 16'>
+        {this.paths.map((path: any) => (
+          <path d={path.d}></path>
+        ))}
+      </svg>
+    );
   }
 }

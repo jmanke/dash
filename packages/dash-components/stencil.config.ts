@@ -36,6 +36,7 @@ export const config: Config = {
         postcssExtendRule(),
         autoprefixer(),
         // shadow dom does not respect 'html' and 'body' styling, so we replace it with ':host' instead
+        // @ts-ignore
         replace({ pattern: 'html', data: { replaceAll: ':host' } }),
       ],
     }),
