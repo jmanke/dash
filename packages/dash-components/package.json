@@ -23,6 +23,7 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
+    "build:storybook": "stencil build --watch",
     "publish:npm": "npm publish",
     "start": "stencil build --dev --watch --serve",
     "start:app": "stencil build",
@@ -30,7 +31,7 @@
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
     "generate-icons": "cd ./bootstrap-icons && node extract-paths.js",
-    "storybook": "stencil build --watch & start-storybook -p 6006",
+    "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
   "dependencies": {
