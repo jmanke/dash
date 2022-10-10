@@ -1,9 +1,14 @@
+import { themeControl } from '../../../.storybook/common/controls';
+
 export default {
   title: 'Components/Dash Chip',
-  argTypes: {},
+  argTypes: {
+    theme: themeControl,
+  },
 };
 
-const Template = args => `<dash-chip 
+const Template = args => `<dash-chip
+  class=${args.theme}
   heading=${args.heading} 
   ${args.selectable && `selectable=${args.selectable}`}
   ${args.removeable && `removeable=${args.removeable}`}
@@ -13,6 +18,7 @@ const Template = args => `<dash-chip
 
 export const DefaultChip = Template.bind({});
 DefaultChip.args = {
+  theme: 'light-theme',
   heading: 'Chip',
   selectable: true,
   dismissTooltipText: 'Dismiss',
