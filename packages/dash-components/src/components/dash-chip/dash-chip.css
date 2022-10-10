@@ -4,8 +4,16 @@
 :host {
   display: block;
 
-  &(:not([removeable])) .chip {
-    padding-right: var(--dash-spacing-3);
+  &([removeable]) {
+    .heading {
+      margin-inline-end: var(--dash-spacing-1);
+    }
+  }
+  
+  &(:not([removeable])) {
+    .chip {
+      padding-right: var(--dash-spacing-3);
+    }
   }
 
   &(:not([selectable])) .chip {
@@ -19,7 +27,7 @@
   padding: var(--dash-spacing-half) 0 var(--dash-spacing-half) var(--dash-spacing-3);
   color: var(--dash-text-color-2);
   position: relative;
-  display: flex;
+  display: inline-flex;
   max-width: var(--dash-spacing-32);
   height: var(--dash-spacing-5);
   border-radius: 999px;
@@ -59,6 +67,7 @@
   }
 
   &:focus-within {
+    --dash-focus-outline-max-offset: 1px;
     --dash-focus-outline-offset: 0px;
     @extend .focus-outline;
   }

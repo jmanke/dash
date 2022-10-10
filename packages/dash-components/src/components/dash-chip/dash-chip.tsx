@@ -97,7 +97,7 @@ export class DashChip {
           )}
 
           {this.removeable && this.dismissTooltipText && this.popoverTarget && (
-            <dash-tooltip target={this.popoverTarget} text={this.dismissTooltipText} placementStrategy='fixed' offsetY={5} scale='s'></dash-tooltip>
+            <dash-tooltip target={this.popoverTarget} text={this.dismissTooltipText} placementStrategy='fixed' offsetX={5} placement='right' scale='s'></dash-tooltip>
           )}
         </div>
       </Host>
