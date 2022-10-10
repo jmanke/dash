@@ -1,23 +1,22 @@
 :host {
-  display: flex;
-
-  width: 20px;
-  height: 20px;
+  --dash-icon-size: 20px;
 
   &([scale="s"]) {
-    width: 16px;
-    height: 16px;
+    --dash-icon-size: 16px;
   }
 
   &([scale="l"]) {
-    width: 32px;
-    height: 32px;
+    --dash-icon-size: 32px;
   }
 
   &([scale="xl"]) {
-    width: 48px;
-    height: 48px;
+    --dash-icon-size: 48px;
   }
+
+  display: flex;
+
+  width: var(--dash-icon-size);
+  height: var(--dash-icon-size);
 }
 
 div {
@@ -27,6 +26,11 @@ div {
   svg {
     border-radius: var(--dash-icon-border-radius, 0px);
   }
+}
+
+img {
+  width: var(--dash-icon-size);
+  height: var(--dash-icon-size);
 }
 
 :host([rounded]) img {

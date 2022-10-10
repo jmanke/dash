@@ -116,11 +116,11 @@ export class DashListItem {
   }
 
   get checkElement() {
-    return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='check2' color='primary' scale='s'></dash-icon>;
+    return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='check2' scale='s'></dash-icon>;
   }
 
   get bulletElement() {
-    return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='dot' color='primary' scale='s'></dash-icon>;
+    return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='dot' scale='s'></dash-icon>;
   }
   //#endregion
 

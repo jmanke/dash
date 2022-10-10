@@ -17,12 +17,12 @@ const Template = args => `<dash-button
   status=${args.status} ${args.disabled ? 'disabled' : undefined}
   >${args.content}</dash-button>`;
 
-export const Example = Template.bind({});
-Example.args = {
+export const DefaultButton = Template.bind({});
+DefaultButton.args = {
   theme: 'light-theme',
   content: 'Sample button',
-  scale: 'l',
-  startIcon: 'plus',
+  scale: 'm',
+  startIcon: null,
   status: null,
   disabled: false,
 };

@@ -52,6 +52,7 @@
     }
 
     dash-icon {
+      --dash-icon-size: 14px;
       margin-inline-end: var(--dash-spacing-1);
     }
   }
@@ -64,6 +65,7 @@
     }
 
     dash-icon {
+      --dash-icon-size: 18px;
       margin-inline-end: var(--dash-spacing-3);
     }
   }
@@ -86,6 +88,7 @@ button {
 }
 
 dash-icon {
+  --dash-icon-size: 16px;
   margin-inline-end: var(--dash-spacing-2);
   align-self: center;
 }

@@ -4,13 +4,6 @@ import { Scale } from '../../types/types';
 
 export type IconColor = 'primary' | 'secondary' | 'neutral';
 
-const SIZES = {
-  s: '16',
-  m: '20',
-  l: '32',
-  xl: '48',
-};
-
 @Component({
   tag: 'dash-icon',
   styleUrl: 'dash-icon.css',
@@ -97,9 +90,8 @@ export class DashIcon {
   //#endregion
 
   render() {
-    const width = this.width || SIZES[this.scale] || SIZES['m'];
     if (this.iconUrl && !this.iconUrlError) {
-      return <img width={width} src={this.iconUrl} onError={() => (this.iconUrlError = true)} />;
+      return <img src={this.iconUrl} onError={() => (this.iconUrlError = true)} />;
     }
 
     return (

@@ -92,11 +92,11 @@ export class DashChip {
               tabIndex={this.selectable ? 0 : -1}
               onClick={e => this.removeChip(e)}
             >
-              <dash-icon icon='x' width={10}></dash-icon>
+              <dash-icon class='close-chip' icon='x'></dash-icon>
             </button>
           )}
 
-          {this.removeable && this.dismissTooltipText && (
+          {this.removeable && this.dismissTooltipText && this.popoverTarget && (
             <dash-tooltip target={this.popoverTarget} text={this.dismissTooltipText} placementStrategy='fixed' offsetY={5} scale='s'></dash-tooltip>
           )}
         </div>

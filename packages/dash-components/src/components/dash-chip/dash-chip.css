@@ -27,6 +27,7 @@
   align-items: center;
   text-rendering: optimizeLegibility;
   cursor: pointer;
+  justify-content: space-between;
 
   dash-tooltip {
     color: var(--dash-text-color-1);
@@ -65,4 +66,8 @@
   &:active {
     background-color: var(--dash-bg-darken-2);
   }
+}
+
+dash-icon.close-chip {
+  --dash-icon-size: 10;
 }
