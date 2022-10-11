@@ -4,6 +4,13 @@
   display: inline-block;
   line-height: 1;
 
+  &([scale='s']) {
+    .color-swatch {
+      width: var(--dash-spacing-3);
+      height: var(--dash-spacing-3);
+    }
+  }
+
   &([scale='l']) {
     .color-swatch {
       width: var(--dash-spacing-8);
