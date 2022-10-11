@@ -1,0 +1,17 @@
+{
+  "$schema": "https://turborepo.org/schema.json",
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "www/**"]
+    },
+    "start:hellodash": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "www/**"]
+    },
+    "start:components": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "www/**"]
+    }
+  }
+}

@@ -8,17 +8,14 @@
   "license": "MIT",
   "private": true,
   "scripts": {
-    "build": "lerna run build",
-    "new-version": "lerna version --conventional-commits --yes",
-    "publish:patch": "lerna publish patch",
-    "publish:minor": "lerna publish minor",
-    "publish:major": "lerna publish major",
-    "start:app": "lerna run start:app"
+    "build": "turbo run build",
+    "start:hellodash": "turbo run start:hellodash",
+    "start:components": "turbo run start:components"
   },
   "workspaces": [
     "packages/*"
   ],
   "devDependencies": {
-    "lerna": "^5.3.0"
+    "turbo": "^1.5.6"
   }
 }

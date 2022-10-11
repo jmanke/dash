@@ -23,18 +23,15 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
-    "build:storybook": "stencil build --watch",
     "publish:npm": "npm publish",
-    "start:stencil": "stencil build --dev --watch --serve",
-    "start:stencil:storybook": "stencil build --dev --watch",
-    "start:storybook": "start-storybook -p 6006 --quiet",
-    "start": "cross-env concurrently 'yarn start:stencil:storybook' 'yarn start:storybook' -k",
-    "start:app": "stencil build",
+    "start": "cross-env concurrently 'yarn start:storybook' 'start-storybook -p 6006 --quiet' -k",
+    "start:storybook": "stencil build --dev --watch",
+    "start:components": "yarn start",
+    "start:hellodash": "stencil build",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js",
-    "build-storybook": "build-storybook"
+    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js"
   },
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",

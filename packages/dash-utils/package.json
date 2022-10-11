@@ -9,7 +9,8 @@
   "scripts": {
     "build": "npx tsc",
     "publish:npm": "npm publish",
-    "start:app": "yarn build"
+    "start:hellodash": "yarn build",
+    "start:components": "yarn build"
   },
   "files": [
     "lib/"
