@@ -7,13 +7,13 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type                        | Default     |
-| ------------- | ------------- | ----------- | --------------------------- | ----------- |
-| `debounce`    | `debounce`    |             | `number`                    | `250`       |
-| `items`       | --            |             | `string[] \| {}[]`          | `undefined` |
-| `objKey`      | `obj-key`     |             | `string`                    | `undefined` |
-| `placeholder` | `placeholder` |             | `string`                    | `'Filter'`  |
-| `scale`       | `scale`       |             | `"l" \| "m" \| "s" \| "xl"` | `'m'`       |
+| Property      | Attribute     | Description | Type                | Default     |
+| ------------- | ------------- | ----------- | ------------------- | ----------- |
+| `debounce`    | `debounce`    |             | `number`            | `250`       |
+| `items`       | --            |             | `string[] \| {}[]`  | `undefined` |
+| `objKey`      | `obj-key`     |             | `string`            | `undefined` |
+| `placeholder` | `placeholder` |             | `string`            | `'Filter'`  |
+| `scale`       | `scale`       |             | `"l" \| "m" \| "s"` | `'m'`       |
 
 
 ## Events

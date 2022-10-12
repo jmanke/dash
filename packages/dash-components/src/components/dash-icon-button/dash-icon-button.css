@@ -4,6 +4,7 @@
 :host {
   display: inline-block;
   --dash-icon-button-padding: var(--dash-spacing-1);
+  --dash-icon-color: var(--dash-text-color-1);
   line-height: 1;
 
   &([scale="s"]) {

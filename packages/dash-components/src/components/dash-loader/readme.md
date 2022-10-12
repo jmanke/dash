@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                        | Default     |
-| -------- | --------- | ----------- | --------------------------- | ----------- |
-| `scale`  | `scale`   |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
+| Property | Attribute | Description | Type                | Default     |
+| -------- | --------- | ----------- | ------------------- | ----------- |
+| `scale`  | `scale`   |             | `"l" \| "m" \| "s"` | `undefined` |
 
 
 ## Dependencies

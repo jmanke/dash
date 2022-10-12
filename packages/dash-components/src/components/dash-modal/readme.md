@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property                      | Attribute                        | Description | Type                        | Default     |
-| ----------------------------- | -------------------------------- | ----------- | --------------------------- | ----------- |
-| `autoFocus`                   | `auto-focus`                     |             | `boolean`                   | `undefined` |
-| `disableFullscreenMobileView` | `disable-fullscreen-mobile-view` |             | `boolean`                   | `undefined` |
-| `fullscreen`                  | `fullscreen`                     |             | `boolean`                   | `undefined` |
-| `heading`                     | `heading`                        |             | `string`                    | `undefined` |
-| `hideCloseButton`             | `hide-close-button`              |             | `boolean`                   | `undefined` |
-| `scale`                       | `scale`                          |             | `"l" \| "m" \| "s" \| "xl"` | `'m'`       |
+| Property                      | Attribute                        | Description | Type                | Default     |
+| ----------------------------- | -------------------------------- | ----------- | ------------------- | ----------- |
+| `autoFocus`                   | `auto-focus`                     |             | `boolean`           | `undefined` |
+| `disableFullscreenMobileView` | `disable-fullscreen-mobile-view` |             | `boolean`           | `undefined` |
+| `fullscreen`                  | `fullscreen`                     |             | `boolean`           | `undefined` |
+| `heading`                     | `heading`                        |             | `string`            | `undefined` |
+| `hideCloseButton`             | `hide-close-button`              |             | `boolean`           | `undefined` |
+| `scale`                       | `scale`                          |             | `"l" \| "m" \| "s"` | `'m'`       |
 
 
 ## Events

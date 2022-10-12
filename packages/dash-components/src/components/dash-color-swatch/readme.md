@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                        | Default     |
-| ---------- | ---------- | ----------- | --------------------------- | ----------- |
-| `color`    | `color`    |             | `string`                    | `undefined` |
-| `scale`    | `scale`    |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
-| `selected` | `selected` |             | `boolean`                   | `undefined` |
+| Property   | Attribute  | Description | Type                | Default     |
+| ---------- | ---------- | ----------- | ------------------- | ----------- |
+| `color`    | `color`    |             | `string`            | `undefined` |
+| `scale`    | `scale`    |             | `"l" \| "m" \| "s"` | `undefined` |
+| `selected` | `selected` |             | `boolean`           | `undefined` |
 
 
 ## Methods

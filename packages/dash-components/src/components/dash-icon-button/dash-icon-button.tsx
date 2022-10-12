@@ -1,5 +1,5 @@
 import { Component, Element, h, Method, Prop } from '@stencil/core';
-import { Scale } from '../../types/types';
+import { ScaleExtended } from '../../types/types';
 import { Placement } from '../dash-popover/dash-popover';
 
 @Component({
@@ -34,7 +34,7 @@ export class DashIconButton {
   @Prop({
     reflect: true,
   })
-  scale?: Scale;
+  scale?: ScaleExtended;
 
   @Prop({
     reflect: true,

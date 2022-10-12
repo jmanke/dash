@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Color, Scale, Status, Theme } from "./types/types";
+import { Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { SelectionMode } from "./components/dash-list/dash-list";
@@ -73,7 +73,7 @@ export namespace Components {
         "icon": string;
         "iconUrl": string;
         "rounded": boolean;
-        "scale"?: Scale;
+        "scale"?: ScaleExtended;
         "width"?: number;
     }
     interface DashIconButton {
@@ -82,7 +82,7 @@ export namespace Components {
         "iconUrl": string;
         "loading": boolean;
         "rounded": boolean;
-        "scale"?: Scale;
+        "scale"?: ScaleExtended;
         "setFocus": () => Promise<void>;
         "tooltipPlacement": Placement;
         "tooltipText"?: string;
@@ -514,7 +514,7 @@ declare namespace LocalJSX {
         "icon"?: string;
         "iconUrl"?: string;
         "rounded"?: boolean;
-        "scale"?: Scale;
+        "scale"?: ScaleExtended;
         "width"?: number;
     }
     interface DashIconButton {
@@ -523,7 +523,7 @@ declare namespace LocalJSX {
         "iconUrl"?: string;
         "loading"?: boolean;
         "rounded"?: boolean;
-        "scale"?: Scale;
+        "scale"?: ScaleExtended;
         "tooltipPlacement"?: Placement;
         "tooltipText"?: string;
         "type"?: string;

@@ -1,6 +1,6 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import iconService from '../../services/icon-service';
-import { Scale } from '../../types/types';
+import { ScaleExtended } from '../../types/types';
 
 export type IconColor = 'primary' | 'secondary' | 'neutral';
 
@@ -46,7 +46,7 @@ export class DashIcon {
   @Prop({
     reflect: true,
   })
-  scale?: Scale;
+  scale?: ScaleExtended;
 
   @Prop({
     reflect: true,

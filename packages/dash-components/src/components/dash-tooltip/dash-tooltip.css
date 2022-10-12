@@ -2,6 +2,7 @@
   display: block;
   position: absolute;
   pointer-events: none;
+  color: var(--dash-text-color-1);
 
   @media only screen and (max-width: 768px) {
     display: none;

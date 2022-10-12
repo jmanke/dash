@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property    | Attribute    | Description | Type                        | Default     |
-| ----------- | ------------ | ----------- | --------------------------- | ----------- |
-| `disabled`  | `disabled`   |             | `boolean`                   | `undefined` |
-| `scale`     | `scale`      |             | `"l" \| "m" \| "s" \| "xl"` | `undefined` |
-| `startIcon` | `start-icon` |             | `string`                    | `undefined` |
-| `status`    | `status`     |             | `"error" \| "success"`      | `undefined` |
+| Property    | Attribute    | Description | Type                   | Default     |
+| ----------- | ------------ | ----------- | ---------------------- | ----------- |
+| `disabled`  | `disabled`   |             | `boolean`              | `undefined` |
+| `scale`     | `scale`      |             | `"l" \| "m" \| "s"`    | `undefined` |
+| `startIcon` | `start-icon` |             | `string`               | `undefined` |
+| `status`    | `status`     |             | `"error" \| "success"` | `undefined` |
 
 
 ## Methods

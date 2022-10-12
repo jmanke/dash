@@ -7,15 +7,15 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type                        | Default     |
-| ------------- | ------------- | ----------- | --------------------------- | ----------- |
-| `clearable`   | `clearable`   |             | `boolean`                   | `undefined` |
-| `debounce`    | `debounce`    |             | `number`                    | `undefined` |
-| `icon`        | `icon`        |             | `string`                    | `undefined` |
-| `placeholder` | `placeholder` |             | `string`                    | `undefined` |
-| `scale`       | `scale`       |             | `"l" \| "m" \| "s" \| "xl"` | `'m'`       |
-| `type`        | `type`        |             | `string`                    | `undefined` |
-| `value`       | `value`       |             | `string`                    | `undefined` |
+| Property      | Attribute     | Description | Type                | Default     |
+| ------------- | ------------- | ----------- | ------------------- | ----------- |
+| `clearable`   | `clearable`   |             | `boolean`           | `undefined` |
+| `debounce`    | `debounce`    |             | `number`            | `undefined` |
+| `icon`        | `icon`        |             | `string`            | `undefined` |
+| `placeholder` | `placeholder` |             | `string`            | `undefined` |
+| `scale`       | `scale`       |             | `"l" \| "m" \| "s"` | `'m'`       |
+| `type`        | `type`        |             | `string`            | `undefined` |
+| `value`       | `value`       |             | `string`            | `undefined` |
 
 
 ## Events
