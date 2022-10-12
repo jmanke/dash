@@ -11,7 +11,6 @@
 | ------------------ | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
 | `disabled`         | `disabled`          |             | `boolean`                                                                                                                                                                                                    | `undefined` |
 | `icon`             | `icon`              |             | `string`                                                                                                                                                                                                     | `undefined` |
-| `iconScale`        | `icon-scale`        |             | `"l" \| "m" \| "s" \| "xl"`                                                                                                                                                                                  | `undefined` |
 | `iconUrl`          | `icon-url`          |             | `string`                                                                                                                                                                                                     | `undefined` |
 | `loading`          | `loading`           |             | `boolean`                                                                                                                                                                                                    | `undefined` |
 | `rounded`          | `rounded`           |             | `boolean`                                                                                                                                                                                                    | `undefined` |
@@ -19,7 +18,6 @@
 | `tooltipPlacement` | `tooltip-placement` |             | `"auto" \| "auto-end" \| "auto-start" \| "bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined` |
 | `tooltipText`      | `tooltip-text`      |             | `string`                                                                                                                                                                                                     | `undefined` |
 | `type`             | `type`              |             | `string`                                                                                                                                                                                                     | `undefined` |
-| `width`            | `width`             |             | `number`                                                                                                                                                                                                     | `undefined` |
 
 
 ## Methods

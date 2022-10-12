@@ -6,6 +6,13 @@
   --dash-icon-button-padding: var(--dash-spacing-1);
   line-height: 1;
 
+  &([scale="s"]) {
+    button {
+      width: var(--dash-spacing-6);
+      height: var(--dash-spacing-6);
+    }
+  }
+
   &([scale="l"]) {
     button {
       width: var(--dash-spacing-12);

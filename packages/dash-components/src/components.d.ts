@@ -79,7 +79,6 @@ export namespace Components {
     interface DashIconButton {
         "disabled": boolean;
         "icon": string;
-        "iconScale"?: Scale;
         "iconUrl": string;
         "loading": boolean;
         "rounded": boolean;
@@ -88,7 +87,6 @@ export namespace Components {
         "tooltipPlacement": Placement;
         "tooltipText"?: string;
         "type": string;
-        "width"?: number;
     }
     interface DashInlineEdit {
         "value": string;
@@ -522,7 +520,6 @@ declare namespace LocalJSX {
     interface DashIconButton {
         "disabled"?: boolean;
         "icon"?: string;
-        "iconScale"?: Scale;
         "iconUrl"?: string;
         "loading"?: boolean;
         "rounded"?: boolean;
@@ -530,7 +527,6 @@ declare namespace LocalJSX {
         "tooltipPlacement"?: Placement;
         "tooltipText"?: string;
         "type"?: string;
-        "width"?: number;
     }
     interface DashInlineEdit {
         "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<string>) => void;

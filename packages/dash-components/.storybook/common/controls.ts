@@ -10,6 +10,11 @@ export const scaleControl = {
   control: { type: 'radio' },
 };
 
+export const scaleExtendedControl = {
+  options: ['s', 'm', 'l', 'xl'],
+  control: { type: 'radio' },
+};
+
 export const iconControl = {
   options: [null, ...icons],
   control: { type: 'select' },
@@ -17,5 +22,5 @@ export const iconControl = {
 
 export const statusControl = {
   options: [null, 'success', 'error'],
-  control: { type: 'select' }
-}
+  control: { type: 'select' },
+};

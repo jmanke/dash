@@ -1,15 +1,13 @@
-import { iconControl, scaleControl, themeControl } from '../../../.storybook/common/controls';
+import { iconControl, scaleExtendedControl, themeControl } from '../../../.storybook/common/controls';
 
 export default {
   title: 'Components/Dash Icon Button',
   argTypes: {
-    scale: scaleControl,
-    iconScale: scaleControl,
+    scale: scaleExtendedControl,
     theme: themeControl,
     icon: iconControl,
     iconUrl: { control: { type: 'text' } },
-    width: { control: { type: 'number' } },
-    tooltipText: { control: { type: 'text' } }
+    tooltipText: { control: { type: 'text' } },
   },
 };
 
@@ -18,9 +16,7 @@ const Template = args => `<dash-icon-button
   scale=${args.scale}
   ${args.icon ? `icon=${args.icon}` : undefined}
   ${args.iconUrl ? `icon-url=${args.iconUrl}` : undefined}
-  icon-scale=${args.iconScale}
-  ${args.width ? `width=${args.width}` : undefined}
-  ${args.loading ? `loading=${args.loading}` : undefined}
+  ${args.loading ? 'loading' : undefined}
   ${args.disabled ? 'disabled' : undefined}
   type=${args.type}
   ${args.rounded ? 'rounded' : undefined}
@@ -34,8 +30,6 @@ DefaultIconButton.args = {
   scale: 'm',
   icon: 'plus',
   iconUrl: null,
-  iconScale: 'm',
-  width: null,
   loading: false,
   disabled: false,
   type: 'button',

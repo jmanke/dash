@@ -1,9 +1,9 @@
-import { scaleControl, iconControl } from '../../../.storybook/common/controls';
+import { iconControl, scaleExtendedControl } from '../../../.storybook/common/controls';
 
 export default {
   title: 'Components/Dash Icon',
   argTypes: {
-    scale: scaleControl,
+    scale: scaleExtendedControl,
     icon: iconControl,
     iconUrl: { control: { type: 'text' } },
     width: { control: { type: 'number' } },
