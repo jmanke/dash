@@ -1,1 +1,8 @@
-@import "~@didyoumeantoast/dash-components/dist/dash-components/dash-components.css";
+@import '~@didyoumeantoast/dash-components/dist/dash-components/dash-components.css';
+
+// don't use tooltips when in mobile view
+dash-tooltip {
+  @media only screen and (max-width: 768px) {
+    display: none;
+  }
+}

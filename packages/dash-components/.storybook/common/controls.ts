@@ -24,3 +24,29 @@ export const statusControl = {
   options: [null, 'success', 'error'],
   control: { type: 'select' },
 };
+
+export const placementStrategyControl = {
+  options: ['fixed', 'absolute'],
+  control: { type: 'radio' },
+};
+
+export const placementControl = {
+  options: [
+    'auto',
+    'auto-start',
+    'auto-end',
+    'top',
+    'bottom',
+    'right',
+    'left',
+    'top-start',
+    'top-end',
+    'bottom-start',
+    'bottom-end',
+    'right-start',
+    'right-end',
+    'left-start',
+    'left-end',
+  ],
+  control: { type: 'select' },
+};

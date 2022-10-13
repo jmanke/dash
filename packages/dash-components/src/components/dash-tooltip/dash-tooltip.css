@@ -3,16 +3,30 @@
   position: absolute;
   pointer-events: none;
   color: var(--dash-text-color-1);
-
-  @media only screen and (max-width: 768px) {
-    display: none;
-  }
 }
 
 :host([scale='s']) {
   .tooltip {
     padding: var(--dash-spacing-1);
     font-size: var(--dash-font-size-0);
+  }
+
+  &([arrow]) {
+    .tooltip {
+      &::after {
+        width: var(--dash-spacing-2);
+        height: var(--dash-spacing-2);
+      }
+    }
+  }
+}
+
+:host([scale='s'][arrow]) {
+  .tooltip {
+    &::after {
+      width: var(--dash-spacing-2);
+      height: var(--dash-spacing-2);
+    }
   }
 }
 
