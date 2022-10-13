@@ -3,21 +3,16 @@
   position: absolute;
   pointer-events: none;
   color: var(--dash-text-color-1);
+
+  @media (hover: none) {
+    display: none;
+  }
 }
 
 :host([scale='s']) {
   .tooltip {
     padding: var(--dash-spacing-1);
     font-size: var(--dash-font-size-0);
-  }
-
-  &([arrow]) {
-    .tooltip {
-      &::after {
-        width: var(--dash-spacing-2);
-        height: var(--dash-spacing-2);
-      }
-    }
   }
 }
 
@@ -59,6 +54,7 @@
       top: 50%;
       left: 0;
       transform: translate(-50%, -50%) rotate(45deg);
+      pointer-events: none;
     }
   }
 }
