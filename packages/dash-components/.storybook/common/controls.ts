@@ -50,3 +50,15 @@ export const placementControl = {
   ],
   control: { type: 'select' },
 };
+
+export const colors = ['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink'];
+
+export const colorControl = {
+  options: colors,
+  control: { type: 'select' },
+};
+
+export const multiColorControl = {
+  options: colors,
+  control: { type: 'multi-select' },
+};
