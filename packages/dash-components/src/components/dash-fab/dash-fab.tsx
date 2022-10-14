@@ -1,4 +1,5 @@
 import { Component, Host, h, Prop } from '@stencil/core';
+import { ScaleExtended } from '../../types/types';
 
 @Component({
   tag: 'dash-fab',
@@ -20,6 +21,11 @@ export class DashFab {
     reflect: true,
   })
   icon: string;
+
+  @Prop({
+    reflect: true,
+  })
+  scale: ScaleExtended;
   //#endregion
 
   //#region @Event
@@ -40,8 +46,7 @@ export class DashFab {
   render() {
     return (
       <Host>
-        <dash-icon-button icon={this.icon} scale='xl' rounded></dash-icon-button>
-        <slot></slot>
+        <dash-icon-button icon={this.icon} scale={this.scale || 'xl'} rounded></dash-icon-button>
       </Host>
     );
   }

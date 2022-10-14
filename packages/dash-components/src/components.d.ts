@@ -49,6 +49,7 @@ export namespace Components {
     }
     interface DashFab {
         "icon": string;
+        "scale": ScaleExtended;
     }
     interface DashFilter {
         "clear": () => Promise<void>;
@@ -490,6 +491,7 @@ declare namespace LocalJSX {
     }
     interface DashFab {
         "icon"?: string;
+        "scale"?: ScaleExtended;
     }
     interface DashFilter {
         "debounce"?: number;
