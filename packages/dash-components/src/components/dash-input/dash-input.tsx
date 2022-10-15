@@ -5,6 +5,12 @@ import { debounce, DebouncedFunc } from 'lodash';
 import { Scale } from '../../types/types';
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
 
+const ICON_SCALE: { s: Scale; m: Scale; l: Scale } = Object.freeze({
+  s: 's',
+  m: 's',
+  l: 'm',
+});
+
 @Component({
   tag: 'dash-input',
   styleUrl: 'dash-input.css',
@@ -126,7 +132,7 @@ export class DashInput implements Focusable {
     return (
       <div class='wrapper' onClick={() => this.setFocus()}>
         <div class='input-wrapper'>
-          {this.icon && <dash-icon icon={this.icon} scale='s'></dash-icon>}
+          {this.icon && <dash-icon icon={this.icon} scale={ICON_SCALE[this.scale] ?? 's'}></dash-icon>}
           <input
             type={this.type ?? 'text'}
             ref={e => (this.inputElement = e)}
@@ -143,6 +149,7 @@ export class DashInput implements Focusable {
               scale={this.scale}
               onClick={e => this.clearInput(e)}
               tabindex='-1'
+              rounded
             ></dash-icon-button>
           )}
         </div>

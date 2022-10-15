@@ -1,18 +1,20 @@
 :host {
   display: block;
+  --dash-input-padding: var(--dash-spacing-1) var(--dash-spacing-2);
+  --dash-input-font-size: var(--dash-font-size-1);
 
   &([icon]) input {
     padding-left: var(--dash-spacing-2);
   }
 
-  &([scale='m']) {
-    --dash-input-padding: var(--dash-spacing-1) var(--dash-spacing-2);
-    --dash-input-font-size: var(--dash-font-size-1);
+  &([scale='s']) {
+    --dash-input-padding: var(--dash-spacing-half) var(--dash-spacing-1-half);
+    --dash-input-font-size: var(--dash-font-size-0);
   }
 
   &([scale='l']) {
     --dash-input-padding: var(--dash-spacing-3) var(--dash-spacing-4);
-    --dash-input-font-size: var(--dash-font-size-3);
+    --dash-input-font-size: var(--dash-font-size-4);
 
     .wrapper {
       border: var(--dash-border-style-1);
@@ -22,7 +24,7 @@
       }
     }
 
-    dash-icon-button { 
+    dash-icon-button {
       right: calc(-1 * var(--dash-spacing-2));
     }
   }
@@ -91,4 +93,8 @@ dash-icon-button {
   &.visible {
     visibility: inherit;
   }
+}
+
+dash-icon {
+  color: var(--dash-text-color-1);
 }
