@@ -146,7 +146,7 @@ export class DashInput implements Focusable {
             <dash-icon-button
               class={spaceConcat('clear-btn', !isEmpty(this.value) && 'visible')}
               icon='x'
-              scale={this.scale}
+              scale={ICON_SCALE[this.scale] ?? 's'}
               onClick={e => this.clearInput(e)}
               tabindex='-1'
               rounded

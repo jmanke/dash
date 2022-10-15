@@ -14,7 +14,7 @@
 
   &([scale='l']) {
     --dash-input-padding: var(--dash-spacing-3) var(--dash-spacing-4);
-    --dash-input-font-size: var(--dash-font-size-4);
+    --dash-input-font-size: var(--dash-font-size-3);
 
     .wrapper {
       border: var(--dash-border-style-1);
