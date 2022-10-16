@@ -1,7 +1,7 @@
 import { Component, Host, h, Prop, State } from '@stencil/core';
 import { Breakpoint } from '../../global/constants';
 
-type ColSize = 'xs' | 's' | 'm' | 'l' | 'xl';
+type ColSize = 's' | 'm' | 'l' | 'xl';
 
 @Component({
   tag: 'dash-grid',
