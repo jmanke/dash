@@ -1,4 +1,5 @@
 import { themeControl } from '../../../.storybook/common/controls';
+import { booleanAttribute, formatAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Chip',
@@ -9,10 +10,10 @@ export default {
 
 const Template = args => `<dash-chip
   class=${args.theme}
-  heading=${args.heading} 
-  ${args.selectable && `selectable=${args.selectable}`}
-  ${args.removeable && `removeable=${args.removeable}`}
-  dismiss-tooltip-text=${args.dismissTooltipText}
+  heading=${args.heading}
+  ${booleanAttribute('selectable', args.selectable)}
+  ${booleanAttribute('removeable', args.removeable)}
+  ${formatAttribute('dismiss-tooltip-text', args.dismissTooltipText)}
   color=${args.color}
   >${args.content}</dash-icon>`;
 

@@ -8,11 +8,7 @@ export default {
   },
 };
 
-const Template = args => `<dash-fab 
-  class=${args.theme}
-  icon=${args.icon}
-  scale=${args.scale}
-  ></dash-fab>`;
+const Template = args => `<dash-fab class=${args.theme} icon=${args.icon} scale=${args.scale}></dash-fab>`;
 
 export const DefaultFab = Template.bind({});
 DefaultFab.args = {

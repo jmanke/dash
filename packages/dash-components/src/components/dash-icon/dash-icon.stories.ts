@@ -1,4 +1,5 @@
 import { iconControl, scaleExtendedControl } from '../../../.storybook/common/controls';
+import { nullableAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Icon',
@@ -10,12 +11,15 @@ export default {
   },
 };
 
-const Template = args => `<dash-icon 
-  scale=${args.scale} 
-  ${args.icon ? `icon=${args.icon}` : undefined}
-  ${args.iconUrl ? `icon-url=${args.iconUrl}` : undefined}
-  style=${args.width ? `--dash-icon-size:${Number.parseInt(args.width)}px;` : undefined}
-  >${args.content}</dash-icon>`;
+const Template = args => {
+  return `<dash-icon
+    scale=${args.scale}
+    ${nullableAttribute('icon', args.icon)}
+    ${nullableAttribute('icon-url', args.iconUrl)}
+    style=${args.width && args.width > 0 ? `--dash-icon-size:${Number.parseInt(args.width)}px;` : undefined}
+    >${args.content}</dash-icon
+  >`;
+};
 
 export const DefaultIcon = Template.bind({});
 DefaultIcon.args = {
