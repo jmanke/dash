@@ -90,6 +90,8 @@ export namespace Components {
         "type": string;
     }
     interface DashInlineEdit {
+        "disabled": boolean;
+        "scale": Scale;
         "value": string;
     }
     interface DashInput {
@@ -531,7 +533,9 @@ declare namespace LocalJSX {
         "type"?: string;
     }
     interface DashInlineEdit {
+        "disabled"?: boolean;
         "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<string>) => void;
+        "scale"?: Scale;
         "value"?: string;
     }
     interface DashInput {

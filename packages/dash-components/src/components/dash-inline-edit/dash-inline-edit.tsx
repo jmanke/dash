@@ -1,5 +1,6 @@
 import { classExists } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
+import { Scale } from '../../types/types';
 
 type EditMode = 'button' | 'input';
 
@@ -39,6 +40,16 @@ export class DashInlineEdit {
     reflect: true,
   })
   value: string;
+
+  @Prop({
+    reflect: true,
+  })
+  scale: Scale;
+
+  @Prop({
+    reflect: true,
+  })
+  disabled: boolean;
   //#endregion
 
   //#region @Event
@@ -89,14 +100,21 @@ export class DashInlineEdit {
   render() {
     return (
       <Host>
-        <dash-button ref={element => (this.buttonElement = element)} class={this.mode !== 'button' ? 'hidden' : ''} onClick={this.switchToInputMode.bind(this)}>
+        <dash-button
+          ref={element => (this.buttonElement = element)}
+          class={this.mode !== 'button' ? 'hidden' : ''}
+          scale={this.scale}
+          disabled={this.disabled}
+          onClick={this.switchToInputMode.bind(this)}
+        >
           {this.value}
         </dash-button>
 
         <dash-input
           ref={element => (this.inputElement = element)}
-          class={this.mode !== 'input' ? 'hidden' : ''}
+          class={(this.mode !== 'input' || this.disabled) ? 'hidden' : ''}
           value={this.value}
+          scale={this.scale}
           onDashInputInput={this.inputChanged.bind(this)}
           onDashInputSubmit={this.submit.bind(this)}
           onFocusout={this.updateValue.bind(this)}
