@@ -1653,6 +1653,18 @@
   dependencies:
     "@sinonjs/commons" "^1.7.0"
 
+"@stencil-community/router@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@stencil-community/router/-/router-1.0.2.tgz#5cc54aae9f2d5f496c680b62dbf9b9acbe6c90ad"
+  integrity sha512-GQkhcwDZdkX6k6rE/ZqrH2mbxGt9wPq0KGAdwPJOcZJbfq9cKaSMOuS7heDEBcWgXgxJS2rKqwUKyKTj41g9pA==
+  dependencies:
+    "@stencil/state-tunnel" "^1.0.1"
+
+"@stencil/core@2.13.0":
+  version "2.13.0"
+  resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.13.0.tgz#993fd74a5c7c8fe8af75848ca9df2211cd05b818"
+  integrity sha512-EEKHOHgYpg3/iFUKMXTZJjUayRul7sXDwNw0OGgkEOe4t7JWiibDkzUHuruvpbqEydX+z1+ez5K2bMMY76c2wA==
+
 "@stencil/core@^2.13.0", "@stencil/core@^2.15.0":
   version "2.17.3"
   resolved "https://registry.yarnpkg.com/@stencil/core/-/core-2.17.3.tgz#b86cb76eb57231ce1f04014c2a51d1690c64325d"

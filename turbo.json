@@ -12,6 +12,10 @@
     "start:components": {
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "www/**"]
+    },
+    "start:dashbook": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**", "www/**"]
     }
   }
 }
