@@ -25,8 +25,8 @@ const Template = args => `
   </dash-grid>
   `;
 
-export const DefaultFab = Template.bind({});
-DefaultFab.args = {
+export const DefaultGrid = Template.bind({});
+DefaultGrid.args = {
   colS: 1,
   colM: 2,
   colL: 3,
