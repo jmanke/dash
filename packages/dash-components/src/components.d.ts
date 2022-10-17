@@ -105,10 +105,6 @@ export namespace Components {
         "type": string;
         "value": string;
     }
-    interface DashLabel {
-        "for": string;
-        "layout": string;
-    }
     interface DashList {
         "selectionMode": SelectionMode;
     }
@@ -318,12 +314,6 @@ declare global {
         prototype: HTMLDashInputElement;
         new (): HTMLDashInputElement;
     };
-    interface HTMLDashLabelElement extends Components.DashLabel, HTMLStencilElement {
-    }
-    var HTMLDashLabelElement: {
-        prototype: HTMLDashLabelElement;
-        new (): HTMLDashLabelElement;
-    };
     interface HTMLDashListElement extends Components.DashList, HTMLStencilElement {
     }
     var HTMLDashListElement: {
@@ -435,7 +425,6 @@ declare global {
         "dash-icon-button": HTMLDashIconButtonElement;
         "dash-inline-edit": HTMLDashInlineEditElement;
         "dash-input": HTMLDashInputElement;
-        "dash-label": HTMLDashLabelElement;
         "dash-list": HTMLDashListElement;
         "dash-list-item": HTMLDashListItemElement;
         "dash-loader": HTMLDashLoaderElement;
@@ -549,10 +538,6 @@ declare namespace LocalJSX {
         "type"?: string;
         "value"?: string;
     }
-    interface DashLabel {
-        "for"?: string;
-        "layout"?: string;
-    }
     interface DashList {
         "selectionMode"?: SelectionMode;
     }
@@ -649,7 +634,6 @@ declare namespace LocalJSX {
         "dash-icon-button": DashIconButton;
         "dash-inline-edit": DashInlineEdit;
         "dash-input": DashInput;
-        "dash-label": DashLabel;
         "dash-list": DashList;
         "dash-list-item": DashListItem;
         "dash-loader": DashLoader;
@@ -686,7 +670,6 @@ declare module "@stencil/core" {
             "dash-icon-button": LocalJSX.DashIconButton & JSXBase.HTMLAttributes<HTMLDashIconButtonElement>;
             "dash-inline-edit": LocalJSX.DashInlineEdit & JSXBase.HTMLAttributes<HTMLDashInlineEditElement>;
             "dash-input": LocalJSX.DashInput & JSXBase.HTMLAttributes<HTMLDashInputElement>;
-            "dash-label": LocalJSX.DashLabel & JSXBase.HTMLAttributes<HTMLDashLabelElement>;
             "dash-list": LocalJSX.DashList & JSXBase.HTMLAttributes<HTMLDashListElement>;
             "dash-list-item": LocalJSX.DashListItem & JSXBase.HTMLAttributes<HTMLDashListItemElement>;
             "dash-loader": LocalJSX.DashLoader & JSXBase.HTMLAttributes<HTMLDashLoaderElement>;
