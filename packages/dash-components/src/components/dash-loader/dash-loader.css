@@ -4,10 +4,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  --dash-loader-size: 40px;
+  --dash-loader-size: var(--dash-spacing-10);
 
   &([scale="s"]) {
-    --dash-loader-size: 20px;
+    --dash-loader-size: var(--dash-spacing-5);
+  }
+
+  &([scale="l"]) {
+    --dash-loader-size: var(--dash-spacing-16);
   }
 }
 
