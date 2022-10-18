@@ -16,6 +16,7 @@ button {
   block-size: var(--dash-spacing-12);
   aspect-ratio: 1;
   border-radius: var(--dash-spacing-full);
+  color: var(--dash-text-1);
 
   cursor: pointer;
   touch-action: manipulation;
