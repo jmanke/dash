@@ -126,13 +126,8 @@ export namespace Components {
         "hideCloseButton": boolean;
         "scale": Scale;
     }
-    interface DashNavLink {
-        "href": string;
-    }
     interface DashPageContainer {
         "fullpage"?: boolean;
-    }
-    interface DashPanel {
     }
     interface DashPopover {
         "active": boolean;
@@ -338,23 +333,11 @@ declare global {
         prototype: HTMLDashModalElement;
         new (): HTMLDashModalElement;
     };
-    interface HTMLDashNavLinkElement extends Components.DashNavLink, HTMLStencilElement {
-    }
-    var HTMLDashNavLinkElement: {
-        prototype: HTMLDashNavLinkElement;
-        new (): HTMLDashNavLinkElement;
-    };
     interface HTMLDashPageContainerElement extends Components.DashPageContainer, HTMLStencilElement {
     }
     var HTMLDashPageContainerElement: {
         prototype: HTMLDashPageContainerElement;
         new (): HTMLDashPageContainerElement;
-    };
-    interface HTMLDashPanelElement extends Components.DashPanel, HTMLStencilElement {
-    }
-    var HTMLDashPanelElement: {
-        prototype: HTMLDashPanelElement;
-        new (): HTMLDashPanelElement;
     };
     interface HTMLDashPopoverElement extends Components.DashPopover, HTMLStencilElement {
     }
@@ -429,9 +412,7 @@ declare global {
         "dash-list-item": HTMLDashListItemElement;
         "dash-loader": HTMLDashLoaderElement;
         "dash-modal": HTMLDashModalElement;
-        "dash-nav-link": HTMLDashNavLinkElement;
         "dash-page-container": HTMLDashPageContainerElement;
-        "dash-panel": HTMLDashPanelElement;
         "dash-popover": HTMLDashPopoverElement;
         "dash-scrim": HTMLDashScrimElement;
         "dash-section": HTMLDashSectionElement;
@@ -562,13 +543,8 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: DashModalCustomEvent<any>) => void;
         "scale"?: Scale;
     }
-    interface DashNavLink {
-        "href"?: string;
-    }
     interface DashPageContainer {
         "fullpage"?: boolean;
-    }
-    interface DashPanel {
     }
     interface DashPopover {
         "active"?: boolean;
@@ -638,9 +614,7 @@ declare namespace LocalJSX {
         "dash-list-item": DashListItem;
         "dash-loader": DashLoader;
         "dash-modal": DashModal;
-        "dash-nav-link": DashNavLink;
         "dash-page-container": DashPageContainer;
-        "dash-panel": DashPanel;
         "dash-popover": DashPopover;
         "dash-scrim": DashScrim;
         "dash-section": DashSection;
@@ -674,9 +648,7 @@ declare module "@stencil/core" {
             "dash-list-item": LocalJSX.DashListItem & JSXBase.HTMLAttributes<HTMLDashListItemElement>;
             "dash-loader": LocalJSX.DashLoader & JSXBase.HTMLAttributes<HTMLDashLoaderElement>;
             "dash-modal": LocalJSX.DashModal & JSXBase.HTMLAttributes<HTMLDashModalElement>;
-            "dash-nav-link": LocalJSX.DashNavLink & JSXBase.HTMLAttributes<HTMLDashNavLinkElement>;
             "dash-page-container": LocalJSX.DashPageContainer & JSXBase.HTMLAttributes<HTMLDashPageContainerElement>;
-            "dash-panel": LocalJSX.DashPanel & JSXBase.HTMLAttributes<HTMLDashPanelElement>;
             "dash-popover": LocalJSX.DashPopover & JSXBase.HTMLAttributes<HTMLDashPopoverElement>;
             "dash-scrim": LocalJSX.DashScrim & JSXBase.HTMLAttributes<HTMLDashScrimElement>;
             "dash-section": LocalJSX.DashSection & JSXBase.HTMLAttributes<HTMLDashSectionElement>;
