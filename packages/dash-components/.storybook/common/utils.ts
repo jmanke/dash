@@ -19,7 +19,7 @@ export function nullableAttribute(attribute: string, value: any) {
  * @returns attribute name without value if value is true
  */
 export function booleanAttribute(attribute: string, value: boolean) {
-  if (value === undefined || value === null || !value) {
+  if (value === undefined || value === null || value === false) {
     return;
   }
 
