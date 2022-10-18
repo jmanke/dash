@@ -7,9 +7,11 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type     | Default     |
-| -------- | --------- | ----------- | -------- | ----------- |
-| `value`  | `value`   |             | `string` | `undefined` |
+| Property   | Attribute  | Description | Type                | Default     |
+| ---------- | ---------- | ----------- | ------------------- | ----------- |
+| `disabled` | `disabled` |             | `boolean`           | `undefined` |
+| `scale`    | `scale`    |             | `"l" \| "m" \| "s"` | `undefined` |
+| `value`    | `value`    |             | `string`            | `undefined` |
 
 
 ## Events

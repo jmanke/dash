@@ -29,6 +29,8 @@
 
 <!-- END Copy and paste regions -->
 
+<!-- BEGIN Component region documentation -->
+
 @Component({
 tag: 'dash-something',
 styleUrls: {
@@ -186,3 +188,5 @@ updateState() {
   );
   }
   }
+
+<!-- END Component region documentation -->

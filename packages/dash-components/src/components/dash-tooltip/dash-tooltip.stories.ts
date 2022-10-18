@@ -1,4 +1,5 @@
 import { placementControl, placementStrategyControl, scaleControl, themeControl } from '../../../.storybook/common/controls';
+import { booleanAttribute, formatAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Tooltip',
@@ -16,20 +17,20 @@ const Template = args => `
 
 <dash-tooltip
   class=${args.theme}
-  target="dash-tooltip-test",
-  text=${args.text}
+  target="dash-tooltip-test"
+  ${formatAttribute('text', args.text)}
   placement-strategy=${args.placementStrategy}
   offset-x=${args.offsetX}
   offset-y=${args.offsetY}
   placement=${args.placement}
   scale=${args.scale}
-  ${args.arrow ? 'arrow' : undefined}
+  ${booleanAttribute('arrow', args.arrow)}
   enabled=${args.enabled}
   </dash-tooltip>
 </div>`;
 
-export const DefaultChip = Template.bind({});
-DefaultChip.args = {
+export const DefaultTooltip = Template.bind({});
+DefaultTooltip.args = {
   theme: 'light-theme',
   text: 'Tooltip text',
   placementStrategy: 'fixed',

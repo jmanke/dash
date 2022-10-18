@@ -8,7 +8,7 @@
   }
 
   &([scale='s']) {
-    --dash-input-padding: var(--dash-spacing-half) var(--dash-spacing-1-half);
+    --dash-input-padding: 0 var(--dash-spacing-1-half);
     --dash-input-font-size: var(--dash-font-size-0);
   }
 

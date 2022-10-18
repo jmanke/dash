@@ -1,4 +1,5 @@
 import { scaleControl, themeControl } from '../../../.storybook/common/controls';
+import { nullableAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Filter',
@@ -10,13 +11,13 @@ export default {
 
 const objKey = 'id';
 
-const Template = args => `<dash-filter 
+const Template = args => `<dash-filter
   class=${args.theme}
   scale=${args.scale}
-  ${args.placeholder ? `placeholder=${args.placeholder}` : undefined}
+  ${nullableAttribute('placeholder', args.placeholder)}
   obj-key=${objKey}
   debounce=${args.debounce}
-  ></dash-filter>`;
+></dash-filter>`;
 
 export const DefaultFilter = Template.bind({});
 DefaultFilter.args = {

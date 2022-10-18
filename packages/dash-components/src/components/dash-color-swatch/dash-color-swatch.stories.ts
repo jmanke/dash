@@ -8,12 +8,7 @@ export default {
   },
 };
 
-const Template = args => `<dash-color-swatch 
-  class=${args.theme}
-  scale=${args.scale} 
-  color=${args.color}
-  selected=${args.selected}
-  >${args.content}</dash-color-swatch>`;
+const Template = args => `<dash-color-swatch class=${args.theme} scale=${args.scale} color=${args.color} selected=${args.selected}>${args.content}</dash-color-swatch>`;
 
 export const DefaultColorSwatch = Template.bind({});
 DefaultColorSwatch.args = {

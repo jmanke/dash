@@ -1,4 +1,5 @@
 import { scaleControl, iconControl, statusControl, themeControl } from '../../../.storybook/common/controls';
+import { booleanAttribute, nullableAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Button',
@@ -10,12 +11,14 @@ export default {
   },
 };
 
-const Template = args => `<dash-button 
+const Template = args => `<dash-button
   class=${args.theme}
-  scale=${args.scale} 
-  ${args.startIcon && `start-icon=${args.startIcon}`}
-  status=${args.status} ${args.disabled ? 'disabled' : undefined}
-  >${args.content}</dash-button>`;
+  scale=${args.scale}
+  ${nullableAttribute('start-icon', args.startIcon)}
+  ${nullableAttribute('status', args.status)}
+  ${booleanAttribute('disabled', args.disabled)}
+  >${args.content}</dash-button
+>`;
 
 export const DefaultButton = Template.bind({});
 DefaultButton.args = {

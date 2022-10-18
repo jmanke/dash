@@ -1,4 +1,5 @@
 import { iconControl, scaleControl, themeControl } from '../../../.storybook/common/controls';
+import { booleanAttribute, nullableAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Input',
@@ -9,16 +10,15 @@ export default {
   },
 };
 
-const Template = args => `<dash-input 
+const Template = args => `<dash-input
   class=${args.theme}
   scale=${args.scale}
-  ${args.placeholder ? `placeholder=${args.placeholder}` : undefined}
-  ${args.icon ? `icon=${args.icon}` : undefined}
-  ${args.clearable ? 'clearable' : undefined}
+  ${nullableAttribute('placeholder', args.placeholder)}
+  ${nullableAttribute('icon', args.icon)}
+  ${booleanAttribute('clearable', args.clearable)}
   debounce=${args.debounce}
   type=${args.type}
-  ></dash-input>
-  `;
+></dash-input> `;
 
 export const DefaultInput = Template.bind({});
 DefaultInput.args = {

@@ -1,4 +1,5 @@
 import { iconControl, scaleExtendedControl, themeControl } from '../../../.storybook/common/controls';
+import { booleanAttribute, nullableAttribute } from '../../../.storybook/common/utils';
 
 export default {
   title: 'Components/Dash Icon Button',
@@ -11,18 +12,18 @@ export default {
   },
 };
 
-const Template = args => `<dash-icon-button 
+const Template = args => `<dash-icon-button
   class=${args.theme}
   scale=${args.scale}
-  ${args.icon ? `icon=${args.icon}` : undefined}
-  ${args.iconUrl ? `icon-url=${args.iconUrl}` : undefined}
-  ${args.loading ? 'loading' : undefined}
-  ${args.disabled ? 'disabled' : undefined}
+  ${nullableAttribute('icon', args.icon)}
+  ${nullableAttribute('icon-url', args.iconUrl)}
+  ${booleanAttribute('loading', args.loading)}
+  ${booleanAttribute('disabled', args.disabled)}
+  ${booleanAttribute('rounded', args.rounded)}
+  ${nullableAttribute('tooltip-text', args.tooltipText)}
   type=${args.type}
-  ${args.rounded ? 'rounded' : undefined}
-  ${args.tooltipText ? `tooltip-text=${args.tooltipText}` : undefined}
   tooltip-placement=${args.tooltipPlacement}
-  ></dash-icon-button>`;
+></dash-icon-button>`;
 
 export const DefaultIconButton = Template.bind({});
 DefaultIconButton.args = {

@@ -24,7 +24,7 @@
   "scripts": {
     "build": "stencil build --docs",
     "publish:npm": "npm publish",
-    "start": "cross-env concurrently 'yarn start:storybook' 'start-storybook -p 6006 --quiet' -k",
+    "start": "cross-env concurrently 'yarn start:storybook' 'start-storybook -p 6006 --quiet' -g -k",
     "start:storybook": "stencil build --dev --watch",
     "start:components": "yarn start",
     "start:hellodash": "stencil build",

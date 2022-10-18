@@ -1,6 +1,6 @@
 # Welcome to Dash Components!
 
-Dash components is a shared component library built entirely in StencilJS. 
+Dash components is a shared component library built entirely in StencilJS.
 
 ## How to integrate
 
@@ -10,4 +10,8 @@ Dash components is a shared component library built entirely in StencilJS.
 2. Import `@didyoumeantoast/dash-components/dist/dash-components/dash-components.css` into the global css file
 3. Import `@didyoumeantoast/dash-components` into global app.ts
 4. Copy assets folder into build assets in stencil.config.ts
-    `{ src: '../node_modules/@didyoumeantoast/dash-components/dist/dash-components/assets', dest: 'build/assets' }`
+   `{ src: '../node_modules/@didyoumeantoast/dash-components/dist/dash-components/assets', dest: 'build/assets' }`
+
+### Developing dash-components
+
+Run "echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p" to ensure storybook correctly updates when files are changed

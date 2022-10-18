@@ -8,18 +8,11 @@ export default {
   },
 };
 
-const Template = args => `<dash-color-picker
-  style="width: fit-content;"
-  class=${args.theme}
-  selected-color=${args.selectedColor}
-  cols=${args.cols}
-  ></dash-color-picker>
-
+const Template = args => `<dash-color-picker style="width: fit-content;" class=${args.theme} selected-color=${args.selectedColor} cols=${args.cols}></dash-color-picker>
   <script>
     var colorsArray = ${JSON.stringify(colors)};
-    document.querySelector("dash-color-picker").colors = colorsArray;
-  </script>
-  `;
+    document.querySelector('dash-color-picker').colors = colorsArray;
+  </script> `;
 
 export const DefaultColorPicker = Template.bind({});
 DefaultColorPicker.args = {
