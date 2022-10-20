@@ -31,7 +31,8 @@
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
-    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js"
+    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js",
+    "t": "say-hello"
   },
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
@@ -41,6 +42,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
+    "@didyoumeantoast/dash-book": "^1.0.0",
     "@stencil/postcss": "^2.1.0",
     "@storybook/addon-actions": "^6.5.12",
     "@storybook/addon-essentials": "^6.5.12",
