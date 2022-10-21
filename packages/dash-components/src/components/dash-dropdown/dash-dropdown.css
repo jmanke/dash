@@ -10,4 +10,5 @@
   background-color: var(--dash-background-2);
   min-width: var(--dash-dropdown-min-width);
   border: var(--dash-border-style-1);
+  padding: var(--dash-spacing-3);
 }

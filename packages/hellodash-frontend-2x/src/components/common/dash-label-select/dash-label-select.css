@@ -1,6 +1,5 @@
 dash-label-select {
   .container {
-    padding: var(--dash-spacing-2);
     min-width: 250px;
     min-height: 250px;
     display: flex;
@@ -75,6 +74,6 @@ dash-label-select {
       dash-button:first-child {
         margin-inline-end: var(--dash-spacing-2);
       }
-    } 
+    }
   }
 }

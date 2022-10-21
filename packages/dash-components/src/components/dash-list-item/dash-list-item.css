@@ -38,7 +38,7 @@
   flex: auto;
   align-items: center;
   border-radius: var(--dash-border-radius);
-  transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition);
+  transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition), color ease-in-out var(--dash-transition-time-fast);
   border: var(--dash-border-style-focus-hidden);
 }
 

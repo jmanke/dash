@@ -81,7 +81,7 @@
   --dash-focus-border-transition: border ease-in-out var(--dash-transition-time-fast);
 
   /* transition time */
-  --dash-transition-time-fast: 100ms;
+  --dash-transition-time-fast: 175ms;
   --dash-transition-time-default: 250ms;
 
   /* focus outline */
