@@ -1252,14 +1252,6 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.0.2.tgz#1bfafe4b7ed0f3e4105837e056e0a89b108ebe36"
   integrity sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==
 
-"@didyoumeantoast/dash-components@^0.3.26":
-  version "1.0.0"
-  dependencies:
-    "@a11y/focus-trap" "^1.0.5"
-    "@didyoumeantoast/dash-utils" "^0.0.12"
-    "@popperjs/core" "^2.11.5"
-    "@stencil/core" "^2.19.2"
-
 "@didyoumeantoast/dash-utils@^0.0.12":
   version "0.0.12"
   resolved "https://registry.yarnpkg.com/@didyoumeantoast/dash-utils/-/dash-utils-0.0.12.tgz#f086c0358c76ed82bc6b210e1025ae0cb4ed1358"
