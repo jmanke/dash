@@ -8,6 +8,7 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { IconColor } from "./components/dash-icon/dash-icon";
+import { LabelLayout } from "./components/dash-label/dash-label";
 import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
@@ -104,6 +105,10 @@ export namespace Components {
         "setFocus": () => Promise<void>;
         "type": string;
         "value": string;
+    }
+    interface DashLabel {
+        "for": string;
+        "layout": LabelLayout;
     }
     interface DashList {
         "selectionMode": SelectionMode;
@@ -309,6 +314,12 @@ declare global {
         prototype: HTMLDashInputElement;
         new (): HTMLDashInputElement;
     };
+    interface HTMLDashLabelElement extends Components.DashLabel, HTMLStencilElement {
+    }
+    var HTMLDashLabelElement: {
+        prototype: HTMLDashLabelElement;
+        new (): HTMLDashLabelElement;
+    };
     interface HTMLDashListElement extends Components.DashList, HTMLStencilElement {
     }
     var HTMLDashListElement: {
@@ -408,6 +419,7 @@ declare global {
         "dash-icon-button": HTMLDashIconButtonElement;
         "dash-inline-edit": HTMLDashInlineEditElement;
         "dash-input": HTMLDashInputElement;
+        "dash-label": HTMLDashLabelElement;
         "dash-list": HTMLDashListElement;
         "dash-list-item": HTMLDashListItemElement;
         "dash-loader": HTMLDashLoaderElement;
@@ -519,6 +531,10 @@ declare namespace LocalJSX {
         "type"?: string;
         "value"?: string;
     }
+    interface DashLabel {
+        "for"?: string;
+        "layout"?: LabelLayout;
+    }
     interface DashList {
         "selectionMode"?: SelectionMode;
     }
@@ -610,6 +626,7 @@ declare namespace LocalJSX {
         "dash-icon-button": DashIconButton;
         "dash-inline-edit": DashInlineEdit;
         "dash-input": DashInput;
+        "dash-label": DashLabel;
         "dash-list": DashList;
         "dash-list-item": DashListItem;
         "dash-loader": DashLoader;
@@ -644,6 +661,7 @@ declare module "@stencil/core" {
             "dash-icon-button": LocalJSX.DashIconButton & JSXBase.HTMLAttributes<HTMLDashIconButtonElement>;
             "dash-inline-edit": LocalJSX.DashInlineEdit & JSXBase.HTMLAttributes<HTMLDashInlineEditElement>;
             "dash-input": LocalJSX.DashInput & JSXBase.HTMLAttributes<HTMLDashInputElement>;
+            "dash-label": LocalJSX.DashLabel & JSXBase.HTMLAttributes<HTMLDashLabelElement>;
             "dash-list": LocalJSX.DashList & JSXBase.HTMLAttributes<HTMLDashListElement>;
             "dash-list-item": LocalJSX.DashListItem & JSXBase.HTMLAttributes<HTMLDashListItemElement>;
             "dash-loader": LocalJSX.DashLoader & JSXBase.HTMLAttributes<HTMLDashLoaderElement>;
