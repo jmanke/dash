@@ -150,6 +150,8 @@ export namespace Components {
         "heading": string;
         "stickyHeader": boolean;
     }
+    interface DashSelect {
+    }
     interface DashShell {
     }
     interface DashSideBar {
@@ -368,6 +370,12 @@ declare global {
         prototype: HTMLDashSectionElement;
         new (): HTMLDashSectionElement;
     };
+    interface HTMLDashSelectElement extends Components.DashSelect, HTMLStencilElement {
+    }
+    var HTMLDashSelectElement: {
+        prototype: HTMLDashSelectElement;
+        new (): HTMLDashSelectElement;
+    };
     interface HTMLDashShellElement extends Components.DashShell, HTMLStencilElement {
     }
     var HTMLDashShellElement: {
@@ -428,6 +436,7 @@ declare global {
         "dash-popover": HTMLDashPopoverElement;
         "dash-scrim": HTMLDashScrimElement;
         "dash-section": HTMLDashSectionElement;
+        "dash-select": HTMLDashSelectElement;
         "dash-shell": HTMLDashShellElement;
         "dash-side-bar": HTMLDashSideBarElement;
         "dash-sidebar-button": HTMLDashSidebarButtonElement;
@@ -580,6 +589,8 @@ declare namespace LocalJSX {
         "heading"?: string;
         "stickyHeader"?: boolean;
     }
+    interface DashSelect {
+    }
     interface DashShell {
     }
     interface DashSideBar {
@@ -635,6 +646,7 @@ declare namespace LocalJSX {
         "dash-popover": DashPopover;
         "dash-scrim": DashScrim;
         "dash-section": DashSection;
+        "dash-select": DashSelect;
         "dash-shell": DashShell;
         "dash-side-bar": DashSideBar;
         "dash-sidebar-button": DashSidebarButton;
@@ -670,6 +682,7 @@ declare module "@stencil/core" {
             "dash-popover": LocalJSX.DashPopover & JSXBase.HTMLAttributes<HTMLDashPopoverElement>;
             "dash-scrim": LocalJSX.DashScrim & JSXBase.HTMLAttributes<HTMLDashScrimElement>;
             "dash-section": LocalJSX.DashSection & JSXBase.HTMLAttributes<HTMLDashSectionElement>;
+            "dash-select": LocalJSX.DashSelect & JSXBase.HTMLAttributes<HTMLDashSelectElement>;
             "dash-shell": LocalJSX.DashShell & JSXBase.HTMLAttributes<HTMLDashShellElement>;
             "dash-side-bar": LocalJSX.DashSideBar & JSXBase.HTMLAttributes<HTMLDashSideBarElement>;
             "dash-sidebar-button": LocalJSX.DashSidebarButton & JSXBase.HTMLAttributes<HTMLDashSidebarButtonElement>;
