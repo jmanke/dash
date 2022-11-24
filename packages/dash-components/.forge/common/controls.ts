@@ -1,33 +1,47 @@
-import icons from '../../bootstrap-icons/include-icons';
-
-export const themeControl = {
-  options: ['light-theme', 'dark-theme'],
-  control: { type: 'radio' },
-};
+const icons = [
+  'plus',
+  'plus-lg',
+  'plus-circle',
+  'trash3',
+  'x',
+  'list',
+  'three-dots-vertical',
+  'journal-text',
+  'pencil',
+  'arrow-left',
+  'search',
+  'tag-fill',
+  'filter',
+  'check',
+  'check2',
+  'person',
+  'dot',
+  'check-circle',
+];
 
 export const scaleControl = {
   options: ['s', 'm', 'l'],
-  control: { type: 'radio' },
+  type: 'radio',
 };
 
 export const scaleExtendedControl = {
   options: ['s', 'm', 'l', 'xl'],
-  control: { type: 'radio' },
+  type: 'radio',
 };
 
 export const iconControl = {
   options: [null, ...icons],
-  control: { type: 'select' },
+  type: 'select',
 };
 
 export const statusControl = {
   options: [null, 'success', 'error'],
-  control: { type: 'select' },
+  type: 'select',
 };
 
 export const placementStrategyControl = {
   options: ['fixed', 'absolute'],
-  control: { type: 'radio' },
+  type: 'radio',
 };
 
 export const placementControl = {
@@ -48,17 +62,17 @@ export const placementControl = {
     'left-start',
     'left-end',
   ],
-  control: { type: 'select' },
+  type: 'select',
 };
 
 export const colors = ['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink'];
 
 export const colorControl = {
   options: colors,
-  control: { type: 'select' },
+  type: 'select',
 };
 
 export const multiColorControl = {
   options: colors,
-  control: { type: 'multi-select' },
+  type: 'multi-select',
 };

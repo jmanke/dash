@@ -10,7 +10,8 @@
   "scripts": {
     "build": "turbo run build",
     "start:hellodash": "turbo run start:hellodash",
-    "start:components": "turbo run start:components"
+    "start:components": "turbo run start:components",
+    "start:components:forge": "turbo run start:components:forge"
   },
   "workspaces": [
     "packages/*"

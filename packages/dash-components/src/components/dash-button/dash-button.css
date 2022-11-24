@@ -69,6 +69,12 @@
       margin-inline-end: var(--dash-spacing-3);
     }
   }
+
+  &([appearance='outline']) {
+    button {
+      border: 1px solid var(--dash-border-1);
+    }
+  }
 }
 
 button {
@@ -85,6 +91,7 @@ button {
   text-align: left;
   overflow: hidden;
   transition: background-color var(--dash-transition-time-fast) ease-out;
+  align-items: baseline;
 }
 
 dash-icon {

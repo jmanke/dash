@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
+import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
@@ -14,6 +14,7 @@ import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-lis
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 export namespace Components {
     interface DashButton {
+        "appearance": Appearance;
         "disabled": boolean;
         "scale": Scale;
         "setFocus": () => Promise<void>;
@@ -447,6 +448,7 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DashButton {
+        "appearance"?: Appearance;
         "disabled"?: boolean;
         "scale"?: Scale;
         "startIcon"?: string;

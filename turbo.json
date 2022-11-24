@@ -6,11 +6,15 @@
       "outputs": ["dist/**", "www/**"]
     },
     "start:hellodash": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^start:hellodash"],
       "outputs": ["dist/**", "www/**"]
     },
     "start:components": {
-      "dependsOn": ["^build"],
+      "dependsOn": ["^start:components"],
+      "outputs": ["dist/**", "www/**"]
+    },
+    "start:components:forge": {
+      "dependsOn": ["^start:components:forge"],
       "outputs": ["dist/**", "www/**"]
     }
   }

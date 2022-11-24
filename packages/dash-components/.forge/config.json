@@ -1,0 +1,4 @@
+{
+  "root": "./src/components",
+  "staticDirs": ["./www/**"]
+}
