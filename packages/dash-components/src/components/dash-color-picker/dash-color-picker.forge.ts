@@ -8,7 +8,7 @@ const template = (args, updateArg) =>
     selected-color=${args.selectedColor}
     cols=${args.cols}
     @dashColorPickerColorChanged=${e => {
-      updateArg({ argName: 'selectedColor', value: e.detail });
+      updateArg('selectedColor', e.detail);
     }}
   ></dash-color-picker>`;
 

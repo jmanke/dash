@@ -7,7 +7,7 @@ const template = (args, updateArg) =>
     value=${args.value}
     scale=${args.scale}
     ?disabled=${args.disabled}
-    @dashInlineEditValueChanged=${e => updateArg({ argName: 'value', value: e.detail })}
+    @dashInlineEditValueChanged=${e => updateArg('value', e.detail)}
   ></dash-inline-edit>`;
 
 export const inlineEditDefinition = {

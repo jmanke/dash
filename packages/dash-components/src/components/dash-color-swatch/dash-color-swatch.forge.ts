@@ -2,12 +2,7 @@ import { html } from 'lit-html';
 import { colorControl, scaleControl } from '../../../.forge/common/controls';
 
 const template = (args, updateArg) =>
-  html`<dash-color-swatch
-    scale=${args.scale}
-    color=${args.color}
-    selected=${args.selected}
-    @click=${() => updateArg({ argName: 'selected', value: !args.selected })}
-  ></dash-color-swatch>`;
+  html`<dash-color-swatch scale=${args.scale} color=${args.color} selected=${args.selected} @click=${() => updateArg('selected', !args.selected)}></dash-color-swatch>`;
 
 export const colorSwatchDefinition = {
   name: 'Color swatch',
