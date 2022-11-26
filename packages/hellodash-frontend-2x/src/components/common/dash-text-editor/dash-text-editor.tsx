@@ -311,7 +311,8 @@ export class DashTextEditor implements Focusable {
         toolbar:
           'undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | insertfile image media link codesample | forecolor backcolor removeformat | pagebreak | charmap emoticons | code',
         plugins:
-          'paste importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists checklist wordcount imagetools textpattern noneditable help charmap quickbars emoticons code',
+          'paste nonbreaking importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists checklist wordcount imagetools textpattern noneditable help charmap quickbars emoticons code',
+        nonbreaking_force_tab: true,
         file_picker_callback: function (cb) {
           const input = document.createElement('input');
           input.setAttribute('type', 'file');

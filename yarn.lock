@@ -313,20 +313,21 @@
   resolved "https://registry.yarnpkg.com/@csstools/selector-specificity/-/selector-specificity-2.0.2.tgz#1bfafe4b7ed0f3e4105837e056e0a89b108ebe36"
   integrity sha512-IkpVW/ehM1hWKln4fCA3NzJU8KwD+kIOvPZA4cqxoJHtE21CCzjyp+Kxbu0i5I4tBNOlXPL9mjwnWlL0VEG4Fg==
 
-"@didyoumeantoast/component-forge-server@^0.1.5":
-  version "0.1.5"
-  resolved "https://registry.yarnpkg.com/@didyoumeantoast/component-forge-server/-/component-forge-server-0.1.5.tgz#6c4fb441f41cff0b9f7391f845eede4e0d6b1477"
-  integrity sha512-hJuDrETeSbUv+FE6r6bMEcFVIslc83NBBkcWg9IBl5/gM0pw8QZ3JSv0x9OEmgZkZ5dyYu7INiDqb7MJiMGzjg==
+"@didyoumeantoast/component-forge-server@^0.1.7":
+  version "0.1.7"
+  resolved "https://registry.yarnpkg.com/@didyoumeantoast/component-forge-server/-/component-forge-server-0.1.7.tgz#869b575126f9fa8e816c85e4b6cd7395dd1dca7a"
+  integrity sha512-HOv7r22qQIFUvu2/Fu7LoyLT9r7+rPGC3jE0F0VaG5q3BslswHeFnlynZe4zAgtIyfCFApA3pPeQdJE0zkmqzg==
   dependencies:
+    "@types/node" "^18.11.9"
     chokidar "^3.5.3"
     esbuild "^0.15.12"
 
-"@didyoumeantoast/component-forge@^0.3.8":
-  version "0.3.8"
-  resolved "https://registry.yarnpkg.com/@didyoumeantoast/component-forge/-/component-forge-0.3.8.tgz#71073e3e884d8aa2111d97125e52c6ed0f5fec9e"
-  integrity sha512-mxYgaBTP4c7hhO1LIGOJJ+edExkFcDlhKV8h+EFrCy5jTYM8C3aPZvOSqiDkaYRl1Py9hLeEL1Y1vJTbPg9f2A==
+"@didyoumeantoast/component-forge@^0.3.13":
+  version "0.3.13"
+  resolved "https://registry.yarnpkg.com/@didyoumeantoast/component-forge/-/component-forge-0.3.13.tgz#0138b4cf236178c9a62080a652a4b8cdcbc29c18"
+  integrity sha512-ONacz5yceQLXOzSpr30MV+2+FYEpgrxIY2MLk5FiAb26EfNFeVDxfa2v/fvlJVS82GzdH+w26dclRLxkGL/oUw==
   dependencies:
-    "@didyoumeantoast/component-forge-server" "^0.1.5"
+    "@didyoumeantoast/component-forge-server" "^0.1.7"
     "@vitejs/plugin-vue" "^3.2.0"
     concurrently "^7.5.0"
     glob "^8.0.3"
@@ -781,7 +782,7 @@
   resolved "https://registry.yarnpkg.com/@types/luxon/-/luxon-2.4.0.tgz#897d3abc23b68d78b69d76a12c21e01eb5adab95"
   integrity sha512-oCavjEjRXuR6URJEtQm0eBdfsBiEcGBZbq21of8iGkeKxU1+1xgKuFPClaBZl2KB8ZZBSWlgk61tH6Mf+nvZVw==
 
-"@types/node@*":
+"@types/node@*", "@types/node@^18.11.9":
   version "18.11.9"
   resolved "https://registry.yarnpkg.com/@types/node/-/node-18.11.9.tgz#02d013de7058cea16d36168ef2fc653464cfbad4"
   integrity sha512-CRpX21/kGdzjOpFsZSkcrXMGIBWMGNIHXXBVFSH+ggkftxg+XYP20TESbh+zFvFj3EQOl5byk0HTRn1IL6hbqg==
