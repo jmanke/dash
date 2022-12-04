@@ -34,14 +34,12 @@ export const listDefinition = {
     selectionMode: {
       type: 'radio',
       options: ['single', 'multiple', 'none'],
-      onChange: ({ value, updateArg, args }) => {
-        if (value === 'single' && args.selected.length > 1) {
-          console.log('UPDATE');
-
-          updateArg('selected', [args.selected[0]]);
-        }
-      },
     },
+  },
+  argChanged: ({ arg, value, args, updateArg }) => {
+    if (arg === 'selectionMode' && value === 'single' && args.selected.length > 1) {
+      updateArg('selected', [args.selected[0]]);
+    }
   },
   template,
   args: {
