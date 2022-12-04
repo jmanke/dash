@@ -64,7 +64,7 @@ export class DashList {
   focusNextListItem(e: HTMLDashListItemElement) {
     e.tabIndex = -1;
     let nextSibling = this.nextSibling(e);
-    while (isDefined(nextSibling.getAttribute('disabled'))) {
+    while (!isDefined(nextSibling.getAttribute) || isDefined(nextSibling.getAttribute('disabled'))) {
       nextSibling = this.nextSibling(nextSibling);
 
       if (nextSibling === e) {
@@ -79,7 +79,7 @@ export class DashList {
   focusPreviousListItem(e: HTMLDashListItemElement) {
     e.tabIndex = -1;
     let prevSibling = this.prevSibling(e);
-    while (isDefined(prevSibling.getAttribute('disabled'))) {
+    while (!isDefined(prevSibling.getAttribute) || isDefined(prevSibling.getAttribute('disabled'))) {
       prevSibling = this.prevSibling(prevSibling);
 
       if (prevSibling === e) {
