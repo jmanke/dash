@@ -1,8 +1,8 @@
 {
   "name": "@didyoumeantoast/hellodash",
   "private": true,
-  "version": "0.0.19",
-  "description": "Stencil App Starter",
+  "version": "1.0.0",
+  "description": "Hellodash is a modern note taking web-app built with StencilJS",
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
@@ -34,8 +34,9 @@
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
-    "@didyoumeantoast/dash-components": "^1.0.1",
-    "@didyoumeantoast/dash-utils": "^1.0.0",
+    "@didyoumeantoast/dash-components": "^1.1.0",
+    "@didyoumeantoast/dash-utils": "^1.1.2",
+    "@didyoumeantoast/stencil-view-model": "^1.0.4",
     "@didyoumeantoast/tinymce-plugins": "^1.1.4",
     "@popperjs/core": "^2.11.0",
     "@types/qs": "^6.9.7",

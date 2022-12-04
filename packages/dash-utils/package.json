@@ -3,12 +3,11 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.0.0",
+  "version": "1.1.2",
   "description": "Utils library by Jeff Manke",
   "main": "lib/index.js",
   "scripts": {
-    "build": "npx tsc",
-    "publish:npm": "npm publish",
+    "build": "node build.js",
     "start:hellodash": "yarn build",
     "start:components": "yarn build"
   },
@@ -17,6 +16,8 @@
   ],
   "type": "module",
   "devDependencies": {
+    "esbuild": "^0.15.17",
+    "esbuild-plugin-d.ts": "^1.1.0",
     "typescript": "^4.7.4"
   },
   "dependencies": {

@@ -2,7 +2,7 @@ import { createStore } from '@stencil/store';
 import { without } from 'lodash';
 import { createNote, deleteNote, fetchNote, fetchNotePreviews, updateNote, updateNotePreview } from '../api/note-api';
 import { Status } from '../enums/status';
-import EventEmitter from '../lib/event-emitter';
+import { EventEmitter } from '@didyoumeantoast/dash-utils';
 import { Note } from '../models/note';
 import { replaceAt } from '@didyoumeantoast/dash-utils';
 import { NoteViewModel } from '../view-models/note-view-model';

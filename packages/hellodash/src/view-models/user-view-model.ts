@@ -1,4 +1,4 @@
-import { tracked } from '../decorators/tracked';
+import { tracked } from '@didyoumeantoast/stencil-view-model';
 import { User } from '../models/user';
 import ViewModel from './view-model';
 

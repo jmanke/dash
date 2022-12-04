@@ -1,14 +1,10 @@
-import { isDefined } from '@didyoumeantoast/dash-utils';
+import { isDefined } from './is-defined';
 
 export default class EventEmitter {
-  private listeners: Map<string, ((...args: any[]) => void)[]>;
+  private listeners: Map<string, ((...args: any[]) => void)[]> = new Map();
 
   get hasListeners() {
     return this.listeners.size > 1;
-  }
-
-  constructor() {
-    this.listeners = new Map();
   }
 
   emit(eventName: string, a1?: any, a2?: any, a3?: any) {

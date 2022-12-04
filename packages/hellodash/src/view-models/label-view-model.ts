@@ -1,4 +1,4 @@
-import { tracked } from '../decorators/tracked';
+import { tracked } from '@didyoumeantoast/stencil-view-model';
 import { Label } from '../models/label';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import ViewModel from './view-model';

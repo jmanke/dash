@@ -1,4 +1,4 @@
-import { tracked } from '../decorators/tracked';
+import { tracked } from '@didyoumeantoast/stencil-view-model';
 import { AppSettings } from '../models/app-settings';
 import { Theme } from '../types/types';
 import LocalStorageViewModel from './local-storage-view-model';

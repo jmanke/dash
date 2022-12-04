@@ -9,6 +9,23 @@ import { replaceAt } from './replace-at';
 import { spaceConcat } from './space-concat';
 import { stringSearch } from './string-search';
 import { wait } from './wait';
-import { classExists } from './classExists';
+import { classExists } from './class-exists';
+import EventEmitter from './event-emitter';
 
-export { contains, deepCopy, focus, getFocusableElements, SKIP_NODE_CLASS, isClick, isDefined, isHex, queryElementById, replaceAt, spaceConcat, stringSearch, wait, classExists };
+export {
+  contains,
+  deepCopy,
+  focus,
+  getFocusableElements,
+  SKIP_NODE_CLASS,
+  isClick,
+  isDefined,
+  isHex,
+  queryElementById,
+  replaceAt,
+  spaceConcat,
+  stringSearch,
+  wait,
+  classExists,
+  EventEmitter,
+};

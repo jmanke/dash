@@ -1,4 +1,4 @@
-import { tracked } from '../decorators/tracked';
+import { tracked } from '@didyoumeantoast/stencil-view-model';
 import { Status } from '../enums/status';
 import { Note } from '../models/note';
 import ViewModel from './view-model';

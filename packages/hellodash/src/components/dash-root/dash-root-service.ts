@@ -1,5 +1,5 @@
 import { LocationSegments, RouterHistory } from '@stencil/router';
-import EventEmitter from '../../lib/event-emitter';
+import { EventEmitter } from '@didyoumeantoast/dash-utils';
 import { DashRoot } from './dash-root';
 
 const HISTORY_CHANGED_EVENTNAME = 'historyChanged';

@@ -1,3 +1,4 @@
+lib/
 lib-cov
 *.seed
 *.log
@@ -33,9 +34,6 @@ bower_components
 # OS metadata
 .DS_Store
 Thumbs.db
-
-# Ignore built ts files
-lib/**/*
 
 # ignore yarn.lock
 yarn.lock
