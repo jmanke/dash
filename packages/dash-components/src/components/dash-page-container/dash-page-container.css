@@ -1,9 +1,0 @@
-@import '../../assets/styles/_app.css';
-
-.page-container {
-  display: block;
-
-  &.full-page {
-    height: calc(100vh - var(--dash-nav-bar-height));
-  }
-}

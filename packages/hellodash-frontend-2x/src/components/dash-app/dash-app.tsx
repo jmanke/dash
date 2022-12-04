@@ -172,14 +172,14 @@ export class DashApp {
               ></dash-sidebar-button>
             </dash-side-bar>
 
-            <dash-page-container slot='content'>
+            <main slot='content'>
               <stencil-router historyType='hash'>
                 <stencil-route-switch scrollTopOffset={0}>
                   <stencil-route url={['/', RootUrls.Home, `${RootUrls.Label}/:labelId`, `${RootUrls.Note}/:noteId`]} component='dash-route-notes' exact={true} />
                   <stencil-route url={RootUrls.Bin} component='dash-route-bin' exact={true} />
                 </stencil-route-switch>
               </stencil-router>
-            </dash-page-container>
+            </main>
           </dash-shell>
         )}
 

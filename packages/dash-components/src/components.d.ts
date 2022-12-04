@@ -132,9 +132,6 @@ export namespace Components {
         "hideCloseButton": boolean;
         "scale": Scale;
     }
-    interface DashPageContainer {
-        "fullpage"?: boolean;
-    }
     interface DashPopover {
         "active": boolean;
         "autoClose": boolean;
@@ -345,12 +342,6 @@ declare global {
         prototype: HTMLDashModalElement;
         new (): HTMLDashModalElement;
     };
-    interface HTMLDashPageContainerElement extends Components.DashPageContainer, HTMLStencilElement {
-    }
-    var HTMLDashPageContainerElement: {
-        prototype: HTMLDashPageContainerElement;
-        new (): HTMLDashPageContainerElement;
-    };
     interface HTMLDashPopoverElement extends Components.DashPopover, HTMLStencilElement {
     }
     var HTMLDashPopoverElement: {
@@ -425,7 +416,6 @@ declare global {
         "dash-list-item": HTMLDashListItemElement;
         "dash-loader": HTMLDashLoaderElement;
         "dash-modal": HTMLDashModalElement;
-        "dash-page-container": HTMLDashPageContainerElement;
         "dash-popover": HTMLDashPopoverElement;
         "dash-scrim": HTMLDashScrimElement;
         "dash-section": HTMLDashSectionElement;
@@ -561,9 +551,6 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: DashModalCustomEvent<any>) => void;
         "scale"?: Scale;
     }
-    interface DashPageContainer {
-        "fullpage"?: boolean;
-    }
     interface DashPopover {
         "active"?: boolean;
         "autoClose"?: boolean;
@@ -633,7 +620,6 @@ declare namespace LocalJSX {
         "dash-list-item": DashListItem;
         "dash-loader": DashLoader;
         "dash-modal": DashModal;
-        "dash-page-container": DashPageContainer;
         "dash-popover": DashPopover;
         "dash-scrim": DashScrim;
         "dash-section": DashSection;
@@ -668,7 +654,6 @@ declare module "@stencil/core" {
             "dash-list-item": LocalJSX.DashListItem & JSXBase.HTMLAttributes<HTMLDashListItemElement>;
             "dash-loader": LocalJSX.DashLoader & JSXBase.HTMLAttributes<HTMLDashLoaderElement>;
             "dash-modal": LocalJSX.DashModal & JSXBase.HTMLAttributes<HTMLDashModalElement>;
-            "dash-page-container": LocalJSX.DashPageContainer & JSXBase.HTMLAttributes<HTMLDashPageContainerElement>;
             "dash-popover": LocalJSX.DashPopover & JSXBase.HTMLAttributes<HTMLDashPopoverElement>;
             "dash-scrim": LocalJSX.DashScrim & JSXBase.HTMLAttributes<HTMLDashScrimElement>;
             "dash-section": LocalJSX.DashSection & JSXBase.HTMLAttributes<HTMLDashSectionElement>;
