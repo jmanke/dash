@@ -56,7 +56,7 @@ export class DashDrillMenu {
           <div class='drill-content-wrapper'>
             <div class='header'>
               <dash-icon-button ref={element => element?.setFocus()} class='back-button' icon='arrow-left' onClick={() => this.dashDrillMenuClosed.emit()}></dash-icon-button>
-              {this.drillHeading && <span>{this.drillHeading}</span>}
+              {this.drillHeading && [<span class='heading'>{this.drillHeading}</span>, <span class='heading-end'></span>]}
             </div>
 
             <slot name='drill-content'></slot>

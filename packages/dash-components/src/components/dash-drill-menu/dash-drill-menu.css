@@ -26,7 +26,7 @@
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: var(--dash-spacing-2);
 
   @media only screen and (max-width: 600px) {
@@ -34,13 +34,13 @@
   }
 }
 
-.back-button {
-  position: absolute;
-  left: var(--dash-spacing-2);
+.heading {
+  padding: 0 var(--dash-spacing-3);
+}
 
-  @media only screen and (max-width: 600px) {
-    left: 0;
-  }
+.heading-end {
+  width: var(--dash-spacing-8);
+  height: var(--dash-spacing-8);
 }
 
 @keyframes fadeIn {
