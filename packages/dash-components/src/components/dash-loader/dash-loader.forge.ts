@@ -4,7 +4,7 @@ import { scaleControl } from '../../../.forge/common/controls';
 const template = args => html`<dash-loader scale=${args.scale}></dash-loader>`;
 
 export const loaderDefinition = {
-  name: 'Loader',
+  name: '<dash-loader>',
   controls: {
     scale: scaleControl,
   },

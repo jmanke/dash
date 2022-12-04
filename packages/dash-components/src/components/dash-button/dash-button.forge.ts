@@ -7,7 +7,7 @@ const template = args =>
   `;
 
 export const buttonDefinition = {
-  name: 'Button',
+  name: '<dash-button>',
   controls: {
     content: {
       type: 'text',

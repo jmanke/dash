@@ -11,7 +11,7 @@ const template = args =>
   ></dash-chip>`;
 
 export const chipDefinition = {
-  name: 'Chip',
+  name: '<dash-chip>',
   controls: {
     heading: { type: 'text' },
     dismissTooltipText: { type: 'text' },

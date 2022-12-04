@@ -4,7 +4,7 @@ import { scaleExtendedControl, iconControl } from '../../../.forge/common/contro
 const template = args => html`<dash-icon scale=${args.scale} icon=${args.icon} icon-url=${args.iconUrl}></dash-icon>`;
 
 export const iconDefinition = {
-  name: 'Icon',
+  name: '<dash-icon>',
   controls: {
     scale: scaleExtendedControl,
     icon: iconControl,

@@ -7,7 +7,7 @@ const template = () => html`<dash-focus-trap style="border: 1px solid #000; disp
 </dash-focus-trap>`;
 
 export const focusTrapDefinition = {
-  name: 'Focus trap',
+  name: '<dash-focus-trap>',
   controls: {},
   template,
   args: {},

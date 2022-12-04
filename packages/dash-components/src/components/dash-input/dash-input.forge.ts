@@ -15,7 +15,7 @@ const template = (args, updateArg) =>
   ></dash-input> `;
 
 export const inputDefinition = {
-  name: 'Input',
+  name: '<dash-input>',
   controls: {
     scale: scaleControl,
     value: { type: 'text' },

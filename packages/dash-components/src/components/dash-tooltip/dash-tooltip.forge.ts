@@ -19,7 +19,7 @@ const template = args => html`<div style="margin: 5rem;">
 </div>`;
 
 export const tooltipDefinition = {
-  name: 'Tooltip',
+  name: '<dash-tooltip>',
   controls: {
     text: { type: 'text' },
     placementStrategy: placementStrategyControl,

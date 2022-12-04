@@ -33,7 +33,7 @@ const template = (args, updateArg) => {
 };
 
 export const listDefinition = {
-  name: 'List',
+  name: '<dash-list>',
   controls: {
     selectionMode: { type: 'radio', options: ['single', 'multiple', 'none'] },
   },

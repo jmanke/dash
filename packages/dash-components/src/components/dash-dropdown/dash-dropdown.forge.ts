@@ -11,7 +11,7 @@ const template = args => html` <dash-dropdown style="margin: 8rem;" placement=${
 </dash-dropdown>`;
 
 export const dropdownDefinition = {
-  name: 'Dropdown',
+  name: '<dash-dropdown>',
   controls: {
     placement: placementControl,
     placementStrategy: placementStrategyControl,

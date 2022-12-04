@@ -10,7 +10,7 @@ const template = (args, updateArg) =>
   > `;
 
 export const listItemDefinition = {
-  name: 'List item',
+  name: '<dash-list-item>',
   controls: {
     disabled: { type: 'boolean' },
     selected: { type: 'boolean' },

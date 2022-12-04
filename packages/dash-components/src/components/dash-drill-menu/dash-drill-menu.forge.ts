@@ -14,7 +14,7 @@ const template = (args, updateArg) => html` <dash-drill-menu
 </dash-drill-menu>`;
 
 export const drillMenuDefinition = {
-  name: 'Drill menu',
+  name: '<dash-drill-menu>',
   controls: {
     drillHeading: { type: 'text' },
     active: { type: 'boolean' },

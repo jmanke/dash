@@ -11,7 +11,7 @@ const template = (args, updateArg) =>
   ></dash-inline-edit>`;
 
 export const inlineEditDefinition = {
-  name: 'Inline edit',
+  name: '<dash-inline-edit>',
   controls: {
     scale: scaleControl,
     disabled: { type: 'boolean' },

@@ -13,7 +13,7 @@ const template = (args, updateArg) =>
   ></dash-color-picker>`;
 
 export const chipDefinition = {
-  name: 'Color picker',
+  name: '<dash-color-picker>',
   controls: {
     selectedColor: colorControl,
     cols: {

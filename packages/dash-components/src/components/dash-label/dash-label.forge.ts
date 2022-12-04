@@ -7,7 +7,7 @@ const template = args =>
   </dash-label>`;
 
 export const labelDefinition = {
-  name: 'Label',
+  name: '<dash-label>',
   controls: {
     layout: {
       options: ['default', 'inline-space-between'],

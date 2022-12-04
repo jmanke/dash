@@ -16,7 +16,7 @@ const template = args => html` <dash-grid style="width: 15rem; height: 15rem;" c
 </dash-grid>`;
 
 export const gridDefinition = {
-  name: 'Grid',
+  name: '<dash-grid>',
   controls: {
     colS: { type: 'number' },
     colM: { type: 'number' },

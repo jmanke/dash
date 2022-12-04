@@ -15,7 +15,7 @@ const template = args =>
   ></dash-icon-button>`;
 
 export const iconButtonDefinition = {
-  name: 'Icon button',
+  name: '<dash-icon-button>',
   controls: {
     scale: scaleExtendedControl,
     icon: iconControl,

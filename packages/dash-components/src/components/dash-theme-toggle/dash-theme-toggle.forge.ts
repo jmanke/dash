@@ -4,7 +4,7 @@ const template = (args, updateArg) =>
   html` <dash-theme-toggle theme=${args.theme} @click=${e => updateArg('theme', e.target.theme === 'light' ? 'dark' : 'light')}></dash-theme-toggle>`;
 
 export const toggleSwitchDefinition = {
-  name: 'Theme toggle',
+  name: '<dash-theme-toggle>',
   controls: {
     theme: {
       options: ['light', 'dark'],
