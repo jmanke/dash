@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@didyoumeantoast/component-forge": "^0.3.14",
+    "@didyoumeantoast/component-forge": "^0.3.16",
     "@stencil/postcss": "^2.1.0",
     "@types/jest": "^27.0.3",
     "autoprefixer": "^10.4.7",

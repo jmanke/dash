@@ -322,10 +322,10 @@
     chokidar "^3.5.3"
     esbuild "^0.15.12"
 
-"@didyoumeantoast/component-forge@^0.3.14":
-  version "0.3.14"
-  resolved "https://registry.yarnpkg.com/@didyoumeantoast/component-forge/-/component-forge-0.3.14.tgz#091fcc68640a8ef9e87f2996d6ee516b63db9e2e"
-  integrity sha512-BDJdIGCxoOHGXly8KBpfqeCA6+AdxfDHjFd8OREx/pd6aH5CFv6W2vsaZHMOW+cTbofeknL1KKqZkaqJppOxIw==
+"@didyoumeantoast/component-forge@^0.3.16":
+  version "0.3.16"
+  resolved "https://registry.yarnpkg.com/@didyoumeantoast/component-forge/-/component-forge-0.3.16.tgz#acfc427083eb5cce58320514b64bd84c4bb577a0"
+  integrity sha512-PVcRj7MlV6lypToAtOUs7tXHk8Ua74aC0YN0Iw5Knp4yB57JlvCPKFOG9NTNOoWjSa5M/NR8NitywRfD5FZ6ew==
   dependencies:
     "@didyoumeantoast/component-forge-server" "^0.1.7"
     "@vitejs/plugin-vue" "^3.2.0"

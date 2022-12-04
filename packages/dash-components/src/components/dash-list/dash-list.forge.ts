@@ -3,10 +3,6 @@ import { html } from 'lit-html';
 const items = ['Item 0', 'Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
 const template = (args, updateArg) => {
-  if (args.selectionMode === 'single' && args.selected.length > 1) {
-    updateArg('selected', [args.selected[0]]);
-  }
-
   const itemSelected = (item: string) => {
     if (args.selectionMode === 'none') {
       return;
@@ -35,7 +31,17 @@ const template = (args, updateArg) => {
 export const listDefinition = {
   name: '<dash-list>',
   controls: {
-    selectionMode: { type: 'radio', options: ['single', 'multiple', 'none'] },
+    selectionMode: {
+      type: 'radio',
+      options: ['single', 'multiple', 'none'],
+      onChange: ({ value, updateArg, args }) => {
+        if (value === 'single' && args.selected.length > 1) {
+          console.log('UPDATE');
+
+          updateArg('selected', [args.selected[0]]);
+        }
+      },
+    },
   },
   template,
   args: {
