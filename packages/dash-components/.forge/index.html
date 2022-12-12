@@ -8,15 +8,5 @@
     <script type="module" src="/build/dash-components.esm.js"></script>
     <link href="/build/dash-components.css" rel="stylesheet" />
   </head>
-  <body style="display: flex; overflow: auto; margin: 1rem;"></body>
-
-  <script>
-    window.addEventListener('message', message => {
-      if (message.data.name === 'component-forge-message') {
-        if (message.data.type === 'theme') {
-          document.documentElement.setAttribute('data-theme', message.data.value);
-        }
-      }
-    });
-  </script>
+  <body style="display: flex; overflow: auto; margin: 1rem"></body>
 </html>
