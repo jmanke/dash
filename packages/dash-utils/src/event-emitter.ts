@@ -1,5 +1,3 @@
-import { isDefined } from './is-defined';
-
 export default class EventEmitter {
   private listeners: Map<string, ((...args: any[]) => void)[]> = new Map();
 
@@ -7,7 +5,7 @@ export default class EventEmitter {
     return this.listeners.size > 1;
   }
 
-  emit(eventName: string, a1?: any, a2?: any, a3?: any) {
+  emit(eventName: string, ...args: []) {
     const listeners = this.listeners.get(eventName);
 
     if (!listeners) {
@@ -15,15 +13,7 @@ export default class EventEmitter {
     }
 
     for (let i = 0; i < listeners.length; i++) {
-      if (isDefined(a3)) {
-        listeners[i](a1, a2, a3);
-      } else if (isDefined(a2)) {
-        listeners[i](a1, a2);
-      } else if (isDefined(a1)) {
-        listeners[i](a1);
-      } else {
-        listeners[i]();
-      }
+      listeners[i](...args);
     }
   }
 
