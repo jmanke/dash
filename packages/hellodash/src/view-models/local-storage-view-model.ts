@@ -23,9 +23,9 @@ export default class LocalStorageViewModel<T> {
     this.__eventEmitter.removeListener(propertyKey as string, callbackFn);
   }
 
-  __emitChange(propertyKey: keyof T, a1?: any, a2?: any, a3?: any) {
+  __emitChange(propertyKey: keyof T, ...args: any[]) {
     this.__save();
-    this.__eventEmitter.emit(propertyKey as string, a1, a2, a3);
+    this.__eventEmitter.emit(propertyKey as string, ...args);
   }
 
   // override load in sub classes

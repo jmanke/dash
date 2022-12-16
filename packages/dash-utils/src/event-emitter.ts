@@ -5,7 +5,7 @@ export default class EventEmitter {
     return this.listeners.size > 1;
   }
 
-  emit(eventName: string, ...args: []) {
+  emit(eventName: string, ...args: any[]) {
     const listeners = this.listeners.get(eventName);
 
     if (!listeners) {

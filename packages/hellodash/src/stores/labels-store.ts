@@ -22,7 +22,7 @@ class LabelsState {
     });
     this.state = state;
     onChange('labels', labels => {
-      const prevLabels = this.labelsMap.values();
+      const prevLabels = Array.from(this.labelsMap.values());
       this.labelsMap.clear();
       labels?.forEach(label => {
         this.labelsMap.set(label.id, label);

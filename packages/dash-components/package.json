@@ -37,7 +37,7 @@
   },
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
-    "@didyoumeantoast/dash-utils": "^1.1.2",
+    "@didyoumeantoast/dash-utils": "^1.1.3",
     "@popperjs/core": "^2.11.5",
     "@stencil/core": "^2.19.2",
     "@stencil/postcss": "^2.1.0"
