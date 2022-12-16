@@ -338,12 +338,12 @@
     vite-plugin-static-copy "^0.11.1"
     vue "^3.2.37"
 
-"@didyoumeantoast/stencil-view-model@^1.0.4":
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/@didyoumeantoast/stencil-view-model/-/stencil-view-model-1.0.4.tgz#abc6cf80f182c60dd496fed55813af9d66d30338"
-  integrity sha512-qNWwaKJfHN33J2zUFo3oiCZdkahRHWb3/sa4H7W8R+oLsa1MuYMwckhlFPCz60JbQYewvqMhZl22OVyCe5TwAw==
+"@didyoumeantoast/stencil-view-model@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/@didyoumeantoast/stencil-view-model/-/stencil-view-model-1.0.5.tgz#5b7b91849ccb7d9537c1b503abf863b3ac440898"
+  integrity sha512-7sBHpThOC1w7yNqElRIZkuz26Z2Rl7rcLXdFL6jELumrlEGsYdU0djorNS4ivsPlYIRUDj4/73SB6WOjzdNgAQ==
   dependencies:
-    "@didyoumeantoast/dash-utils" "^1.1.2"
+    "@didyoumeantoast/dash-utils" "^1.1.3"
     "@stencil/core" "^2.19.3"
     lodash "^4.17.21"
 
