@@ -38,5 +38,6 @@ website/build
 website/.docusaurus
 website/.cache-loader
 
+#yarn
 .yarn/unplugged
 .yarn/build-state.yml
