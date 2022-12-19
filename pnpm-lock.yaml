@@ -4,7 +4,12 @@ importers:
 
   .:
     specifiers:
+      express: ^4.18.1
+      serve-handler: ^6.1.5
       turbo: ^1.5.6
+    dependencies:
+      express: 4.18.2
+      serve-handler: 6.1.5
     devDependencies:
       turbo: 1.6.3
 
@@ -100,7 +105,6 @@ importers:
       '@types/uuid': ^8.3.3
       autoprefixer: ^10.3.5
       axios: ^0.24.0
-      express: ^4.18.1
       jest: ^27.2.5
       jest-cli: ^27.2.5
       lodash: ^4.17.21
@@ -126,7 +130,6 @@ importers:
       '@popperjs/core': 2.11.6
       '@types/qs': 6.9.7
       axios: 0.24.0
-      express: 4.18.2
       lodash: 4.17.21
       luxon: 2.5.0
       qs: 6.11.0
@@ -4093,7 +4096,6 @@ packages:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
     dependencies:
       brace-expansion: 1.1.11
-    dev: true
 
   /minimatch/5.1.1:
     resolution: {integrity: sha512-362NP+zlprccbEt/SkxKfRMHnNY85V74mVnpUpNyr3F35covl09Kec7/sEFLt3RA4oXmewtoaanoIf67SE5Y5g==}
@@ -4821,6 +4823,19 @@ packages:
       fast-url-parser: 1.1.3
       mime-types: 2.1.18
       minimatch: 3.0.4
+      path-is-inside: 1.0.2
+      path-to-regexp: 2.2.1
+      range-parser: 1.2.0
+    dev: false
+
+  /serve-handler/6.1.5:
+    resolution: {integrity: sha512-ijPFle6Hwe8zfmBxJdE+5fta53fdIY0lHISJvuikXB3VYFafRjMRpOffSPvCYsbKyBA7pvy9oYr/BT1O3EArlg==}
+    dependencies:
+      bytes: 3.0.0
+      content-disposition: 0.5.2
+      fast-url-parser: 1.1.3
+      mime-types: 2.1.18
+      minimatch: 3.1.2
       path-is-inside: 1.0.2
       path-to-regexp: 2.2.1
       range-parser: 1.2.0

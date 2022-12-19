@@ -14,10 +14,11 @@
     "start:components": "turbo run start:components",
     "start:components:forge": "turbo run start:components:forge"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "packageManager": "pnpm@7.18.2",
+  "dependencies": {
+    "express": "^4.18.1",
+    "serve-handler": "^6.1.5"
+  },
   "devDependencies": {
     "turbo": "^1.5.6"
   },
