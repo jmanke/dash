@@ -62,9 +62,11 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "18.x"
+    "node": "18.x",
+    "yarn": "3.x"
   },
   "volta": {
-    "node": "18.12.1"
+    "node": "18.12.1",
+    "yarn": "3.3.0"
   }
 }
