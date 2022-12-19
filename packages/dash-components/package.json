@@ -55,11 +55,14 @@
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
     "lit-html": "^2.4.0",
+    "postcss": "8.4.6",
     "postcss-extend-rule": "^4.0.0",
     "postcss-nested": "^5.0.6",
     "postcss-replace": "^2.0.0",
     "puppeteer": "^10.0.0",
-    "rollup-plugin-dotenv": "^0.3.0"
+    "rollup": "1.20.0",
+    "rollup-plugin-dotenv": "^0.3.0",
+    "webpack": "^5.75.0"
   },
   "license": "MIT",
   "engines": {
