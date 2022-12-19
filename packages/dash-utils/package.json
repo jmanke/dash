@@ -23,5 +23,11 @@
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
+  "volta": {
+    "node": "18.12.1"
+  }
 }
