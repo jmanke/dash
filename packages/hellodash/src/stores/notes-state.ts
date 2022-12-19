@@ -9,6 +9,7 @@ import { NoteViewModel } from '../view-models/note-view-model';
 import labelsState from './labels-store';
 import { NotePreviewViewModel } from '../view-models/note-preview-view-model';
 import { NotePreview } from '../models/note-preview';
+import { DateTime } from 'luxon';
 
 interface INotesState {
   notePreviews?: NotePreviewViewModel[];
@@ -80,6 +81,9 @@ class NotesState {
     // sync with server
     // TODO: if update fails, revert back to previous note
     const resp = await updateNote(note.__toModel());
+    notePreview.lastModified = DateTime.fromISO(resp.lastModified);
+    // replace the note with the same id
+    this.state.notePreviews = replaceAt(this.state.notePreviews, n => n.id === note.id, notePreview);
     note.__isDirty = false;
     return resp;
   }
@@ -94,6 +98,9 @@ class NotesState {
     // sync with server
     // TODO: if update fails, revert back to previous note
     const resp = await updateNotePreview(notePreview.__toModel());
+    notePreview.lastModified = DateTime.fromISO(resp.lastModified);
+    // replace the note with the same id
+    this.state.notePreviews = replaceAt(this.state.notePreviews, n => n.id === notePreview.id, notePreview);
     notePreview.__isDirty = false;
     return resp;
   }

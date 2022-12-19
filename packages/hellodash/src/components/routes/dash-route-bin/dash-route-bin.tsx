@@ -1,4 +1,5 @@
 import { Component, h, State } from '@stencil/core';
+import { orderBy } from 'lodash';
 import appState from '../../../stores/app-state';
 import notesState from '../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
@@ -127,7 +128,7 @@ export class DashRouteBin {
           </div>,
 
           <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-            {notesState.archivedNotePreviews.map(notePreview => (
+            {orderBy(notesState.archivedNotePreviews, [a => a.lastModified.toMillis()], ['desc']).map(notePreview => (
               <dash-note-card
                 key={notePreview.id}
                 class={this.noteWithDropdownActive === notePreview ? 'note-overlay' : undefined}

@@ -17,11 +17,11 @@ export async function createNote(note: Note | NotePreview) {
   return post<Note, number>(`${noteBaseUrl}`, note as Note);
 }
 
-export async function updateNotePreview(note: NotePreview) {
+export async function updateNotePreview(note: NotePreview): Promise<{ lastModified: string }> {
   return put(`${noteBaseUrl}/Preview/${note.id}`, note);
 }
 
-export async function updateNote(note: Note) {
+export async function updateNote(note: Note): Promise<{ lastModified: string }> {
   return put(`${noteBaseUrl}/${note.id}`, note);
 }
 

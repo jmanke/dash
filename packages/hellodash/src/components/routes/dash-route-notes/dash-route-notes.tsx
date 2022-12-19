@@ -6,7 +6,7 @@ import { stringSearch } from '@didyoumeantoast/dash-utils';
 import { dashRootService } from '../../dash-root/dash-root-service';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 
-type SortOption = 'date' | 'title';
+type SortOption = 'date' | 'title' | 'last-modified';
 
 @Component({
   tag: 'dash-route-notes',
@@ -33,7 +33,7 @@ export class DashRouteNotes {
   }
 
   @State()
-  sortBy: SortOption = 'date';
+  sortBy: SortOption = 'last-modified';
   @Watch('sortBy')
   sortByChanged() {
     this.filterNotes();
@@ -133,10 +133,16 @@ export class DashRouteNotes {
     const notePreviews = filterFns.length ? notesState.notePreviews.filter(note => filterFns.every(fn => fn(note))) : [...notesState.notePreviews];
 
     // sort logic
-    if (this.sortBy === 'title') {
-      notePreviews.sort((a, b) => a.title.localeCompare(b.title));
-    } else if (this.sortBy === 'date') {
-      notePreviews.sort((a, b) => b.dateCreated.toMillis() - a.dateCreated.toMillis());
+    switch (this.sortBy) {
+      case 'last-modified':
+        notePreviews.sort((a, b) => b.lastModified.toMillis() - a.lastModified.toMillis());
+        break;
+      case 'title':
+        notePreviews.sort((a, b) => a.title.localeCompare(b.title));
+        break;
+      case 'date':
+        notePreviews.sort((a, b) => b.dateCreated.toMillis() - a.dateCreated.toMillis());
+        break;
     }
 
     this.notePreviews = notePreviews;
@@ -146,10 +152,8 @@ export class DashRouteNotes {
     this.notesFilter = e.detail;
   }
 
-  updateSortBy(sortBy: SortOption, e: CustomEvent<boolean>) {
-    if (e.detail) {
-      this.sortBy = sortBy;
-    }
+  updateSortBy(sortBy: SortOption) {
+    this.sortBy = sortBy;
   }
 
   addNote() {
@@ -169,6 +173,9 @@ export class DashRouteNotes {
                 <dash-icon-button slot='dropdown-trigger' icon='filter' scale='l' tooltipText='Filter notes' tooltipPlacement='right'></dash-icon-button>
 
                 <dash-list selectionMode='single'>
+                  <dash-list-item selected={this.sortBy === 'last-modified'} onDashListItemSelectedChanged={this.updateSortBy.bind(this, 'last-modified')}>
+                    Sort by last modified
+                  </dash-list-item>
                   <dash-list-item selected={this.sortBy === 'date'} onDashListItemSelectedChanged={this.updateSortBy.bind(this, 'date')}>
                     Sort by date created
                   </dash-list-item>

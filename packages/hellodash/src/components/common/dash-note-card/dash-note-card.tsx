@@ -76,13 +76,13 @@ export class DashNoteCard {
   }
 
   notePreviewFragment({
-    dateCreated,
+    lastModified,
     title,
     previewContent,
     previewLabels,
     labels,
   }: {
-    dateCreated: DateTime;
+    lastModified: DateTime;
     title: string;
     previewContent: string;
     previewLabels: LabelViewModel[];
@@ -91,7 +91,7 @@ export class DashNoteCard {
     return (
       <div class='preview-container'>
         <header>
-          <h6 class='date-label'>{this.toLocaleDate(dateCreated)}</h6>
+          <h6 class='date-label'>{this.toLocaleDate(lastModified)}</h6>
           <h2 class='title'>{title}</h2>
         </header>
         <section class='preview'>{previewContent}</section>
@@ -109,14 +109,14 @@ export class DashNoteCard {
   //#endregion
 
   render() {
-    const { title, labels, previewContent, dateCreated } = this.notePreview;
+    const { title, labels, previewContent, lastModified } = this.notePreview;
     const noteLabels = labelsState.getLabelsByIds(this.notePreview.labels);
     const previewLabels = noteLabels.slice(0, MAX_LABELS) ?? [];
 
     return (
       <div class='note-card'>
         {this.mode === 'edit' && [
-          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ dateCreated, title, previewContent, previewLabels, labels })}</button>,
+          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ lastModified, title, previewContent, previewLabels, labels })}</button>,
 
           <div class='actions-end-wrapper'>
             <slot name='actions-end'></slot>
@@ -126,7 +126,7 @@ export class DashNoteCard {
         {this.mode === 'selectable' && (
           <button class={this.selected ? 'selected' : ''} onClick={() => (this.selected = !this.selected)}>
             {this.selected && <dash-icon class='card-selected-icon' icon='check-circle' scale='m'></dash-icon>}
-            {this.notePreviewFragment({ dateCreated, title, previewContent, previewLabels, labels })}
+            {this.notePreviewFragment({ lastModified, title, previewContent, previewLabels, labels })}
           </button>
         )}
       </div>
