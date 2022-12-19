@@ -8,8 +8,8 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "node build.js",
-    "start:hellodash": "yarn build",
-    "start:components": "yarn build"
+    "start:hellodash": "pnpm build",
+    "start:components": "pnpm build"
   },
   "files": [
     "lib/"
@@ -26,10 +26,10 @@
   "license": "MIT",
   "engines": {
     "node": "18.x",
-    "yarn": "3.x"
+    "pnpm": "7.x"
   },
   "volta": {
     "node": "18.12.1",
-    "yarn": "3.3.0"
+    "pnpm": "7.18.2"
   }
 }

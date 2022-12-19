@@ -37,9 +37,3 @@ dist
 website/build
 website/.docusaurus
 website/.cache-loader
-
-#yarn
-.yarn/*
-!.yarn/releases
-!.yarn/plugins
-.pnp.*

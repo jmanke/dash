@@ -8,6 +8,7 @@
   "license": "MIT",
   "private": true,
   "scripts": {
+    "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
     "start:hellodash": "turbo run start:hellodash",
     "start:components": "turbo run start:components",
@@ -16,16 +17,16 @@
   "workspaces": [
     "packages/*"
   ],
-  "packageManager": "yarn@3.3.0",
+  "packageManager": "pnpm@7.18.2",
   "devDependencies": {
     "turbo": "^1.5.6"
   },
   "engines": {
     "node": "18.x",
-    "yarn": "3.x"
+    "pnpm": "7.x"
   },
   "volta": {
     "node": "18.12.1",
-    "yarn": "3.3.0"
+    "pnpm": "7.18.2"
   }
 }

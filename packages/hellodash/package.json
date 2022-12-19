@@ -6,7 +6,7 @@
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
-    "start:hellodash": "yarn start",
+    "start:hellodash": "pnpm start",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
@@ -51,10 +51,10 @@
   },
   "engines": {
     "node": "18.x",
-    "yarn": "3.x"
+    "pnpm": "7.x"
   },
   "volta": {
     "node": "18.12.1",
-    "yarn": "3.3.0"
+    "pnpm": "7.18.2"
   }
 }

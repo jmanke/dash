@@ -24,10 +24,10 @@
   "scripts": {
     "build": "stencil build --docs",
     "publish:npm": "npm publish",
-    "start": "cross-env concurrently 'yarn start:dev' 'start:forge' -g -k",
+    "start": "cross-env concurrently 'pnpm start:dev' 'start:forge' -g -k",
     "start:dev": "stencil build --dev --watch",
-    "start:components": "yarn start:dev",
-    "start:components:forge": "yarn start:forge",
+    "start:components": "pnpm start:dev",
+    "start:components:forge": "pnpm start:forge",
     "start:hellodash": "stencil build",
     "start:forge": "component-forge",
     "test": "stencil test --spec --e2e",
@@ -39,13 +39,15 @@
     "@a11y/focus-trap": "^1.0.5",
     "@didyoumeantoast/dash-utils": "^1.1.3",
     "@popperjs/core": "^2.11.5",
-    "@stencil/core": "^2.19.2"
+    "@stencil/core": "^2.19.2",
+    "lodash": "^4.17.21"
   },
   "devDependencies": {
     "@babel/core": "^7.19.3",
-    "@didyoumeantoast/component-forge": "^0.4.0",
+    "@didyoumeantoast/component-forge": "^0.4.1",
     "@stencil/postcss": "^2.1.0",
     "@types/jest": "^27.0.3",
+    "@types/lodash": "^4.14.177",
     "autoprefixer": "^10.4.7",
     "babel-loader": "^8.2.5",
     "concurrently": "^7.4.0",
@@ -62,10 +64,10 @@
   "license": "MIT",
   "engines": {
     "node": "18.x",
-    "yarn": "3.x"
+    "pnpm": "7.x"
   },
   "volta": {
     "node": "18.12.1",
-    "yarn": "3.3.0"
+    "pnpm": "7.18.2"
   }
 }
