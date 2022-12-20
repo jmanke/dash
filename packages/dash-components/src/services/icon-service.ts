@@ -1,10 +1,10 @@
-import { assetPath } from '../global/constants';
+import { getAssetPath } from '@stencil/core';
 
 class IconService {
   cache = new Map<string, Array<string>>();
 
   async getIconPaths(icon: string) {
-    const iconPathName = `${assetPath}/icon-paths/${icon}.json`;
+    const iconPathName = getAssetPath(`assets/icon-paths/${icon}.json`);
     let paths = this.cache.get(iconPathName);
     if (paths) {
       return paths;
