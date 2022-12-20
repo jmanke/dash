@@ -9,6 +9,7 @@
   "scripts": {
     "build": "node build.js",
     "start:hellodash": "pnpm build",
+    "start:hellodash-vue": "pnpm build",
     "start:components": "pnpm build"
   },
   "files": [

@@ -16,6 +16,9 @@
     "start:components:forge": {
       "dependsOn": ["^start:components:forge"],
       "outputs": ["dist/**", "www/**"]
+    },
+    "start:hellodash-vue": {
+      "dependsOn": ["^start:hellodash-vue"]
     }
   }
 }
