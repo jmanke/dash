@@ -91,7 +91,7 @@ export class DashNoteCard {
     return (
       <div class='preview-container'>
         <header>
-          <h6 class='date-label'>{this.toLocaleDate(lastModified)}</h6>
+          <p class='date-label'>{this.toLocaleDate(lastModified)}</p>
           <h2 class='title'>{title}</h2>
         </header>
         <section class='preview'>{previewContent}</section>
