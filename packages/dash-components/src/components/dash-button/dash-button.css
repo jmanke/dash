@@ -91,7 +91,6 @@ button {
   text-align: left;
   overflow: hidden;
   transition: background-color var(--dash-transition-time-fast) ease-out;
-  align-items: baseline;
 }
 
 dash-icon {
