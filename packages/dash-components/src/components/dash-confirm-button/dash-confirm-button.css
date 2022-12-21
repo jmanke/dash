@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.hidden {
+  display: none;
+}
+
+.confirm-wrapper {
+  dash-icon-button:first-child {
+    margin-inline-end: var(--dash-spacing-1);
+  }
+}
