@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { RouterHistory } from "@stencil/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import { Color, Scale, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
+import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 import { LabelViewModel } from "./view-models/label-view-model";
 import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
@@ -25,10 +25,6 @@ export namespace Components {
         "confirmButtonStatus": Status;
         "confirmText": string;
         "heading": string;
-    }
-    interface DashConfirmButton {
-        "icon": string;
-        "scale": Scale;
     }
     interface DashEditLabels {
         "close": () => Promise<void>;
@@ -95,10 +91,6 @@ export interface DashConfirmCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashConfirmElement;
 }
-export interface DashConfirmButtonCustomEvent<T> extends CustomEvent<T> {
-    detail: T;
-    target: HTMLDashConfirmButtonElement;
-}
 export interface DashEditLabelsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashEditLabelsElement;
@@ -149,12 +141,6 @@ declare global {
     var HTMLDashConfirmElement: {
         prototype: HTMLDashConfirmElement;
         new (): HTMLDashConfirmElement;
-    };
-    interface HTMLDashConfirmButtonElement extends Components.DashConfirmButton, HTMLStencilElement {
-    }
-    var HTMLDashConfirmButtonElement: {
-        prototype: HTMLDashConfirmButtonElement;
-        new (): HTMLDashConfirmButtonElement;
     };
     interface HTMLDashEditLabelsElement extends Components.DashEditLabels, HTMLStencilElement {
     }
@@ -238,7 +224,6 @@ declare global {
         "dash-app": HTMLDashAppElement;
         "dash-auth0-provider": HTMLDashAuth0ProviderElement;
         "dash-confirm": HTMLDashConfirmElement;
-        "dash-confirm-button": HTMLDashConfirmButtonElement;
         "dash-edit-labels": HTMLDashEditLabelsElement;
         "dash-label-color-picker": HTMLDashLabelColorPickerElement;
         "dash-label-edit": HTMLDashLabelEditElement;
@@ -269,11 +254,6 @@ declare namespace LocalJSX {
         "onDashConfirmConfirmed"?: (event: DashConfirmCustomEvent<any>) => void;
         "onDashModalBeforeClose"?: (event: DashConfirmCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: DashConfirmCustomEvent<any>) => void;
-    }
-    interface DashConfirmButton {
-        "icon"?: string;
-        "onDashConfirmButtonConfirmed"?: (event: DashConfirmButtonCustomEvent<any>) => void;
-        "scale"?: Scale;
     }
     interface DashEditLabels {
         "onDashModalBeforeClose"?: (event: DashEditLabelsCustomEvent<any>) => void;
@@ -348,7 +328,6 @@ declare namespace LocalJSX {
         "dash-app": DashApp;
         "dash-auth0-provider": DashAuth0Provider;
         "dash-confirm": DashConfirm;
-        "dash-confirm-button": DashConfirmButton;
         "dash-edit-labels": DashEditLabels;
         "dash-label-color-picker": DashLabelColorPicker;
         "dash-label-edit": DashLabelEdit;
@@ -371,7 +350,6 @@ declare module "@stencil/core" {
             "dash-app": LocalJSX.DashApp & JSXBase.HTMLAttributes<HTMLDashAppElement>;
             "dash-auth0-provider": LocalJSX.DashAuth0Provider & JSXBase.HTMLAttributes<HTMLDashAuth0ProviderElement>;
             "dash-confirm": LocalJSX.DashConfirm & JSXBase.HTMLAttributes<HTMLDashConfirmElement>;
-            "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
             "dash-edit-labels": LocalJSX.DashEditLabels & JSXBase.HTMLAttributes<HTMLDashEditLabelsElement>;
             "dash-label-color-picker": LocalJSX.DashLabelColorPicker & JSXBase.HTMLAttributes<HTMLDashLabelColorPickerElement>;
             "dash-label-edit": LocalJSX.DashLabelEdit & JSXBase.HTMLAttributes<HTMLDashLabelEditElement>;

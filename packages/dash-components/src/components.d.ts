@@ -39,6 +39,10 @@ export namespace Components {
         "selected": boolean;
         "setFocus": () => Promise<void>;
     }
+    interface DashConfirmButton {
+        "icon": string;
+        "scale": Scale;
+    }
     interface DashDrillMenu {
         "active": boolean;
         "drillHeading": string;
@@ -187,6 +191,10 @@ export interface DashColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashColorPickerElement;
 }
+export interface DashConfirmButtonCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashConfirmButtonElement;
+}
 export interface DashDrillMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashDrillMenuElement;
@@ -251,6 +259,12 @@ declare global {
     var HTMLDashColorSwatchElement: {
         prototype: HTMLDashColorSwatchElement;
         new (): HTMLDashColorSwatchElement;
+    };
+    interface HTMLDashConfirmButtonElement extends Components.DashConfirmButton, HTMLStencilElement {
+    }
+    var HTMLDashConfirmButtonElement: {
+        prototype: HTMLDashConfirmButtonElement;
+        new (): HTMLDashConfirmButtonElement;
     };
     interface HTMLDashDrillMenuElement extends Components.DashDrillMenu, HTMLStencilElement {
     }
@@ -401,6 +415,7 @@ declare global {
         "dash-chip": HTMLDashChipElement;
         "dash-color-picker": HTMLDashColorPickerElement;
         "dash-color-swatch": HTMLDashColorSwatchElement;
+        "dash-confirm-button": HTMLDashConfirmButtonElement;
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
         "dash-fab": HTMLDashFabElement;
@@ -453,6 +468,11 @@ declare namespace LocalJSX {
         "color"?: Color | string;
         "scale"?: Scale;
         "selected"?: boolean;
+    }
+    interface DashConfirmButton {
+        "icon"?: string;
+        "onDashConfirmButtonConfirmed"?: (event: DashConfirmButtonCustomEvent<any>) => void;
+        "scale"?: Scale;
     }
     interface DashDrillMenu {
         "active"?: boolean;
@@ -605,6 +625,7 @@ declare namespace LocalJSX {
         "dash-chip": DashChip;
         "dash-color-picker": DashColorPicker;
         "dash-color-swatch": DashColorSwatch;
+        "dash-confirm-button": DashConfirmButton;
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
         "dash-fab": DashFab;
@@ -639,6 +660,7 @@ declare module "@stencil/core" {
             "dash-chip": LocalJSX.DashChip & JSXBase.HTMLAttributes<HTMLDashChipElement>;
             "dash-color-picker": LocalJSX.DashColorPicker & JSXBase.HTMLAttributes<HTMLDashColorPickerElement>;
             "dash-color-swatch": LocalJSX.DashColorSwatch & JSXBase.HTMLAttributes<HTMLDashColorSwatchElement>;
+            "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
