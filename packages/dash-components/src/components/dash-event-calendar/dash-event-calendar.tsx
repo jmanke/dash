@@ -102,20 +102,12 @@ export class DashEventCalendar {
               <dash-icon-button icon='chevron-right' onClick={this.nextMonth.bind(this)}></dash-icon-button>
             </span>
           </div>
-          <table class='container'>
-            <tr>
-              {Info.weekdays('short').map(d => (
-                <th>{d}</th>
-              ))}
-            </tr>
-            {this.weeks.map(week => (
-              <tr>
-                {week.map(day => (
-                  <td class={this.date.month === day.month ? undefined : 'faded'}>{day.day}</td>
-                ))}
-              </tr>
+          <div class='container'>
+            {Info.weekdays('short').map(d => (
+              <span class='week-day-cell'>{d}</span>
             ))}
-          </table>
+            {this.weeks.map(week => week.map(day => <div class={`day-cell ${this.date.month === day.month ? undefined : 'faded'}`}>{day.day}</div>))}
+          </div>
         </div>
       </Host>
     );

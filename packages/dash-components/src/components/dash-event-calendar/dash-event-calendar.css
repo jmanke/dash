@@ -15,24 +15,33 @@
 
     .title {
       margin: 0;
+      padding-block-end: var(--dash-spacing-3);
     }
   }
 
-  table.container {
-    table-layout: fixed;
+  .container {
+    flex: auto;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    column-gap: 1px;
+    row-gap: 1px;
     width: 100%;
+    background-color: var(--dash-border-1);
+    border: 1px solid var(--dash-border-1);
 
-    th,
-    td {
-      width: 50%;
+    .week-day-cell {
+      background-color: var(--dash-background-1);
     }
 
-    td {
-      border: 1px black solid;
+    .day-cell {
+      background-color: var(--dash-background-1);
+      min-width: var(--dash-spacing-12);
+      min-height: var(--dash-spacing-12);
     }
 
-    td.faded {
-      opacity: 0.5;
+    .faded {
+      background-color: var(--dash-background-3);
+      color: var(--dash-text-color-3);
     }
   }
 }
