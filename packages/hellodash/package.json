@@ -36,7 +36,7 @@
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
-    "@didyoumeantoast/dash-components": "^1.1.1",
+    "@didyoumeantoast/dash-components": "^1.1.2",
     "@didyoumeantoast/dash-utils": "^1.1.3",
     "@didyoumeantoast/stencil-view-model": "^1.0.5",
     "@didyoumeantoast/tinymce-plugins": "^1.1.4",
