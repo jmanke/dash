@@ -17,41 +17,34 @@ fs.rmdir(pathsDir, { recursive: true }, err => {
     }
 
     console.log(`${pathsDir} is created!`);
-    const svgPaths = includeIcons.map(icon => `${icon}.svg`);
     const pathPattern = /<path(.*)\/>/gm;
 
-    svgPaths.forEach(svgPath => {
-      const contents = fs.readFileSync(`${iconsDir}/${svgPath}`).toString();
-      let paths = [];
-      let match;
-      while ((match = pathPattern.exec(contents)) != null) {
-        paths.push(match[1]);
-      }
-
-      paths = paths.map(path => {
-        const dPattern = /d="(.*)"/;
-        const fillRulePattern = /fill-rule="(.*)"/;
-
-        let obj = {};
-
-        const matchD = dPattern.exec(path);
-        const matchFillRule = fillRulePattern.exec(path);
-
-        if (matchD) {
-          obj.d = matchD[1];
+    fs.readdir(iconsDir, (error, fileNames) => {
+      fileNames.forEach(svgPath => {
+        const contents = fs.readFileSync(`${iconsDir}/${svgPath}`).toString();
+        let paths = [];
+        let match;
+        while ((match = pathPattern.exec(contents)) != null) {
+          paths.push(match[1]);
         }
-
-        if (matchFillRule) {
-          obj.fillRule = matchFillRule[1];
-        }
-
-        return obj;
+        paths = paths.map(path => {
+          const dPattern = /d="(.*)"/;
+          const fillRulePattern = /fill-rule="(.*)"/;
+          let obj = {};
+          const matchD = dPattern.exec(path);
+          const matchFillRule = fillRulePattern.exec(path);
+          if (matchD) {
+            obj.d = matchD[1];
+          }
+          if (matchFillRule) {
+            obj.fillRule = matchFillRule[1];
+          }
+          return obj;
+        });
+        const fileName = svgPath.substring(0, svgPath.length - 4);
+        fs.writeFileSync(`${pathsDir}/${fileName}.json`, JSON.stringify({ paths }, null, 2));
+        console.log(`${svgPath} converted into paths`);
       });
-
-      const fileName = svgPath.substring(0, svgPath.length - 4);
-
-      fs.writeFileSync(`${pathsDir}/${fileName}.json`, JSON.stringify({ paths }, null, 2));
-      console.log(`${svgPath} converted into paths`);
     });
   });
 });
