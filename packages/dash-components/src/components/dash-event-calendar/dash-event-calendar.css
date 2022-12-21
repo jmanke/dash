@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+.calendar {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--dash-border-1);
+
+  .title {
+    text-align: center;
+  }
+}

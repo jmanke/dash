@@ -53,6 +53,8 @@ export namespace Components {
         "placement": Placement;
         "placementStrategy": PlacementStrategy;
     }
+    interface DashEventCalendar {
+    }
     interface DashFab {
         "icon": string;
         "scale": ScaleExtended;
@@ -278,6 +280,12 @@ declare global {
         prototype: HTMLDashDropdownElement;
         new (): HTMLDashDropdownElement;
     };
+    interface HTMLDashEventCalendarElement extends Components.DashEventCalendar, HTMLStencilElement {
+    }
+    var HTMLDashEventCalendarElement: {
+        prototype: HTMLDashEventCalendarElement;
+        new (): HTMLDashEventCalendarElement;
+    };
     interface HTMLDashFabElement extends Components.DashFab, HTMLStencilElement {
     }
     var HTMLDashFabElement: {
@@ -418,6 +426,7 @@ declare global {
         "dash-confirm-button": HTMLDashConfirmButtonElement;
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
+        "dash-event-calendar": HTMLDashEventCalendarElement;
         "dash-fab": HTMLDashFabElement;
         "dash-filter": HTMLDashFilterElement;
         "dash-focus-trap": HTMLDashFocusTrapElement;
@@ -484,6 +493,8 @@ declare namespace LocalJSX {
         "onDropdownVisibleChanged"?: (event: DashDropdownCustomEvent<boolean>) => void;
         "placement"?: Placement;
         "placementStrategy"?: PlacementStrategy;
+    }
+    interface DashEventCalendar {
     }
     interface DashFab {
         "icon"?: string;
@@ -628,6 +639,7 @@ declare namespace LocalJSX {
         "dash-confirm-button": DashConfirmButton;
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
+        "dash-event-calendar": DashEventCalendar;
         "dash-fab": DashFab;
         "dash-filter": DashFilter;
         "dash-focus-trap": DashFocusTrap;
@@ -663,6 +675,7 @@ declare module "@stencil/core" {
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
+            "dash-event-calendar": LocalJSX.DashEventCalendar & JSXBase.HTMLAttributes<HTMLDashEventCalendarElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
             "dash-filter": LocalJSX.DashFilter & JSXBase.HTMLAttributes<HTMLDashFilterElement>;
             "dash-focus-trap": LocalJSX.DashFocusTrap & JSXBase.HTMLAttributes<HTMLDashFocusTrapElement>;

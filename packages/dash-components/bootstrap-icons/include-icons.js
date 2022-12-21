@@ -17,4 +17,6 @@ module.exports = icons = [
   'person',
   'dot',
   'check-circle',
+  'chevron-left',
+  'chevron-right',
 ];

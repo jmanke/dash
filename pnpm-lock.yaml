@@ -32,6 +32,7 @@ importers:
       jest-cli: ^27.4.5
       lit-html: ^2.4.0
       lodash: ^4.17.21
+      luxon: ^2.4.0
       postcss: 8.4.6
       postcss-extend-rule: ^4.0.0
       postcss-nested: ^5.0.6
@@ -59,6 +60,7 @@ importers:
       jest: 27.5.1
       jest-cli: 27.5.1
       lit-html: 2.4.0
+      luxon: 2.5.0
       postcss: 8.4.6
       postcss-extend-rule: 4.0.0_postcss@8.4.6
       postcss-nested: 5.0.6_postcss@8.4.6
@@ -4001,7 +4003,6 @@ packages:
   /luxon/2.5.0:
     resolution: {integrity: sha512-IDkEPB80Rb6gCAU+FEib0t4FeJ4uVOuX1CQ9GsvU3O+JAGIgu0J7sf1OarXKaKDygTZIoJyU6YdZzTFRu+YR0A==}
     engines: {node: '>=12'}
-    dev: false
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}

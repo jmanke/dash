@@ -55,6 +55,7 @@
     "jest": "^27.4.5",
     "jest-cli": "^27.4.5",
     "lit-html": "^2.4.0",
+    "luxon": "^2.4.0",
     "postcss": "8.4.6",
     "postcss-extend-rule": "^4.0.0",
     "postcss-nested": "^5.0.6",
