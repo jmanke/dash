@@ -1,9 +1,16 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime, Info } from 'luxon';
 
+interface Event {
+  name: string;
+  fromTime: string;
+  toTime: string;
+}
+
 interface Day {
   day: number;
   month: number;
+  events?: Event[];
 }
 
 @Component({
@@ -71,7 +78,21 @@ export class DashEventCalendar {
     // generate 2d array of days
     for (let i = 0; i < numWeeks * 7; i++) {
       const weekNum = Math.floor(i / 7);
-      weeks[weekNum][i % 7] = { day: currDate.day, month: currDate.month };
+
+      const day: Day = {
+        day: currDate.day,
+        month: currDate.month,
+      };
+      if (i === 15) {
+        day.events = [
+          { name: 'Build calendar', fromTime: null, toTime: null },
+          { name: 'Test', fromTime: null, toTime: null },
+          { name: 'Hello there', fromTime: null, toTime: null },
+          { name: 'Why', fromTime: null, toTime: null },
+        ];
+      }
+
+      weeks[weekNum][i % 7] = day;
       currDate = currDate.plus({ days: 1 });
     }
 
@@ -98,15 +119,28 @@ export class DashEventCalendar {
             </h3>
 
             <span>
-              <dash-icon-button icon='chevron-left' onClick={this.prevMonth.bind(this)}></dash-icon-button>
-              <dash-icon-button icon='chevron-right' onClick={this.nextMonth.bind(this)}></dash-icon-button>
+              <dash-icon-button icon='chevron-left' rounded onClick={this.prevMonth.bind(this)}></dash-icon-button>
+              <dash-icon-button icon='chevron-right' rounded onClick={this.nextMonth.bind(this)}></dash-icon-button>
             </span>
           </div>
-          <div class='container'>
+          <div class='container' style={{ 'grid-template-rows': `0fr repeat(${this.weeks.length}, 1fr)` }}>
             {Info.weekdays('short').map(d => (
               <span class='week-day-cell'>{d}</span>
             ))}
-            {this.weeks.map(week => week.map(day => <div class={`day-cell ${this.date.month === day.month ? undefined : 'faded'}`}>{day.day}</div>))}
+            {this.weeks.map(week =>
+              week.map(day => (
+                <div class={`day-cell ${this.date.month === day.month ? undefined : 'faded'}`}>
+                  {day.day}
+                  {day.events && (
+                    <dash-list selectionMode='none'>
+                      {day.events.map(event => (
+                        <dash-list-item>{event.name}</dash-list-item>
+                      ))}
+                    </dash-list>
+                  )}
+                </div>
+              )),
+            )}
           </div>
         </div>
       </Host>

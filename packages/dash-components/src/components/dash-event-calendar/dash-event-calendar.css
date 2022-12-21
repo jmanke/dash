@@ -1,5 +1,5 @@
 :host {
-  display: block;
+  display: flex;
 }
 
 .calendar {
@@ -12,17 +12,20 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding-block-end: var(--dash-spacing-5);
 
     .title {
       margin: 0;
-      padding-block-end: var(--dash-spacing-3);
     }
   }
 
   .container {
     flex: auto;
+    min-width: 0;
+    min-height: 0;
     display: grid;
     grid-template-columns: repeat(7, 1fr);
+    grid-template-rows: 0fr repeat(5, 1fr);
     column-gap: 1px;
     row-gap: 1px;
     width: 100%;
@@ -31,12 +34,14 @@
 
     .week-day-cell {
       background-color: var(--dash-background-1);
+      padding: var(--dash-spacing-1);
+      text-align: center;
     }
 
     .day-cell {
       background-color: var(--dash-background-1);
-      min-width: var(--dash-spacing-12);
-      min-height: var(--dash-spacing-12);
+      padding: var(--dash-spacing-1);
+      overflow: hidden;
     }
 
     .faded {
