@@ -1,6 +1,7 @@
 import { Component, h, Prop, Event, EventEmitter, Element, Host, Method, State } from '@stencil/core';
 import { contains, isClick, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { SelectionMode } from '../dash-list/dash-list';
+import { Scale } from '../../types/types';
 
 @Component({
   tag: 'dash-list-item',
@@ -37,6 +38,11 @@ export class DashListItem {
     reflect: true,
   })
   disabled: boolean;
+
+  @Prop({
+    reflect: true,
+  })
+  scale: Scale = 'm';
   //#endregion
 
   //#region @Event
