@@ -3,6 +3,7 @@
 }
 
 .calendar {
+  flex: auto;
   display: flex;
   flex-direction: column;
   border: 1px solid var(--dash-border-1);
@@ -89,6 +90,14 @@
 .event-popover {
   background-color: var(--dash-background-1);
   border-radius: var(--dash-border-radius);
-  padding: var(--dash-spacing-3);
+  padding: var(--dash-spacing-2);
   box-shadow: var(--dash-box-shadow);
+
+  .event-popover-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    column-gap: var(--dash-spacing-3);
+    font-size: var(--dash-font-size-3);
+  }
 }

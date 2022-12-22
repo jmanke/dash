@@ -53,7 +53,7 @@ export namespace Components {
         "placement": Placement;
         "placementStrategy": PlacementStrategy;
     }
-    interface DashEventCalendar {
+    interface DashEventCalendarMonth {
     }
     interface DashFab {
         "icon": string;
@@ -282,11 +282,11 @@ declare global {
         prototype: HTMLDashDropdownElement;
         new (): HTMLDashDropdownElement;
     };
-    interface HTMLDashEventCalendarElement extends Components.DashEventCalendar, HTMLStencilElement {
+    interface HTMLDashEventCalendarMonthElement extends Components.DashEventCalendarMonth, HTMLStencilElement {
     }
-    var HTMLDashEventCalendarElement: {
-        prototype: HTMLDashEventCalendarElement;
-        new (): HTMLDashEventCalendarElement;
+    var HTMLDashEventCalendarMonthElement: {
+        prototype: HTMLDashEventCalendarMonthElement;
+        new (): HTMLDashEventCalendarMonthElement;
     };
     interface HTMLDashFabElement extends Components.DashFab, HTMLStencilElement {
     }
@@ -428,7 +428,7 @@ declare global {
         "dash-confirm-button": HTMLDashConfirmButtonElement;
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
-        "dash-event-calendar": HTMLDashEventCalendarElement;
+        "dash-event-calendar-month": HTMLDashEventCalendarMonthElement;
         "dash-fab": HTMLDashFabElement;
         "dash-filter": HTMLDashFilterElement;
         "dash-focus-trap": HTMLDashFocusTrapElement;
@@ -496,7 +496,7 @@ declare namespace LocalJSX {
         "placement"?: Placement;
         "placementStrategy"?: PlacementStrategy;
     }
-    interface DashEventCalendar {
+    interface DashEventCalendarMonth {
     }
     interface DashFab {
         "icon"?: string;
@@ -643,7 +643,7 @@ declare namespace LocalJSX {
         "dash-confirm-button": DashConfirmButton;
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
-        "dash-event-calendar": DashEventCalendar;
+        "dash-event-calendar-month": DashEventCalendarMonth;
         "dash-fab": DashFab;
         "dash-filter": DashFilter;
         "dash-focus-trap": DashFocusTrap;
@@ -679,7 +679,7 @@ declare module "@stencil/core" {
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
-            "dash-event-calendar": LocalJSX.DashEventCalendar & JSXBase.HTMLAttributes<HTMLDashEventCalendarElement>;
+            "dash-event-calendar-month": LocalJSX.DashEventCalendarMonth & JSXBase.HTMLAttributes<HTMLDashEventCalendarMonthElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
             "dash-filter": LocalJSX.DashFilter & JSXBase.HTMLAttributes<HTMLDashFilterElement>;
             "dash-focus-trap": LocalJSX.DashFocusTrap & JSXBase.HTMLAttributes<HTMLDashFocusTrapElement>;

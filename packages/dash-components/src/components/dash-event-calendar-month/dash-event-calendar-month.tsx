@@ -8,18 +8,18 @@ interface Event {
 }
 
 interface Day {
-  day: number;
-  month: number;
+  date: DateTime;
   events?: Event[];
 }
 
 @Component({
-  tag: 'dash-event-calendar',
-  styleUrl: 'dash-event-calendar.css',
+  tag: 'dash-event-calendar-month',
+  styleUrl: 'dash-event-calendar-month.css',
   shadow: true,
 })
-export class DashEventCalendar {
+export class DashEventCalendarMonth {
   //#region Own properties
+  today: DateTime;
   //#endregion
 
   //#region @Element
@@ -51,6 +51,7 @@ export class DashEventCalendar {
 
   //#region Component lifecycle
   componentWillLoad() {
+    this.today = DateTime.now().startOf('day');
     this.date = DateTime.fromObject({ year: 2022, month: 12 });
     this.updateCalendar();
   }
@@ -86,10 +87,9 @@ export class DashEventCalendar {
       const weekNum = Math.floor(i / 7);
 
       const day: Day = {
-        day: currDate.day,
-        month: currDate.month,
+        date: currDate,
       };
-      if (i === 15) {
+      if (i === 15 && this.today.month === currDate.month) {
         day.events = [
           { name: 'Build calendar', fromTime: null, toTime: null },
           { name: 'Test', fromTime: null, toTime: null },
@@ -123,6 +123,10 @@ export class DashEventCalendar {
       event,
     };
   }
+
+  closeEventPopover() {
+    this.selectedEvent = null;
+  }
   //#endregion
 
   render() {
@@ -144,14 +148,14 @@ export class DashEventCalendar {
               <span class='week-day-cell'>{d}</span>
             ))}
             {this.weeks.map(week =>
-              week.map(day => (
-                <div class={`day-cell ${this.date.month === day.month ? undefined : 'faded'}`}>
-                  <dash-button class='day-number' scale='s'>
-                    {day.day}
+              week.map(weekday => (
+                <div class={`day-cell ${this.date.month === weekday.date.month ? undefined : 'faded'}`}>
+                  <dash-button class='day-number' scale='s' appearance={this.today.equals(weekday.date) ? 'outline' : 'clear'}>
+                    {weekday.date.day}
                   </dash-button>
-                  {day.events && (
+                  {weekday.events && (
                     <dash-list selectionMode='none' scale='s'>
-                      {day.events.map(event => (
+                      {weekday.events.map(event => (
                         <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEvent.bind(this, event)}>
                           <div class='item-wrapper'>
                             <span class='event-dot'></span>
@@ -166,8 +170,12 @@ export class DashEventCalendar {
             )}
           </div>
 
-          <dash-popover target={this.selectedEvent?.element} active={!!this.selectedEvent} autoClose={true} onDashPopoverClose={() => (this.selectedEvent = null)}>
-            <div class='event-popover'>{this.selectedEvent?.event.name}</div>
+          <dash-popover target={this.selectedEvent?.element} active={!!this.selectedEvent} autoClose={true} onDashPopoverClose={this.closeEventPopover.bind(this)}>
+            <div class='event-popover'>
+              <div class='event-popover-header'>
+                {this.selectedEvent?.event.name} <dash-icon-button icon='x' onClick={this.closeEventPopover.bind(this)}></dash-icon-button>
+              </div>
+            </div>
           </dash-popover>
         </div>
       </Host>
