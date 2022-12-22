@@ -1,19 +1,20 @@
 :host {
   display: block;
+  position: absolute;
   visibility: hidden;
   z-index: var(--dash-z-index-popover);
   --dash-popover-translate-y: 10px;
   --dash-popover-translate-x: 0;
+}
 
-  &([active]) {
-    visibility: visible;
-  }
+:host([active]) {
+  visibility: visible;
+}
 
-  &([active]) .container {
-    pointer-events: initial;
-    opacity: 1;
-    transform: translate(0);
-  }
+:host([active]) .container {
+  pointer-events: initial;
+  opacity: 1;
+  transform: translate(0);
 }
 
 :host([placement='right']) {
