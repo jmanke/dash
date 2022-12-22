@@ -36,7 +36,7 @@ export class DashPopover {
   target: HTMLElement | string;
   @Watch('target')
   targetChanged() {
-    this.updatePopover();
+    this.updatePopover(true);
   }
 
   @Prop({
@@ -142,10 +142,9 @@ export class DashPopover {
     DashPopover.currentPopovers = DashPopover.currentPopovers.filter(p => p !== this.element);
   }
 
-  updatePopover() {
-    if (this.popper) {
+  updatePopover(forceCreate = false) {
+    if (this.popper && !forceCreate) {
       this.popper.update();
-
       return;
     }
 
