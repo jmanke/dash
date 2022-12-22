@@ -1,5 +1,6 @@
 import { Component, Host, h, Prop, Element, Watch } from '@stencil/core';
 import { isDefined } from '@didyoumeantoast/dash-utils';
+import { Scale } from '../../types/types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none';
 
@@ -28,6 +29,15 @@ export class DashList {
   selectionMode: SelectionMode = 'single';
   @Watch('selectionMode')
   selectionModeChanged() {
+    this.updateChildProps();
+  }
+
+  @Prop({
+    reflect: true,
+  })
+  scale: Scale = 'm';
+  @Watch('scale')
+  scaleChanged() {
     this.updateChildProps();
   }
   //#endregion
@@ -91,10 +101,11 @@ export class DashList {
     prevSibling.tabIndex = 0;
   }
 
-  updateChildProps() {
+  updateChildProps() {    
     this.listItems = Array.from(this.element.childNodes).filter(child => child.nodeName === 'DASH-LIST-ITEM') as HTMLDashListItemElement[];
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
       element.selectionMode = this.selectionMode;
+      element.scale = this.scale;
       element.tabIndex = index === 0 ? 0 : -1;
     });
   }

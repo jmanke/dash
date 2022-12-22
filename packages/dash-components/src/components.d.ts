@@ -118,10 +118,12 @@ export namespace Components {
         "layout": LabelLayout;
     }
     interface DashList {
+        "scale": Scale;
         "selectionMode": SelectionMode;
     }
     interface DashListItem {
         "disabled": boolean;
+        "scale": Scale;
         "selected": boolean;
         "selectionMode": SelectionMode1;
         "setFocus": () => Promise<void>;
@@ -559,6 +561,7 @@ declare namespace LocalJSX {
         "layout"?: LabelLayout;
     }
     interface DashList {
+        "scale"?: Scale;
         "selectionMode"?: SelectionMode;
     }
     interface DashListItem {
@@ -566,6 +569,7 @@ declare namespace LocalJSX {
         "onDashListItemMoveNext"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
         "onDashListItemMovePrevious"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
         "onDashListItemSelectedChanged"?: (event: DashListItemCustomEvent<boolean>) => void;
+        "scale"?: Scale;
         "selected"?: boolean;
         "selectionMode"?: SelectionMode1;
     }
