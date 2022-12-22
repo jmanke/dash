@@ -49,6 +49,7 @@
   align-items: center;
   flex: auto;
   user-select: none;
+  max-width: 100%;
 }
 
 :host([scale='s']) {
