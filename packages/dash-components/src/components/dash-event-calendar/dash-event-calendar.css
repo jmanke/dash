@@ -42,6 +42,15 @@
       background-color: var(--dash-background-1);
       padding: var(--dash-spacing-1);
       overflow: hidden;
+
+      dash-list {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .event-name {
+        white-space: nowrap;
+      }
     }
 
     .faded {

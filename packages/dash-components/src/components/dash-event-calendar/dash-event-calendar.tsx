@@ -132,9 +132,11 @@ export class DashEventCalendar {
                 <div class={`day-cell ${this.date.month === day.month ? undefined : 'faded'}`}>
                   {day.day}
                   {day.events && (
-                    <dash-list selectionMode='none'>
+                    <dash-list selectionMode='none' scale='s'>
                       {day.events.map(event => (
-                        <dash-list-item>{event.name}</dash-list-item>
+                        <dash-list-item>
+                          <span class='event-name'>{event.name}</span>
+                        </dash-list-item>
                       ))}
                     </dash-list>
                   )}
