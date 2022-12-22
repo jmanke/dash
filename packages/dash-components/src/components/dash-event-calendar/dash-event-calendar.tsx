@@ -30,6 +30,12 @@ export class DashEventCalendar {
   weeks: Day[][] = [];
 
   @State()
+  selectedEvent: {
+    element: HTMLElement;
+    event: Event;
+  };
+
+  @State()
   date: DateTime;
   @Watch('date')
   dateChanged() {
@@ -107,6 +113,16 @@ export class DashEventCalendar {
     this.date = this.date.plus({ months: 1 });
   }
 
+  createEventPopover() {
+    return <dash-popover>Hello there</dash-popover>;
+  }
+
+  updateSelectedEvent(event: Event, { target }) {
+    this.selectedEvent = {
+      element: target,
+      event,
+    };
+  }
   //#endregion
 
   render() {
@@ -130,12 +146,17 @@ export class DashEventCalendar {
             {this.weeks.map(week =>
               week.map(day => (
                 <div class={`day-cell ${this.date.month === day.month ? undefined : 'faded'}`}>
-                  {day.day}
+                  <dash-button class='day-number' scale='s'>
+                    {day.day}
+                  </dash-button>
                   {day.events && (
                     <dash-list selectionMode='none' scale='s'>
                       {day.events.map(event => (
-                        <dash-list-item>
-                          <span class='event-name'>{event.name}</span>
+                        <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEvent.bind(this, event)}>
+                          <div class='item-wrapper'>
+                            <span class='event-dot'></span>
+                            <span class='event-name'>{event.name}</span>
+                          </div>
                         </dash-list-item>
                       ))}
                     </dash-list>
@@ -144,6 +165,10 @@ export class DashEventCalendar {
               )),
             )}
           </div>
+
+          <dash-popover target={this.selectedEvent?.element} active={!!this.selectedEvent} autoClose={true} onDashPopoverClose={() => (this.selectedEvent = null)}>
+            <div class='event-popover'>{this.selectedEvent?.event.name}</div>
+          </dash-popover>
         </div>
       </Host>
     );
