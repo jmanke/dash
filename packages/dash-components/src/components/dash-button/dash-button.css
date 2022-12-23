@@ -7,80 +7,82 @@
   --dash-button-background-color-hover: var(--dash-bg-darken-1);
   --dash-button-background-color-active: var(--dash-bg-darken-2);
   --dash-button-padding: var(--dash-spacing-1) var(--dash-spacing-2);
+  --dash-button-height: unset;
+}
 
-  &([status="success"]) {
-    --dash-button-background-color: var(--dash-success);
-    --dash-button-background-color-hover: var(--dash-success-hover);
-    --dash-button-background-color-active: var(--dash-success-active);
+:host([status='success']) {
+  --dash-button-background-color: var(--dash-success);
+  --dash-button-background-color-hover: var(--dash-success-hover);
+  --dash-button-background-color-active: var(--dash-success-active);
+}
+
+:host([status='error']) {
+  --dash-button-background-color: var(--dash-danger);
+  --dash-button-background-color-hover: var(--dash-danger-hover);
+  --dash-button-background-color-active: var(--dash-danger-active);
+}
+
+:host([disabled]) {
+  button {
+    cursor: initial;
+    color: var(--dash-text-color-2);
+    filter: brightness(0.9);
   }
+}
 
-  &([status="error"]) {
-    --dash-button-background-color: var(--dash-danger);
-    --dash-button-background-color-hover: var(--dash-danger-hover);
-    --dash-button-background-color-active: var(--dash-danger-active);
-  }
-
-  &([disabled]) {
-    button {
-      cursor: initial;
-      color: var(--dash-text-color-2);
-      filter: brightness(0.9);
-    }
-  }
-
-  &(:not([disabled])) {
-    button {
-      &:hover {
-        background-color: var(--dash-button-background-color-hover);
-      }
-
-      &:focus-visible {
-        @extend .focus-outline;
-      }
-
-      &:active {
-        background-color: var(--dash-button-background-color-active);
-      }
-    }
-  }
-
-  &([scale='s']) {
-    button {
-      height: var(--dash-spacing-6);
-      --dash-button-padding: var(--dash-spacing-half) var(--dash-spacing-1-half);
-      font-size: var(--dash-font-size-1);
+:host(:not([disabled])) {
+  button {
+    &:hover {
+      background-color: var(--dash-button-background-color-hover);
     }
 
-    dash-icon {
-      --dash-icon-size: 14px;
-      margin-inline-end: var(--dash-spacing-1);
+    &:focus-visible {
+      @extend .focus-outline;
+    }
+
+    &:active {
+      background-color: var(--dash-button-background-color-active);
     }
   }
+}
 
-  &([scale='l']) {
-    button {
-      height: var(--dash-spacing-12);
-      --dash-button-padding: var(--dash-spacing-2) var(--dash-spacing-4);
-      font-size: var(--dash-font-size-4);
-    }
-
-    dash-icon {
-      --dash-icon-size: 18px;
-      margin-inline-end: var(--dash-spacing-3);
-    }
+:host([scale='s']) {
+  button {
+    min-height: var(--dash-spacing-6);
+    --dash-button-padding: var(--dash-spacing-half) var(--dash-spacing-1-half);
+    font-size: var(--dash-font-size-1);
   }
 
-  &([appearance='outline']) {
-    button {
-      border: 1px solid var(--dash-border-1);
-    }
+  dash-icon {
+    --dash-icon-size: 14px;
+    margin-inline-end: var(--dash-spacing-1);
+  }
+}
+
+:host([scale='l']) {
+  button {
+    min-height: var(--dash-spacing-12);
+    --dash-button-padding: var(--dash-spacing-2) var(--dash-spacing-4);
+    font-size: var(--dash-font-size-4);
+  }
+
+  dash-icon {
+    --dash-icon-size: 18px;
+    margin-inline-end: var(--dash-spacing-3);
+  }
+}
+
+:host([appearance='outline']) {
+  button {
+    border: 1px solid var(--dash-border-1);
   }
 }
 
 button {
   background-color: var(--dash-button-background-color);
   padding: var(--dash-button-padding);
-  height: var(--dash-spacing-8);
+  min-height: var(--dash-spacing-8);
+  height: var(--dash-button-height);
   width: 100%;
   border-radius: var(--dash-border-radius);
   display: flex;

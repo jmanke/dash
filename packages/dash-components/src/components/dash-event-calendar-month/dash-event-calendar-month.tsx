@@ -1,16 +1,8 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
-import { DateTime, Info } from 'luxon';
-
-interface Event {
-  name: string;
-  fromTime: string;
-  toTime: string;
-}
-
-interface Day {
-  date: DateTime;
-  events?: Event[];
-}
+import { DateTime } from 'luxon';
+import { CalendarEvent } from '../../interfaces/calendar-event';
+import { Day } from '../../interfaces/day';
+import { weekdays } from '../../utils/date/week';
 
 @Component({
   tag: 'dash-event-calendar-month',
@@ -32,7 +24,7 @@ export class DashEventCalendarMonth {
   @State()
   selectedEvent: {
     element: HTMLElement;
-    event: Event;
+    event: CalendarEvent;
   };
 
   @State()
@@ -117,7 +109,7 @@ export class DashEventCalendarMonth {
     return <dash-popover>Hello there</dash-popover>;
   }
 
-  updateSelectedEvent(event: Event, { target }) {
+  updateSelectedEvent(event: CalendarEvent, { target }) {
     this.selectedEvent = {
       element: target,
       event,
@@ -144,7 +136,7 @@ export class DashEventCalendarMonth {
             </span>
           </div>
           <div class='container' style={{ 'grid-template-rows': `0fr repeat(${this.weeks.length}, 1fr)` }}>
-            {Info.weekdays('short').map(d => (
+            {weekdays('short').map(d => (
               <span class='week-day-cell'>{d}</span>
             ))}
             {this.weeks.map(week =>

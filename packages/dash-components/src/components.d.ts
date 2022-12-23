@@ -55,6 +55,8 @@ export namespace Components {
     }
     interface DashEventCalendarMonth {
     }
+    interface DashEventCalendarWeek {
+    }
     interface DashFab {
         "icon": string;
         "scale": ScaleExtended;
@@ -288,6 +290,12 @@ declare global {
         prototype: HTMLDashEventCalendarMonthElement;
         new (): HTMLDashEventCalendarMonthElement;
     };
+    interface HTMLDashEventCalendarWeekElement extends Components.DashEventCalendarWeek, HTMLStencilElement {
+    }
+    var HTMLDashEventCalendarWeekElement: {
+        prototype: HTMLDashEventCalendarWeekElement;
+        new (): HTMLDashEventCalendarWeekElement;
+    };
     interface HTMLDashFabElement extends Components.DashFab, HTMLStencilElement {
     }
     var HTMLDashFabElement: {
@@ -429,6 +437,7 @@ declare global {
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
         "dash-event-calendar-month": HTMLDashEventCalendarMonthElement;
+        "dash-event-calendar-week": HTMLDashEventCalendarWeekElement;
         "dash-fab": HTMLDashFabElement;
         "dash-filter": HTMLDashFilterElement;
         "dash-focus-trap": HTMLDashFocusTrapElement;
@@ -497,6 +506,8 @@ declare namespace LocalJSX {
         "placementStrategy"?: PlacementStrategy;
     }
     interface DashEventCalendarMonth {
+    }
+    interface DashEventCalendarWeek {
     }
     interface DashFab {
         "icon"?: string;
@@ -644,6 +655,7 @@ declare namespace LocalJSX {
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
         "dash-event-calendar-month": DashEventCalendarMonth;
+        "dash-event-calendar-week": DashEventCalendarWeek;
         "dash-fab": DashFab;
         "dash-filter": DashFilter;
         "dash-focus-trap": DashFocusTrap;
@@ -680,6 +692,7 @@ declare module "@stencil/core" {
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
             "dash-event-calendar-month": LocalJSX.DashEventCalendarMonth & JSXBase.HTMLAttributes<HTMLDashEventCalendarMonthElement>;
+            "dash-event-calendar-week": LocalJSX.DashEventCalendarWeek & JSXBase.HTMLAttributes<HTMLDashEventCalendarWeekElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
             "dash-filter": LocalJSX.DashFilter & JSXBase.HTMLAttributes<HTMLDashFilterElement>;
             "dash-focus-trap": LocalJSX.DashFocusTrap & JSXBase.HTMLAttributes<HTMLDashFocusTrapElement>;
