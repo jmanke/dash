@@ -126,16 +126,14 @@ export class DashEventCalendarMonth {
       <Host>
         <div class='calendar'>
           <div class='header'>
-            <h3 class='title'>
-              {this.date.toLocaleString({ month: 'long' })} {this.date.year}
-            </h3>
+            <h3 class='title'>{this.date.toLocaleString({ month: 'long', year: 'numeric' })}</h3>
 
             <span>
               <dash-icon-button icon='chevron-left' rounded onClick={this.prevMonth.bind(this)}></dash-icon-button>
               <dash-icon-button icon='chevron-right' rounded onClick={this.nextMonth.bind(this)}></dash-icon-button>
             </span>
           </div>
-          <div class='container' style={{ 'grid-template-rows': `0fr repeat(${this.weeks.length}, 1fr)` }}>
+          <div class='month' style={{ 'grid-template-rows': `0fr repeat(${this.weeks.length}, 1fr)` }}>
             {weekdays('short').map(d => (
               <span class='week-day-cell'>{d}</span>
             ))}

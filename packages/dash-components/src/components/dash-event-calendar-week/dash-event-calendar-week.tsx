@@ -71,7 +71,7 @@ export class DashEventCalendarWeek {
       startEndTimes.push({ time: e.fromTime, isStart: true, event: e });
       startEndTimes.push({ time: e.toTime, isStart: false, event: e });
     });
-    startEndTimes.sort((a, b) => a.time.toMillis() - b.time.toMillis());  
+    startEndTimes.sort((a, b) => a.time.toMillis() - b.time.toMillis());
 
     const calendarEventGroups: CalendarEventGroupRenderer[] = [];
     // need to find the "groups" which have overlapping times
@@ -139,9 +139,7 @@ export class DashEventCalendarWeek {
       <Host>
         <div class='calendar'>
           <div class='header'>
-            <h3 class='title'>
-              {this.date.toLocaleString({ month: 'long' })} {this.date.year}
-            </h3>
+            <h3 class='title'>{this.date.toLocaleString({ month: 'long', year: 'numeric' })}</h3>
 
             <span>
               <dash-icon-button icon='chevron-left' rounded onClick={this.prevWeek.bind(this)}></dash-icon-button>
@@ -149,7 +147,7 @@ export class DashEventCalendarWeek {
             </span>
           </div>
 
-          <div class='weekdays'>
+          <div class='weekdays-header'>
             <div class='weekdays-start-spacer'></div>
             {this.weekdays.map(day => (
               <div class='weekday-header'>
@@ -160,9 +158,9 @@ export class DashEventCalendarWeek {
             <div class='weekdays-end-spacer'></div>
           </div>
 
-          <div class='container'>
-            <div class='hours-container'>
-              <div class='hour'></div>
+          <div class='weekdays-content'>
+            <div class='hours'>
+              <div></div>
               {this.hours.map(hour => (
                 <div class='hour-cell'>
                   <span class='hour'>{hour}</span>
@@ -170,7 +168,7 @@ export class DashEventCalendarWeek {
               ))}
             </div>
 
-            <div class='week-container'>
+            <div class='week'>
               {this.weekdays.map(day => (
                 <div class='day-cell'>
                   {day.events &&

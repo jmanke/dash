@@ -20,7 +20,7 @@
     }
   }
 
-  .weekdays {
+  .weekdays-header {
     display: grid;
     grid-template-columns: var(--dash-spacing-20) repeat(7, 1fr) min-content;
     column-gap: 1px;
@@ -56,11 +56,11 @@
     }
   }
 
-  .container {
+  .weekdays-content {
     display: flex;
     overflow-y: scroll;
 
-    .hours-container {
+    .hours {
       height: fit-content;
       display: grid;
       grid-template-rows: repeat(25, 1fr);
@@ -91,7 +91,7 @@
       }
     }
 
-    .week-container::before {
+    .week::before {
       content: '';
       position: absolute;
       inset-inline-start: 0;
@@ -102,7 +102,7 @@
       height: 100%;
     }
 
-    .week-container {
+    .week {
       position: relative;
       height: fit-content;
       display: grid;

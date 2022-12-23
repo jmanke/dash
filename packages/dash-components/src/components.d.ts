@@ -53,6 +53,8 @@ export namespace Components {
         "placement": Placement;
         "placementStrategy": PlacementStrategy;
     }
+    interface DashEventCalendarDay {
+    }
     interface DashEventCalendarMonth {
     }
     interface DashEventCalendarWeek {
@@ -284,6 +286,12 @@ declare global {
         prototype: HTMLDashDropdownElement;
         new (): HTMLDashDropdownElement;
     };
+    interface HTMLDashEventCalendarDayElement extends Components.DashEventCalendarDay, HTMLStencilElement {
+    }
+    var HTMLDashEventCalendarDayElement: {
+        prototype: HTMLDashEventCalendarDayElement;
+        new (): HTMLDashEventCalendarDayElement;
+    };
     interface HTMLDashEventCalendarMonthElement extends Components.DashEventCalendarMonth, HTMLStencilElement {
     }
     var HTMLDashEventCalendarMonthElement: {
@@ -436,6 +444,7 @@ declare global {
         "dash-confirm-button": HTMLDashConfirmButtonElement;
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
+        "dash-event-calendar-day": HTMLDashEventCalendarDayElement;
         "dash-event-calendar-month": HTMLDashEventCalendarMonthElement;
         "dash-event-calendar-week": HTMLDashEventCalendarWeekElement;
         "dash-fab": HTMLDashFabElement;
@@ -504,6 +513,8 @@ declare namespace LocalJSX {
         "onDropdownVisibleChanged"?: (event: DashDropdownCustomEvent<boolean>) => void;
         "placement"?: Placement;
         "placementStrategy"?: PlacementStrategy;
+    }
+    interface DashEventCalendarDay {
     }
     interface DashEventCalendarMonth {
     }
@@ -654,6 +665,7 @@ declare namespace LocalJSX {
         "dash-confirm-button": DashConfirmButton;
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
+        "dash-event-calendar-day": DashEventCalendarDay;
         "dash-event-calendar-month": DashEventCalendarMonth;
         "dash-event-calendar-week": DashEventCalendarWeek;
         "dash-fab": DashFab;
@@ -691,6 +703,7 @@ declare module "@stencil/core" {
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
+            "dash-event-calendar-day": LocalJSX.DashEventCalendarDay & JSXBase.HTMLAttributes<HTMLDashEventCalendarDayElement>;
             "dash-event-calendar-month": LocalJSX.DashEventCalendarMonth & JSXBase.HTMLAttributes<HTMLDashEventCalendarMonthElement>;
             "dash-event-calendar-week": LocalJSX.DashEventCalendarWeek & JSXBase.HTMLAttributes<HTMLDashEventCalendarWeekElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
