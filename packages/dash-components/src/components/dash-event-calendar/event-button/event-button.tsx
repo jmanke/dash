@@ -51,6 +51,8 @@ function eventButtonStyle(scale: Scale, cellScale: CellScale) {
 function eventContentStyle(scale: Scale, cellScale: CellScale) {
   const style = {
     height: '100%',
+    textRendering: 'optimizeLegibility',
+    fontSmoothing: 'antialiased',
     padding: cellScale !== 'm' ? '1px var(--dash-spacing-1)' : Padding[scale],
     display: cellScale !== 'm' ? 'flex' : 'block',
     columnGap: cellScale !== 'm' ? 'var(--dash-spacing-1-half)' : 'unset',
