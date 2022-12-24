@@ -1,4 +1,3 @@
-import { DateTime } from 'luxon';
 import { CalendarEvent } from './calendar-event';
 
 export interface EventLayout {
@@ -7,10 +6,4 @@ export interface EventLayout {
   height: string;
   left: string;
   width: string;
-}
-
-export interface Day {
-  date: DateTime;
-  events?: CalendarEvent[];
-  eventLayouts?: EventLayout[];
 }

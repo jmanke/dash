@@ -85,7 +85,7 @@
           border-radius: var(--dash-border-radius);
           background-color: var(--dash-brand);
           flex: auto;
-          margin: var(--dash-spacing-1);
+          margin: var(--dash-spacing-px);
         }
 
         .event-content {

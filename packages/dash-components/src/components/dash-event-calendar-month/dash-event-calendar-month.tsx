@@ -1,8 +1,12 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { CalendarEvent } from '../../interfaces/calendar-event';
-import { Day } from '../../interfaces/day';
 import { weekdays } from '../../utils/date/week';
+
+export interface Day {
+  date: DateTime;
+  events?: CalendarEvent[];
+}
 
 @Component({
   tag: 'dash-event-calendar-month',

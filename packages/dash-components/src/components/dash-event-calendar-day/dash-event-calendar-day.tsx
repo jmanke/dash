@@ -1,16 +1,14 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { CalendarEvent } from '../../interfaces/calendar-event';
-import { Day, EventLayout } from '../../interfaces/day';
+import { EventCalendar } from '../../common/event-calendar';
+import { EventLayout } from '../../interfaces/event-layout';
 
-interface EventProccessingData {
-  event: CalendarEvent;
-  track: number;
-  right: number;
+export interface Day {
+  date: DateTime;
+  eventLayouts?: EventLayout[];
 }
 
 const HOUR_CELL_HEIGHT = 40;
-const HOUR_PX_RATIO = HOUR_CELL_HEIGHT / 60;
 
 @Component({
   tag: 'dash-event-calendar-day',
@@ -21,6 +19,7 @@ export class DashEventCalendarDay {
   //#region Own properties
   today: DateTime;
   hours: string[];
+  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT);
   //#endregion
 
   //#region @Element
@@ -53,7 +52,6 @@ export class DashEventCalendarDay {
       hours.push(time.toFormat('h a'));
     }
     this.hours = hours;
-
     this.today = DateTime.now().startOf('day');
     this.date = this.today;
   }
@@ -66,107 +64,6 @@ export class DashEventCalendarDay {
   //#endregion
 
   //#region Local methods
-  eventTopPosition(event: CalendarEvent) {
-    const top = event.fromTime.hour * HOUR_CELL_HEIGHT + event.fromTime.minute * HOUR_PX_RATIO;
-
-    return `${top}px`;
-  }
-
-  eventHeight(event: CalendarEvent) {
-    const from = event.fromTime.hour * 60 + event.fromTime.minute;
-    const to = event.toTime.hour * 60 + event.toTime.minute;
-    const height = (to - from) * HOUR_PX_RATIO;
-
-    return `${height - 1}px`;
-  }
-
-  eventLeft(track: number, numTracks: number) {
-    return `${(track / numTracks) * 100}%`;
-  }
-
-  eventWidth(track: number, right: number, numTracks: number) {
-    if (right === -1) {
-      right = numTracks;
-    }
-    return `${((right - track) / numTracks) * 100}%`;
-  }
-
-  processEvents(events: CalendarEvent[] = []) {
-    if (!events || events.length === 0) {
-      return null;
-    }
-
-    // startEndTimes stores the start and end times to push/pop events for the layout algorithm
-    const startEndTimes: { time: DateTime; event: CalendarEvent; isStart: boolean }[] = [];
-    events.forEach(e => {
-      startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
-      startEndTimes.push({ time: e.toTime, event: e, isStart: false });
-    });
-    startEndTimes.sort((a, b) => b.time.toMillis() - a.time.toMillis() || Number(b.isStart) - Number(a.isStart));
-
-    let eventLayouts: EventLayout[] = [];
-    while (startEndTimes.length) {
-      const tracks: EventProccessingData[] = [];
-      const group: EventProccessingData[] = [];
-
-      while (tracks.length === 0 || (tracks.some(track => !!track) && startEndTimes.length)) {
-        const curr = startEndTimes.pop();
-
-        if (curr.isStart) {
-          // find available track
-          let index = tracks.findIndex(track => track === null);
-          const eventProcessingData: EventProccessingData = { event: curr.event, track: index, right: -1 };
-          if (index === -1) {
-            index = tracks.length;
-            eventProcessingData.track = index;
-            tracks.push(eventProcessingData);
-          } else {
-            tracks[index] = eventProcessingData;
-          }
-
-          // update any value to the left of this value
-          for (let i = index - 1; i >= 0; i--) {
-            if (tracks[i]) {
-              tracks[i].right = index;
-              break;
-            }
-          }
-
-          // update right to the next non-empty track
-          for (let i = index + 1; i < tracks.length; i++) {
-            if (tracks[i]) {
-              tracks[index].right = i;
-              break;
-            }
-          }
-        } else {
-          // remove from track
-          const index = tracks.findIndex(track => track?.event === curr.event);
-          const value = tracks[index];
-          group.push(value);
-          tracks[index] = null;
-        }
-      }
-
-      console.log(group);
-      // compute layout for each event
-      const numTracks = tracks.length;
-      const layouts: EventLayout[] = group.map(v => {
-        return {
-          event: v.event,
-          top: this.eventTopPosition(v.event),
-          height: this.eventHeight(v.event),
-          left: this.eventLeft(v.track, numTracks),
-          width: this.eventWidth(v.track, v.right, numTracks),
-        };
-      });
-
-      eventLayouts = [...eventLayouts, ...layouts];
-    }
-
-    console.log(eventLayouts);
-    return eventLayouts;
-  }
 
   updateCalendar() {
     const date = this.date;
@@ -201,7 +98,8 @@ export class DashEventCalendarDay {
         toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 45 }),
       },
     ];
-    day.eventLayouts = this.processEvents(events);
+
+    day.eventLayouts = this.eventCalendar.processEventLayouts(events);
     this.day = day;
   }
 

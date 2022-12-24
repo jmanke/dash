@@ -1,15 +1,14 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { CalendarEvent } from '../../interfaces/calendar-event';
-import { Day } from '../../interfaces/day';
+import { EventCalendar } from '../../common/event-calendar';
+import { EventLayout } from '../../interfaces/event-layout';
 
-interface CalendarEventGroupRenderer {
-  event: CalendarEvent;
-  track: number;
+export interface Day {
+  date: DateTime;
+  eventLayouts?: EventLayout[];
 }
 
 const HOUR_CELL_HEIGHT = 40;
-const HOUR_PX_RATIO = HOUR_CELL_HEIGHT / 60;
 
 @Component({
   tag: 'dash-event-calendar-week',
@@ -20,6 +19,7 @@ export class DashEventCalendarWeek {
   //#region Own properties
   today: DateTime;
   hours: string[];
+  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT);
   //#endregion
 
   //#region @Element
@@ -65,22 +65,6 @@ export class DashEventCalendarWeek {
   //#endregion
 
   //#region Local methods
-  processEvents(events: CalendarEvent[]) {
-    const startEndTimes: { time: DateTime; isStart: boolean; event: CalendarEvent }[] = [];
-    events.forEach(e => {
-      startEndTimes.push({ time: e.fromTime, isStart: true, event: e });
-      startEndTimes.push({ time: e.toTime, isStart: false, event: e });
-    });
-    startEndTimes.sort((a, b) => a.time.toMillis() - b.time.toMillis());
-
-    const calendarEventGroups: CalendarEventGroupRenderer[] = [];
-    // need to find the "groups" which have overlapping times
-
-    const currEvents = [];
-
-    return calendarEventGroups;
-  }
-
   updateCalendar() {
     this.weekdays = [];
     let date = this.date;
@@ -90,7 +74,7 @@ export class DashEventCalendarWeek {
       };
 
       if (i === 1) {
-        day.events = [
+        const events = [
           {
             name: 'Walk Hazel',
             fromTime: DateTime.fromISO(date.toISO()).set({ hour: 7, minute: 30 }),
@@ -102,7 +86,8 @@ export class DashEventCalendarWeek {
             toTime: DateTime.fromISO(date.toISO()).set({ hour: 8 }),
           },
         ];
-        this.processEvents(day.events);
+
+        day.eventLayouts = this.eventCalendar.processEventLayouts(events);
       }
 
       this.weekdays.push(day);
@@ -117,21 +102,6 @@ export class DashEventCalendarWeek {
   nextWeek() {
     this.date = this.date.plus({ weeks: 1 });
   }
-
-  eventTopPosition(event: CalendarEvent) {
-    const top = (event.fromTime.hour + 1) * HOUR_CELL_HEIGHT + event.fromTime.minute * HOUR_PX_RATIO;
-
-    return `${top}px`;
-  }
-
-  eventHeight(event: CalendarEvent) {
-    const from = event.fromTime.hour * 60 + event.fromTime.minute;
-    const to = event.toTime.hour * 60 + event.toTime.minute;
-    const height = (to - from) * HOUR_PX_RATIO;
-
-    return `${height - 1}px`;
-  }
-
   //#endregion
 
   render() {
@@ -171,11 +141,13 @@ export class DashEventCalendarWeek {
             <div class='week'>
               {this.weekdays.map(day => (
                 <div class='day-cell'>
-                  {day.events &&
-                    day.events.map(e => (
-                      <dash-button class='event' style={{ top: this.eventTopPosition(e), height: this.eventHeight(e) }}>
-                        <div class='event-content'>{e.name}</div>
-                      </dash-button>
+                  {day.eventLayouts &&
+                    day.eventLayouts.map(layout => (
+                      <div class='event-container' style={{ top: layout.top, height: layout.height, left: layout.left, width: layout.width }}>
+                        <dash-button class='event'>
+                          <div class='event-content'>{layout.event.name}</div>
+                        </dash-button>
+                      </div>
                     ))}
                 </div>
               ))}
