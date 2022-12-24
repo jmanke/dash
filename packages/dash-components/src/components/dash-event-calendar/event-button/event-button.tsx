@@ -30,6 +30,7 @@ const NameMarginBlockEnd = Object.freeze({
 
 const eventButtonContainerStyle = {
   position: 'absolute',
+  display: 'flex',
   borderTop: '1px solid transparent',
   borderBottom: '1px solid transparent',
   maxWidth: '100%',
@@ -38,11 +39,11 @@ const eventButtonContainerStyle = {
 
 function eventButtonStyle(scale: Scale, cellScale: CellScale) {
   return {
+    flex: 'auto',
     fontSize: cellScale === 'xs' ? 'var(--dash-font-size--2)' : FontSize[scale],
     borderRadius: 'var(--dash-border-radius)',
     backgroundColor: 'var(--dash-brand)',
     margin: 'var(--dash-spacing-px)',
-    height: '100%',
     cursor: 'pointer',
     overflow: 'hidden',
   };
@@ -71,7 +72,7 @@ function eventNameStyle(scale: Scale) {
 }
 
 function toTimeString(time: DateTime) {
-  return time.toLocaleString({ hour: 'numeric', hour12: true });
+  return time.toLocaleString({ hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
 export const EventButton: FunctionalComponent<EventButtonProps> = ({ layout, scale = 'm' }) => {

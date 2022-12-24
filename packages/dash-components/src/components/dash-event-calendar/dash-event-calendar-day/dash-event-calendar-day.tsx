@@ -97,7 +97,7 @@ export class DashEventCalendarDay {
       {
         name: 'Pet Hazel more',
         fromTime: DateTime.fromISO(date.toISO()).set({ hour: 11, minute: 0 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 15, minute: 30 }),
+        toTime: DateTime.fromISO(date.toISO()).set({ hour: 15, minute: 0 }),
       },
       {
         name: 'Feed Hazel',
