@@ -10,6 +10,7 @@ export interface Day {
 }
 
 const HOUR_CELL_HEIGHT = 40;
+const MIN_EVENT_HEIGHT = 10;
 
 @Component({
   tag: 'dash-event-calendar-day',
@@ -20,7 +21,7 @@ export class DashEventCalendarDay {
   //#region Own properties
   today: DateTime;
   hours: string[];
-  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT);
+  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT);
   //#endregion
 
   //#region @Element
@@ -86,7 +87,12 @@ export class DashEventCalendarDay {
       {
         name: 'Pet Hazel',
         fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 30 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 30 }),
+        toTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 35 }),
+      },
+      {
+        name: 'Greenie for Hazel',
+        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 40 }),
+        toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 0 }),
       },
       {
         name: 'Pet Hazel more',

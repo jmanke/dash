@@ -9,11 +9,17 @@ interface EventProccessingData {
 }
 
 export class EventCalendar {
+  // min height of the event
+  private readonly MIN_EVENT_HEIGHT: number;
+  // height of each hour cell (ex. height between 1pm and 2pm)
   private readonly CELL_HEIGHT: number;
+  // offset to apply to each event from the top
   private readonly TOP_OFFSET: number;
+  // ratio of pixels per hour
   private readonly HOUR_PX_RATIO: number;
 
-  constructor(cellHeight: number, topOffset: number = 0) {
+  constructor(cellHeight: number, minEventHeight: number = 0, topOffset: number = 0) {
+    this.MIN_EVENT_HEIGHT = minEventHeight;
     this.CELL_HEIGHT = cellHeight;
     this.HOUR_PX_RATIO = this.CELL_HEIGHT / 60;
     this.TOP_OFFSET = topOffset;
@@ -28,6 +34,13 @@ export class EventCalendar {
     const startEndTimes: { time: DateTime; event: CalendarEvent; isStart: boolean }[] = [];
     events.forEach(e => {
       startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
+
+      const eventHeight = this.eventHeight(e);
+      // since the events can have a minimum height, we must account for it in this step. Sets the to-time to the min-event-height (translated into minutes).
+      if (Number.parseInt(eventHeight, 10) < this.MIN_EVENT_HEIGHT) {
+        startEndTimes.push({ time: e.fromTime.plus({ minutes: (1 / this.HOUR_PX_RATIO) * this.MIN_EVENT_HEIGHT }), event: e, isStart: false });
+        return;
+      }
       startEndTimes.push({ time: e.toTime, event: e, isStart: false });
     });
     startEndTimes.sort((a, b) => b.time.toMillis() - a.time.toMillis() || Number(b.isStart) - Number(a.isStart));

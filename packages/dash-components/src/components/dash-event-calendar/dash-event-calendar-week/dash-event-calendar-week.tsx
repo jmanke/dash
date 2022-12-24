@@ -10,6 +10,7 @@ export interface Day {
 }
 
 const HOUR_CELL_HEIGHT = 40;
+const MIN_EVENT_HEIGHT = 10;
 
 @Component({
   tag: 'dash-event-calendar-week',
@@ -20,7 +21,7 @@ export class DashEventCalendarWeek {
   //#region Own properties
   today: DateTime;
   hours: string[];
-  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, HOUR_CELL_HEIGHT);
+  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT, HOUR_CELL_HEIGHT);
   //#endregion
 
   //#region @Element
