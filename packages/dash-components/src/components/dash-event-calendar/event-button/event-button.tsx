@@ -34,7 +34,6 @@ const eventButtonContainerStyle = {
   borderBottom: '1px solid transparent',
   maxWidth: '100%',
   minHeight: '10px',
-  overflow: 'hidden',
 };
 
 function eventButtonStyle(scale: Scale, cellScale: CellScale) {
@@ -45,16 +44,18 @@ function eventButtonStyle(scale: Scale, cellScale: CellScale) {
     margin: 'var(--dash-spacing-px)',
     height: '100%',
     cursor: 'pointer',
+    overflow: 'hidden',
   };
 }
 
 function eventContentStyle(scale: Scale, cellScale: CellScale) {
   const style = {
     height: '100%',
-    padding: cellScale !== 'm' ? '1px var(--dash-spacing-2)' : Padding[scale],
+    padding: cellScale !== 'm' ? '1px var(--dash-spacing-1)' : Padding[scale],
     display: cellScale !== 'm' ? 'flex' : 'block',
     columnGap: cellScale !== 'm' ? 'var(--dash-spacing-1-half)' : 'unset',
     lineHeight: cellScale === 'xs' ? '5px' : 'unset',
+    alignItems: cellScale !== 'm' ? 'center' : 'unset',
   };
 
   return style;

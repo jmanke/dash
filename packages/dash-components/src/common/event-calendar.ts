@@ -36,7 +36,8 @@ export class EventCalendar {
       startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
 
       const eventHeight = this.eventHeight(e);
-      // since the events can have a minimum height, we must account for it in this step. Sets the to-time to the min-event-height (translated into minutes).
+      // Since the events can have a minimum height, we must account for it in this step.
+      // Sets the to-time to the min-event-height (translated into minutes).
       if (Number.parseInt(eventHeight, 10) < this.MIN_EVENT_HEIGHT) {
         startEndTimes.push({ time: e.fromTime.plus({ minutes: (1 / this.HOUR_PX_RATIO) * this.MIN_EVENT_HEIGHT }), event: e, isStart: false });
         return;
