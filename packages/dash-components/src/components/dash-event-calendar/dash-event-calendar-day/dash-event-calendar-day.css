@@ -73,25 +73,6 @@
       border-inline-start: 1px solid var(--dash-border-1);
       border-inline-end: 1px solid var(--dash-border-1);
       border-block-end: 1px solid var(--dash-border-1);
-
-      .event-container {
-        position: absolute;
-        display: flex;
-        border-top: 1px solid transparent;
-        border-bottom: 1px solid transparent;
-
-        .event {
-          --dash-button-height: 100%;
-          border-radius: var(--dash-border-radius);
-          background-color: var(--dash-brand);
-          flex: auto;
-          margin: var(--dash-spacing-px);
-        }
-
-        .event-content {
-          height: 100%;
-        }
-      }
     }
   }
 }

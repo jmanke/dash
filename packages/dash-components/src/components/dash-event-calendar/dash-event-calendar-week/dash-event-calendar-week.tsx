@@ -1,7 +1,8 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { EventCalendar } from '../../common/event-calendar';
-import { EventLayout } from '../../interfaces/event-layout';
+import { EventCalendar } from '../../../common/event-calendar';
+import { EventLayout } from '../../../interfaces/event-layout';
+import { EventButton } from '../event-button/event-button';
 
 export interface Day {
   date: DateTime;
@@ -140,16 +141,7 @@ export class DashEventCalendarWeek {
 
             <div class='week'>
               {this.weekdays.map(day => (
-                <div class='day-cell'>
-                  {day.eventLayouts &&
-                    day.eventLayouts.map(layout => (
-                      <div class='event-container' style={{ top: layout.top, height: layout.height, left: layout.left, width: layout.width }}>
-                        <dash-button class='event'>
-                          <div class='event-content'>{layout.event.name}</div>
-                        </dash-button>
-                      </div>
-                    ))}
-                </div>
+                <div class='day-cell'>{day.eventLayouts && day.eventLayouts.map(layout => <EventButton layout={layout}></EventButton>)}</div>
               ))}
             </div>
           </div>

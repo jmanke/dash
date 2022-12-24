@@ -1,7 +1,7 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { CalendarEvent } from '../../interfaces/calendar-event';
-import { weekdays } from '../../utils/date/week';
+import { CalendarEvent } from '../../../interfaces/calendar-event';
+import { weekdays } from '../../../utils/date/week';
 
 export interface Day {
   date: DateTime;
