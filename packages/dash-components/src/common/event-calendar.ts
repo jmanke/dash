@@ -10,11 +10,13 @@ interface EventProccessingData {
 
 export class EventCalendar {
   private readonly CELL_HEIGHT: number;
+  private readonly TOP_OFFSET: number;
   private readonly HOUR_PX_RATIO: number;
 
-  constructor(cellHeight: number) {
+  constructor(cellHeight: number, topOffset: number = 0) {
     this.CELL_HEIGHT = cellHeight;
     this.HOUR_PX_RATIO = this.CELL_HEIGHT / 60;
+    this.TOP_OFFSET = topOffset;
   }
 
   processEventLayouts(events: CalendarEvent[] = []): EventLayout[] {
@@ -93,7 +95,7 @@ export class EventCalendar {
   }
 
   private eventTopPosition(event: CalendarEvent) {
-    const top = event.fromTime.hour * this.CELL_HEIGHT + event.fromTime.minute * this.HOUR_PX_RATIO;
+    const top = event.fromTime.hour * this.CELL_HEIGHT + event.fromTime.minute * this.HOUR_PX_RATIO + this.TOP_OFFSET;
 
     return `${top}px`;
   }

@@ -20,7 +20,7 @@ export class DashEventCalendarWeek {
   //#region Own properties
   today: DateTime;
   hours: string[];
-  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT);
+  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, HOUR_CELL_HEIGHT);
   //#endregion
 
   //#region @Element
@@ -79,12 +79,27 @@ export class DashEventCalendarWeek {
           {
             name: 'Walk Hazel',
             fromTime: DateTime.fromISO(date.toISO()).set({ hour: 7, minute: 30 }),
-            toTime: DateTime.fromISO(date.toISO()).set({ hour: 10 }),
+            toTime: DateTime.fromISO(date.toISO()).set({ hour: 11 }),
           },
           {
             name: 'Brush Hazel',
             fromTime: DateTime.fromISO(date.toISO()).set({ hour: 5, minute: 30 }),
             toTime: DateTime.fromISO(date.toISO()).set({ hour: 8 }),
+          },
+          {
+            name: 'Pet Hazel',
+            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 30 }),
+            toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 30 }),
+          },
+          {
+            name: 'Pet Hazel more',
+            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 11, minute: 0 }),
+            toTime: DateTime.fromISO(date.toISO()).set({ hour: 15, minute: 30 }),
+          },
+          {
+            name: 'Feed Hazel',
+            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 15 }),
+            toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 45 }),
           },
         ];
 
@@ -141,7 +156,7 @@ export class DashEventCalendarWeek {
 
             <div class='week'>
               {this.weekdays.map(day => (
-                <div class='day-cell'>{day.eventLayouts && day.eventLayouts.map(layout => <EventButton layout={layout}></EventButton>)}</div>
+                <div class='day-cell'>{day.eventLayouts && day.eventLayouts.map(layout => <EventButton layout={layout} scale='s'></EventButton>)}</div>
               ))}
             </div>
           </div>
