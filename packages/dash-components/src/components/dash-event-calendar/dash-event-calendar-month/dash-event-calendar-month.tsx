@@ -2,6 +2,7 @@ import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { CalendarEvent } from '../../../interfaces/calendar-event';
 import { weekdays } from '../../../utils/date/week';
+import { EventDropdown } from '../event-dropdown/event-dropdown';
 
 export interface Day {
   date: DateTime;
@@ -164,13 +165,12 @@ export class DashEventCalendarMonth {
             )}
           </div>
 
-          <dash-popover target={this.selectedEvent?.element} active={!!this.selectedEvent} autoClose={true} onDashPopoverClose={this.closeEventPopover.bind(this)}>
-            <div class='event-popover'>
-              <div class='event-popover-header'>
-                {this.selectedEvent?.event.name} <dash-icon-button icon='x' onClick={this.closeEventPopover.bind(this)}></dash-icon-button>
-              </div>
-            </div>
-          </dash-popover>
+          <EventDropdown
+            target={this.selectedEvent?.element}
+            event={this.selectedEvent?.event}
+            active={!!this.selectedEvent}
+            onClose={this.closeEventPopover.bind(this)}
+          ></EventDropdown>
         </div>
       </Host>
     );

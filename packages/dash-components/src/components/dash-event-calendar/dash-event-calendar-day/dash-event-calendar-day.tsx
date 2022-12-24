@@ -1,8 +1,10 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
+import { CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
+import { EventDropdown } from '../event-dropdown/event-dropdown';
 
 export interface Day {
   date: DateTime;
@@ -37,6 +39,12 @@ export class DashEventCalendarDay {
   dateChanged() {
     this.updateCalendar();
   }
+
+  @State()
+  selectedEvent: {
+    element: HTMLElement;
+    event: CalendarEvent;
+  };
   //#endregion
 
   //#region @Prop
@@ -73,9 +81,10 @@ export class DashEventCalendarDay {
       date,
     };
 
-    const events = [
+    const events: CalendarEvent[] = [
       {
         name: 'Walk Hazel',
+        description: 'Hazel needs a walk all the time because she is greedy and too cute to say no to.',
         fromTime: DateTime.fromISO(date.toISO()).set({ hour: 7, minute: 30 }),
         toTime: DateTime.fromISO(date.toISO()).set({ hour: 11 }),
       },
@@ -90,7 +99,7 @@ export class DashEventCalendarDay {
         toTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 35 }),
       },
       {
-        name: 'Greenie for Hazel',
+        name: 'Greenie for Hazel jk ;lj l; ;',
         fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 40 }),
         toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 0 }),
       },
@@ -118,6 +127,16 @@ export class DashEventCalendarDay {
     this.date = this.date.plus({ days: 1 });
   }
 
+  updateSelectedEvent(event: CalendarEvent, { target }) {
+    this.selectedEvent = {
+      element: target,
+      event,
+    };
+  }
+
+  closeEventPopover() {
+    this.selectedEvent = null;
+  }
   //#endregion
 
   render() {
@@ -143,8 +162,18 @@ export class DashEventCalendarDay {
               ))}
             </div>
 
-            <div class='day-cell'>{this.day.eventLayouts && this.day.eventLayouts.map(layout => <EventButton layout={layout}></EventButton>)}</div>
+            <div class='day-cell'>
+              {this.day.eventLayouts &&
+                this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
+            </div>
           </div>
+
+          <EventDropdown
+            target={this.selectedEvent?.element}
+            event={this.selectedEvent?.event}
+            active={!!this.selectedEvent}
+            onClose={this.closeEventPopover.bind(this)}
+          ></EventDropdown>
         </div>
       </Host>
     );

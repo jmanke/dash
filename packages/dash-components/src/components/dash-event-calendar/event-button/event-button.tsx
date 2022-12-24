@@ -6,6 +6,7 @@ import { Scale } from '../../../types/types';
 interface EventButtonProps {
   layout: EventLayout;
   scale?: Scale;
+  onClick?: () => void;
 }
 
 type CellScale = 'xs' | 's' | 'm';
@@ -52,22 +53,26 @@ function eventButtonStyle(scale: Scale, cellScale: CellScale) {
 function eventContentStyle(scale: Scale, cellScale: CellScale) {
   const style = {
     height: '100%',
+    color: 'var(--dash-text-color-1-dark)',
+    fontWeight: '500',
     textRendering: 'optimizeLegibility',
     fontSmoothing: 'antialiased',
-    padding: cellScale !== 'm' ? '1px var(--dash-spacing-1)' : Padding[scale],
+    padding: cellScale !== 'm' ? '0 var(--dash-spacing-1)' : Padding[scale],
     display: cellScale !== 'm' ? 'flex' : 'block',
     columnGap: cellScale !== 'm' ? 'var(--dash-spacing-1-half)' : 'unset',
-    lineHeight: cellScale === 'xs' ? '5px' : 'unset',
     alignItems: cellScale !== 'm' ? 'center' : 'unset',
   };
 
   return style;
 }
 
-function eventNameStyle(scale: Scale) {
+function eventNameStyle(scale: Scale, cellScale: CellScale) {
   return {
-    marginBlockEnd: NameMarginBlockEnd[scale],
+    marginBlockEnd: cellScale !== 'm' ? '0' : NameMarginBlockEnd[scale],
     fontWeight: '600',
+    whiteSpace: cellScale !== 'm' ? 'nowrap' : 'unset',
+    overflow: cellScale !== 'm' ? 'hidden' : 'unset',
+    textOverflow: cellScale !== 'm' ? 'ellipsis' : 'unset',
   };
 }
 
@@ -75,7 +80,7 @@ function toTimeString(time: DateTime) {
   return time.toLocaleString({ hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
-export const EventButton: FunctionalComponent<EventButtonProps> = ({ layout, scale = 'm' }) => {
+export const EventButton: FunctionalComponent<EventButtonProps> = ({ layout, scale = 'm', onClick }) => {
   const height = parseInt(layout.height, 10);
   let cellScale: CellScale = 'm';
   if (height < 20) {
@@ -86,15 +91,16 @@ export const EventButton: FunctionalComponent<EventButtonProps> = ({ layout, sca
 
   return (
     <div class='event-button-container' style={{ ...eventButtonContainerStyle, top: layout.top, height: layout.height, left: layout.left, width: layout.width }}>
-      <div class='event-button' style={eventButtonStyle(scale, cellScale)}>
+      <div class='event-button' style={eventButtonStyle(scale, cellScale)} onClick={onClick}>
         <div class='event-content' style={eventContentStyle(scale, cellScale)}>
-          <div class='event-name' style={eventNameStyle(scale)}>
+          <div class='event-name' style={eventNameStyle(scale, cellScale)}>
             {layout.event.name}
             {cellScale !== 'm' && ', '}
           </div>
-          <span>
-            {toTimeString(layout.event.fromTime)} - {toTimeString(layout.event.toTime)}
-          </span>
+          <div>
+            <span style={{ whiteSpace: 'nowrap' }}>{toTimeString(layout.event.fromTime)} - </span>
+            <span style={{ whiteSpace: 'nowrap' }}>{toTimeString(layout.event.toTime)}</span>
+          </div>
         </div>
       </div>
     </div>

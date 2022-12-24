@@ -1,8 +1,10 @@
 import { Component, Host, h, State, Watch } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
+import { CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
+import { EventDropdown } from '../event-dropdown/event-dropdown';
 
 export interface Day {
   date: DateTime;
@@ -37,6 +39,12 @@ export class DashEventCalendarWeek {
 
   @State()
   weekdays: Day[];
+
+  @State()
+  selectedEvent: {
+    element: HTMLElement;
+    event: CalendarEvent;
+  };
   //#endregion
 
   //#region @Prop
@@ -119,6 +127,17 @@ export class DashEventCalendarWeek {
   nextWeek() {
     this.date = this.date.plus({ weeks: 1 });
   }
+
+  updateSelectedEvent(event: CalendarEvent, { target }) {
+    this.selectedEvent = {
+      element: target,
+      event,
+    };
+  }
+
+  closeEventPopover() {
+    this.selectedEvent = null;
+  }
   //#endregion
 
   render() {
@@ -157,10 +176,20 @@ export class DashEventCalendarWeek {
 
             <div class='week'>
               {this.weekdays.map(day => (
-                <div class='day-cell'>{day.eventLayouts && day.eventLayouts.map(layout => <EventButton layout={layout} scale='s'></EventButton>)}</div>
+                <div class='day-cell'>
+                  {day.eventLayouts &&
+                    day.eventLayouts.map(layout => <EventButton layout={layout} scale='s' onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
+                </div>
               ))}
             </div>
           </div>
+
+          <EventDropdown
+            target={this.selectedEvent?.element}
+            event={this.selectedEvent?.event}
+            active={!!this.selectedEvent}
+            onClose={this.closeEventPopover.bind(this)}
+          ></EventDropdown>
         </div>
       </Host>
     );
