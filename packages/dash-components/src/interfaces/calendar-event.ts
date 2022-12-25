@@ -6,3 +6,10 @@ export interface CalendarEvent {
   fromTime: DateTime;
   toTime: DateTime;
 }
+
+export interface CalendarEventRaw {
+  name: string;
+  description?: string;
+  fromTime: string;
+  toTime: string;
+}

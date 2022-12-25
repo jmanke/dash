@@ -7,6 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
+import { CalendarEventRaw } from "./interfaces/calendar-event";
+import { RequestEvents } from "./components/dash-event-calendar/dash-event-calendar-day/dash-event-calendar-day";
+import { RequestEvents as RequestEvents1 } from "./components/dash-event-calendar/dash-event-calendar-month/dash-event-calendar-month";
+import { RequestEvents as RequestEvents2 } from "./components/dash-event-calendar/dash-event-calendar-week/dash-event-calendar-week";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
 import { SelectionMode } from "./components/dash-list/dash-list";
@@ -54,10 +58,13 @@ export namespace Components {
         "placementStrategy": PlacementStrategy;
     }
     interface DashEventCalendarDay {
+        "events": CalendarEventRaw[];
     }
     interface DashEventCalendarMonth {
+        "events": CalendarEventRaw[];
     }
     interface DashEventCalendarWeek {
+        "events": CalendarEventRaw[];
     }
     interface DashFab {
         "icon": string;
@@ -210,6 +217,18 @@ export interface DashDrillMenuCustomEvent<T> extends CustomEvent<T> {
 export interface DashDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashDropdownElement;
+}
+export interface DashEventCalendarDayCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashEventCalendarDayElement;
+}
+export interface DashEventCalendarMonthCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashEventCalendarMonthElement;
+}
+export interface DashEventCalendarWeekCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashEventCalendarWeekElement;
 }
 export interface DashFilterCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -515,10 +534,16 @@ declare namespace LocalJSX {
         "placementStrategy"?: PlacementStrategy;
     }
     interface DashEventCalendarDay {
+        "events"?: CalendarEventRaw[];
+        "onDashEventCalendarRequestEvents"?: (event: DashEventCalendarDayCustomEvent<RequestEvents>) => void;
     }
     interface DashEventCalendarMonth {
+        "events"?: CalendarEventRaw[];
+        "onDashEventCalendarRequestEvents"?: (event: DashEventCalendarMonthCustomEvent<RequestEvents>) => void;
     }
     interface DashEventCalendarWeek {
+        "events"?: CalendarEventRaw[];
+        "onDashEventCalendarRequestEvents"?: (event: DashEventCalendarWeekCustomEvent<RequestEvents>) => void;
     }
     interface DashFab {
         "icon"?: string;

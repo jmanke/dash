@@ -1,10 +1,14 @@
-import { Component, Host, h, State, Watch } from '@stencil/core';
+import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
-import { CalendarEvent } from '../../../interfaces/calendar-event';
+import { CalendarEvent, CalendarEventRaw } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
+
+export interface RequestEvents {
+  date: string;
+}
 
 export interface Day {
   date: DateTime;
@@ -34,10 +38,14 @@ export class DashEventCalendarDay {
   day: Day;
 
   @State()
+  _events: CalendarEvent[] = [];
+
+  @State()
   date: DateTime;
   @Watch('date')
   dateChanged() {
-    this.updateCalendar();
+    console.log('emit');
+    this.eventCalendarRequestEvents.emit({ date: DateTime.now().toISO() });
   }
 
   @State()
@@ -48,9 +56,18 @@ export class DashEventCalendarDay {
   //#endregion
 
   //#region @Prop
+  @Prop()
+  events: CalendarEventRaw[] = [];
+  @Watch('events')
+  eventsChanged() {
+    this.updateEvents();
+    this.updateCalendar();
+  }
   //#endregion
 
   //#region @Event
+  @Event({ eventName: 'dashEventCalendarRequestEvents' })
+  eventCalendarRequestEvents: EventEmitter<RequestEvents>;
   //#endregion
 
   //#region Component lifecycle
@@ -75,46 +92,21 @@ export class DashEventCalendarDay {
 
   //#region Local methods
 
-  updateCalendar() {
+  updateEvents() {
+    this._events = this.events?.map(e => ({
+      ...e,
+      fromTime: DateTime.fromISO(e.fromTime),
+      toTime: DateTime.fromISO(e.toTime),
+    })) || [];
+  }
+
+  async updateCalendar() {
     const date = this.date;
     const day: Day = {
       date,
     };
 
-    const events: CalendarEvent[] = [
-      {
-        name: 'Walk Hazel',
-        description: 'Hazel needs a walk all the time because she is greedy and too cute to say no to.',
-        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 7, minute: 30 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 11 }),
-      },
-      {
-        name: 'Brush Hazel',
-        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 5, minute: 30 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 8 }),
-      },
-      {
-        name: 'Pet Hazel',
-        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 30 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 35 }),
-      },
-      {
-        name: 'Greenie for Hazel jk ;lj l; ;',
-        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 40 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 0 }),
-      },
-      {
-        name: 'Pet Hazel more',
-        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 11, minute: 0 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 15, minute: 0 }),
-      },
-      {
-        name: 'Feed Hazel',
-        fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 15 }),
-        toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 45 }),
-      },
-    ];
-
+    const events = this._events;
     day.eventLayouts = this.eventCalendar.processEventLayouts(events);
     this.day = day;
   }
@@ -163,7 +155,7 @@ export class DashEventCalendarDay {
             </div>
 
             <div class='day-cell'>
-              {this.day.eventLayouts &&
+              {this.day?.eventLayouts &&
                 this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
             </div>
           </div>

@@ -1,10 +1,15 @@
-import { Component, Host, h, State, Watch } from '@stencil/core';
+import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
-import { CalendarEvent } from '../../../interfaces/calendar-event';
+import { CalendarEvent, CalendarEventRaw } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
+
+export interface RequestEvents {
+  fromDate: string;
+  toDate: string;
+}
 
 export interface Day {
   date: DateTime;
@@ -34,11 +39,14 @@ export class DashEventCalendarWeek {
   date: DateTime;
   @Watch('date')
   dateChanged() {
-    this.updateCalendar();
+    this.eventCalendarRequestEvents.emit({ fromDate: this.date.startOf('week').toISO(), toDate: this.date.endOf('week').toISO() });
   }
 
   @State()
-  weekdays: Day[];
+  weekdays: Day[] = [];
+
+  @State()
+  _events: CalendarEvent[] = [];
 
   @State()
   selectedEvent: {
@@ -48,9 +56,18 @@ export class DashEventCalendarWeek {
   //#endregion
 
   //#region @Prop
+  @Prop()
+  events: CalendarEventRaw[] = [];
+  @Watch('events')
+  eventsChanged() {
+    this.updateEvents();
+    this.updateCalendar();
+  }
   //#endregion
 
   //#region @Event
+  @Event({ eventName: 'dashEventCalendarRequestEvents' })
+  eventCalendarRequestEvents: EventEmitter<RequestEvents>;
   //#endregion
 
   //#region Component lifecycle
@@ -62,7 +79,6 @@ export class DashEventCalendarWeek {
       hours.push(time.toFormat('h a'));
     }
     this.hours = hours;
-
     this.today = DateTime.now().startOf('day');
     this.date = DateTime.now().startOf('week').minus({ days: 1 });
   }
@@ -75,8 +91,17 @@ export class DashEventCalendarWeek {
   //#endregion
 
   //#region Local methods
-  updateCalendar() {
-    this.weekdays = [];
+  updateEvents() {
+    this._events =
+      this.events?.map(e => ({
+        ...e,
+        fromTime: DateTime.fromISO(e.fromTime),
+        toTime: DateTime.fromISO(e.toTime),
+      })) || [];
+  }
+
+  async updateCalendar() {
+    const weekdays = [];
     let date = this.date;
     for (let i = 0; i < 7; i++) {
       const day: Day = {
@@ -84,40 +109,14 @@ export class DashEventCalendarWeek {
       };
 
       if (i === 1) {
-        const events = [
-          {
-            name: 'Walk Hazel',
-            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 7, minute: 30 }),
-            toTime: DateTime.fromISO(date.toISO()).set({ hour: 11 }),
-          },
-          {
-            name: 'Brush Hazel',
-            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 5, minute: 30 }),
-            toTime: DateTime.fromISO(date.toISO()).set({ hour: 8 }),
-          },
-          {
-            name: 'Pet Hazel',
-            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 30 }),
-            toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 30 }),
-          },
-          {
-            name: 'Pet Hazel more',
-            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 11, minute: 0 }),
-            toTime: DateTime.fromISO(date.toISO()).set({ hour: 15, minute: 30 }),
-          },
-          {
-            name: 'Feed Hazel',
-            fromTime: DateTime.fromISO(date.toISO()).set({ hour: 8, minute: 15 }),
-            toTime: DateTime.fromISO(date.toISO()).set({ hour: 9, minute: 45 }),
-          },
-        ];
-
-        day.eventLayouts = this.eventCalendar.processEventLayouts(events);
+        day.eventLayouts = this.eventCalendar.processEventLayouts(this._events);
       }
 
-      this.weekdays.push(day);
+      weekdays.push(day);
       date = date.plus({ days: 1 });
     }
+
+    this.weekdays = weekdays;
   }
 
   prevWeek() {
@@ -145,7 +144,7 @@ export class DashEventCalendarWeek {
       <Host>
         <div class='calendar'>
           <div class='header'>
-            <h3 class='title'>{this.date.toLocaleString({ month: 'long', year: 'numeric' })}</h3>
+            <h3 class='title'>{this.date?.toLocaleString({ month: 'long', year: 'numeric' })}</h3>
 
             <span>
               <dash-icon-button icon='chevron-left' rounded onClick={this.prevWeek.bind(this)}></dash-icon-button>

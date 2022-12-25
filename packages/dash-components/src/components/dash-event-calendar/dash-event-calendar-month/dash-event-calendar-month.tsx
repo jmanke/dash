@@ -1,8 +1,13 @@
-import { Component, Host, h, State, Watch } from '@stencil/core';
+import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { CalendarEvent } from '../../../interfaces/calendar-event';
+import { CalendarEvent, CalendarEventRaw } from '../../../interfaces/calendar-event';
 import { weekdays } from '../../../utils/date/week';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
+
+export interface RequestEvents {
+  fromDate: string;
+  toDate: string;
+}
 
 export interface Day {
   date: DateTime;
@@ -27,6 +32,9 @@ export class DashEventCalendarMonth {
   weeks: Day[][] = [];
 
   @State()
+  _events: CalendarEvent[] = [];
+
+  @State()
   selectedEvent: {
     element: HTMLElement;
     event: CalendarEvent;
@@ -36,21 +44,29 @@ export class DashEventCalendarMonth {
   date: DateTime;
   @Watch('date')
   dateChanged() {
-    this.updateCalendar();
+    this.eventCalendarRequestEvents.emit({ fromDate: this.date.startOf('month').toISO(), toDate: this.date.endOf('month').toISO() });
   }
   //#endregion
 
   //#region @Prop
+  @Prop()
+  events: CalendarEventRaw[] = [];
+  @Watch('events')
+  eventsChanged() {
+    this.updateEvents();
+    this.updateCalendar();
+  }
   //#endregion
 
   //#region @Event
+  @Event({ eventName: 'dashEventCalendarRequestEvents' })
+  eventCalendarRequestEvents: EventEmitter<RequestEvents>;
   //#endregion
 
   //#region Component lifecycle
   componentWillLoad() {
     this.today = DateTime.now().startOf('day');
     this.date = DateTime.fromObject({ year: 2022, month: 12 });
-    this.updateCalendar();
   }
   //#endregion
 
@@ -61,8 +77,16 @@ export class DashEventCalendarMonth {
   //#endregion
 
   //#region Local methods
+  updateEvents() {
+    this._events =
+      this.events?.map(e => ({
+        ...e,
+        fromTime: DateTime.fromISO(e.fromTime),
+        toTime: DateTime.fromISO(e.toTime),
+      })) || [];
+  }
 
-  updateCalendar() {
+  async updateCalendar() {
     const date = this.date;
     const daysInMonth = date.daysInMonth;
 
@@ -87,12 +111,7 @@ export class DashEventCalendarMonth {
         date: currDate,
       };
       if (i === 15 && this.today.month === currDate.month) {
-        day.events = [
-          { name: 'Build calendar', fromTime: null, toTime: null },
-          { name: 'Test', fromTime: null, toTime: null },
-          { name: 'Hello there', fromTime: null, toTime: null },
-          { name: 'Why', fromTime: null, toTime: null },
-        ];
+        day.events = this._events;
       }
 
       weeks[weekNum][i % 7] = day;
