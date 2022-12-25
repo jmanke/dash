@@ -1,13 +1,13 @@
 import { DateTime } from 'luxon';
 
-export interface CalendarEvent {
+export interface CalendarEventInternal {
   name: string;
   description?: string;
   fromTime: DateTime;
   toTime: DateTime;
 }
 
-export interface CalendarEventRaw {
+export interface CalendarEvent {
   name: string;
   description?: string;
   fromTime: string;

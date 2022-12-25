@@ -1,7 +1,7 @@
-import { CalendarEvent } from './calendar-event';
+import { CalendarEventInternal } from './calendar-event';
 
 export interface EventLayout {
-  event: CalendarEvent;
+  event: CalendarEventInternal;
   top: string;
   height: string;
   left: string;

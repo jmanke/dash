@@ -1,11 +1,11 @@
 import { FunctionalComponent, h } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { CalendarEvent } from '../../../interfaces/calendar-event';
+import { CalendarEventInternal } from '../../../interfaces/calendar-event';
 
 interface EventDropdownProps {
   target: HTMLElement;
   active: boolean;
-  event: CalendarEvent;
+  event: CalendarEventInternal;
   onClose?: () => void;
   onDelete?: () => void;
 }

@@ -7,10 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
-import { CalendarEventRaw } from "./interfaces/calendar-event";
-import { RequestEvents } from "./components/dash-event-calendar/dash-event-calendar-day/dash-event-calendar-day";
-import { RequestEvents as RequestEvents1 } from "./components/dash-event-calendar/dash-event-calendar-month/dash-event-calendar-month";
-import { RequestEvents as RequestEvents2 } from "./components/dash-event-calendar/dash-event-calendar-week/dash-event-calendar-week";
+import { CalendarEvent } from "./interfaces/calendar-event";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
 import { SelectionMode } from "./components/dash-list/dash-list";
@@ -58,13 +55,16 @@ export namespace Components {
         "placementStrategy": PlacementStrategy;
     }
     interface DashEventCalendarDay {
-        "events": CalendarEventRaw[];
+        "date": string;
+        "events": CalendarEvent[];
     }
     interface DashEventCalendarMonth {
-        "events": CalendarEventRaw[];
+        "date": string;
+        "events": CalendarEvent[];
     }
     interface DashEventCalendarWeek {
-        "events": CalendarEventRaw[];
+        "date": string;
+        "events": CalendarEvent[];
     }
     interface DashFab {
         "icon": string;
@@ -534,16 +534,22 @@ declare namespace LocalJSX {
         "placementStrategy"?: PlacementStrategy;
     }
     interface DashEventCalendarDay {
-        "events"?: CalendarEventRaw[];
-        "onDashEventCalendarRequestEvents"?: (event: DashEventCalendarDayCustomEvent<RequestEvents>) => void;
+        "date"?: string;
+        "events"?: CalendarEvent[];
+        "onDashEventCalendarNextDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
+        "onDashEventCalendarPrevDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
     }
     interface DashEventCalendarMonth {
-        "events"?: CalendarEventRaw[];
-        "onDashEventCalendarRequestEvents"?: (event: DashEventCalendarMonthCustomEvent<RequestEvents>) => void;
+        "date"?: string;
+        "events"?: CalendarEvent[];
+        "onDashEventCalendarNextMonth"?: (event: DashEventCalendarMonthCustomEvent<string>) => void;
+        "onDashEventCalendarPrevMonth"?: (event: DashEventCalendarMonthCustomEvent<string>) => void;
     }
     interface DashEventCalendarWeek {
-        "events"?: CalendarEventRaw[];
-        "onDashEventCalendarRequestEvents"?: (event: DashEventCalendarWeekCustomEvent<RequestEvents>) => void;
+        "date"?: string;
+        "events"?: CalendarEvent[];
+        "onDashEventCalendarNextWeek"?: (event: DashEventCalendarWeekCustomEvent<string>) => void;
+        "onDashEventCalendarPrevWeek"?: (event: DashEventCalendarWeekCustomEvent<string>) => void;
     }
     interface DashFab {
         "icon"?: string;

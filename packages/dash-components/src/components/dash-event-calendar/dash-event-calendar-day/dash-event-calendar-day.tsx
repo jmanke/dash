@@ -1,14 +1,10 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
-import { CalendarEvent, CalendarEventRaw } from '../../../interfaces/calendar-event';
+import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
-
-export interface RequestEvents {
-  date: string;
-}
 
 export interface Day {
   date: DateTime;
@@ -38,26 +34,40 @@ export class DashEventCalendarDay {
   day: Day;
 
   @State()
-  _events: CalendarEvent[] = [];
+  _date: DateTime;
+  @Watch('_date')
+  _dateChanged() {
+    this.updateCalendar();
+  }
 
   @State()
-  date: DateTime;
-  @Watch('date')
-  dateChanged() {
-    console.log('emit');
-    this.eventCalendarRequestEvents.emit({ date: DateTime.now().toISO() });
+  _events: CalendarEventInternal[] = [];
+  @Watch('_events')
+  _eventsChanged() {
+    this.updateCalendar();
   }
 
   @State()
   selectedEvent: {
     element: HTMLElement;
-    event: CalendarEvent;
+    event: CalendarEventInternal;
   };
   //#endregion
 
   //#region @Prop
   @Prop()
-  events: CalendarEventRaw[] = [];
+  date: string;
+  @Watch('date')
+  dateChanged() {
+    if (!this.date) {
+      this._date = null;
+    }
+
+    this._date = DateTime.fromISO(this.date).startOf('day');
+  }
+
+  @Prop()
+  events: CalendarEvent[] = [];
   @Watch('events')
   eventsChanged() {
     this.updateEvents();
@@ -66,8 +76,11 @@ export class DashEventCalendarDay {
   //#endregion
 
   //#region @Event
-  @Event({ eventName: 'dashEventCalendarRequestEvents' })
-  eventCalendarRequestEvents: EventEmitter<RequestEvents>;
+  @Event({ eventName: 'dashEventCalendarPrevDay' })
+  eventCalendarPrevDay: EventEmitter<string>;
+
+  @Event({ eventName: 'dashEventCalendarNextDay' })
+  eventCalendarNextDay: EventEmitter<string>;
   //#endregion
 
   //#region Component lifecycle
@@ -80,7 +93,8 @@ export class DashEventCalendarDay {
     }
     this.hours = hours;
     this.today = DateTime.now().startOf('day');
-    this.date = this.today;
+    this.dateChanged();
+    this.updateEvents();
   }
   //#endregion
 
@@ -93,15 +107,20 @@ export class DashEventCalendarDay {
   //#region Local methods
 
   updateEvents() {
-    this._events = this.events?.map(e => ({
-      ...e,
-      fromTime: DateTime.fromISO(e.fromTime),
-      toTime: DateTime.fromISO(e.toTime),
-    })) || [];
+    this._events =
+      this.events?.map(e => ({
+        ...e,
+        fromTime: DateTime.fromISO(e.fromTime),
+        toTime: DateTime.fromISO(e.toTime),
+      })) || [];
   }
 
   async updateCalendar() {
-    const date = this.date;
+    if (!this._date) {
+      return;
+    }
+
+    const date = this._date;
     const day: Day = {
       date,
     };
@@ -112,14 +131,14 @@ export class DashEventCalendarDay {
   }
 
   prevDay() {
-    this.date = this.date.minus({ days: 1 });
+    this.eventCalendarPrevDay.emit(this._date.minus({ days: 1 }).toISO());
   }
 
   nextDay() {
-    this.date = this.date.plus({ days: 1 });
+    this.eventCalendarNextDay.emit(this._date.plus({ days: 1 }).toISO());
   }
 
-  updateSelectedEvent(event: CalendarEvent, { target }) {
+  updateSelectedEvent(event: CalendarEventInternal, { target }) {
     this.selectedEvent = {
       element: target,
       event,
@@ -134,39 +153,41 @@ export class DashEventCalendarDay {
   render() {
     return (
       <Host>
-        <div class='calendar'>
-          <div class='header'>
-            <h3 class='title'>{this.date.toLocaleString({ month: 'long', day: 'numeric', year: 'numeric' })}</h3>
+        {this._date && (
+          <div class='calendar'>
+            <div class='header'>
+              <h3 class='title'>{this._date.toLocaleString({ month: 'long', day: 'numeric', year: 'numeric' })}</h3>
 
-            <span>
-              <dash-icon-button icon='chevron-left' rounded onClick={this.prevDay.bind(this)}></dash-icon-button>
-              <dash-icon-button icon='chevron-right' rounded onClick={this.nextDay.bind(this)}></dash-icon-button>
-            </span>
-          </div>
-
-          <div class='day'>
-            <div class='hours'>
-              <div></div>
-              {this.hours.map(hour => (
-                <div class='hour-cell'>
-                  <span class='hour'>{hour}</span>
-                </div>
-              ))}
+              <span>
+                <dash-icon-button icon='chevron-left' rounded onClick={this.prevDay.bind(this)}></dash-icon-button>
+                <dash-icon-button icon='chevron-right' rounded onClick={this.nextDay.bind(this)}></dash-icon-button>
+              </span>
             </div>
 
-            <div class='day-cell'>
-              {this.day?.eventLayouts &&
-                this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
-            </div>
-          </div>
+            <div class='day'>
+              <div class='hours'>
+                <div></div>
+                {this.hours.map(hour => (
+                  <div class='hour-cell'>
+                    <span class='hour'>{hour}</span>
+                  </div>
+                ))}
+              </div>
 
-          <EventDropdown
-            target={this.selectedEvent?.element}
-            event={this.selectedEvent?.event}
-            active={!!this.selectedEvent}
-            onClose={this.closeEventPopover.bind(this)}
-          ></EventDropdown>
-        </div>
+              <div class='day-cell'>
+                {this.day?.eventLayouts &&
+                  this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
+              </div>
+            </div>
+
+            <EventDropdown
+              target={this.selectedEvent?.element}
+              event={this.selectedEvent?.event}
+              active={!!this.selectedEvent}
+              onClose={this.closeEventPopover.bind(this)}
+            ></EventDropdown>
+          </div>
+        )}
       </Host>
     );
   }

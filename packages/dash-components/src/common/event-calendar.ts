@@ -1,9 +1,9 @@
 import { DateTime } from 'luxon';
-import { CalendarEvent } from '../interfaces/calendar-event';
+import { CalendarEventInternal } from '../interfaces/calendar-event';
 import { EventLayout } from '../interfaces/event-layout';
 
 interface EventProccessingData {
-  event: CalendarEvent;
+  event: CalendarEventInternal;
   column: number;
   right: number;
 }
@@ -25,13 +25,13 @@ export class EventCalendar {
     this.TOP_OFFSET = topOffset;
   }
 
-  processEventLayouts(events: CalendarEvent[] = []): EventLayout[] {
+  processEventLayouts(events: CalendarEventInternal[] = []): EventLayout[] {
     if (!events || events.length === 0) {
       return null;
     }
 
     // startEndTimes stores the start and end times to push/pop events for the layout algorithm
-    const startEndTimes: { time: DateTime; event: CalendarEvent; isStart: boolean }[] = [];
+    const startEndTimes: { time: DateTime; event: CalendarEventInternal; isStart: boolean }[] = [];
     events.forEach(e => {
       startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
 
@@ -108,13 +108,13 @@ export class EventCalendar {
     return eventLayouts;
   }
 
-  private eventTopPosition(event: CalendarEvent) {
+  private eventTopPosition(event: CalendarEventInternal) {
     const top = event.fromTime.hour * this.CELL_HEIGHT + event.fromTime.minute * this.HOUR_PX_RATIO + this.TOP_OFFSET;
 
     return `${top}px`;
   }
 
-  private eventHeight(event: CalendarEvent) {
+  private eventHeight(event: CalendarEventInternal) {
     const from = event.fromTime.hour * 60 + event.fromTime.minute;
     const to = event.toTime.hour * 60 + event.toTime.minute;
     const height = (to - from) * this.HOUR_PX_RATIO;
