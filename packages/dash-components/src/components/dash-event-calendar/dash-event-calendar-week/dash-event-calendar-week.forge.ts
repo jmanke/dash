@@ -1,7 +1,7 @@
 import { html } from 'lit-html';
 import { DateTime } from 'luxon';
 
-const date = DateTime.now().startOf('week').plus({ days: 1 });
+const date = DateTime.now();
 const template = (args, updateArg) =>
   html`<dash-event-calendar-week
     style="width: 95vw; height: 95vh"

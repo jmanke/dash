@@ -1,10 +1,11 @@
-import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
+import { TimeBar } from '../time-bar/time-bar';
 
 export interface Day {
   date: DateTime;
@@ -27,6 +28,8 @@ export class DashEventCalendarWeek {
   //#endregion
 
   //#region @Element
+  @Element()
+  element: HTMLDashEventCalendarWeekElement;
   //#endregion
 
   //#region @State
@@ -62,7 +65,10 @@ export class DashEventCalendarWeek {
     if (!this.date) {
       this._date = null;
     }
-    this._date = DateTime.fromISO(this.date).startOf('week').minus({ days: 1 });
+
+    const date = DateTime.fromISO(this.date).startOf('day');
+    // want start of the week to be Sunday, luxon has it on Monday
+    this._date = date.weekday === 7 ? date : date.startOf('week').minus({ days: 1 });
   }
 
   @Prop()
@@ -95,6 +101,12 @@ export class DashEventCalendarWeek {
     this.updateEvents();
     this.dateChanged();
   }
+
+  componentDidLoad() {
+    const content = this.element.shadowRoot.querySelector('.weekdays-content');
+    content.scrollTo(0, parseInt(this.timeBarTop(), 10));
+  }
+
   //#endregion
 
   //#region Listeners
@@ -154,6 +166,11 @@ export class DashEventCalendarWeek {
   closeEventPopover() {
     this.selectedEvent = null;
   }
+
+  timeBarTop() {
+    const now = DateTime.now();
+    return `${(now.hour + 1 + now.minute / 60) * HOUR_CELL_HEIGHT}px`;
+  }
   //#endregion
 
   render() {
@@ -194,6 +211,7 @@ export class DashEventCalendarWeek {
               <div class='week'>
                 {this.weekdays.map(day => (
                   <div class='day-cell'>
+                    {day.date.equals(this.today) && <TimeBar top={this.timeBarTop()}></TimeBar>}
                     {day.eventLayouts &&
                       day.eventLayouts.map(layout => <EventButton layout={layout} scale='s' onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
                   </div>

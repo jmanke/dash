@@ -1,10 +1,11 @@
-import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
 import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
+import { TimeBar } from '../time-bar/time-bar';
 
 export interface Day {
   date: DateTime;
@@ -27,6 +28,8 @@ export class DashEventCalendarDay {
   //#endregion
 
   //#region @Element
+  @Element()
+  element: HTMLDashEventCalendarDayElement;
   //#endregion
 
   //#region @State
@@ -96,6 +99,11 @@ export class DashEventCalendarDay {
     this.dateChanged();
     this.updateEvents();
   }
+
+  componentDidLoad() {
+    const content = this.element.shadowRoot.querySelector('.day');
+    content.scrollTo(0, parseInt(this.timeBarTop(), 10));
+  }
   //#endregion
 
   //#region Listeners
@@ -148,6 +156,12 @@ export class DashEventCalendarDay {
   closeEventPopover() {
     this.selectedEvent = null;
   }
+
+  timeBarTop() {
+    const now = DateTime.now();
+    return `${(now.hour + now.minute / 60) * HOUR_CELL_HEIGHT}px`;
+  }
+
   //#endregion
 
   render() {
@@ -175,6 +189,7 @@ export class DashEventCalendarDay {
               </div>
 
               <div class='day-cell'>
+                {this.day?.date.equals(this.today) && <TimeBar top={this.timeBarTop()}></TimeBar>}
                 {this.day?.eventLayouts &&
                   this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
               </div>
