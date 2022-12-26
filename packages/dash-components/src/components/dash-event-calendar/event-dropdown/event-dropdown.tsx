@@ -38,7 +38,7 @@ function isSameDay(a: DateTime, b: DateTime) {
 export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target, active, event, onEdit, onClose, onDelete }) => {
   const sameDay = isSameDay(event?.fromTime, event?.toTime);
   return (
-    <dash-popover target={target} active={active} autoClose={true} onDashPopoverClose={onClose}>
+    <dash-popover target={target} active={active} autoClose={true} placement='left-start' onDashPopoverClose={onClose}>
       <div class='event-popover' style={eventPopoverStyle}>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBlockEnd: 'var(--dash-spacing-1)' }}>
           <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='pencil-square' rounded onClick={onEdit}></dash-icon-button>

@@ -144,9 +144,9 @@ export class DashEventCalendarMonth {
     this.eventCalendarPrevMonth.emit(this._date.plus({ months: 1 }).toISO());
   }
 
-  updateSelectedEvent(event: CalendarEventInternal, { target }) {
+  updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {
     this.selectedEvent = {
-      element: target,
+      element: currentTarget,
       event,
     };
   }

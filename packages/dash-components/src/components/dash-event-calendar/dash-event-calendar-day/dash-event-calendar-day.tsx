@@ -152,9 +152,9 @@ export class DashEventCalendarDay {
     this.eventCalendarNextDay.emit(this._date.plus({ days: 1 }).toISO());
   }
 
-  updateSelectedEvent(event: CalendarEventInternal, { target }) {
+  updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {
     this.selectedEvent = {
-      element: target,
+      element: currentTarget,
       event,
     };
   }

@@ -162,9 +162,9 @@ export class DashEventCalendarWeek {
     this.eventCalendarNextWeek.emit(this._date.plus({ weeks: 1, days: 1 }).toISO());
   }
 
-  updateSelectedEvent(event: CalendarEventInternal, { target }) {
+  updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {
     this.selectedEvent = {
-      element: target,
+      element: currentTarget,
       event,
     };
   }
