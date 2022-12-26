@@ -102,7 +102,7 @@ export class DashEventCalendarDay {
 
   componentDidLoad() {
     const content = this.element.shadowRoot.querySelector('.day');
-    content.scrollTo(0, parseInt(this.timeBarTop(), 10));
+    content.scrollTo(0, this.timeBarTop());
   }
   //#endregion
 
@@ -159,7 +159,7 @@ export class DashEventCalendarDay {
 
   timeBarTop() {
     const now = DateTime.now();
-    return `${(now.hour + now.minute / 60) * HOUR_CELL_HEIGHT}px`;
+    return (now.hour + now.minute / 60) * HOUR_CELL_HEIGHT;
   }
 
   //#endregion
@@ -170,7 +170,7 @@ export class DashEventCalendarDay {
         {this._date && (
           <div class='calendar'>
             <div class='header'>
-              <h3 class='title'>{this._date.toLocaleString({ month: 'long', day: 'numeric', year: 'numeric' })}</h3>
+              <h3 class='title'>{this._date.toLocaleString({ month: 'long', weekday: 'long', day: 'numeric', year: 'numeric' })}</h3>
 
               <span>
                 <dash-icon-button icon='chevron-left' rounded onClick={this.prevDay.bind(this)}></dash-icon-button>

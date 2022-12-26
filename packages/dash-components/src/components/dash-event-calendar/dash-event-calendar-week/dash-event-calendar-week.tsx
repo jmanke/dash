@@ -104,7 +104,7 @@ export class DashEventCalendarWeek {
 
   componentDidLoad() {
     const content = this.element.shadowRoot.querySelector('.weekdays-content');
-    content.scrollTo(0, parseInt(this.timeBarTop(), 10));
+    content.scrollTo(0, this.timeBarTop());
   }
 
   //#endregion
@@ -169,7 +169,7 @@ export class DashEventCalendarWeek {
 
   timeBarTop() {
     const now = DateTime.now();
-    return `${(now.hour + 1 + now.minute / 60) * HOUR_CELL_HEIGHT}px`;
+    return (now.hour + 1 + now.minute / 60) * HOUR_CELL_HEIGHT;
   }
   //#endregion
 
