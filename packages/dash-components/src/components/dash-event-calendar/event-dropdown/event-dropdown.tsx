@@ -6,6 +6,7 @@ interface EventDropdownProps {
   target: HTMLElement;
   active: boolean;
   event: CalendarEventInternal;
+  onEdit?: () => void;
   onClose?: () => void;
   onDelete?: () => void;
 }
@@ -34,15 +35,15 @@ function isSameDay(a: DateTime, b: DateTime) {
   return a.year === b.year && a.month === b.month && a.day === b.day;
 }
 
-export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target, active, event, onClose }) => {
+export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target, active, event, onEdit, onClose, onDelete }) => {
   const sameDay = isSameDay(event?.fromTime, event?.toTime);
   return (
     <dash-popover target={target} active={active} autoClose={true} onDashPopoverClose={onClose}>
       <div class='event-popover' style={eventPopoverStyle}>
         <div style={{ display: 'flex', justifyContent: 'flex-end', marginBlockEnd: 'var(--dash-spacing-1)' }}>
-          <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='pencil-square' rounded></dash-icon-button>
-          <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='trash3' rounded></dash-icon-button>
-          <dash-icon-button icon='x' onClick={onClose} rounded></dash-icon-button>
+          <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='pencil-square' rounded onClick={onEdit}></dash-icon-button>
+          <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='trash3' rounded onClick={onDelete}></dash-icon-button>
+          <dash-icon-button icon='x' rounded onClick={onClose}></dash-icon-button>
         </div>
         <div class='event-header' style={headerStyle}>
           <div>{event?.name}</div>

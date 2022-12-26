@@ -10,6 +10,8 @@ const template = (args, updateArg) =>
     .events=${args.events}
     @dashEventCalendarPrevMonth=${e => updateArg('date', e.detail)}
     @dashEventCalendarNextMonth=${e => updateArg('date', e.detail)}
+    @dashEventCalendarEditEvent=${e => console.log('edit event:', e.detail)}
+    @dashEventCalendarDeleteEvent=${e => console.log('delete event:', e.detail)}
   ></dash-event-calendar-month>`;
 
 export const eventCalendarMonthDefinition = {
@@ -27,26 +29,31 @@ export const eventCalendarMonthDefinition = {
     date: DateTime.now().startOf('month').toISO(),
     events: [
       {
+        id: '0',
         name: 'Walk Hazel',
         fromTime: eventDate.set({ hour: 7, minute: 30 }),
         toTime: eventDate.set({ hour: 11 }),
       },
       {
+        id: '1',
         name: 'Brush Hazel',
         fromTime: eventDate.set({ hour: 5, minute: 30 }),
         toTime: eventDate.set({ hour: 8 }),
       },
       {
+        id: '2',
         name: 'Pet Hazel',
         fromTime: eventDate.set({ hour: 8, minute: 30 }),
         toTime: eventDate.set({ hour: 9, minute: 30 }),
       },
       {
+        id: '3',
         name: 'Pet Hazel more',
         fromTime: eventDate.set({ hour: 11, minute: 0 }),
         toTime: eventDate.set({ hour: 15, minute: 30 }),
       },
       {
+        id: '4',
         name: 'Feed Hazel',
         fromTime: eventDate.set({ hour: 8, minute: 15 }),
         toTime: eventDate.set({ hour: 9, minute: 45 }),

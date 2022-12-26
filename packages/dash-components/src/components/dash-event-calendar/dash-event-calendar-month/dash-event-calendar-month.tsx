@@ -69,6 +69,12 @@ export class DashEventCalendarMonth {
 
   @Event({ eventName: 'dashEventCalendarNextMonth' })
   eventCalendarNextMonth: EventEmitter<string>;
+
+  @Event({ eventName: 'dashEventCalendarEditEvent' })
+  eventCalendarEditEvent: EventEmitter<{ eventId: string }>;
+
+  @Event({ eventName: 'dashEventCalendarDeleteEvent' })
+  eventCalendarDeleteEvent: EventEmitter<{ eventId: string }>;
   //#endregion
 
   //#region Component lifecycle
@@ -138,10 +144,6 @@ export class DashEventCalendarMonth {
     this.eventCalendarPrevMonth.emit(this._date.plus({ months: 1 }).toISO());
   }
 
-  createEventPopover() {
-    return <dash-popover>Hello there</dash-popover>;
-  }
-
   updateSelectedEvent(event: CalendarEventInternal, { target }) {
     this.selectedEvent = {
       element: target,
@@ -151,6 +153,16 @@ export class DashEventCalendarMonth {
 
   closeEventPopover() {
     this.selectedEvent = null;
+  }
+
+  editEvent() {
+    this.eventCalendarEditEvent.emit({ eventId: this.selectedEvent.event.id });
+    this.closeEventPopover();
+  }
+
+  deleteEvent() {
+    this.eventCalendarDeleteEvent.emit({ eventId: this.selectedEvent.event.id });
+    this.closeEventPopover();
   }
   //#endregion
 
@@ -199,6 +211,8 @@ export class DashEventCalendarMonth {
               event={this.selectedEvent?.event}
               active={!!this.selectedEvent}
               onClose={this.closeEventPopover.bind(this)}
+              onEdit={this.editEvent.bind(this)}
+              onDelete={this.deleteEvent.bind(this)}
             ></EventDropdown>
           </div>
         )}

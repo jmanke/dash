@@ -86,6 +86,12 @@ export class DashEventCalendarWeek {
 
   @Event({ eventName: 'dashEventCalendarNextWeek' })
   eventCalendarNextWeek: EventEmitter<string>;
+
+  @Event({ eventName: 'dashEventCalendarEditEvent' })
+  eventCalendarEditEvent: EventEmitter<{ eventId: string }>;
+
+  @Event({ eventName: 'dashEventCalendarDeleteEvent' })
+  eventCalendarDeleteEvent: EventEmitter<{ eventId: string }>;
   //#endregion
 
   //#region Component lifecycle
@@ -167,6 +173,16 @@ export class DashEventCalendarWeek {
     this.selectedEvent = null;
   }
 
+  editEvent() {
+    this.eventCalendarEditEvent.emit({ eventId: this.selectedEvent.event.id });
+    this.closeEventPopover();
+  }
+
+  deleteEvent() {
+    this.eventCalendarDeleteEvent.emit({ eventId: this.selectedEvent.event.id });
+    this.closeEventPopover();
+  }
+
   timeBarTop() {
     const now = DateTime.now();
     return (now.hour + 1 + now.minute / 60) * HOUR_CELL_HEIGHT;
@@ -224,6 +240,8 @@ export class DashEventCalendarWeek {
               event={this.selectedEvent?.event}
               active={!!this.selectedEvent}
               onClose={this.closeEventPopover.bind(this)}
+              onEdit={this.editEvent.bind(this)}
+              onDelete={this.deleteEvent.bind(this)}
             ></EventDropdown>
           </div>
         )}

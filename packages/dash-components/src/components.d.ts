@@ -536,18 +536,24 @@ declare namespace LocalJSX {
     interface DashEventCalendarDay {
         "date"?: string;
         "events"?: CalendarEvent[];
+        "onDashEventCalendarDeleteEvent"?: (event: DashEventCalendarDayCustomEvent<{ eventId: string }>) => void;
+        "onDashEventCalendarEditEvent"?: (event: DashEventCalendarDayCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarNextDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
         "onDashEventCalendarPrevDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
     }
     interface DashEventCalendarMonth {
         "date"?: string;
         "events"?: CalendarEvent[];
+        "onDashEventCalendarDeleteEvent"?: (event: DashEventCalendarMonthCustomEvent<{ eventId: string }>) => void;
+        "onDashEventCalendarEditEvent"?: (event: DashEventCalendarMonthCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarNextMonth"?: (event: DashEventCalendarMonthCustomEvent<string>) => void;
         "onDashEventCalendarPrevMonth"?: (event: DashEventCalendarMonthCustomEvent<string>) => void;
     }
     interface DashEventCalendarWeek {
         "date"?: string;
         "events"?: CalendarEvent[];
+        "onDashEventCalendarDeleteEvent"?: (event: DashEventCalendarWeekCustomEvent<{ eventId: string }>) => void;
+        "onDashEventCalendarEditEvent"?: (event: DashEventCalendarWeekCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarNextWeek"?: (event: DashEventCalendarWeekCustomEvent<string>) => void;
         "onDashEventCalendarPrevWeek"?: (event: DashEventCalendarWeekCustomEvent<string>) => void;
     }
