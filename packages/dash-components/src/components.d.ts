@@ -13,6 +13,7 @@ import { LabelLayout } from "./components/dash-label/dash-label";
 import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
+import { Resize } from "./components/dash-textarea/dash-textarea";
 export namespace Components {
     interface DashButton {
         "appearance": Appearance;
@@ -57,6 +58,9 @@ export namespace Components {
     interface DashEventCalendarDay {
         "date": string;
         "events": CalendarEvent[];
+    }
+    interface DashEventCalendarEditEvent {
+        "event": CalendarEvent;
     }
     interface DashEventCalendarMonth {
         "date": string;
@@ -158,6 +162,10 @@ export namespace Components {
         "offsetY"?: number;
         "placement": Placement;
         "placementStrategy": PlacementStrategy;
+        /**
+          * Keeps the popover in view if it's positioned outside the window's view
+         */
+        "stayInView": boolean;
         "target": HTMLElement | string;
     }
     interface DashScrim {
@@ -178,6 +186,14 @@ export namespace Components {
         "icon": string;
         "iconColor": string;
         "text": string;
+    }
+    interface DashTextarea {
+        "cols": number;
+        "placeholder": string;
+        "readonly": boolean;
+        "required": boolean;
+        "resize": Resize;
+        "rows": number;
     }
     interface DashThemeToggle {
         "theme": Theme;
@@ -221,6 +237,10 @@ export interface DashDropdownCustomEvent<T> extends CustomEvent<T> {
 export interface DashEventCalendarDayCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashEventCalendarDayElement;
+}
+export interface DashEventCalendarEditEventCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashEventCalendarEditEventElement;
 }
 export interface DashEventCalendarMonthCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -310,6 +330,12 @@ declare global {
     var HTMLDashEventCalendarDayElement: {
         prototype: HTMLDashEventCalendarDayElement;
         new (): HTMLDashEventCalendarDayElement;
+    };
+    interface HTMLDashEventCalendarEditEventElement extends Components.DashEventCalendarEditEvent, HTMLStencilElement {
+    }
+    var HTMLDashEventCalendarEditEventElement: {
+        prototype: HTMLDashEventCalendarEditEventElement;
+        new (): HTMLDashEventCalendarEditEventElement;
     };
     interface HTMLDashEventCalendarMonthElement extends Components.DashEventCalendarMonth, HTMLStencilElement {
     }
@@ -437,6 +463,12 @@ declare global {
         prototype: HTMLDashSidebarButtonElement;
         new (): HTMLDashSidebarButtonElement;
     };
+    interface HTMLDashTextareaElement extends Components.DashTextarea, HTMLStencilElement {
+    }
+    var HTMLDashTextareaElement: {
+        prototype: HTMLDashTextareaElement;
+        new (): HTMLDashTextareaElement;
+    };
     interface HTMLDashThemeToggleElement extends Components.DashThemeToggle, HTMLStencilElement {
     }
     var HTMLDashThemeToggleElement: {
@@ -464,6 +496,7 @@ declare global {
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
         "dash-event-calendar-day": HTMLDashEventCalendarDayElement;
+        "dash-event-calendar-edit-event": HTMLDashEventCalendarEditEventElement;
         "dash-event-calendar-month": HTMLDashEventCalendarMonthElement;
         "dash-event-calendar-week": HTMLDashEventCalendarWeekElement;
         "dash-fab": HTMLDashFabElement;
@@ -485,6 +518,7 @@ declare global {
         "dash-shell": HTMLDashShellElement;
         "dash-side-bar": HTMLDashSideBarElement;
         "dash-sidebar-button": HTMLDashSidebarButtonElement;
+        "dash-textarea": HTMLDashTextareaElement;
         "dash-theme-toggle": HTMLDashThemeToggleElement;
         "dash-toggle-switch": HTMLDashToggleSwitchElement;
         "dash-tooltip": HTMLDashTooltipElement;
@@ -540,6 +574,10 @@ declare namespace LocalJSX {
         "onDashEventCalendarEditEvent"?: (event: DashEventCalendarDayCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarNextDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
         "onDashEventCalendarPrevDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
+    }
+    interface DashEventCalendarEditEvent {
+        "event"?: CalendarEvent;
+        "onDashEventCalendarEditEventEventUpdate"?: (event: DashEventCalendarEditEventCustomEvent<CalendarEvent>) => void;
     }
     interface DashEventCalendarMonth {
         "date"?: string;
@@ -654,6 +692,10 @@ declare namespace LocalJSX {
         "onDashPopoverOpen"?: (event: DashPopoverCustomEvent<any>) => void;
         "placement"?: Placement;
         "placementStrategy"?: PlacementStrategy;
+        /**
+          * Keeps the popover in view if it's positioned outside the window's view
+         */
+        "stayInView"?: boolean;
         "target"?: HTMLElement | string;
     }
     interface DashScrim {
@@ -675,6 +717,14 @@ declare namespace LocalJSX {
         "icon"?: string;
         "iconColor"?: string;
         "text"?: string;
+    }
+    interface DashTextarea {
+        "cols"?: number;
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "resize"?: Resize;
+        "rows"?: number;
     }
     interface DashThemeToggle {
         "theme"?: Theme;
@@ -703,6 +753,7 @@ declare namespace LocalJSX {
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
         "dash-event-calendar-day": DashEventCalendarDay;
+        "dash-event-calendar-edit-event": DashEventCalendarEditEvent;
         "dash-event-calendar-month": DashEventCalendarMonth;
         "dash-event-calendar-week": DashEventCalendarWeek;
         "dash-fab": DashFab;
@@ -724,6 +775,7 @@ declare namespace LocalJSX {
         "dash-shell": DashShell;
         "dash-side-bar": DashSideBar;
         "dash-sidebar-button": DashSidebarButton;
+        "dash-textarea": DashTextarea;
         "dash-theme-toggle": DashThemeToggle;
         "dash-toggle-switch": DashToggleSwitch;
         "dash-tooltip": DashTooltip;
@@ -741,6 +793,7 @@ declare module "@stencil/core" {
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
             "dash-event-calendar-day": LocalJSX.DashEventCalendarDay & JSXBase.HTMLAttributes<HTMLDashEventCalendarDayElement>;
+            "dash-event-calendar-edit-event": LocalJSX.DashEventCalendarEditEvent & JSXBase.HTMLAttributes<HTMLDashEventCalendarEditEventElement>;
             "dash-event-calendar-month": LocalJSX.DashEventCalendarMonth & JSXBase.HTMLAttributes<HTMLDashEventCalendarMonthElement>;
             "dash-event-calendar-week": LocalJSX.DashEventCalendarWeek & JSXBase.HTMLAttributes<HTMLDashEventCalendarWeekElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
@@ -762,6 +815,7 @@ declare module "@stencil/core" {
             "dash-shell": LocalJSX.DashShell & JSXBase.HTMLAttributes<HTMLDashShellElement>;
             "dash-side-bar": LocalJSX.DashSideBar & JSXBase.HTMLAttributes<HTMLDashSideBarElement>;
             "dash-sidebar-button": LocalJSX.DashSidebarButton & JSXBase.HTMLAttributes<HTMLDashSidebarButtonElement>;
+            "dash-textarea": LocalJSX.DashTextarea & JSXBase.HTMLAttributes<HTMLDashTextareaElement>;
             "dash-theme-toggle": LocalJSX.DashThemeToggle & JSXBase.HTMLAttributes<HTMLDashThemeToggleElement>;
             "dash-toggle-switch": LocalJSX.DashToggleSwitch & JSXBase.HTMLAttributes<HTMLDashToggleSwitchElement>;
             "dash-tooltip": LocalJSX.DashTooltip & JSXBase.HTMLAttributes<HTMLDashTooltipElement>;

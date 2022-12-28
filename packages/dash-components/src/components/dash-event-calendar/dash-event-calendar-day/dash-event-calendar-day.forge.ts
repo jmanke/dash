@@ -7,7 +7,7 @@ const template = (args, updateArg) =>
   html`<dash-event-calendar-day
     style="width: 95vw; height: 95vh"
     date=${args.date}
-    .events=${args.events}
+    .events=${args.dailyEvents}
     @dashEventCalendarPrevDay=${e => updateArg('date', e.detail)}
     @dashEventCalendarNextDay=${e => updateArg('date', e.detail)}
     @dashEventCalendarEditEvent=${e => console.log('edit event:', e.detail)}
@@ -20,18 +20,19 @@ export const eventCalendarDayDefinition = {
     date: {
       type: 'text',
     },
-    events: {
+    dailyEvents: {
       type: 'json',
     },
   },
   template,
   args: {
     date: day.toISO(),
-    events: [
+    what: 'what',
+    dailyEvents: [
       {
         id: '0',
         name: 'Walk Hazel',
-        description: 'Hazel needs a walk all the time because she is greedy and too cute to say no to.',
+        description: 'Hazel  a walk all the time because she is greedy and too cute to say no to.',
         fromTime: DateTime.fromISO(day.toISO()).set({ hour: 7, minute: 30 }),
         toTime: DateTime.fromISO(day.toISO()).set({ hour: 11 }),
       },

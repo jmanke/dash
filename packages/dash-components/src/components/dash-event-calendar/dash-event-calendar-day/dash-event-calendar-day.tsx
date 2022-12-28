@@ -22,9 +22,9 @@ const MIN_EVENT_HEIGHT = 10;
 })
 export class DashEventCalendarDay {
   //#region Own properties
-  today: DateTime;
   hours: string[];
   eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT);
+  intervalId: number;
   //#endregion
 
   //#region @Element
@@ -33,6 +33,12 @@ export class DashEventCalendarDay {
   //#endregion
 
   //#region @State
+  @State()
+  now: DateTime;
+
+  @State()
+  timeBarTop = 0;
+
   @State()
   day: Day;
 
@@ -101,14 +107,24 @@ export class DashEventCalendarDay {
       hours.push(time.toFormat('h a'));
     }
     this.hours = hours;
-    this.today = DateTime.now().startOf('day');
     this.dateChanged();
     this.updateEvents();
   }
 
   componentDidLoad() {
     const content = this.element.shadowRoot.querySelector('.day');
-    content.scrollTo(0, this.timeBarTop());
+    content.scrollTo(0, this.timeBarTop - content.clientHeight / 2);
+  }
+
+  connectedCallback() {
+    this.updateNow();
+    this.intervalId = setInterval(() => {
+      this.updateNow();
+    }, 60 * 1000);
+  }
+
+  disconnectedCallback() {
+    clearInterval(this.intervalId);
   }
   //#endregion
 
@@ -173,9 +189,10 @@ export class DashEventCalendarDay {
     this.closeEventPopover();
   }
 
-  timeBarTop() {
+  updateNow() {
     const now = DateTime.now();
-    return (now.hour + now.minute / 60) * HOUR_CELL_HEIGHT;
+    this.now = now;
+    this.timeBarTop = (now.hour + now.minute / 60) * HOUR_CELL_HEIGHT;
   }
 
   //#endregion
@@ -205,7 +222,7 @@ export class DashEventCalendarDay {
               </div>
 
               <div class='day-cell'>
-                {this.day?.date.equals(this.today) && <TimeBar top={this.timeBarTop()}></TimeBar>}
+                {this.day?.date.equals(this.now.startOf('day')) && <TimeBar top={this.timeBarTop}></TimeBar>}
                 {this.day?.eventLayouts &&
                   this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
               </div>

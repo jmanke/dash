@@ -59,6 +59,14 @@ export class DashPopover {
   })
   placement: Placement = 'bottom';
 
+  /**
+   * Keeps the popover in view if it's positioned outside the window's view
+   */
+  @Prop({
+    reflect: true,
+  })
+  stayInView: boolean;
+
   @Prop({
     reflect: true,
     mutable: true,
@@ -198,17 +206,29 @@ export class DashPopover {
       this.popper = null;
     }
 
+    const modifiers = [
+      {
+        name: 'offset',
+        options: {
+          offset: () => [this.offsetY ?? 0, this.offsetX ?? 0],
+        },
+      },
+    ];
+
+    if (this.stayInView) {
+      modifiers.push({
+        name: 'preventOverflow',
+        options: {
+          // @ts-ignore
+          altAxis: true,
+        },
+      });
+    }
+
     this.popper = createPopper(target, this.element, {
       strategy: this.placementStrategy,
       placement: this.placement,
-      modifiers: [
-        {
-          name: 'offset',
-          options: {
-            offset: () => [this.offsetY ?? 0, this.offsetX ?? 0],
-          },
-        },
-      ],
+      modifiers,
     });
   }
   //#endregion
