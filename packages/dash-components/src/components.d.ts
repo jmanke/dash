@@ -174,6 +174,7 @@ export namespace Components {
         "required": boolean;
         "resize": Resize;
         "rows": number;
+        "value": string;
     }
     interface DashThemeToggle {
         "theme": Theme;
@@ -241,6 +242,10 @@ export interface DashPopoverCustomEvent<T> extends CustomEvent<T> {
 export interface DashSideBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashSideBarElement;
+}
+export interface DashTextareaCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashTextareaElement;
 }
 export interface DashToggleSwitchCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -624,11 +629,13 @@ declare namespace LocalJSX {
     }
     interface DashTextarea {
         "cols"?: number;
+        "onDashTextareaInput"?: (event: DashTextareaCustomEvent<string>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;
         "resize"?: Resize;
         "rows"?: number;
+        "value"?: string;
     }
     interface DashThemeToggle {
         "theme"?: Theme;
