@@ -18,7 +18,8 @@
 }
 
 textarea:focus-visible {
-  @extend .focus-outline;
+  border: var(--dash-border-style-brand);
+  outline: none;
 }
 
 textarea {
