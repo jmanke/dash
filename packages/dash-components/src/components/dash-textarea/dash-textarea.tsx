@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop } from '@stencil/core';
+import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
 export type Resize = 'vertical' | 'horizontal' | 'both';
 
@@ -47,9 +47,16 @@ export class DashTextarea {
     reflect: true,
   })
   required: boolean;
+
+  @Prop({
+    reflect: true,
+  })
+  value: string;
   //#endregion
 
   //#region @Event
+  @Event({ eventName: 'dashTextareaInput' })
+  textAreaInput: EventEmitter<string>;
   //#endregion
 
   //#region Component lifecycle
@@ -63,13 +70,18 @@ export class DashTextarea {
 
   //#region Local methods
   //#endregion
-
   render() {
     return (
       <Host>
-        <textarea cols={this.cols} rows={this.rows} placeholder={this.placeholder} readOnly={this.readonly} required={this.required}>
-          <slot></slot>
-        </textarea>
+        <textarea
+          value={this.value}
+          cols={this.cols}
+          rows={this.rows}
+          placeholder={this.placeholder}
+          readOnly={this.readonly}
+          required={this.required}
+          onInput={e => this.textAreaInput.emit((e.target as HTMLTextAreaElement).value)}
+        ></textarea>
       </Host>
     );
   }

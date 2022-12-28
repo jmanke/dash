@@ -1,7 +1,8 @@
 import { html } from 'lit-html';
 
-const template = args =>
+const template = (args, updateArg) =>
   html`<dash-textarea
+    value=${args.value}
     resize=${args.resize}
     cols=${args.cols}
     rows=${args.rows}
@@ -10,11 +11,15 @@ const template = args =>
     ?autofocus=${args.autofocus}
     ?readonly=${args.readonly}
     ?required=${args.required}
+    @dashTextareaInput=${e => updateArg('value', e.detail)}
   ></dash-textarea>`;
 
 export const textareaDefinition = {
   name: '<dash-textarea>',
   controls: {
+    value: {
+      type: 'text',
+    },
     resize: {
       options: ['both', 'vertical', 'horizontal'],
       type: 'radio',
@@ -40,6 +45,7 @@ export const textareaDefinition = {
   },
   template,
   args: {
+    value: 'Example text',
     resize: 'both',
     cols: undefined,
     rows: undefined,
