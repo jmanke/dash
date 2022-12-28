@@ -12,6 +12,7 @@ import { LabelLayout } from "./components/dash-label/dash-label";
 import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
+import { Resize } from "./components/dash-textarea/dash-textarea";
 export namespace Components {
     interface DashButton {
         "appearance": Appearance;
@@ -165,6 +166,14 @@ export namespace Components {
         "icon": string;
         "iconColor": string;
         "text": string;
+    }
+    interface DashTextarea {
+        "cols": number;
+        "placeholder": string;
+        "readonly": boolean;
+        "required": boolean;
+        "resize": Resize;
+        "rows": number;
     }
     interface DashThemeToggle {
         "theme": Theme;
@@ -394,6 +403,12 @@ declare global {
         prototype: HTMLDashSidebarButtonElement;
         new (): HTMLDashSidebarButtonElement;
     };
+    interface HTMLDashTextareaElement extends Components.DashTextarea, HTMLStencilElement {
+    }
+    var HTMLDashTextareaElement: {
+        prototype: HTMLDashTextareaElement;
+        new (): HTMLDashTextareaElement;
+    };
     interface HTMLDashThemeToggleElement extends Components.DashThemeToggle, HTMLStencilElement {
     }
     var HTMLDashThemeToggleElement: {
@@ -439,6 +454,7 @@ declare global {
         "dash-shell": HTMLDashShellElement;
         "dash-side-bar": HTMLDashSideBarElement;
         "dash-sidebar-button": HTMLDashSidebarButtonElement;
+        "dash-textarea": HTMLDashTextareaElement;
         "dash-theme-toggle": HTMLDashThemeToggleElement;
         "dash-toggle-switch": HTMLDashToggleSwitchElement;
         "dash-tooltip": HTMLDashTooltipElement;
@@ -606,6 +622,14 @@ declare namespace LocalJSX {
         "iconColor"?: string;
         "text"?: string;
     }
+    interface DashTextarea {
+        "cols"?: number;
+        "placeholder"?: string;
+        "readonly"?: boolean;
+        "required"?: boolean;
+        "resize"?: Resize;
+        "rows"?: number;
+    }
     interface DashThemeToggle {
         "theme"?: Theme;
     }
@@ -651,6 +675,7 @@ declare namespace LocalJSX {
         "dash-shell": DashShell;
         "dash-side-bar": DashSideBar;
         "dash-sidebar-button": DashSidebarButton;
+        "dash-textarea": DashTextarea;
         "dash-theme-toggle": DashThemeToggle;
         "dash-toggle-switch": DashToggleSwitch;
         "dash-tooltip": DashTooltip;
@@ -686,6 +711,7 @@ declare module "@stencil/core" {
             "dash-shell": LocalJSX.DashShell & JSXBase.HTMLAttributes<HTMLDashShellElement>;
             "dash-side-bar": LocalJSX.DashSideBar & JSXBase.HTMLAttributes<HTMLDashSideBarElement>;
             "dash-sidebar-button": LocalJSX.DashSidebarButton & JSXBase.HTMLAttributes<HTMLDashSidebarButtonElement>;
+            "dash-textarea": LocalJSX.DashTextarea & JSXBase.HTMLAttributes<HTMLDashTextareaElement>;
             "dash-theme-toggle": LocalJSX.DashThemeToggle & JSXBase.HTMLAttributes<HTMLDashThemeToggleElement>;
             "dash-toggle-switch": LocalJSX.DashToggleSwitch & JSXBase.HTMLAttributes<HTMLDashToggleSwitchElement>;
             "dash-tooltip": LocalJSX.DashTooltip & JSXBase.HTMLAttributes<HTMLDashTooltipElement>;
