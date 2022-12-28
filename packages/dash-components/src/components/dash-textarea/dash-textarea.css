@@ -1,0 +1,28 @@
+@import '../../assets/styles/_app.css';
+@import '../../assets/styles/_focus-outline.css';
+
+:host {
+  display: block;
+}
+
+:host([resize='both']) textarea {
+  resize: both;
+}
+
+:host([resize='vertical']) textarea {
+  resize: vertical;
+}
+
+:host([resize='horizontal']) textarea {
+  resize: horizontal;
+}
+
+textarea:focus-visible {
+  @extend .focus-outline;
+}
+
+textarea {
+  border: 1px solid var(--dash-border-1);
+  border-radius: var(--dash-border-radius);
+  padding: var(--dash-spacing-1);
+}
