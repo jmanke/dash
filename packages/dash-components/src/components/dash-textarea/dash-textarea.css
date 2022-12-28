@@ -2,7 +2,7 @@
 @import '../../assets/styles/_focus-outline.css';
 
 :host {
-  display: block;
+  display: flex;
 }
 
 :host([resize='both']) textarea {
@@ -27,4 +27,5 @@ textarea {
   padding: var(--dash-spacing-1);
   color: var(--dash-text-color-1);
   background-color: var(--dash-background-1);
+  flex: auto;
 }
