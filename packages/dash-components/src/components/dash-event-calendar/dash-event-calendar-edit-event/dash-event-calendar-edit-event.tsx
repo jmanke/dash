@@ -70,7 +70,7 @@ export class DashEventCalendarEditEvent {
 
           <dash-label>
             Description
-            <dash-textarea resize='vertical'>{this._event.description}</dash-textarea>
+            <dash-textarea resize='vertical' value={this._event.description}></dash-textarea>
           </dash-label>
 
           <dash-label>
