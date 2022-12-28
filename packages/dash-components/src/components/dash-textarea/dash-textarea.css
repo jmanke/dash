@@ -26,6 +26,6 @@ textarea {
   border-radius: var(--dash-border-radius);
   padding: var(--dash-spacing-1);
   color: var(--dash-text-color-1);
-  background-color: var(--dash-background-1);
+  background-color: var(--dash-background-2);
   flex: auto;
 }
