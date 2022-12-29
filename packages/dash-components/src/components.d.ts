@@ -551,7 +551,7 @@ declare namespace LocalJSX {
     }
     interface DashInlineEdit {
         "disabled"?: boolean;
-        "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<string>) => void;
+        "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<void>) => void;
         "scale"?: Scale;
         "value"?: string;
     }

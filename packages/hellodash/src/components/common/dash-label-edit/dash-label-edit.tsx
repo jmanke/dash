@@ -1,6 +1,7 @@
 import { Component, h, Prop, Listen, Event, EventEmitter } from '@stencil/core';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
+import { DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 
 @Component({
   tag: 'dash-label-edit',
@@ -40,11 +41,6 @@ export class DashLabelEdit {
     this.label.color = e.detail;
     this.labelColorPickerDropdown.close();
   }
-
-  @Listen('dashInlineEditValueChanged')
-  labelTextChanged(e: CustomEvent<string>) {
-    this.label.text = e.detail;
-  }
   //#endregion
 
   //#region @Method
@@ -55,6 +51,15 @@ export class DashLabelEdit {
     if (e.detail) {
       this.confirmDeleteButton?.setFocus();
     }
+  }
+
+  updateLabelText(e: DashInlineEditCustomEvent<void>) {
+    const value = e.target.value;
+    if (!value || !value.length) {
+      e.target.value = this.label.text;
+      return;
+    }
+    this.label.text = e.target.value;
   }
   //#endregion
 
@@ -74,7 +79,7 @@ export class DashLabelEdit {
             <dash-label-color-picker color={this.label.color}></dash-label-color-picker>
           </div>
         </dash-dropdown>
-        <dash-inline-edit value={this.label.text}></dash-inline-edit>
+        <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 
         <dash-confirm-button icon='trash3' onDashConfirmButtonConfirmed={() => this.dashDeleteLabel.emit(this.label)}></dash-confirm-button>
       </div>

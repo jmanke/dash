@@ -36,7 +36,6 @@ export class DashInput implements Focusable {
   placeholder: string;
 
   @Prop({
-    reflect: true,
     mutable: true,
   })
   value: string;

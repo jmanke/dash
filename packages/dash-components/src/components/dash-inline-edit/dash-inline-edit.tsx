@@ -38,9 +38,16 @@ export class DashInlineEdit {
 
   //#region @Prop
   @Prop({
-    reflect: true,
+    mutable: true,
   })
   value: string;
+  @Watch('value')
+  valueChanged() {
+    this.currentValue = this.value;
+    if (this.inputElement) {
+      this.inputElement.value = this.value;
+    }
+  }
 
   @Prop({
     reflect: true,
@@ -57,10 +64,13 @@ export class DashInlineEdit {
   @Event({
     eventName: 'dashInlineEditValueChanged',
   })
-  dashInlineEditValueChanged: EventEmitter<string>;
+  dashInlineEditValueChanged: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
+  componentWillLoad() {
+    this.valueChanged();
+  }
   //#endregion
 
   //#region Listeners
@@ -84,13 +94,9 @@ export class DashInlineEdit {
   }
 
   updateValue() {
+    this.value = this.currentValue;
+    this.dashInlineEditValueChanged.emit();
     this.mode = 'button';
-    if (!this.currentValue) {
-      return;
-    }
-
-    this.dashInlineEditValueChanged.emit(this.currentValue);
-    this.currentValue = undefined;
   }
 
   submit() {
