@@ -74,6 +74,11 @@ export class DashInput implements Focusable {
   dashInputInput: EventEmitter<string>;
 
   @Event({
+    eventName: 'dashInputChange',
+  })
+  dashInputChange: EventEmitter<string>;
+
+  @Event({
     eventName: 'dashInputSubmit',
   })
   dashInputSubmit: EventEmitter;
@@ -112,13 +117,17 @@ export class DashInput implements Focusable {
     this.setFocus();
   }
 
-  inputChanged(val: string) {
+  inputInput(val: string) {
     if (this.inputChangeDebounce) {
       this.inputChangeDebounce(val);
       return;
     }
 
     this.dashInputInput.emit(val);
+  }
+
+  inputChange(val: string) {
+    this.dashInputChange.emit(val);
   }
 
   keyDown(e: KeyboardEvent) {
@@ -139,7 +148,8 @@ export class DashInput implements Focusable {
             value={this.value}
             placeholder={this.placeholder}
             size={1}
-            onInput={(e: InputEvent) => this.inputChanged((e.target as HTMLInputElement).value)}
+            onInput={(e: InputEvent) => this.inputInput((e.target as HTMLInputElement).value)}
+            onChange={(e: InputEvent) => this.inputChange((e.target as HTMLInputElement).value)}
             onKeyDown={this.keyDown.bind(this)}
           ></input>
           {this.clearable && (

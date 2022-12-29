@@ -51,6 +51,11 @@ export namespace Components {
     }
     interface DashDropdown {
         "autoClose": boolean;
+        /**
+          * Auto focus dropdown content on open
+          * @default true
+         */
+        "autoFocus": boolean;
         "close": (focusTarget?: boolean) => Promise<void>;
         "placement": Placement;
         "placementStrategy": PlacementStrategy;
@@ -198,6 +203,9 @@ export namespace Components {
     }
     interface DashThemeToggle {
         "theme": Theme;
+    }
+    interface DashTimePicker {
+        "time": string;
     }
     interface DashToggleSwitch {
         "checked": boolean;
@@ -480,6 +488,12 @@ declare global {
         prototype: HTMLDashThemeToggleElement;
         new (): HTMLDashThemeToggleElement;
     };
+    interface HTMLDashTimePickerElement extends Components.DashTimePicker, HTMLStencilElement {
+    }
+    var HTMLDashTimePickerElement: {
+        prototype: HTMLDashTimePickerElement;
+        new (): HTMLDashTimePickerElement;
+    };
     interface HTMLDashToggleSwitchElement extends Components.DashToggleSwitch, HTMLStencilElement {
     }
     var HTMLDashToggleSwitchElement: {
@@ -525,6 +539,7 @@ declare global {
         "dash-sidebar-button": HTMLDashSidebarButtonElement;
         "dash-textarea": HTMLDashTextareaElement;
         "dash-theme-toggle": HTMLDashThemeToggleElement;
+        "dash-time-picker": HTMLDashTimePickerElement;
         "dash-toggle-switch": HTMLDashToggleSwitchElement;
         "dash-tooltip": HTMLDashTooltipElement;
     }
@@ -568,6 +583,11 @@ declare namespace LocalJSX {
     }
     interface DashDropdown {
         "autoClose"?: boolean;
+        /**
+          * Auto focus dropdown content on open
+          * @default true
+         */
+        "autoFocus"?: boolean;
         "onDropdownVisibleChanged"?: (event: DashDropdownCustomEvent<boolean>) => void;
         "placement"?: Placement;
         "placementStrategy"?: PlacementStrategy;
@@ -651,6 +671,7 @@ declare namespace LocalJSX {
         "clearable"?: boolean;
         "debounce"?: number;
         "icon"?: string;
+        "onDashInputChange"?: (event: DashInputCustomEvent<string>) => void;
         "onDashInputInput"?: (event: DashInputCustomEvent<string>) => void;
         "onDashInputSubmit"?: (event: DashInputCustomEvent<any>) => void;
         "placeholder"?: string;
@@ -736,6 +757,9 @@ declare namespace LocalJSX {
     interface DashThemeToggle {
         "theme"?: Theme;
     }
+    interface DashTimePicker {
+        "time"?: string;
+    }
     interface DashToggleSwitch {
         "checked"?: boolean;
         "onDashToggleSwitchCheckChanged"?: (event: DashToggleSwitchCustomEvent<any>) => void;
@@ -784,6 +808,7 @@ declare namespace LocalJSX {
         "dash-sidebar-button": DashSidebarButton;
         "dash-textarea": DashTextarea;
         "dash-theme-toggle": DashThemeToggle;
+        "dash-time-picker": DashTimePicker;
         "dash-toggle-switch": DashToggleSwitch;
         "dash-tooltip": DashTooltip;
     }
@@ -824,6 +849,7 @@ declare module "@stencil/core" {
             "dash-sidebar-button": LocalJSX.DashSidebarButton & JSXBase.HTMLAttributes<HTMLDashSidebarButtonElement>;
             "dash-textarea": LocalJSX.DashTextarea & JSXBase.HTMLAttributes<HTMLDashTextareaElement>;
             "dash-theme-toggle": LocalJSX.DashThemeToggle & JSXBase.HTMLAttributes<HTMLDashThemeToggleElement>;
+            "dash-time-picker": LocalJSX.DashTimePicker & JSXBase.HTMLAttributes<HTMLDashTimePickerElement>;
             "dash-toggle-switch": LocalJSX.DashToggleSwitch & JSXBase.HTMLAttributes<HTMLDashToggleSwitchElement>;
             "dash-tooltip": LocalJSX.DashTooltip & JSXBase.HTMLAttributes<HTMLDashTooltipElement>;
         }

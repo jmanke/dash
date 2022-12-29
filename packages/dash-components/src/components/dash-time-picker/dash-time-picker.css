@@ -1,0 +1,13 @@
+:host {
+  display: block;
+}
+
+dash-input {
+  min-width: var(--dash-spacing-24);
+}
+
+.dropdown-content {
+  padding: var(--dash-spacing-3);
+  max-height: var(--dash-spacing-60);
+  overflow-y: auto;
+}

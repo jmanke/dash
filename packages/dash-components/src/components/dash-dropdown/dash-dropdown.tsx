@@ -44,6 +44,15 @@ export class DashDropdown {
     reflect: true,
   })
   autoClose: boolean;
+
+  /**
+   * Auto focus dropdown content on open
+   * @default true
+   */
+  @Prop({
+    reflect: true,
+  })
+  autoFocus: boolean = true;
   //#endregion
 
   //#region @Event
@@ -75,7 +84,9 @@ export class DashDropdown {
 
   @Listen('dashPopoverOpen')
   popoverOpened() {
-    focus(this.popoverContentContainer);
+    if (this.autoFocus) {
+      focus(this.popoverContentContainer);
+    }
   }
 
   @Listen('dashPopoverClose')
