@@ -30,9 +30,9 @@ export namespace Components {
         "selectable": boolean;
     }
     interface DashColorPicker {
+        "color": Color;
         "colors": Color[];
         "cols": number;
-        "selectedColor": Color;
     }
     interface DashColorSwatch {
         "color": Color | string;
@@ -61,6 +61,7 @@ export namespace Components {
     interface DashFilter {
         "clear": () => Promise<void>;
         "debounce": number;
+        "filterValue"?: string;
         "items": {}[] | string[];
         "objKey": string;
         "placeholder"?: string;
@@ -482,10 +483,10 @@ declare namespace LocalJSX {
         "selectable"?: boolean;
     }
     interface DashColorPicker {
+        "color"?: Color;
         "colors"?: Color[];
         "cols"?: number;
-        "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<Color>) => void;
-        "selectedColor"?: Color;
+        "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<void>) => void;
     }
     interface DashColorSwatch {
         "color"?: Color | string;
@@ -514,11 +515,12 @@ declare namespace LocalJSX {
     }
     interface DashFilter {
         "debounce"?: number;
+        "filterValue"?: string;
         "items"?: {}[] | string[];
         "objKey"?: string;
         "onDashFilterFilteredItems"?: (event: DashFilterCustomEvent<object[]>) => void;
-        "onDashFilterSubmit"?: (event: DashFilterCustomEvent<string>) => void;
-        "onDashFilterValueChanged"?: (event: DashFilterCustomEvent<string>) => void;
+        "onDashFilterSubmit"?: (event: DashFilterCustomEvent<void>) => void;
+        "onDashFilterValueChanged"?: (event: DashFilterCustomEvent<void>) => void;
         "placeholder"?: string;
         "scale"?: Scale;
     }
@@ -551,7 +553,7 @@ declare namespace LocalJSX {
     }
     interface DashInlineEdit {
         "disabled"?: boolean;
-        "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<string>) => void;
+        "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<void>) => void;
         "scale"?: Scale;
         "value"?: string;
     }
@@ -576,9 +578,9 @@ declare namespace LocalJSX {
     }
     interface DashListItem {
         "disabled"?: boolean;
-        "onDashListItemMoveNext"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
-        "onDashListItemMovePrevious"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
-        "onDashListItemSelectedChanged"?: (event: DashListItemCustomEvent<boolean>) => void;
+        "onDashInternalListItemMoveNext"?: (event: DashListItemCustomEvent<void>) => void;
+        "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<void>) => void;
+        "onDashListItemSelectedChanged"?: (event: DashListItemCustomEvent<void>) => void;
         "scale"?: Scale;
         "selected"?: boolean;
         "selectionMode"?: SelectionMode1;
@@ -629,7 +631,7 @@ declare namespace LocalJSX {
     }
     interface DashTextarea {
         "cols"?: number;
-        "onDashTextareaInput"?: (event: DashTextareaCustomEvent<string>) => void;
+        "onDashTextareaInput"?: (event: DashTextareaCustomEvent<any>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;

@@ -31,6 +31,7 @@ export class DashListItem {
 
   @Prop({
     reflect: true,
+    mutable: true,
   })
   selected: boolean = false;
 
@@ -50,17 +51,17 @@ export class DashListItem {
     eventName: 'dashListItemSelectedChanged',
     composed: true,
   })
-  dashListItemSelectedChanged: EventEmitter<boolean>;
+  dashListItemSelectedChanged: EventEmitter<void>;
 
   @Event({
-    eventName: 'dashListItemMoveNext',
+    eventName: 'dashInternalListItemMoveNext',
   })
-  dashListItemMoveNext: EventEmitter<HTMLDashListItemElement>;
+  internalListItemMoveNext: EventEmitter<void>;
 
   @Event({
-    eventName: 'dashListItemMovePrevious',
+    eventName: 'dashInternalListItemMovePrevious',
   })
-  dashListItemMovePrevious: EventEmitter<HTMLDashListItemElement>;
+  internalListItemMovePrevious: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
@@ -79,7 +80,8 @@ export class DashListItem {
   //#region Local methods
   handleClick(e: MouseEvent) {
     if (isClick(e) && !this.disabled) {
-      this.dashListItemSelectedChanged.emit(!this.selected);
+      this.selected = !this.selected;
+      this.dashListItemSelectedChanged.emit();
     }
   }
 
@@ -91,7 +93,8 @@ export class DashListItem {
 
     if (isClick(e) && !this.disabled) {
       this.setActive(true);
-      this.dashListItemSelectedChanged.emit(!this.selected);
+      this.selected = !this.selected;
+      this.dashListItemSelectedChanged.emit();
     }
 
     if (e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Space') {
@@ -100,9 +103,9 @@ export class DashListItem {
     }
 
     if (e.code === 'ArrowUp') {
-      this.dashListItemMovePrevious.emit(this.element);
+      this.internalListItemMovePrevious.emit();
     } else if (e.code === 'ArrowDown') {
-      this.dashListItemMoveNext.emit(this.element);
+      this.internalListItemMoveNext.emit();
     }
   }
 
