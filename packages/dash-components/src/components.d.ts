@@ -61,6 +61,7 @@ export namespace Components {
     interface DashFilter {
         "clear": () => Promise<void>;
         "debounce": number;
+        "filterValue"?: string;
         "items": {}[] | string[];
         "objKey": string;
         "placeholder"?: string;
@@ -514,11 +515,12 @@ declare namespace LocalJSX {
     }
     interface DashFilter {
         "debounce"?: number;
+        "filterValue"?: string;
         "items"?: {}[] | string[];
         "objKey"?: string;
         "onDashFilterFilteredItems"?: (event: DashFilterCustomEvent<object[]>) => void;
-        "onDashFilterSubmit"?: (event: DashFilterCustomEvent<string>) => void;
-        "onDashFilterValueChanged"?: (event: DashFilterCustomEvent<string>) => void;
+        "onDashFilterSubmit"?: (event: DashFilterCustomEvent<void>) => void;
+        "onDashFilterValueChanged"?: (event: DashFilterCustomEvent<void>) => void;
         "placeholder"?: string;
         "scale"?: Scale;
     }

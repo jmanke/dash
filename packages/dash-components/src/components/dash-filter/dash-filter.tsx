@@ -20,14 +20,6 @@ export class DashFilter implements Focusable {
 
   //#region @State
   @State()
-  filterValue?: string;
-  @Watch('filterValue')
-  filterValueChanged() {
-    this.dashFilterValueChanged.emit(this.filterValue);
-    this.filterItems();
-  }
-
-  @State()
   filteredItems: {}[] | string[] = [];
   @Watch('filteredItems')
   filteredItemsChanged(filteredItems: {}[], previousFilteredItems: {}[]) {
@@ -53,6 +45,16 @@ export class DashFilter implements Focusable {
   //#endregion
 
   //#region @Prop
+  @Prop({
+    reflect: true,
+    mutable: true,
+  })
+  filterValue?: string;
+  @Watch('filterValue')
+  filterValueChanged() {
+    this.filterItems();
+  }
+
   @Prop({
     reflect: true,
   })
@@ -87,12 +89,12 @@ export class DashFilter implements Focusable {
   @Event({
     eventName: 'dashFilterValueChanged',
   })
-  dashFilterValueChanged: EventEmitter<string>;
+  dashFilterValueChanged: EventEmitter<void>;
 
   @Event({
     eventName: 'dashFilterSubmit',
   })
-  dashFilterSubmit: EventEmitter<string>;
+  dashFilterSubmit: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
@@ -117,11 +119,16 @@ export class DashFilter implements Focusable {
 
   @Method()
   async clear() {
-    this.filterValue = '';
+    this.updateFilterValue('');
   }
   //#endregion
 
   //#region Local methods
+  updateFilterValue(value: string) {
+    this.filterValue = value;
+    this.dashFilterValueChanged.emit();
+  }
+
   filterItems() {
     const value = this.filterValue;
 
@@ -162,8 +169,8 @@ export class DashFilter implements Focusable {
         icon='search'
         scale={this.scale}
         clearable
-        onDashInputInput={e => (this.filterValue = e.target.value?.trim())}
-        onDashInputSubmit={() => this.dashFilterSubmit.emit(this.filterValue)}
+        onDashInputInput={e => this.updateFilterValue(e.target.value?.trim())}
+        onDashInputSubmit={() => this.dashFilterSubmit.emit()}
         debounce={this.debounce}
       ></dash-input>
     );

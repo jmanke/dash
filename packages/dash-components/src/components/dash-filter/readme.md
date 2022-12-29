@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type                | Default     |
-| ------------- | ------------- | ----------- | ------------------- | ----------- |
-| `debounce`    | `debounce`    |             | `number`            | `250`       |
-| `items`       | --            |             | `string[] \| {}[]`  | `undefined` |
-| `objKey`      | `obj-key`     |             | `string`            | `undefined` |
-| `placeholder` | `placeholder` |             | `string`            | `'Filter'`  |
-| `scale`       | `scale`       |             | `"l" \| "m" \| "s"` | `'m'`       |
+| Property      | Attribute      | Description | Type                | Default     |
+| ------------- | -------------- | ----------- | ------------------- | ----------- |
+| `debounce`    | `debounce`     |             | `number`            | `250`       |
+| `filterValue` | `filter-value` |             | `string`            | `undefined` |
+| `items`       | --             |             | `string[] \| {}[]`  | `undefined` |
+| `objKey`      | `obj-key`      |             | `string`            | `undefined` |
+| `placeholder` | `placeholder`  |             | `string`            | `'Filter'`  |
+| `scale`       | `scale`        |             | `"l" \| "m" \| "s"` | `'m'`       |
 
 
 ## Events
@@ -21,8 +22,8 @@
 | Event                     | Description | Type                    |
 | ------------------------- | ----------- | ----------------------- |
 | `dashFilterFilteredItems` |             | `CustomEvent<object[]>` |
-| `dashFilterSubmit`        |             | `CustomEvent<string>`   |
-| `dashFilterValueChanged`  |             | `CustomEvent<string>`   |
+| `dashFilterSubmit`        |             | `CustomEvent<void>`     |
+| `dashFilterValueChanged`  |             | `CustomEvent<void>`     |
 
 
 ## Methods

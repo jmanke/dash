@@ -183,7 +183,7 @@ export class DashLabelEdit {
           items={labelsState.labels}
           objKey='text'
           onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
-          onDashFilterValueChanged={e => (this.filterValue = e.detail)}
+          onDashFilterValueChanged={e => (this.filterValue = e.target.filterValue)}
         ></dash-filter>
         {addLabel}
         {listContent}

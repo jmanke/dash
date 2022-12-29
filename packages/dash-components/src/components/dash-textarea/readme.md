@@ -20,9 +20,9 @@
 
 ## Events
 
-| Event               | Description | Type                  |
-| ------------------- | ----------- | --------------------- |
-| `dashTextareaInput` |             | `CustomEvent<string>` |
+| Event               | Description | Type               |
+| ------------------- | ----------- | ------------------ |
+| `dashTextareaInput` |             | `CustomEvent<any>` |
 
 
 ----------------------------------------------
