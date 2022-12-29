@@ -629,7 +629,7 @@ declare namespace LocalJSX {
     }
     interface DashTextarea {
         "cols"?: number;
-        "onDashTextareaInput"?: (event: DashTextareaCustomEvent<string>) => void;
+        "onDashTextareaInput"?: (event: DashTextareaCustomEvent<any>) => void;
         "placeholder"?: string;
         "readonly"?: boolean;
         "required"?: boolean;

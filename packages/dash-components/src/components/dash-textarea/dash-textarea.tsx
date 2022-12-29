@@ -19,6 +19,11 @@ export class DashTextarea {
 
   //#region @Prop
   @Prop({
+    mutable: true,
+  })
+  value: string;
+
+  @Prop({
     reflect: true,
   })
   resize: Resize = 'both';
@@ -47,16 +52,11 @@ export class DashTextarea {
     reflect: true,
   })
   required: boolean;
-
-  @Prop({
-    reflect: true,
-  })
-  value: string;
   //#endregion
 
   //#region @Event
   @Event({ eventName: 'dashTextareaInput' })
-  textAreaInput: EventEmitter<string>;
+  textAreaInput: EventEmitter;
   //#endregion
 
   //#region Component lifecycle
@@ -69,7 +69,12 @@ export class DashTextarea {
   //#endregion
 
   //#region Local methods
+  inputChanged(value: string) {
+    this.value = value;
+    this.textAreaInput.emit();
+  }
   //#endregion
+
   render() {
     return (
       <Host>
@@ -80,7 +85,7 @@ export class DashTextarea {
           placeholder={this.placeholder}
           readOnly={this.readonly}
           required={this.required}
-          onInput={e => this.textAreaInput.emit((e.target as HTMLTextAreaElement).value)}
+          onInput={e => this.inputChanged((e.target as HTMLTextAreaElement).value)}
         ></textarea>
       </Host>
     );

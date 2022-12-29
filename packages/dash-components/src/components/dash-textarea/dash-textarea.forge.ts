@@ -8,10 +8,9 @@ const template = (args, updateArg) =>
     rows=${args.rows}
     maxLength=${args.maxLength}
     placeholder=${args.placeholder}
-    ?autofocus=${args.autofocus}
     ?readonly=${args.readonly}
     ?required=${args.required}
-    @dashTextareaInput=${e => updateArg('value', e.detail)}
+    @dashTextareaInput=${e => updateArg('value', e.target.value)}
   ></dash-textarea>`;
 
 export const textareaDefinition = {
