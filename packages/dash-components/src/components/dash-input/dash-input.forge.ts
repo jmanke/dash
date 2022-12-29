@@ -11,7 +11,9 @@ const template = (args, updateArg) =>
     debounce=${args.debounce}
     type=${args.type}
     ?clearable=${args.clearable}
-    @dashInputInput=${e => updateArg('value', e.detail)}
+    @dashInputInput=${e => {
+      updateArg('value', e.target.value);
+    }}
   ></dash-input> `;
 
 export const inputDefinition = {

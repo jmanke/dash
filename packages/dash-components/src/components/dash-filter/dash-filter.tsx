@@ -138,8 +138,10 @@ export class DashFilter implements Focusable {
         if (objKeyArr.length === 0) {
           return false;
         } else if (objKeyArr.length === 1) {
+          // @ts-ignore
           value = item[objKeyArr[0]] as string;
         } else {
+          // @ts-ignore
           value = item[objKeyArr[0]][objKeyArr[1]] as string;
         }
       } else {
@@ -160,7 +162,7 @@ export class DashFilter implements Focusable {
         icon='search'
         scale={this.scale}
         clearable
-        onDashInputInput={e => (this.filterValue = e.detail?.trim())}
+        onDashInputInput={e => (this.filterValue = e.target.value?.trim())}
         onDashInputSubmit={() => this.dashFilterSubmit.emit(this.filterValue)}
         debounce={this.debounce}
       ></dash-input>

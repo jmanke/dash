@@ -1,5 +1,6 @@
 import { classExists } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
+import { DashInputCustomEvent } from '../../components';
 import { Scale } from '../../types/types';
 
 type EditMode = 'button' | 'input';
@@ -74,8 +75,8 @@ export class DashInlineEdit {
     element.setFocus();
   }
 
-  inputChanged(e: CustomEvent<string>) {
-    this.currentValue = e.detail;
+  inputChanged(e: DashInputCustomEvent<void>) {
+    this.currentValue = e.target.value;
   }
 
   switchToInputMode() {
@@ -112,7 +113,7 @@ export class DashInlineEdit {
 
         <dash-input
           ref={element => (this.inputElement = element)}
-          class={(this.mode !== 'input' || this.disabled) ? 'hidden' : ''}
+          class={this.mode !== 'input' || this.disabled ? 'hidden' : ''}
           value={this.value}
           scale={this.scale}
           onDashInputInput={this.inputChanged.bind(this)}

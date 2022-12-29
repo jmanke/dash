@@ -559,8 +559,8 @@ declare namespace LocalJSX {
         "clearable"?: boolean;
         "debounce"?: number;
         "icon"?: string;
-        "onDashInputInput"?: (event: DashInputCustomEvent<string>) => void;
-        "onDashInputSubmit"?: (event: DashInputCustomEvent<any>) => void;
+        "onDashInputInput"?: (event: DashInputCustomEvent<void>) => void;
+        "onDashInputSubmit"?: (event: DashInputCustomEvent<void>) => void;
         "placeholder"?: string;
         "scale"?: Scale;
         "type"?: string;
