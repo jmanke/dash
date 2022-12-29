@@ -24,8 +24,9 @@ export class DashColorPicker {
 
   @Prop({
     reflect: true,
+    mutable: true,
   })
-  selectedColor: Color;
+  color: Color;
 
   @Prop({
     reflect: true,
@@ -36,9 +37,8 @@ export class DashColorPicker {
   //#region @Event
   @Event({
     eventName: 'dashColorPickerColorChanged',
-    composed: true,
   })
-  dashColorPickerColorChanged: EventEmitter<Color>;
+  dashColorPickerColorChanged: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
@@ -51,13 +51,17 @@ export class DashColorPicker {
   //#endregion
 
   //#region Local methods
+  colorSelected(color: Color) {
+    this.color = color;
+    this.dashColorPickerColorChanged.emit();
+  }
   //#endregion
 
   render() {
     return (
       <div class='color-swatch-container' style={{ 'grid-template-columns': `repeat(${this.cols ?? this.colors.length}, 1fr)` }}>
         {this.colors.map(color => (
-          <dash-color-swatch color={color} onClick={() => this.dashColorPickerColorChanged.emit(color)} scale='l' selected={this.selectedColor === color}></dash-color-swatch>
+          <dash-color-swatch color={color} onClick={this.colorSelected.bind(this, color)} scale='l' selected={this.color === color}></dash-color-swatch>
         ))}
       </div>
     );
