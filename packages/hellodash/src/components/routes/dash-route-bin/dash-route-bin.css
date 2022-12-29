@@ -28,3 +28,7 @@
     margin-inline-start: auto;
   }
 }
+
+dash-dropdown dash-list {
+  padding: var(--dash-spacing-3);
+}

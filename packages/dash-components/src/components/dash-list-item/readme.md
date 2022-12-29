@@ -10,6 +10,7 @@
 | Property        | Attribute        | Description | Type                               | Default     |
 | --------------- | ---------------- | ----------- | ---------------------------------- | ----------- |
 | `disabled`      | `disabled`       |             | `boolean`                          | `undefined` |
+| `scale`         | `scale`          |             | `"l" \| "m" \| "s"`                | `'m'`       |
 | `selected`      | `selected`       |             | `boolean`                          | `false`     |
 | `selectionMode` | `selection-mode` |             | `"multiple" \| "none" \| "single"` | `'single'`  |
 
