@@ -1,4 +1,4 @@
-import { Component, h, Event, EventEmitter, Prop, Listen } from '@stencil/core';
+import { Component, h, Event, EventEmitter, Prop } from '@stencil/core';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 

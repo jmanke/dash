@@ -152,7 +152,7 @@ export class DashLabelEdit {
     const listContent = this.filteredLabels?.length ? (
       <dash-list class='labels-list' selectionMode='multiple'>
         {this.filteredLabels?.map(label => (
-          <dash-list-item selected={this.labelsMap?.has(label.id)} onDashListItemSelectedChanged={e => this.selectedLabelChanged(label, e.detail)}>
+          <dash-list-item selected={this.labelsMap?.has(label.id)} onDashListItemSelectedChanged={e => this.selectedLabelChanged(label, e.target.selected)}>
             <span class='label-text'>{label.text}</span>
             <dash-color-swatch
               ref={element => this.colorSwatches.set(label.id, element)}

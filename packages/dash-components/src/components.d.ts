@@ -576,9 +576,9 @@ declare namespace LocalJSX {
     }
     interface DashListItem {
         "disabled"?: boolean;
-        "onDashListItemMoveNext"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
-        "onDashListItemMovePrevious"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
-        "onDashListItemSelectedChanged"?: (event: DashListItemCustomEvent<boolean>) => void;
+        "onDashInternalListItemMoveNext"?: (event: DashListItemCustomEvent<void>) => void;
+        "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<void>) => void;
+        "onDashListItemSelectedChanged"?: (event: DashListItemCustomEvent<void>) => void;
         "scale"?: Scale;
         "selected"?: boolean;
         "selectionMode"?: SelectionMode1;

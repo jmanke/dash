@@ -17,11 +17,11 @@
 
 ## Events
 
-| Event                         | Description | Type                                   |
-| ----------------------------- | ----------- | -------------------------------------- |
-| `dashListItemMoveNext`        |             | `CustomEvent<HTMLDashListItemElement>` |
-| `dashListItemMovePrevious`    |             | `CustomEvent<HTMLDashListItemElement>` |
-| `dashListItemSelectedChanged` |             | `CustomEvent<boolean>`                 |
+| Event                              | Description | Type                |
+| ---------------------------------- | ----------- | ------------------- |
+| `dashInternalListItemMoveNext`     |             | `CustomEvent<void>` |
+| `dashInternalListItemMovePrevious` |             | `CustomEvent<void>` |
+| `dashListItemSelectedChanged`      |             | `CustomEvent<void>` |
 
 
 ## Methods
