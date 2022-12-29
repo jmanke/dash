@@ -21,6 +21,10 @@ dash-route-notes {
     .sort-dropdown {
       margin-inline-start: var(--dash-spacing-3);
       --dash-dropdown-min-width: var(--dash-spacing-48);
+
+      dash-list {
+        padding: var(--dash-spacing-3);
+      }
     }
   }
 
@@ -58,7 +62,7 @@ dash-route-notes {
     .note-message {
       font-size: var(--dash-font-size-6);
       margin-bottom: var(--dash-spacing-6);
-      
+
       @media only screen and (max-width: 768px) {
         font-size: var(--dash-font-size-5);
       }
