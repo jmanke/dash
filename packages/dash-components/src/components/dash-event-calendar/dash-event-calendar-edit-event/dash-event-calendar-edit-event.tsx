@@ -50,7 +50,7 @@ export class DashEventCalendarEditEvent {
 
   updateEvent(property: string, value: string) {
     this._event = { ...this._event, [property]: value };
-    console.log(this._event);
+    this.eventCalendarEditEventEventUpdate.emit(this._event);
   }
 
   updateTime(property: string, value: string) {
@@ -65,12 +65,12 @@ export class DashEventCalendarEditEvent {
         <div>
           <dash-label>
             Event name
-            <dash-input value={this._event.name} onDashInputInput={({ detail }) => this.updateTime('name', detail)}></dash-input>
+            <dash-input value={this._event.name} onDashInputInput={({ detail }) => this.updateEvent('name', detail)}></dash-input>
           </dash-label>
 
           <dash-label>
             Description
-            <dash-textarea resize='vertical' value={this._event.description}></dash-textarea>
+            <dash-textarea resize='vertical' value={this._event.description} onDashTextareaInput={({ detail }) => this.updateEvent('description', detail)}></dash-textarea>
           </dash-label>
 
           <dash-label>

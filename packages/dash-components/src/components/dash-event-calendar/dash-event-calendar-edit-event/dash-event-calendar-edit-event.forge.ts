@@ -3,7 +3,8 @@ import { DateTime } from 'luxon';
 
 const eventDate = DateTime.fromISO(DateTime.now().toISO());
 
-const template = args => html`<dash-event-calendar-edit-event .event=${args.event}></dash-event-calendar-edit-event>`;
+const template = (args, updateArg) =>
+  html`<dash-event-calendar-edit-event .event=${args.event} @dashEventCalendarEditEventEventUpdate=${e => updateArg('event', e.detail)}></dash-event-calendar-edit-event>`;
 
 export const eventCalendarEditEventDefinition = {
   name: '<dash-event-calendar-edit-event>',
