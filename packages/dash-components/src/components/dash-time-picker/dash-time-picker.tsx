@@ -1,9 +1,9 @@
 import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { addMinutes, amPmFormat, isValid12HourFormat, startOfDay } from '../../utils/date/date-time';
+import { addDuration, amPmFormat, timeParts, startOfDay } from '../../utils/date/date-time';
 
 const START_OF_DAY = startOfDay(new Date());
-const TIMES = [...Array(48)].map((_, i) => amPmFormat(addMinutes(START_OF_DAY, i * 30)));
+const TIMES = [...Array(48)].map((_, i) => amPmFormat(addDuration(START_OF_DAY, { minutes: i * 30 })));
 
 @Component({
   tag: 'dash-time-picker',
@@ -27,7 +27,7 @@ export class DashTimePicker {
     reflect: true,
     mutable: true,
   })
-  time: string;
+  time: Date;
   //#endregion
 
   //#region @Event
@@ -48,28 +48,27 @@ export class DashTimePicker {
 
   //#region Local methods
   inputChanged(e: DashInputCustomEvent<void>) {
-    this.updateTime(e.target.value);
+    this.selectTime(e.target.value, false);
   }
 
-  updateTime(time: string) {
-    if (time === this.time) {
-      return;
-    }
-
-    const isValid = isValid12HourFormat(time);
-
-    if (!isValid) {
-      this.inputElement.value = this.time;
-      return;
-    }
-
+  updateTime(time: Date) {
     this.time = time;
     this.timePickerTimeChange.emit();
   }
 
-  selectTime(time: string) {
-    this.updateTime(time);
-    this.dropdownElement.close();
+  selectTime(time: string, closeDropdown = true) {
+    const partsInfo = timeParts(time);
+    if (!partsInfo.valid) {
+      this.inputElement.value = amPmFormat(this.time);
+      return;
+    }
+
+    const day = startOfDay(this.time);
+    const minutes = partsInfo.parts.hour * 60 + partsInfo.parts.minute;
+    this.updateTime(addDuration(day, { minutes }));
+    if (closeDropdown) {
+      this.dropdownElement.close();
+    }
   }
   //#endregion
 
@@ -77,7 +76,7 @@ export class DashTimePicker {
     return (
       <Host>
         <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose autoFocus={false}>
-          <dash-input ref={e => (this.inputElement = e)} slot='dropdown-trigger' value={this.time} onDashInputChange={this.inputChanged.bind(this)}></dash-input>
+          <dash-input ref={e => (this.inputElement = e)} slot='dropdown-trigger' value={amPmFormat(this.time)} onDashInputChange={this.inputChanged.bind(this)}></dash-input>
 
           <dash-list class='dropdown-content' selectionMode='none'>
             {TIMES.map(time => (

@@ -1,4 +1,4 @@
-import { DateTime } from 'luxon';
+import { DateTime, DurationLike } from 'luxon';
 
 /**
  * Gets the start of the day for the given date
@@ -10,13 +10,13 @@ export function startOfDay(date: Date) {
 }
 
 /**
- * Adds minutes to given date
+ * Adds time to given date
  * @param date Date object
- * @param minutes Number of minutes to add
+ * @param timeParts Duration of time to add
  * @returns Date object with given date plus number of minutes
  */
-export function addMinutes(date: Date, minutes: number) {
-  return DateTime.fromJSDate(date).plus({ minutes }).toJSDate();
+export function addDuration(date: Date, duration: DurationLike) {
+  return DateTime.fromJSDate(date).plus(duration).toJSDate();
 }
 
 /**
@@ -43,13 +43,15 @@ export function toLocaleString(date: Date, opts?: Intl.DateTimeFormatOptions) {
 }
 
 /**
- * Checks if given time string is in a valid 12 hour time format (12 hour format, ex. "12:36 AM")
+ * Gets parts of a time string (12 hour format, ex. "12:36 AM")
  * @param time time string
- * @returns True if the string is a valid 12 hour formatted string
+ * @returns Time parts of given time string (hour, minutes)
  */
-export function isValid12HourFormat(time: string) {
+export function timeParts(time: string) {
   if (!time) {
-    return false;
+    return {
+      valid: false,
+    };
   }
 
   // Regex to check valid
@@ -58,13 +60,34 @@ export function isValid12HourFormat(time: string) {
   const match = time.match(pattern);
 
   if (!match) {
-    return false;
+    return {
+      valid: false,
+    };
   }
 
-  const hour = Number.parseInt(match[1]);
+  let hour = Number.parseInt(match[1]);
   const minute = Number.parseInt(match[2]);
+  const amPm = match[3].toUpperCase();
+  const valid = hour > 0 && hour <= 12 && minute >= 0 && minute < 60;
 
-  return hour > 0 && hour <= 12 && minute >= 0 && minute < 60;
+  if (hour === 12) {
+    hour = 0;
+  }
+  if (amPm === 'PM') {
+    hour += 12;
+  }
+
+  const parts = valid
+    ? {
+        hour,
+        minute,
+      }
+    : undefined;
+
+  return {
+    valid,
+    parts,
+  };
 }
 
 /**

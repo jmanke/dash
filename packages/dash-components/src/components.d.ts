@@ -217,7 +217,7 @@ export namespace Components {
         "theme": Theme;
     }
     interface DashTimePicker {
-        "time": string;
+        "time": Date;
     }
     interface DashToggleSwitch {
         "checked": boolean;
@@ -799,7 +799,7 @@ declare namespace LocalJSX {
     }
     interface DashTimePicker {
         "onDashTimePickerTimeChange"?: (event: DashTimePickerCustomEvent<void>) => void;
-        "time"?: string;
+        "time"?: Date;
     }
     interface DashToggleSwitch {
         "checked"?: boolean;

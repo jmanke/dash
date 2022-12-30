@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 
-const template = (args, updateArg) => html`<dash-time-picker time=${args.time} @dashTimePickerTimeChange=${e => updateArg('time', e.target.time)}></dash-time-picker>`;
+const template = (args, updateArg) => html`<dash-time-picker .time=${args.time} @dashTimePickerTimeChange=${e => updateArg('time', e.target.time)}></dash-time-picker>`;
 
 export const timePickerDefinition = {
   name: '<dash-time-picker>',
@@ -11,7 +11,7 @@ export const timePickerDefinition = {
   },
   template,
   args: {
-    time: '12:00 AM',
+    time: new Date(),
   },
 };
 
