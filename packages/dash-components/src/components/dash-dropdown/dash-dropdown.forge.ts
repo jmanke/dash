@@ -1,10 +1,15 @@
 import { html } from 'lit-html';
 import { placementControl, placementStrategyControl } from '../../../.forge/common/controls';
 
-const template = args => html` <dash-dropdown style="margin: 8rem;" placement=${args.placement} placement-strategy=${args.placementStrategy} ?auto-close=${args.autoClose}>
+const template = args => html` <dash-dropdown
+  style="margin: 8rem; --dash-dropdown-max-height: var(--dash-spacing-24); --dash-dropdown-padding: var(--dash-spacing-3);"
+  placement=${args.placement}
+  placement-strategy=${args.placementStrategy}
+  ?auto-close=${args.autoClose}
+>
   <dash-button slot="dropdown-trigger">Open me</dash-button>
 
-  <div style="padding: var(--dash-spacing-3); overflow: auto; max-height: var(--dash-spacing-20)">
+  <div>
     <div>Item 1</div>
     <div>Item 2</div>
     <div>Item 3</div>

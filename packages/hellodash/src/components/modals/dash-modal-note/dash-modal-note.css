@@ -50,8 +50,4 @@ dash-modal-note {
   .edit-note-btn {
     margin-inline-end: var(--dash-spacing-3);
   }
-
-  dash-dropdown .dropdown-content {
-    padding: var(--dash-spacing-3);
-  }
 }

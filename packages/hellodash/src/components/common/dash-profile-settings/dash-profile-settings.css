@@ -2,7 +2,3 @@
   display: block;
   --dash-icon-border-radius: 9999px;
 }
-
-dash-list {
-  padding: var(--dash-spacing-3);
-}

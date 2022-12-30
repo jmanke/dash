@@ -1,7 +1,3 @@
 :host {
   display: block;
 }
-
-.dropdown-content {
-  padding: var(--dash-spacing-3);
-}

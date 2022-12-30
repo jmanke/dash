@@ -1,1 +1,5 @@
 @import '~@didyoumeantoast/dash-components/dist/dash-components/dash-components.css';
+
+:root {
+  --dash-dropdown-padding: var(--dash-spacing-3);
+}
