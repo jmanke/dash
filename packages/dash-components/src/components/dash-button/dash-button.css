@@ -8,6 +8,7 @@
   --dash-button-background-color-active: var(--dash-bg-darken-2);
   --dash-button-padding: var(--dash-spacing-1) var(--dash-spacing-2);
   --dash-button-height: unset;
+  --dash-button-border-radius: var(--dash-border-radius);
 }
 
 :host([status='success']) {
@@ -84,7 +85,7 @@ button {
   min-height: var(--dash-spacing-8);
   height: var(--dash-button-height);
   width: 100%;
-  border-radius: var(--dash-border-radius);
+  border-radius: var(--dash-button-border-radius);
   display: flex;
   align-items: center;
   justify-content: flex-start;

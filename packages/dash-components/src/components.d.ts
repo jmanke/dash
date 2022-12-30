@@ -45,6 +45,17 @@ export namespace Components {
         "icon": string;
         "scale": Scale;
     }
+    interface DashDatePicker {
+        /**
+          * Close the date picker dropdown when a date is selected
+         */
+        "closeOnSelect": boolean;
+        "date": Date;
+        /**
+          * format of date picker label
+         */
+        "format": Intl.DateTimeFormatOptions;
+    }
     interface DashDrillMenu {
         "active": boolean;
         "drillHeading": string;
@@ -236,6 +247,10 @@ export interface DashConfirmButtonCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashConfirmButtonElement;
 }
+export interface DashDatePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashDatePickerElement;
+}
 export interface DashDrillMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashDrillMenuElement;
@@ -330,6 +345,12 @@ declare global {
     var HTMLDashConfirmButtonElement: {
         prototype: HTMLDashConfirmButtonElement;
         new (): HTMLDashConfirmButtonElement;
+    };
+    interface HTMLDashDatePickerElement extends Components.DashDatePicker, HTMLStencilElement {
+    }
+    var HTMLDashDatePickerElement: {
+        prototype: HTMLDashDatePickerElement;
+        new (): HTMLDashDatePickerElement;
     };
     interface HTMLDashDrillMenuElement extends Components.DashDrillMenu, HTMLStencilElement {
     }
@@ -517,6 +538,7 @@ declare global {
         "dash-color-picker": HTMLDashColorPickerElement;
         "dash-color-swatch": HTMLDashColorSwatchElement;
         "dash-confirm-button": HTMLDashConfirmButtonElement;
+        "dash-date-picker": HTMLDashDatePickerElement;
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
         "dash-event-calendar-day": HTMLDashEventCalendarDayElement;
@@ -580,6 +602,18 @@ declare namespace LocalJSX {
         "icon"?: string;
         "onDashConfirmButtonConfirmed"?: (event: DashConfirmButtonCustomEvent<any>) => void;
         "scale"?: Scale;
+    }
+    interface DashDatePicker {
+        /**
+          * Close the date picker dropdown when a date is selected
+         */
+        "closeOnSelect"?: boolean;
+        "date"?: Date;
+        /**
+          * format of date picker label
+         */
+        "format"?: Intl.DateTimeFormatOptions;
+        "onDashDatePickerDateChange"?: (event: DashDatePickerCustomEvent<void>) => void;
     }
     interface DashDrillMenu {
         "active"?: boolean;
@@ -788,6 +822,7 @@ declare namespace LocalJSX {
         "dash-color-picker": DashColorPicker;
         "dash-color-swatch": DashColorSwatch;
         "dash-confirm-button": DashConfirmButton;
+        "dash-date-picker": DashDatePicker;
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
         "dash-event-calendar-day": DashEventCalendarDay;
@@ -829,6 +864,7 @@ declare module "@stencil/core" {
             "dash-color-picker": LocalJSX.DashColorPicker & JSXBase.HTMLAttributes<HTMLDashColorPickerElement>;
             "dash-color-swatch": LocalJSX.DashColorSwatch & JSXBase.HTMLAttributes<HTMLDashColorSwatchElement>;
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
+            "dash-date-picker": LocalJSX.DashDatePicker & JSXBase.HTMLAttributes<HTMLDashDatePickerElement>;
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
             "dash-event-calendar-day": LocalJSX.DashEventCalendarDay & JSXBase.HTMLAttributes<HTMLDashEventCalendarDayElement>;

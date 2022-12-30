@@ -104,9 +104,10 @@ export class DashEventCalendarMonth {
   async updateCalendar() {
     const date = this._date;
     const daysInMonth = date.daysInMonth;
+    const startOfMonth = date.startOf('month');
 
     // map startDay from Mon - Sun to Sun - Sat
-    let startDay = date.startOf('month').weekday + 1;
+    let startDay = startOfMonth.weekday + 1;
     if (startDay === 8) {
       startDay = 1;
     }
@@ -116,7 +117,7 @@ export class DashEventCalendarMonth {
     // pre-populate array of weeks with null values
     const weeks = Array.from(Array(numWeeks), () => new Array(7).fill(null));
     // starting day always 1
-    let currDate = date.minus({ days: startDay - 1 });
+    let currDate = startOfMonth.minus({ days: startDay - 1 });
 
     // generate 2d array of days
     for (let i = 0; i < numWeeks * 7; i++) {

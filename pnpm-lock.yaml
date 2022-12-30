@@ -17,7 +17,7 @@ importers:
     specifiers:
       '@a11y/focus-trap': ^1.0.5
       '@babel/core': ^7.19.3
-      '@didyoumeantoast/component-forge': ^0.5.1
+      '@didyoumeantoast/component-forge': ^0.5.2
       '@didyoumeantoast/dash-utils': ^1.1.3
       '@popperjs/core': ^2.11.5
       '@stencil/core': ^2.19.2
@@ -51,7 +51,7 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@babel/core': 7.20.5
-      '@didyoumeantoast/component-forge': 0.5.1
+      '@didyoumeantoast/component-forge': 0.5.2
       '@stencil/postcss': 2.1.0_@stencil+core@2.19.3
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.191
@@ -529,8 +529,8 @@ packages:
       esbuild: 0.15.17
     dev: true
 
-  /@didyoumeantoast/component-forge/0.5.1:
-    resolution: {integrity: sha512-Sn1PREvYZHiQ68iUHUbY8fL+F7X6gmPi9teHlFj/X6Aa3GUlmoqtn0vB7KvsbVvguhXkmygLmOF7ByEwCTL5mQ==}
+  /@didyoumeantoast/component-forge/0.5.2:
+    resolution: {integrity: sha512-RjWhtaePZfwNdhyBRZXYlPCWvcSwTYuu1xACu6ijmjYsNV6cOS1yvXhnOHEbNfTMPBTkWeLYhL/xftWz+kD14w==}
     engines: {node: 18.x, pnpm: 7.x}
     hasBin: true
     dependencies:
