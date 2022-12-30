@@ -73,11 +73,9 @@ export class DashLabelEdit {
           onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)}
           autoClose
         >
-          <div class='dropdown-container'>
-            <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
+          <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
 
-            <dash-label-color-picker color={this.label.color}></dash-label-color-picker>
-          </div>
+          <dash-label-color-picker color={this.label.color}></dash-label-color-picker>
         </dash-dropdown>
         <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 
