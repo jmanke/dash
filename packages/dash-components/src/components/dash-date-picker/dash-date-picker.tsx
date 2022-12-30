@@ -37,14 +37,14 @@ export class DashDatePicker {
   @Prop({
     mutable: true,
   })
-  date: Date;
+  date: string = new Date().toISOString();
   @Watch('date')
-  dateChanged() {
-    if (!this.date) {
+  dateChanged(date: string) {
+    if (!date) {
       return;
     }
 
-    this.calendarDate = this.date;
+    this.calendarDate = new Date(date);
     this.today = new Date();
   }
 
@@ -74,7 +74,7 @@ export class DashDatePicker {
 
   //#region Component lifecycle
   componentWillLoad() {
-    this.dateChanged();
+    this.dateChanged(this.date);
   }
   //#endregion
 
@@ -94,7 +94,7 @@ export class DashDatePicker {
   }
 
   daySelected(date: Date) {
-    this.date = date;
+    this.date = date.toISOString();
     this.datePickerDateChange.emit();
 
     if (this.closeOnSelect) {
@@ -103,10 +103,12 @@ export class DashDatePicker {
   }
   //#endregion
   render() {
+    const dateObj = new Date(this.date);
+
     return (
       <Host>
         <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose>
-          <dash-button slot='dropdown-trigger'>{toLocaleString(this.date, this.format)}</dash-button>
+          <dash-button slot='dropdown-trigger'>{toLocaleString(dateObj, this.format)}</dash-button>
 
           <div class='calendar' style={{ 'grid-template-rows': `0fr repeat(${this.weeks.length}, 1fr)` }}>
             <div class='header'>
@@ -126,7 +128,7 @@ export class DashDatePicker {
                 week.map(day => (
                   <div class='day-cell'>
                     <dash-button
-                      class={spaceConcat('day-number', isSameDay(this.date, day) ? 'selected' : null)}
+                      class={spaceConcat('day-number', isSameDay(dateObj, day) ? 'selected' : null)}
                       scale='s'
                       appearance={isSameDay(this.today, day) ? 'outline' : 'clear'}
                       onClick={() => this.daySelected(day)}

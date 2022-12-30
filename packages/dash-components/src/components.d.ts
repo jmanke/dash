@@ -50,7 +50,7 @@ export namespace Components {
           * Close the date picker dropdown when a date is selected
          */
         "closeOnSelect": boolean;
-        "date": Date;
+        "date": string;
         /**
           * format of date picker label
          */
@@ -217,7 +217,7 @@ export namespace Components {
         "theme": Theme;
     }
     interface DashTimePicker {
-        "time": Date;
+        "time": string;
     }
     interface DashToggleSwitch {
         "checked": boolean;
@@ -608,7 +608,7 @@ declare namespace LocalJSX {
           * Close the date picker dropdown when a date is selected
          */
         "closeOnSelect"?: boolean;
-        "date"?: Date;
+        "date"?: string;
         /**
           * format of date picker label
          */
@@ -799,7 +799,7 @@ declare namespace LocalJSX {
     }
     interface DashTimePicker {
         "onDashTimePickerTimeChange"?: (event: DashTimePickerCustomEvent<void>) => void;
-        "time"?: Date;
+        "time"?: string;
     }
     interface DashToggleSwitch {
         "checked"?: boolean;

@@ -9,10 +9,15 @@
     line-height: var(--dash-spacing-4);
     font-size: var(--dash-font-size-1);
   }
+}
 
-  &([layout='inline-space-between']) label {
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
+:host([layout='inline']) label {
+  flex-direction: row;
+  align-items: center;
+}
+
+:host([layout='inline-space-between']) label {
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }

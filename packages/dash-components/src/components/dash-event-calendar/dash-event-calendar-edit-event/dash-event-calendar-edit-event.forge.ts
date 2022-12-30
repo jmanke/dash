@@ -19,8 +19,8 @@ export const eventCalendarEditEventDefinition = {
       id: '0',
       name: 'Walk Hazel',
       description: 'Hazel needs lots of walks to keep her stubby legs moving.',
-      fromTime: eventDate.set({ hour: 7, minute: 30 }),
-      toTime: eventDate.set({ hour: 11 }),
+      fromTime: eventDate.set({ hour: 7, minute: 30 }).toISO(),
+      toTime: eventDate.set({ hour: 11 }).toISO(),
     },
   },
 };

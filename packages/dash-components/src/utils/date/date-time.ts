@@ -117,3 +117,20 @@ export function prevMonth(date: Date) {
 export function isSameDay(a: Date, b: Date) {
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
+
+/**
+ * Sets time from isoTime to isoDate
+ * @param isoDate date ISO8601 date string
+ * @param isoTime time ISO8601 time string
+ */
+export function setTimeISO8601(isoDate: string, isoTime: string) {
+  const iso8601Pattern = /^(\d{4}-\d{2}-\d{2})(T\d{2}:\d{2}:\d{2}.\d{3}.*)$/;
+  const datePart = isoDate.match(iso8601Pattern)?.[1];
+  const timePart = isoTime.match(iso8601Pattern)?.[2];
+
+  if (!datePart || !timePart) {
+    return isoDate;
+  }
+
+  return datePart + timePart;
+}

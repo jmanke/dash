@@ -5,3 +5,8 @@
 textarea {
   resize: vertical;
 }
+
+.date-picker-container {
+  display: flex;
+  column-gap: var(--dash-spacing-2);
+}

@@ -1,6 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
 
-export type LabelLayout = 'default' | 'inline-space-between';
+export type LabelLayout = 'default' | 'inline-space-between' | 'inline';
 
 @Component({
   tag: 'dash-label',
