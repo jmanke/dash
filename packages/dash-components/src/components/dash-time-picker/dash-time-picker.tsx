@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { addMinutes, amPmFormat, isValidAmPmTimeString, startOfDay } from '../../utils/date/date-time';
+import { addMinutes, amPmFormat, isValid12HourFormat, startOfDay } from '../../utils/date/date-time';
 
 const START_OF_DAY = startOfDay(new Date());
 const TIMES = [...Array(48)].map((_, i) => amPmFormat(addMinutes(START_OF_DAY, i * 30)));
@@ -56,7 +56,7 @@ export class DashTimePicker {
       return;
     }
 
-    const isValid = isValidAmPmTimeString(time);
+    const isValid = isValid12HourFormat(time);
 
     if (!isValid) {
       this.inputElement.value = this.time;
