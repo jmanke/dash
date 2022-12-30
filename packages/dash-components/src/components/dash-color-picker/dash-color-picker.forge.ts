@@ -5,10 +5,10 @@ const template = (args, updateArg) =>
   html`<dash-color-picker
     style="width: fit-content;"
     .colors=${colors}
-    selected-color=${args.selectedColor}
+    color=${args.selectedColor}
     cols=${args.cols}
     @dashColorPickerColorChanged=${e => {
-      updateArg('selectedColor', e.detail);
+      updateArg('selectedColor', e.target.color);
     }}
   ></dash-color-picker>`;
 

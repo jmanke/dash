@@ -1,5 +1,6 @@
 import { classExists } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
+import { DashInputCustomEvent } from '../../components';
 import { Scale } from '../../types/types';
 
 type EditMode = 'button' | 'input';
@@ -37,9 +38,16 @@ export class DashInlineEdit {
 
   //#region @Prop
   @Prop({
-    reflect: true,
+    mutable: true,
   })
   value: string;
+  @Watch('value')
+  valueChanged() {
+    this.currentValue = this.value;
+    if (this.inputElement) {
+      this.inputElement.value = this.value;
+    }
+  }
 
   @Prop({
     reflect: true,
@@ -56,10 +64,13 @@ export class DashInlineEdit {
   @Event({
     eventName: 'dashInlineEditValueChanged',
   })
-  dashInlineEditValueChanged: EventEmitter<string>;
+  dashInlineEditValueChanged: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
+  componentWillLoad() {
+    this.valueChanged();
+  }
   //#endregion
 
   //#region Listeners
@@ -74,8 +85,8 @@ export class DashInlineEdit {
     element.setFocus();
   }
 
-  inputChanged(e: CustomEvent<string>) {
-    this.currentValue = e.detail;
+  inputChanged(e: DashInputCustomEvent<void>) {
+    this.currentValue = e.target.value;
   }
 
   switchToInputMode() {
@@ -83,13 +94,9 @@ export class DashInlineEdit {
   }
 
   updateValue() {
+    this.value = this.currentValue;
+    this.dashInlineEditValueChanged.emit();
     this.mode = 'button';
-    if (!this.currentValue) {
-      return;
-    }
-
-    this.dashInlineEditValueChanged.emit(this.currentValue);
-    this.currentValue = undefined;
   }
 
   submit() {
@@ -112,7 +119,7 @@ export class DashInlineEdit {
 
         <dash-input
           ref={element => (this.inputElement = element)}
-          class={(this.mode !== 'input' || this.disabled) ? 'hidden' : ''}
+          class={this.mode !== 'input' || this.disabled ? 'hidden' : ''}
           value={this.value}
           scale={this.scale}
           onDashInputInput={this.inputChanged.bind(this)}

@@ -49,6 +49,8 @@ export class DashEventCalendarEditEvent {
   //#region Local methods
 
   updateEvent(property: string, value: string) {
+    console.log('update event', property, value);
+
     this._event = { ...this._event, [property]: value };
     this.eventCalendarEditEventEventUpdate.emit(this._event);
   }
@@ -62,27 +64,29 @@ export class DashEventCalendarEditEvent {
   render() {
     return (
       <Host>
-        <div>
-          <dash-label>
-            Event name
-            <dash-input value={this._event.name} onDashInputInput={({ detail }) => this.updateEvent('name', detail)}></dash-input>
-          </dash-label>
+        {this._event && (
+          <div>
+            <dash-label>
+              Event name
+              <dash-input value={this._event.name} onDashInputInput={e => this.updateEvent('name', e.target.value)}></dash-input>
+            </dash-label>
 
-          <dash-label>
-            Description
-            <dash-textarea resize='vertical' value={this._event.description} onDashTextareaInput={({ detail }) => this.updateEvent('description', detail)}></dash-textarea>
-          </dash-label>
+            <dash-label>
+              Description
+              <dash-textarea resize='vertical' value={this._event.description} onDashTextareaInput={e => this.updateEvent('description', e.target.value)}></dash-textarea>
+            </dash-label>
 
-          <dash-label>
-            From
-            <dash-input type='datetime-local' onDashInputInput={({ detail }) => this.updateTime('fromTime', detail)}></dash-input>
-          </dash-label>
+            <dash-label>
+              From
+              <dash-input type='datetime-local' onDashInputInput={e => this.updateTime('fromTime', e.target.value)}></dash-input>
+            </dash-label>
 
-          <dash-label>
-            To
-            <dash-input type='datetime-local'></dash-input>
-          </dash-label>
-        </div>
+            <dash-label>
+              To
+              <dash-input type='datetime-local'></dash-input>
+            </dash-label>
+          </div>
+        )}
       </Host>
     );
   }

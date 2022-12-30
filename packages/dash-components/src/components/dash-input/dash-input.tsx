@@ -20,7 +20,7 @@ export class DashInput implements Focusable {
   //#region Own properties
   inputElement: HTMLInputElement;
 
-  inputChangeDebounce: DebouncedFunc<(val: string) => void>;
+  inputChangeDebounce: DebouncedFunc<() => void>;
   //#endregion
 
   //#region @Element
@@ -36,7 +36,7 @@ export class DashInput implements Focusable {
   placeholder: string;
 
   @Prop({
-    reflect: true,
+    mutable: true,
   })
   value: string;
 
@@ -71,23 +71,23 @@ export class DashInput implements Focusable {
   @Event({
     eventName: 'dashInputInput',
   })
-  dashInputInput: EventEmitter<string>;
-
-  @Event({
-    eventName: 'dashInputChange',
-  })
-  dashInputChange: EventEmitter<string>;
+  dashInputInput: EventEmitter<void>;
 
   @Event({
     eventName: 'dashInputSubmit',
   })
-  dashInputSubmit: EventEmitter;
+  dashInputSubmit: EventEmitter<void>;
+
+  @Event({
+    eventName: 'dashInputChange',
+  })
+  dashInputChange: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
   componentWillLoad() {
     if (this.debounce) {
-      this.inputChangeDebounce = debounce(val => this.dashInputInput.emit(val), this.debounce);
+      this.inputChangeDebounce = debounce(() => this.dashInputInput.emit(), this.debounce);
     }
   }
   //#endregion
@@ -113,21 +113,24 @@ export class DashInput implements Focusable {
     e.stopPropagation();
 
     this.inputChangeDebounce?.cancel();
-    this.dashInputInput.emit(undefined);
+    this.value = undefined;
+    this.dashInputInput.emit();
     this.setFocus();
   }
 
   inputInput(val: string) {
+    this.value = val;
     if (this.inputChangeDebounce) {
-      this.inputChangeDebounce(val);
+      this.inputChangeDebounce();
       return;
     }
 
-    this.dashInputInput.emit(val);
+    this.dashInputInput.emit();
   }
 
   inputChange(val: string) {
-    this.dashInputChange.emit(val);
+    this.value = val;
+    this.dashInputChange.emit();
   }
 
   keyDown(e: KeyboardEvent) {

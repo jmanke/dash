@@ -7,18 +7,18 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type                                                                                                                  | Default     |
-| --------------- | ---------------- | ----------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `colors`        | --               |             | `Color[]`                                                                                                             | `[]`        |
-| `cols`          | `cols`           |             | `number`                                                                                                              | `undefined` |
-| `selectedColor` | `selected-color` |             | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
+| Property | Attribute | Description | Type                                                                                                                  | Default     |
+| -------- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `color`  | `color`   |             | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
+| `colors` | --        |             | `Color[]`                                                                                                             | `[]`        |
+| `cols`   | `cols`    |             | `number`                                                                                                              | `undefined` |
 
 
 ## Events
 
-| Event                         | Description | Type                                                                                                                               |
-| ----------------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| `dashColorPickerColorChanged` |             | `CustomEvent<"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow">` |
+| Event                         | Description | Type                |
+| ----------------------------- | ----------- | ------------------- |
+| `dashColorPickerColorChanged` |             | `CustomEvent<void>` |
 
 
 ## Dependencies

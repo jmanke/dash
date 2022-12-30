@@ -16,9 +16,9 @@
 
 ## Events
 
-| Event                        | Description | Type                  |
-| ---------------------------- | ----------- | --------------------- |
-| `dashInlineEditValueChanged` |             | `CustomEvent<string>` |
+| Event                        | Description | Type                |
+| ---------------------------- | ----------- | ------------------- |
+| `dashInlineEditValueChanged` |             | `CustomEvent<void>` |
 
 
 ## Dependencies

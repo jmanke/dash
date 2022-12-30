@@ -20,10 +20,10 @@
 
 ## Events
 
-| Event             | Description | Type                  |
-| ----------------- | ----------- | --------------------- |
-| `dashInputInput`  |             | `CustomEvent<string>` |
-| `dashInputSubmit` |             | `CustomEvent<any>`    |
+| Event             | Description | Type                |
+| ----------------- | ----------- | ------------------- |
+| `dashInputInput`  |             | `CustomEvent<void>` |
+| `dashInputSubmit` |             | `CustomEvent<void>` |
 
 
 ## Methods

@@ -101,7 +101,7 @@ export class DashList {
     prevSibling.tabIndex = 0;
   }
 
-  updateChildProps() {    
+  updateChildProps() {
     this.listItems = Array.from(this.element.childNodes).filter(child => child.nodeName === 'DASH-LIST-ITEM') as HTMLDashListItemElement[];
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
       element.selectionMode = this.selectionMode;
@@ -113,7 +113,7 @@ export class DashList {
 
   render() {
     return (
-      <Host role='list' onDashListItemMoveNext={e => this.focusNextListItem(e.detail)} onDashListItemMovePrevious={e => this.focusPreviousListItem(e.detail)}>
+      <Host role='list' onDashInternalListItemMoveNext={e => this.focusNextListItem(e.target)} onDashInternalListItemMovePrevious={e => this.focusPreviousListItem(e.target)}>
         <slot></slot>
       </Host>
     );

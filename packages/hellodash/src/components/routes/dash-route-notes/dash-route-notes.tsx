@@ -5,6 +5,7 @@ import notesState from '../../../stores/notes-state';
 import { stringSearch } from '@didyoumeantoast/dash-utils';
 import { dashRootService } from '../../dash-root/dash-root-service';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
+import { DashFilterCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -148,8 +149,8 @@ export class DashRouteNotes {
     this.notePreviews = notePreviews;
   }
 
-  updateNotesFilterValue(e: CustomEvent<string>) {
-    this.notesFilter = e.detail;
+  updateNotesFilterValue(e: DashFilterCustomEvent<void>) {
+    this.notesFilter = e.target.filterValue;
   }
 
   updateSortBy(sortBy: SortOption) {
