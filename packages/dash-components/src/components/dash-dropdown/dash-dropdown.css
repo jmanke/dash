@@ -2,6 +2,10 @@
   display: block;
   position: relative;
   --dash-dropdown-min-width: var(--dash-spacing-32);
+
+  /* css overrides used in .container */
+  /* --dash-dropdown-padding */
+  /* --dash-dropdown-max-height */
 }
 
 .container {
@@ -10,4 +14,7 @@
   background-color: var(--dash-background-2);
   min-width: var(--dash-dropdown-min-width);
   border: var(--dash-border-style-1);
+  padding: var(--dash-dropdown-padding);
+  max-height: min(var(--dash-dropdown-max-height), 45vh);
+  overflow-y: auto;
 }

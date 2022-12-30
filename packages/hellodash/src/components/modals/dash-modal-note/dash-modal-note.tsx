@@ -226,17 +226,15 @@ export class DashModalNote implements Modal {
         <dash-dropdown slot='footer-start' ref={element => (this.dropdownElement = element)} placementStrategy='fixed' placement='top-start' autoClose>
           <dash-icon-button slot='dropdown-trigger' class='show-label-edit' icon='plus-circle' scale='l'></dash-icon-button>
 
-          <div class='dropdown-content'>
-            <dash-label-select
-              labels={labels}
-              onDashLabelSelectLabelAdded={e => {
-                this.addLabel(e.detail.id);
-              }}
-              onDashLabelSelectLabelRemoved={e => {
-                this.removeLabel(e.detail.id);
-              }}
-            ></dash-label-select>
-          </div>
+          <dash-label-select
+            labels={labels}
+            onDashLabelSelectLabelAdded={e => {
+              this.addLabel(e.detail.id);
+            }}
+            onDashLabelSelectLabelRemoved={e => {
+              this.removeLabel(e.detail.id);
+            }}
+          ></dash-label-select>
         </dash-dropdown>
 
         {appState.mobileView && (

@@ -11,10 +11,6 @@
 dash-dropdown {
   display: inline-flex;
   margin-inline-end: var(--dash-spacing-2);
-
-  dash-label-color-picker {
-    padding: var(--dash-spacing-3);
-  }
 }
 
 dash-inline-edit {

@@ -77,30 +77,28 @@ export class DashNoteEditDropdown {
       <dash-dropdown ref={element => (this.dropdown = element)} placement='bottom-end' autoClose>
         <dash-icon-button slot='dropdown-trigger' class='options-button' icon='three-dots-vertical' scale='l'></dash-icon-button>
 
-        <div class='dropdown-content'>
-          {this.dropdownMenuPanel === 'default' && (
-            <dash-list selectionMode='none'>
-              <dash-list-item onDashListItemSelectedChanged={() => (this.dropdownMenuPanel = 'addLabel')}>Add label</dash-list-item>
-              <dash-list-item onDashListItemSelectedChanged={this.duplicateNote.bind(this)}>Duplicate</dash-list-item>
-              <dash-list-item onDashListItemSelectedChanged={this.deleteNote.bind(this)}>Delete</dash-list-item>
-            </dash-list>
-          )}
+        {this.dropdownMenuPanel === 'default' && (
+          <dash-list selectionMode='none'>
+            <dash-list-item onDashListItemSelectedChanged={() => (this.dropdownMenuPanel = 'addLabel')}>Add label</dash-list-item>
+            <dash-list-item onDashListItemSelectedChanged={this.duplicateNote.bind(this)}>Duplicate</dash-list-item>
+            <dash-list-item onDashListItemSelectedChanged={this.deleteNote.bind(this)}>Delete</dash-list-item>
+          </dash-list>
+        )}
 
-          {this.dropdownMenuPanel === 'addLabel' && (
-            <dash-label-select
-              labels={noteLabels}
-              onDashLabelSelectLabelAdded={e => {
-                this.notePreview.labels = [...this.notePreview.labels, e.detail.id];
-                notesState.updateNotePreview(this.notePreview);
-              }}
-              onDashLabelSelectLabelRemoved={e => {
-                this.notePreview.labels = this.notePreview.labels.filter(l => l !== e.detail.id);
-                notesState.updateNotePreview(this.notePreview);
-              }}
-              autoFocus
-            ></dash-label-select>
-          )}
-        </div>
+        {this.dropdownMenuPanel === 'addLabel' && (
+          <dash-label-select
+            labels={noteLabels}
+            onDashLabelSelectLabelAdded={e => {
+              this.notePreview.labels = [...this.notePreview.labels, e.detail.id];
+              notesState.updateNotePreview(this.notePreview);
+            }}
+            onDashLabelSelectLabelRemoved={e => {
+              this.notePreview.labels = this.notePreview.labels.filter(l => l !== e.detail.id);
+              notesState.updateNotePreview(this.notePreview);
+            }}
+            autoFocus
+          ></dash-label-select>
+        )}
       </dash-dropdown>
     );
   }
