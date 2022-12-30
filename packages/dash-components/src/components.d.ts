@@ -292,6 +292,10 @@ export interface DashTextareaCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashTextareaElement;
 }
+export interface DashTimePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashTimePickerElement;
+}
 export interface DashToggleSwitchCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashToggleSwitchElement;
@@ -760,6 +764,7 @@ declare namespace LocalJSX {
         "theme"?: Theme;
     }
     interface DashTimePicker {
+        "onDashTimePickerTimeChange"?: (event: DashTimePickerCustomEvent<void>) => void;
         "time"?: string;
     }
     interface DashToggleSwitch {

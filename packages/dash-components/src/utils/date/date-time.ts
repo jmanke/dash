@@ -15,7 +15,7 @@ export function amPmFormat(date: Date) {
 export function isValidAmPmTimeString(time: string) {
   // Regex to check valid
   // time in 12-hour format
-  const regex = new RegExp(/((1[0-2]|0?[1-9]):([0-5][0-9]) ?([AaPp][Mm]))/);
+  const regex = new RegExp(/^([0-1]\d):([0-5]\d)\s*(?:AM|PM)?$/i);
 
   if (time == null) {
     return false;
