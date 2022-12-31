@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { DateTime } from 'luxon';
 import { CalendarEventInternal } from '../../../interfaces/calendar-event';
+import { formatDate, isSameDay } from '../../../utils/date/date-time';
 
 interface EventDropdownProps {
   target: HTMLElement;
@@ -29,13 +29,6 @@ const headerStyle = {
   marginBlockEnd: 'var(--dash-spacing-3)',
 };
 
-function isSameDay(a: DateTime, b: DateTime) {
-  if (!a || !b) {
-    return true;
-  }
-  return a.year === b.year && a.month === b.month && a.day === b.day;
-}
-
 export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target, active, event, onEdit, onClose, onDelete }) => {
   const sameDay = isSameDay(event?.fromTime, event?.toTime);
   return (
@@ -51,8 +44,8 @@ export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target,
         </div>
         <div style={{ fontSize: 'var(--dash-font-size-0)' }}>
           <div>
-            {sameDay && [<span>{event?.fromTime.toFormat('EEEE, dd LLLL • h:mma')} - </span>, <span>{event?.toTime.toFormat('h:mma')}</span>]}
-            {!sameDay && [<span>{event?.fromTime.toFormat('EEEE, dd LLLL • h:mma')} - </span>, <span>{event?.toTime.toFormat('EEEE, h:mma')}</span>]}
+            {sameDay && [<span>{formatDate(event?.fromTime, 'EEEE, dd LLLL • h:mma')} - </span>, <span>{formatDate(event?.toTime, 'h:mma')}</span>]}
+            {!sameDay && [<span>{formatDate(event?.fromTime, 'EEEE, dd LLLL • h:mma')} - </span>, <span>{formatDate(event?.toTime, 'EEEE, h:mma')}</span>]}
           </div>
 
           {event?.description && <div style={{ marginBlockStart: 'var(--dash-spacing-3)' }}>{event?.description}</div>}

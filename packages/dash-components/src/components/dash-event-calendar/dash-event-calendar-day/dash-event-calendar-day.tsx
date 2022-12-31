@@ -1,14 +1,14 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
-import { DateTime } from 'luxon';
 import { EventCalendar } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
+import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, toLocaleString } from '../../../utils/date/date-time';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 import { TimeBar } from '../time-bar/time-bar';
 
 export interface Day {
-  date: DateTime;
+  date: Date;
   eventLayouts?: EventLayout[];
 }
 
@@ -34,7 +34,7 @@ export class DashEventCalendarDay {
 
   //#region @State
   @State()
-  now: DateTime;
+  now: Date;
 
   @State()
   timeBarTop = 0;
@@ -43,7 +43,7 @@ export class DashEventCalendarDay {
   day: Day;
 
   @State()
-  _date: DateTime;
+  _date: Date;
   @Watch('_date')
   _dateChanged() {
     this.updateCalendar();
@@ -72,7 +72,7 @@ export class DashEventCalendarDay {
       this._date = null;
     }
 
-    this._date = DateTime.fromISO(this.date).startOf('day');
+    this._date = startOfDay(new Date(this.date));
   }
 
   @Prop()
@@ -102,9 +102,10 @@ export class DashEventCalendarDay {
   componentWillLoad() {
     // generate hours
     const hours = [];
+    const dayStart = startOfDay(new Date());
     for (let i = 1; i < 24; i++) {
-      const time = DateTime.fromObject({ hour: i });
-      hours.push(time.toFormat('h a'));
+      const time = addDuration(dayStart, { minutes: i * 60 });
+      hours.push(formatDate(time, 'h a'));
     }
     this.hours = hours;
     this.dateChanged();
@@ -140,8 +141,8 @@ export class DashEventCalendarDay {
     this._events =
       this.events?.map(e => ({
         ...e,
-        fromTime: DateTime.fromISO(e.fromTime),
-        toTime: DateTime.fromISO(e.toTime),
+        fromTime: new Date(e.fromTime),
+        toTime: new Date(e.toTime),
       })) || [];
   }
 
@@ -155,17 +156,17 @@ export class DashEventCalendarDay {
       date,
     };
 
-    const events = this._events;
+    const events = isSameDay(this._date, this.now) ? this._events : undefined;
     day.eventLayouts = this.eventCalendar.processEventLayouts(events);
     this.day = day;
   }
 
   prevDay() {
-    this.eventCalendarPrevDay.emit(this._date.minus({ days: 1 }).toISO());
+    this.eventCalendarPrevDay.emit(minusDuration(this._date, { days: 1 }).toISOString());
   }
 
   nextDay() {
-    this.eventCalendarNextDay.emit(this._date.plus({ days: 1 }).toISO());
+    this.eventCalendarNextDay.emit(addDuration(this._date, { days: 1 }).toISOString());
   }
 
   updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {
@@ -190,9 +191,9 @@ export class DashEventCalendarDay {
   }
 
   updateNow() {
-    const now = DateTime.now();
+    const now = new Date();
     this.now = now;
-    this.timeBarTop = (now.hour + now.minute / 60) * HOUR_CELL_HEIGHT;
+    this.timeBarTop = (now.getHours() + now.getMinutes() / 60) * HOUR_CELL_HEIGHT;
   }
 
   //#endregion
@@ -203,7 +204,7 @@ export class DashEventCalendarDay {
         {this._date && (
           <div class='calendar'>
             <div class='header'>
-              <h3 class='title'>{this._date.toLocaleString({ month: 'long', weekday: 'long', day: 'numeric', year: 'numeric' })}</h3>
+              <h3 class='title'>{toLocaleString(this._date, { month: 'long', weekday: 'long', day: 'numeric', year: 'numeric' })}</h3>
 
               <span>
                 <dash-icon-button icon='chevron-left' rounded onClick={this.prevDay.bind(this)}></dash-icon-button>
@@ -222,7 +223,7 @@ export class DashEventCalendarDay {
               </div>
 
               <div class='day-cell'>
-                {this.day?.date.equals(this.now.startOf('day')) && <TimeBar top={this.timeBarTop}></TimeBar>}
+                {isSameDay(this.day.date, this.now) && <TimeBar top={this.timeBarTop}></TimeBar>}
                 {this.day?.eventLayouts &&
                   this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
               </div>

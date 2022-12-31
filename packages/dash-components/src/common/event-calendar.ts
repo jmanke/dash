@@ -1,6 +1,6 @@
-import { DateTime } from 'luxon';
 import { CalendarEventInternal } from '../interfaces/calendar-event';
 import { EventLayout } from '../interfaces/event-layout';
+import { addDuration } from '../utils/date/date-time';
 
 interface EventProccessingData {
   event: CalendarEventInternal;
@@ -31,7 +31,7 @@ export class EventCalendar {
     }
 
     // startEndTimes stores the start and end times to push/pop events for the layout algorithm
-    const startEndTimes: { time: DateTime; event: CalendarEventInternal; isStart: boolean }[] = [];
+    const startEndTimes: { time: Date; event: CalendarEventInternal; isStart: boolean }[] = [];
     events.forEach(e => {
       startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
 
@@ -39,12 +39,12 @@ export class EventCalendar {
       // Since the events can have a minimum height, we must account for it in this step.
       // Sets the to-time to the min-event-height (translated into minutes).
       if (Number.parseInt(eventHeight, 10) < this.MIN_EVENT_HEIGHT) {
-        startEndTimes.push({ time: e.fromTime.plus({ minutes: (1 / this.HOUR_PX_RATIO) * this.MIN_EVENT_HEIGHT }), event: e, isStart: false });
+        startEndTimes.push({ time: addDuration(e.fromTime, { minutes: (1 / this.HOUR_PX_RATIO) * this.MIN_EVENT_HEIGHT }), event: e, isStart: false });
         return;
       }
       startEndTimes.push({ time: e.toTime, event: e, isStart: false });
     });
-    startEndTimes.sort((a, b) => b.time.toMillis() - a.time.toMillis() || Number(b.isStart) - Number(a.isStart));
+    startEndTimes.sort((a, b) => b.time.getTime() - a.time.getTime() || Number(b.isStart) - Number(a.isStart));
 
     let eventLayouts: EventLayout[] = [];
     while (startEndTimes.length) {
@@ -109,14 +109,14 @@ export class EventCalendar {
   }
 
   private eventTopPosition(event: CalendarEventInternal) {
-    const top = event.fromTime.hour * this.CELL_HEIGHT + event.fromTime.minute * this.HOUR_PX_RATIO + this.TOP_OFFSET;
+    const top = event.fromTime.getHours() * this.CELL_HEIGHT + event.fromTime.getMinutes() * this.HOUR_PX_RATIO + this.TOP_OFFSET;
 
     return `${top}px`;
   }
 
   private eventHeight(event: CalendarEventInternal) {
-    const from = event.fromTime.hour * 60 + event.fromTime.minute;
-    const to = event.toTime.hour * 60 + event.toTime.minute;
+    const from = event.fromTime.getHours() * 60 + event.fromTime.getMinutes();
+    const to = event.toTime.getHours() * 60 + event.toTime.getMinutes();
     const height = (to - from) * this.HOUR_PX_RATIO;
 
     return `${height - 1}px`;

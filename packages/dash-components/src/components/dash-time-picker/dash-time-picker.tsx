@@ -1,9 +1,9 @@
 import { Component, Host, h, Prop, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { addDuration, amPmFormat, timeParts, startOfDay } from '../../utils/date/date-time';
+import { addDuration, formatDate, timeParts, startOfDay } from '../../utils/date/date-time';
 
 const START_OF_DAY = startOfDay(new Date());
-const TIMES = [...Array(48)].map((_, i) => amPmFormat(addDuration(START_OF_DAY, { minutes: i * 30 })));
+const TIMES = [...Array(48)].map((_, i) => formatDate(addDuration(START_OF_DAY, { minutes: i * 30 }), 'h:mm a'));
 
 @Component({
   tag: 'dash-time-picker',
@@ -68,7 +68,7 @@ export class DashTimePicker {
   selectTime(time: string, closeDropdown = true) {
     const partsInfo = timeParts(time);
     if (!partsInfo.valid) {
-      this.inputElement.value = amPmFormat(this._time);
+      this.inputElement.value = formatDate(this._time, 'h:mm a');
       return;
     }
 
@@ -85,7 +85,12 @@ export class DashTimePicker {
     return (
       <Host>
         <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose autoFocus={false}>
-          <dash-input ref={e => (this.inputElement = e)} slot='dropdown-trigger' value={amPmFormat(this._time)} onDashInputChange={this.inputChanged.bind(this)}></dash-input>
+          <dash-input
+            ref={e => (this.inputElement = e)}
+            slot='dropdown-trigger'
+            value={formatDate(this._time, 'h:mm a')}
+            onDashInputChange={this.inputChanged.bind(this)}
+          ></dash-input>
 
           <dash-list selectionMode='none'>
             {TIMES.map(time => (

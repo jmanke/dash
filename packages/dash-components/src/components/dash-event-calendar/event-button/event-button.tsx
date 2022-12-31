@@ -1,7 +1,7 @@
 import { FunctionalComponent, h } from '@stencil/core';
-import { DateTime } from 'luxon';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { Scale } from '../../../types/types';
+import { toLocaleString } from '../../../utils/date/date-time';
 
 interface EventButtonProps {
   layout: EventLayout;
@@ -76,8 +76,8 @@ function eventNameStyle(scale: Scale, cellScale: CellScale) {
   };
 }
 
-function toTimeString(time: DateTime) {
-  return time.toLocaleString({ hour: 'numeric', minute: '2-digit', hour12: true });
+function toTimeString(time: Date) {
+  return toLocaleString(time, { hour: 'numeric', minute: '2-digit', hour12: true });
 }
 
 export const EventButton: FunctionalComponent<EventButtonProps> = ({ layout, scale = 'm', onClick }) => {

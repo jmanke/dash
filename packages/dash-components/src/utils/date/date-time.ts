@@ -10,6 +10,26 @@ export function startOfDay(date: Date) {
 }
 
 /**
+ * Gets the start of the week for the given date
+ * @param date Date object
+ * @returns Start of day for given date
+ */
+export function startOfWeek(date: Date) {
+  const startDay = DateTime.fromJSDate(date).startOf('day');
+  // want start of the week to be Sunday, luxon has it on Monday
+  return startDay.weekday === 7 ? startDay.toJSDate() : startDay.startOf('week').minus({ days: 1 }).toJSDate();
+}
+
+/**
+ * Gets the start of the month for the given date
+ * @param date Date object
+ * @returns Start of month for given date
+ */
+export function startOfMonth(date: Date) {
+  return DateTime.fromJSDate(date).startOf('month').toJSDate();
+}
+
+/**
  * Gets the start of the minute for the given date
  * @param date Date object
  * @returns Start of day for given date
@@ -19,13 +39,32 @@ export function startOfMinute(date: Date) {
 }
 
 /**
+ * Gets the number of days in a given month
+ * @param date Date object
+ * @returns Number of days in the month
+ */
+export function daysInMonth(date: Date) {
+  return DateTime.fromJSDate(date).daysInMonth;
+}
+
+/**
  * Adds time to given date
  * @param date Date object
  * @param timeParts Duration of time to add
- * @returns Date object with given date plus number of minutes
+ * @returns Date object with given date plus the duration
  */
 export function addDuration(date: Date, duration: DurationLike) {
   return DateTime.fromJSDate(date).plus(duration).toJSDate();
+}
+
+/**
+ * Subtracts time to given date
+ * @param date Date object
+ * @param timeParts Duration of time to subtract
+ * @returns Date object with given date minus the duration
+ */
+export function minusDuration(date: Date, duration: DurationLike) {
+  return DateTime.fromJSDate(date).minus(duration).toJSDate();
 }
 
 /**
@@ -33,8 +72,12 @@ export function addDuration(date: Date, duration: DurationLike) {
  * @param date Date object
  * @returns Formatted AM/PM (12 hour) string
  */
-export function amPmFormat(date: Date) {
-  return DateTime.fromJSDate(date).toFormat('h:mm a');
+export function formatDate(date: Date, format: string) {
+  if (!date) {
+    return;
+  }
+
+  return DateTime.fromJSDate(date).toFormat(format);
 }
 
 /**
@@ -124,6 +167,10 @@ export function prevMonth(date: Date) {
  * @returns True if both dates are on the same day
  */
 export function isSameDay(a: Date, b: Date) {
+  if (!a || !b) {
+    return false;
+  }
+
   return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate();
 }
 

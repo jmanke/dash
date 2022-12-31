@@ -1,11 +1,11 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
-import { DateTime } from 'luxon';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
-import { weekdays } from '../../../utils/date/week';
+import { addDuration, isSameDay, minusDuration, startOfDay, startOfMonth, toLocaleString } from '../../../utils/date/date-time';
+import { weekdays, weeksInMonth } from '../../../utils/date/week';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 
 export interface Day {
-  date: DateTime;
+  date: Date;
   events?: CalendarEventInternal[];
 }
 
@@ -16,7 +16,7 @@ export interface Day {
 })
 export class DashEventCalendarMonth {
   //#region Own properties
-  today: DateTime;
+  today: Date;
   //#endregion
 
   //#region @Element
@@ -27,7 +27,7 @@ export class DashEventCalendarMonth {
   weeks: Day[][] = [];
 
   @State()
-  _date: DateTime;
+  _date: Date;
   @Watch('_date')
   _dateChanged() {
     this.updateCalendar();
@@ -52,7 +52,7 @@ export class DashEventCalendarMonth {
   date: string;
   @Watch('date')
   dateChanged() {
-    this._date = DateTime.fromISO(this.date).startOf('month');
+    this._date = startOfMonth(new Date(this.date));
   }
 
   @Prop()
@@ -79,7 +79,7 @@ export class DashEventCalendarMonth {
 
   //#region Component lifecycle
   componentWillLoad() {
-    this.today = DateTime.now().startOf('day');
+    this.today = startOfDay(new Date());
     this.dateChanged();
     this.eventsChanged();
   }
@@ -96,53 +96,29 @@ export class DashEventCalendarMonth {
     this._events =
       this.events?.map(e => ({
         ...e,
-        fromTime: DateTime.fromISO(e.fromTime),
-        toTime: DateTime.fromISO(e.toTime),
+        fromTime: new Date(e.fromTime),
+        toTime: new Date(e.toTime),
       })) || [];
   }
 
   async updateCalendar() {
     const date = this._date;
-    const daysInMonth = date.daysInMonth;
-    const startOfMonth = date.startOf('month');
-
-    // map startDay from Mon - Sun to Sun - Sat
-    let startDay = startOfMonth.weekday + 1;
-    if (startDay === 8) {
-      startDay = 1;
-    }
-
-    // calculate number of weeks
-    const numWeeks = Math.ceil((daysInMonth + (startDay - 1)) / 7);
-    // pre-populate array of weeks with null values
-    const weeks = Array.from(Array(numWeeks), () => new Array(7).fill(null));
-    // starting day always 1
-    let currDate = startOfMonth.minus({ days: startDay - 1 });
-
-    // generate 2d array of days
-    for (let i = 0; i < numWeeks * 7; i++) {
-      const weekNum = Math.floor(i / 7);
-
-      const day: Day = {
-        date: currDate,
-      };
-      if (i === 15 && this.today.month === currDate.month) {
-        day.events = this._events;
-      }
-
-      weeks[weekNum][i % 7] = day;
-      currDate = currDate.plus({ days: 1 });
-    }
-
-    this.weeks = weeks;
+    this.weeks = weeksInMonth(date).map((week, i) =>
+      week.map((d, j) => {
+        return {
+          date: d,
+          events: i === 2 && j === 3 ? this._events : undefined,
+        };
+      }),
+    );
   }
 
   prevMonth() {
-    this.eventCalendarPrevMonth.emit(this._date.minus({ months: 1 }).toISO());
+    this.eventCalendarPrevMonth.emit(minusDuration(this._date, { months: 1 }).toISOString());
   }
 
   nextMonth() {
-    this.eventCalendarPrevMonth.emit(this._date.plus({ months: 1 }).toISO());
+    this.eventCalendarPrevMonth.emit(addDuration(this._date, { months: 1 }).toISOString());
   }
 
   updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {
@@ -173,7 +149,7 @@ export class DashEventCalendarMonth {
         {this._date && (
           <div class='calendar'>
             <div class='header'>
-              <h3 class='title'>{this._date.toLocaleString({ month: 'long', year: 'numeric' })}</h3>
+              <h3 class='title'>{toLocaleString(this._date, { month: 'long', year: 'numeric' })}</h3>
 
               <span>
                 <dash-icon-button icon='chevron-left' rounded onClick={this.prevMonth.bind(this)}></dash-icon-button>
@@ -186,9 +162,9 @@ export class DashEventCalendarMonth {
               ))}
               {this.weeks.map(week =>
                 week.map(weekday => (
-                  <div class={`day-cell ${this._date.month === weekday.date.month ? undefined : 'faded'}`}>
-                    <dash-button class='day-number' scale='s' appearance={this.today.equals(weekday.date) ? 'outline' : 'clear'}>
-                      {weekday.date.day}
+                  <div class={`day-cell ${this._date.getMonth() === weekday.date.getMonth() ? undefined : 'faded'}`}>
+                    <dash-button class='day-number' scale='s' appearance={isSameDay(this.today, weekday.date) ? 'outline' : 'clear'}>
+                      {weekday.date.getDate()}
                     </dash-button>
                     {weekday.events && (
                       <dash-list selectionMode='none' scale='s'>
