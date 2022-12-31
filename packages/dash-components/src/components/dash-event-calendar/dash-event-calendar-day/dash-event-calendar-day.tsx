@@ -2,7 +2,7 @@ import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } 
 import { EventCalendar } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
-import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, toLocaleString } from '../../../utils/date/date-time';
+import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, toLocaleString } from '../../../utils/date-time';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 import { TimeBar } from '../time-bar/time-bar';
@@ -86,10 +86,10 @@ export class DashEventCalendarDay {
 
   //#region @Event
   @Event({ eventName: 'dashEventCalendarPrevDay' })
-  eventCalendarPrevDay: EventEmitter<string>;
+  eventCalendarPrevDay: EventEmitter<void>;
 
   @Event({ eventName: 'dashEventCalendarNextDay' })
-  eventCalendarNextDay: EventEmitter<string>;
+  eventCalendarNextDay: EventEmitter<void>;
 
   @Event({ eventName: 'dashEventCalendarEditEvent' })
   eventCalendarEditEvent: EventEmitter<{ eventId: string }>;
@@ -162,11 +162,13 @@ export class DashEventCalendarDay {
   }
 
   prevDay() {
-    this.eventCalendarPrevDay.emit(minusDuration(this._date, { days: 1 }).toISOString());
+    this.date = minusDuration(this._date, { days: 1 }).toISOString();
+    this.eventCalendarPrevDay.emit();
   }
 
   nextDay() {
-    this.eventCalendarNextDay.emit(addDuration(this._date, { days: 1 }).toISOString());
+    this.date = addDuration(this._date, { days: 1 }).toISOString();
+    this.eventCalendarPrevDay.emit();
   }
 
   updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {

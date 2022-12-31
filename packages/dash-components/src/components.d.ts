@@ -636,8 +636,8 @@ declare namespace LocalJSX {
         "events"?: CalendarEvent[];
         "onDashEventCalendarDeleteEvent"?: (event: DashEventCalendarDayCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarEditEvent"?: (event: DashEventCalendarDayCustomEvent<{ eventId: string }>) => void;
-        "onDashEventCalendarNextDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
-        "onDashEventCalendarPrevDay"?: (event: DashEventCalendarDayCustomEvent<string>) => void;
+        "onDashEventCalendarNextDay"?: (event: DashEventCalendarDayCustomEvent<void>) => void;
+        "onDashEventCalendarPrevDay"?: (event: DashEventCalendarDayCustomEvent<void>) => void;
     }
     interface DashEventCalendarEditEvent {
         "event"?: CalendarEvent;
@@ -648,16 +648,16 @@ declare namespace LocalJSX {
         "events"?: CalendarEvent[];
         "onDashEventCalendarDeleteEvent"?: (event: DashEventCalendarMonthCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarEditEvent"?: (event: DashEventCalendarMonthCustomEvent<{ eventId: string }>) => void;
-        "onDashEventCalendarNextMonth"?: (event: DashEventCalendarMonthCustomEvent<string>) => void;
-        "onDashEventCalendarPrevMonth"?: (event: DashEventCalendarMonthCustomEvent<string>) => void;
+        "onDashEventCalendarNextMonth"?: (event: DashEventCalendarMonthCustomEvent<void>) => void;
+        "onDashEventCalendarPrevMonth"?: (event: DashEventCalendarMonthCustomEvent<void>) => void;
     }
     interface DashEventCalendarWeek {
         "date"?: string;
         "events"?: CalendarEvent[];
         "onDashEventCalendarDeleteEvent"?: (event: DashEventCalendarWeekCustomEvent<{ eventId: string }>) => void;
         "onDashEventCalendarEditEvent"?: (event: DashEventCalendarWeekCustomEvent<{ eventId: string }>) => void;
-        "onDashEventCalendarNextWeek"?: (event: DashEventCalendarWeekCustomEvent<string>) => void;
-        "onDashEventCalendarPrevWeek"?: (event: DashEventCalendarWeekCustomEvent<string>) => void;
+        "onDashEventCalendarNextWeek"?: (event: DashEventCalendarWeekCustomEvent<void>) => void;
+        "onDashEventCalendarPrevWeek"?: (event: DashEventCalendarWeekCustomEvent<void>) => void;
     }
     interface DashFab {
         "icon"?: string;

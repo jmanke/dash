@@ -1,7 +1,6 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
-import { addDuration, isSameDay, minusDuration, startOfDay, startOfMonth, toLocaleString } from '../../../utils/date/date-time';
-import { weekdays, weeksInMonth } from '../../../utils/date/week';
+import { addDuration, isSameDay, minusDuration, startOfDay, startOfMonth, toLocaleString, weekdays, weeksInMonth } from '../../../utils/date-time';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 
 export interface Day {
@@ -65,10 +64,10 @@ export class DashEventCalendarMonth {
 
   //#region @Event
   @Event({ eventName: 'dashEventCalendarPrevMonth' })
-  eventCalendarPrevMonth: EventEmitter<string>;
+  eventCalendarPrevMonth: EventEmitter<void>;
 
   @Event({ eventName: 'dashEventCalendarNextMonth' })
-  eventCalendarNextMonth: EventEmitter<string>;
+  eventCalendarNextMonth: EventEmitter<void>;
 
   @Event({ eventName: 'dashEventCalendarEditEvent' })
   eventCalendarEditEvent: EventEmitter<{ eventId: string }>;
@@ -114,11 +113,13 @@ export class DashEventCalendarMonth {
   }
 
   prevMonth() {
-    this.eventCalendarPrevMonth.emit(minusDuration(this._date, { months: 1 }).toISOString());
+    this.date = minusDuration(this._date, { months: 1 }).toISOString();
+    this.eventCalendarPrevMonth.emit();
   }
 
   nextMonth() {
-    this.eventCalendarPrevMonth.emit(addDuration(this._date, { months: 1 }).toISOString());
+    this.date = addDuration(this._date, { months: 1 }).toISOString();
+    this.eventCalendarPrevMonth.emit();
   }
 
   updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {

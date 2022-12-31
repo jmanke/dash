@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from '@stencil/core';
 import { CalendarEventInternal } from '../../../interfaces/calendar-event';
-import { formatDate, isSameDay } from '../../../utils/date/date-time';
+import { formatDate, isSameDay } from '../../../utils/date-time';
 
 interface EventDropdownProps {
   target: HTMLElement;

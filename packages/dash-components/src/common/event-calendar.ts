@@ -1,6 +1,6 @@
 import { CalendarEventInternal } from '../interfaces/calendar-event';
 import { EventLayout } from '../interfaces/event-layout';
-import { addDuration } from '../utils/date/date-time';
+import { addDuration } from '../utils/date-time';
 
 interface EventProccessingData {
   event: CalendarEventInternal;

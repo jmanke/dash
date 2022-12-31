@@ -1,8 +1,7 @@
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { toLocaleString, isSameDay, prevMonth as _prevMonth, nextMonth as _nextMonth, dateIsValid, startOfMinute } from '../../utils/date/date-time';
-import { weekdays, weeksInMonth } from '../../utils/date/week';
+import { toLocaleString, isSameDay, prevMonth as _prevMonth, nextMonth as _nextMonth, dateIsValid, startOfMinute, weekdays, weeksInMonth } from '../../utils/date-time';
 
 @Component({
   tag: 'dash-date-picker',

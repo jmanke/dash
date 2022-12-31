@@ -2,7 +2,7 @@ import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } 
 import { EventCalendar } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
-import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, startOfWeek, toLocaleString } from '../../../utils/date/date-time';
+import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, startOfWeek, toLocaleString } from '../../../utils/date-time';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 import { TimeBar } from '../time-bar/time-bar';
@@ -86,10 +86,10 @@ export class DashEventCalendarWeek {
 
   //#region @Event
   @Event({ eventName: 'dashEventCalendarPrevWeek' })
-  eventCalendarPrevWeek: EventEmitter<string>;
+  eventCalendarPrevWeek: EventEmitter<void>;
 
   @Event({ eventName: 'dashEventCalendarNextWeek' })
-  eventCalendarNextWeek: EventEmitter<string>;
+  eventCalendarNextWeek: EventEmitter<void>;
 
   @Event({ eventName: 'dashEventCalendarEditEvent' })
   eventCalendarEditEvent: EventEmitter<{ eventId: string }>;
@@ -170,11 +170,13 @@ export class DashEventCalendarWeek {
   }
 
   prevWeek() {
-    this.eventCalendarPrevWeek.emit(minusDuration(this._date, { weeks: 1 }).toISOString());
+    this.date = minusDuration(this._date, { weeks: 1 }).toISOString();
+    this.eventCalendarPrevWeek.emit();
   }
 
   nextWeek() {
-    this.eventCalendarNextWeek.emit(addDuration(this._date, { weeks: 1 }).toISOString());
+    this.date = addDuration(this._date, { weeks: 1 }).toISOString();
+    this.eventCalendarPrevWeek.emit();
   }
 
   updateSelectedEvent(event: CalendarEventInternal, { currentTarget }) {

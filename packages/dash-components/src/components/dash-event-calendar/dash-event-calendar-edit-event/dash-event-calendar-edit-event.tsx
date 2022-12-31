@@ -1,7 +1,7 @@
 import { deepCopy } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { CalendarEvent } from '../../../interfaces/calendar-event';
-import { setTimeISO8601 } from '../../../utils/date/date-time';
+import { setTimeISO8601 } from '../../../utils/date-time';
 
 @Component({
   tag: 'dash-event-calendar-edit-event',

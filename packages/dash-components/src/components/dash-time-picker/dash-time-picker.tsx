@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, Event, EventEmitter, State, Watch } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { addDuration, formatDate, timeParts, startOfDay } from '../../utils/date/date-time';
+import { addDuration, formatDate, timeParts, startOfDay } from '../../utils/date-time';
 
 const START_OF_DAY = startOfDay(new Date());
 const TIMES = [...Array(48)].map((_, i) => formatDate(addDuration(START_OF_DAY, { minutes: i * 30 }), 'h:mm a'));

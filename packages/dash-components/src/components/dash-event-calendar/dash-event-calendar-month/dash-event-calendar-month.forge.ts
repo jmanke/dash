@@ -8,8 +8,8 @@ const template = (args, updateArg) =>
     style="width: 95vw; height: 95vh"
     date=${args.date}
     .events=${args.events}
-    @dashEventCalendarPrevMonth=${e => updateArg('date', e.detail)}
-    @dashEventCalendarNextMonth=${e => updateArg('date', e.detail)}
+    @dashEventCalendarPrevMonth=${e => updateArg('date', e.target.date)}
+    @dashEventCalendarNextMonth=${e => updateArg('date', e.target.date)}
     @dashEventCalendarEditEvent=${e => console.log('edit event:', e.detail)}
     @dashEventCalendarDeleteEvent=${e => console.log('delete event:', e.detail)}
   ></dash-event-calendar-month>`;
