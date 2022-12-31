@@ -1,7 +1,7 @@
 import { Component, h, Prop, Listen, Event, EventEmitter } from '@stencil/core';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
-import { DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
+import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 
 @Component({
   tag: 'dash-label-edit',
@@ -47,8 +47,8 @@ export class DashLabelEdit {
   //#endregion
 
   //#region Local methods
-  dropdownVisibleChanged(e: CustomEvent<boolean>) {
-    if (e.detail) {
+  dropdownVisibleChanged(e: DashDropdownCustomEvent<void>) {
+    if (e.target.open) {
       this.confirmDeleteButton?.setFocus();
     }
   }
@@ -70,7 +70,7 @@ export class DashLabelEdit {
           ref={element => (this.labelColorPickerDropdown = element)}
           placement='bottom'
           placementStrategy='fixed'
-          onDropdownVisibleChanged={e => this.dropdownVisibleChanged(e)}
+          onDashDropdownOpenChange={this.dropdownVisibleChanged.bind(this)}
           autoClose
         >
           <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
