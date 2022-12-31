@@ -15,6 +15,6 @@
   min-width: var(--dash-dropdown-min-width);
   border: var(--dash-border-style-1);
   padding: var(--dash-dropdown-padding);
-  max-height: min(var(--dash-dropdown-max-height), 45vh);
+  max-height: min(var(--dash-dropdown-max-height, 45vh), 45vh);
   overflow-y: auto;
 }
