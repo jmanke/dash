@@ -39,7 +39,11 @@ Type: `Promise<void>`
 
  - [dash-color-swatch](../dash-color-swatch)
  - [dash-confirm-button](../dash-confirm-button)
+ - [dash-date-picker](../dash-date-picker)
  - [dash-drill-menu](../dash-drill-menu)
+ - [dash-event-calendar-day](../dash-event-calendar/dash-event-calendar-day)
+ - [dash-event-calendar-month](../dash-event-calendar/dash-event-calendar-month)
+ - [dash-event-calendar-week](../dash-event-calendar/dash-event-calendar-week)
  - [dash-fab](../dash-fab)
  - [dash-input](../dash-input)
  - [dash-modal](../dash-modal)
@@ -59,7 +63,11 @@ graph TD;
   dash-tooltip --> dash-popover
   dash-color-swatch --> dash-icon-button
   dash-confirm-button --> dash-icon-button
+  dash-date-picker --> dash-icon-button
   dash-drill-menu --> dash-icon-button
+  dash-event-calendar-day --> dash-icon-button
+  dash-event-calendar-month --> dash-icon-button
+  dash-event-calendar-week --> dash-icon-button
   dash-fab --> dash-icon-button
   dash-input --> dash-icon-button
   dash-modal --> dash-icon-button

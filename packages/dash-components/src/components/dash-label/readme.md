@@ -7,11 +7,24 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                                  | Default     |
-| -------- | --------- | ----------- | ------------------------------------- | ----------- |
-| `for`    | `for`     |             | `string`                              | `undefined` |
-| `layout` | `layout`  |             | `"default" \| "inline-space-between"` | `'default'` |
+| Property | Attribute | Description | Type                                              | Default     |
+| -------- | --------- | ----------- | ------------------------------------------------- | ----------- |
+| `for`    | `for`     |             | `string`                                          | `undefined` |
+| `layout` | `layout`  |             | `"default" \| "inline" \| "inline-space-between"` | `'default'` |
 
+
+## Dependencies
+
+### Used by
+
+ - [dash-event-calendar-edit-event](../dash-event-calendar/dash-event-calendar-edit-event)
+
+### Graph
+```mermaid
+graph TD;
+  dash-event-calendar-edit-event --> dash-label
+  style dash-label fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 

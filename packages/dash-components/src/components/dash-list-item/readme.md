@@ -39,6 +39,11 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [dash-event-calendar-month](../dash-event-calendar/dash-event-calendar-month)
+ - [dash-time-picker](../dash-time-picker)
+
 ### Depends on
 
 - [dash-icon](../dash-icon)
@@ -47,6 +52,8 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   dash-list-item --> dash-icon
+  dash-event-calendar-month --> dash-list-item
+  dash-time-picker --> dash-list-item
   style dash-list-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
