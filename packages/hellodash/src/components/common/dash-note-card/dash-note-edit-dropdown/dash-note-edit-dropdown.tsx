@@ -1,4 +1,5 @@
-import { Component, Event, EventEmitter, h, Listen, Prop, State } from '@stencil/core';
+import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
+import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
 import labelsState from '../../../../stores/labels-store';
 import notesState from '../../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../../view-models/note-preview-view-model';
@@ -44,15 +45,15 @@ export class DashNoteEditDropdown {
   //#endregion
 
   //#region Listeners
-  @Listen('dropdownVisibleChanged')
-  handleDropdownVisibleChanged(e: CustomEvent<boolean>) {
-    this.dropdownVisible = e.detail;
+  handleDropdownVisibleChanged(e: DashDropdownCustomEvent<void>) {
+    const open = e.target.open;
+    this.dropdownVisible = open;
 
-    if (!e.detail) {
+    if (!open) {
       this.dropdownMenuPanel = 'default';
     }
 
-    this.dashNoteEditDropdownVisibleChanged.emit(e.detail);
+    this.dashNoteEditDropdownVisibleChanged.emit(open);
   }
   //#endregion
 
@@ -74,7 +75,7 @@ export class DashNoteEditDropdown {
     const noteLabels = labelsState.getLabelsByIds(this.notePreview.labels);
 
     return (
-      <dash-dropdown ref={element => (this.dropdown = element)} placement='bottom-end' autoClose>
+      <dash-dropdown ref={element => (this.dropdown = element)} placement='bottom-end' autoClose onDashDropdownOpenChange={this.handleDropdownVisibleChanged.bind(this)}>
         <dash-icon-button slot='dropdown-trigger' class='options-button' icon='three-dots-vertical' scale='l'></dash-icon-button>
 
         {this.dropdownMenuPanel === 'default' && (

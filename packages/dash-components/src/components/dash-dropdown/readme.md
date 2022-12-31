@@ -10,15 +10,16 @@
 | Property            | Attribute            | Description | Type                                                                                                                                                                                                         | Default      |
 | ------------------- | -------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------ |
 | `autoClose`         | `auto-close`         |             | `boolean`                                                                                                                                                                                                    | `undefined`  |
+| `open`              | `open`               |             | `boolean`                                                                                                                                                                                                    | `false`      |
 | `placement`         | `placement`          |             | `"auto" \| "auto-end" \| "auto-start" \| "bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `'bottom'`   |
 | `placementStrategy` | `placement-strategy` |             | `"absolute" \| "fixed"`                                                                                                                                                                                      | `'absolute'` |
 
 
 ## Events
 
-| Event                    | Description | Type                   |
-| ------------------------ | ----------- | ---------------------- |
-| `dropdownVisibleChanged` |             | `CustomEvent<boolean>` |
+| Event                    | Description | Type                |
+| ------------------------ | ----------- | ------------------- |
+| `dashDropdownOpenChange` |             | `CustomEvent<void>` |
 
 
 ## Methods

@@ -51,6 +51,7 @@ export namespace Components {
     interface DashDropdown {
         "autoClose": boolean;
         "close": (focusTarget?: boolean) => Promise<void>;
+        "open": boolean;
         "placement": Placement;
         "placementStrategy": PlacementStrategy;
     }
@@ -505,7 +506,8 @@ declare namespace LocalJSX {
     }
     interface DashDropdown {
         "autoClose"?: boolean;
-        "onDropdownVisibleChanged"?: (event: DashDropdownCustomEvent<boolean>) => void;
+        "onDashDropdownOpenChange"?: (event: DashDropdownCustomEvent<void>) => void;
+        "open"?: boolean;
         "placement"?: Placement;
         "placementStrategy"?: PlacementStrategy;
     }

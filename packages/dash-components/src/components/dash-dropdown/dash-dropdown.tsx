@@ -1,4 +1,4 @@
-import { Component, Host, h, State, Prop, Watch, Event, EventEmitter, Method, Listen, Element } from '@stencil/core';
+import { Component, Host, h, State, Prop, Event, EventEmitter, Method, Listen, Element } from '@stencil/core';
 import { contains, focus, SKIP_NODE_CLASS } from '@didyoumeantoast/dash-utils';
 import { Placement, PlacementStrategy, PopoverCloseEvent } from '../dash-popover/dash-popover';
 
@@ -20,16 +20,15 @@ export class DashDropdown {
   //#region @State
   @State()
   target: HTMLElement;
-
-  @State()
-  showPopover: boolean = false;
-  @Watch('showPopover')
-  showPopoverChanged(showPopover: boolean) {
-    this.dropdownVisibleChanged.emit(showPopover);
-  }
   //#endregion
 
   //#region @Prop
+  @Prop({
+    mutable: true,
+    reflect: true,
+  })
+  open: boolean = false;
+
   @Prop({
     reflect: true,
   })
@@ -48,11 +47,11 @@ export class DashDropdown {
 
   //#region @Event
   @Event({
-    eventName: 'dropdownVisibleChanged',
+    eventName: 'dashDropdownOpenChange',
     composed: true,
     bubbles: true,
   })
-  dropdownVisibleChanged: EventEmitter<boolean>;
+  dropdownOpenChange: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
@@ -62,8 +61,8 @@ export class DashDropdown {
   //#endregion
 
   //#region Listeners
-  @Listen('dropdownVisibleChanged')
-  handleDropdownVisibleChanged(e: CustomEvent<boolean>) {
+  @Listen('dashDropdownOpenChange')
+  handleDropdownVisibleChanged(e: Event) {
     // prevent this element from blocking its own event
     if (this.element === e.composedPath()[0]) {
       return;
@@ -87,11 +86,11 @@ export class DashDropdown {
   //#region @Method
   @Method()
   async close(focusTarget?: boolean) {
-    if (!this.showPopover) {
+    if (!this.open) {
       return;
     }
 
-    this.showPopover = false;
+    this.updateOpen(false);
     if (focusTarget) {
       this.focusTarget();
     }
@@ -100,6 +99,11 @@ export class DashDropdown {
 
   //#region Local methods
   onDropdownTargetClicked: () => void;
+
+  updateOpen(open: boolean) {
+    this.open = open;
+    this.dropdownOpenChange.emit();
+  }
 
   dropdownTargetChanged(e: Event) {
     if (this.target) {
@@ -126,7 +130,7 @@ export class DashDropdown {
   }
 
   dropdownTargetClicked() {
-    this.showPopover = !this.showPopover;
+    this.updateOpen(!this.open);
   }
 
   popoverFocusOut(e: FocusEvent) {
@@ -141,9 +145,9 @@ export class DashDropdown {
       <Host onFocusout={this.popoverFocusOut.bind(this)}>
         <slot name='dropdown-trigger' onSlotchange={e => this.dropdownTargetChanged(e)}></slot>
 
-        <dash-popover target={this.target as HTMLElement} placement={this.placement} placementStrategy={this.placementStrategy} active={this.showPopover} autoClose>
+        <dash-popover target={this.target as HTMLElement} placement={this.placement} placementStrategy={this.placementStrategy} active={this.open} autoClose>
           <div class='container' ref={element => (this.popoverContentContainer = element)}>
-            {this.showPopover && <slot></slot>}
+            {this.open && <slot></slot>}
           </div>
         </dash-popover>
       </Host>
