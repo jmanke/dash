@@ -10,6 +10,15 @@ export function startOfDay(date: Date) {
 }
 
 /**
+ * Gets the start of the minute for the given date
+ * @param date Date object
+ * @returns Start of day for given date
+ */
+export function startOfMinute(date: Date) {
+  return DateTime.fromJSDate(date).startOf('minute').toJSDate();
+}
+
+/**
  * Adds time to given date
  * @param date Date object
  * @param timeParts Duration of time to add
@@ -133,4 +142,13 @@ export function setTimeISO8601(isoDate: string, isoTime: string) {
   }
 
   return datePart + timePart;
+}
+
+/**
+ * Check if date is valid
+ * @param date date obj
+ * @returns True if valid date
+ */
+export function dateIsValid(date: Date) {
+  return date instanceof Date && !isNaN(date.getMilliseconds());
 }

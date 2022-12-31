@@ -1,6 +1,7 @@
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@stencil/core';
-import { toLocaleString, isSameDay, prevMonth as _prevMonth, nextMonth as _nextMonth } from '../../utils/date/date-time';
+import { DashInputCustomEvent } from '../../components';
+import { toLocaleString, isSameDay, prevMonth as _prevMonth, nextMonth as _nextMonth, dateIsValid, startOfMinute } from '../../utils/date/date-time';
 import { weekdays, weeksInMonth } from '../../utils/date/week';
 
 @Component({
@@ -101,14 +102,23 @@ export class DashDatePicker {
       this.dropdownElement.close();
     }
   }
+
+  inputChange(e: DashInputCustomEvent<void>) {
+    const newDate = new Date(e.target.value);
+    if (dateIsValid(newDate)) {
+      this.date = startOfMinute(newDate).toISOString();
+    }
+
+    e.target.value = toLocaleString(this.calendarDate, this.format);
+  }
   //#endregion
   render() {
     const dateObj = new Date(this.date);
 
     return (
       <Host>
-        <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose>
-          <dash-button slot='dropdown-trigger'>{toLocaleString(dateObj, this.format)}</dash-button>
+        <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose autoFocus={false}>
+          <dash-input slot='dropdown-trigger' value={toLocaleString(this.calendarDate, this.format)} onDashInputChange={this.inputChange.bind(this)}></dash-input>
 
           <div class='calendar' style={{ 'grid-template-rows': `0fr repeat(${this.weeks.length}, 1fr)` }}>
             <div class='header'>
