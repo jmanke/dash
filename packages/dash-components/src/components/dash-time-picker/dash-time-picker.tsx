@@ -87,7 +87,7 @@ export class DashTimePicker {
         <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose autoFocus={false}>
           <dash-input ref={e => (this.inputElement = e)} slot='dropdown-trigger' value={amPmFormat(this._time)} onDashInputChange={this.inputChanged.bind(this)}></dash-input>
 
-          <dash-list class='dropdown-content' selectionMode='none'>
+          <dash-list selectionMode='none'>
             {TIMES.map(time => (
               <dash-list-item onDashListItemSelectedChanged={() => this.selectTime(time)}>{time}</dash-list-item>
             ))}
