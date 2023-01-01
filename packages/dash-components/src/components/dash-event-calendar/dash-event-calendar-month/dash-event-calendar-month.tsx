@@ -104,12 +104,18 @@ export class DashEventCalendarMonth {
   async updateCalendar() {
     const date = this._date;
     const events = eventsDateMap(this._events);
+    const sortEvents = (events: CalendarEventInternal[]) => {
+      if (events?.length) {
+        events.sort((a, b) => a.fromTime.getTime() - b.fromTime.getTime());
+      }
+      return events;
+    };
 
     this.weeks = weeksInMonth(date).map(week =>
       week.map(d => {
         return {
           date: d,
-          events: events.get(dateKey(d)),
+          events: sortEvents(events.get(dateKey(d))),
         };
       }),
     );
