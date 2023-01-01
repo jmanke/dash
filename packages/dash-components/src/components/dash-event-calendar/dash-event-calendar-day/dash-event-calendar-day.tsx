@@ -225,9 +225,9 @@ export class DashEventCalendarDay {
               </div>
 
               <div class='day-cell'>
-                {isSameDay(this.day.date, this.now) && <TimeBar top={this.timeBarTop}></TimeBar>}
                 {this.day?.eventLayouts &&
                   this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
+                {isSameDay(this.day.date, this.now) && <TimeBar top={this.timeBarTop}></TimeBar>}
               </div>
             </div>
 

@@ -11,6 +11,7 @@ const timeBarStyle = Object.freeze({
   width: '100%',
   backgroundColor: 'var(--dash-danger)',
   borderRadius: 'var(--dash-border-radius)',
+  pointerEvents: 'none',
 });
 
 const timeBarKnobStyle = Object.freeze({
