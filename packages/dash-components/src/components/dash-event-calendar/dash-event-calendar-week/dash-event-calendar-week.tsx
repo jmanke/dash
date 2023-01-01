@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
-import { dateKey, eventsMap, processEventLayouts } from '../../../common/event-calendar';
+import { dateKey, eventsDateMap, processEventLayouts } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, startOfWeek, toLocaleString } from '../../../utils/date-time';
@@ -152,7 +152,7 @@ export class DashEventCalendarWeek {
 
     const weekdays = [];
     let date = this._date;
-    const events = eventsMap(this._events);
+    const events = eventsDateMap(this._events);
 
     for (let i = 0; i < 7; i++) {
       const day: Day = {

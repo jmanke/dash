@@ -8,7 +8,15 @@ interface EventProccessingData {
   right: number;
 }
 
-export function processEventLayouts(events: CalendarEventInternal[] = [], cellHeight: number, minEventHeight: number = 0, topOffset: number = 0): EventLayout[] {
+/**
+ * Processes events into event layouts - prevents events from overlapping
+ * @param events events to process
+ * @param cellHeight height of the "hour" cell (ex. 1 hour = 40px high)
+ * @param minHeight minimum height of an event layout
+ * @param topOffset offset from the top
+ * @returns Event layouts to be placed in a 24 hour column
+ */
+export function processEventLayouts(events: CalendarEventInternal[] = [], cellHeight: number, minHeight: number = 0, topOffset: number = 0): EventLayout[] {
   if (!events || events.length === 0) {
     return null;
   }
@@ -31,8 +39,8 @@ export function processEventLayouts(events: CalendarEventInternal[] = [], cellHe
     const eventHeight = calculateEventHeight(e);
     // Since the events can have a minimum height, we must account for it in this step.
     // Sets the to-time to the min-event-height (translated into minutes).
-    if (Number.parseInt(eventHeight, 10) < minEventHeight) {
-      startEndTimes.push({ time: addDuration(e.fromTime, { minutes: (1 / hourPxRatio) * minEventHeight }), event: e, isStart: false });
+    if (Number.parseInt(eventHeight, 10) < minHeight) {
+      startEndTimes.push({ time: addDuration(e.fromTime, { minutes: (1 / hourPxRatio) * minHeight }), event: e, isStart: false });
       return;
     }
     startEndTimes.push({ time: e.toTime, event: e, isStart: false });
@@ -101,11 +109,21 @@ export function processEventLayouts(events: CalendarEventInternal[] = [], cellHe
   return eventLayouts;
 }
 
+/**
+ * Converts a date into a unique key (unqiue up to a day's date)
+ * @param date date object
+ * @returns string key
+ */
 export function dateKey(date: Date) {
   return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
 }
 
-export function eventsMap(events: CalendarEventInternal[]) {
+/**
+ * Maps events to
+ * @param events events to map
+ * @returns Map of events separated by day (ex. each day can have an array of events)
+ */
+export function eventsDateMap(events: CalendarEventInternal[]) {
   const eventMap = events.reduce((map: Map<string, CalendarEventInternal[]>, event: CalendarEventInternal) => {
     const key = dateKey(event.fromTime);
     const events = map.get(key);
