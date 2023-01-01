@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
-import { EventCalendar } from '../../../common/event-calendar';
+import { dateKey, eventsMap, processEventLayouts } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, startOfWeek, toLocaleString } from '../../../utils/date-time';
@@ -23,7 +23,6 @@ const MIN_EVENT_HEIGHT = 10;
 export class DashEventCalendarWeek {
   //#region Own properties
   hours: string[];
-  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT, HOUR_CELL_HEIGHT);
   intervalId: number;
   //#endregion
 
@@ -153,13 +152,16 @@ export class DashEventCalendarWeek {
 
     const weekdays = [];
     let date = this._date;
+    const events = eventsMap(this._events);
+
     for (let i = 0; i < 7; i++) {
       const day: Day = {
         date,
       };
 
-      if (i === 1) {
-        day.eventLayouts = this.eventCalendar.processEventLayouts(this._events);
+      const dailyEvents = events.get(dateKey(date));
+      if (dailyEvents?.length) {
+        day.eventLayouts = processEventLayouts(dailyEvents, HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT, HOUR_CELL_HEIGHT);
       }
 
       weekdays.push(day);

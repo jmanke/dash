@@ -1,4 +1,5 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@stencil/core';
+import { dateKey, eventsMap } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { addDuration, isSameDay, minusDuration, startOfDay, startOfMonth, toLocaleString, weekdays, weeksInMonth } from '../../../utils/date-time';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
@@ -102,11 +103,13 @@ export class DashEventCalendarMonth {
 
   async updateCalendar() {
     const date = this._date;
-    this.weeks = weeksInMonth(date).map((week, i) =>
-      week.map((d, j) => {
+    const events = eventsMap(this._events);
+
+    this.weeks = weeksInMonth(date).map(week =>
+      week.map(d => {
         return {
           date: d,
-          events: i === 2 && j === 3 ? this._events : undefined,
+          events: events.get(dateKey(d)),
         };
       }),
     );

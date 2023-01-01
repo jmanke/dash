@@ -8,128 +8,115 @@ interface EventProccessingData {
   right: number;
 }
 
-export class EventCalendar {
-  // min height of the event
-  private readonly MIN_EVENT_HEIGHT: number;
-  // height of each hour cell (ex. height between 1pm and 2pm)
-  private readonly CELL_HEIGHT: number;
-  // offset to apply to each event from the top
-  private readonly TOP_OFFSET: number;
-  // ratio of pixels per hour
-  private readonly HOUR_PX_RATIO: number;
-
-  constructor(cellHeight: number, minEventHeight: number = 0, topOffset: number = 0) {
-    this.MIN_EVENT_HEIGHT = minEventHeight;
-    this.CELL_HEIGHT = cellHeight;
-    this.HOUR_PX_RATIO = this.CELL_HEIGHT / 60;
-    this.TOP_OFFSET = topOffset;
+export function processEventLayouts(events: CalendarEventInternal[] = [], cellHeight: number, minEventHeight: number = 0, topOffset: number = 0): EventLayout[] {
+  if (!events || events.length === 0) {
+    return null;
   }
 
-  processEventLayouts(events: CalendarEventInternal[] = []): EventLayout[] {
-    if (!events || events.length === 0) {
-      return null;
-    }
+  const hourPxRatio = cellHeight / 60;
 
-    // startEndTimes stores the start and end times to push/pop events for the layout algorithm
-    const startEndTimes: { time: Date; event: CalendarEventInternal; isStart: boolean }[] = [];
-    events.forEach(e => {
-      startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
-
-      const eventHeight = this.eventHeight(e);
-      // Since the events can have a minimum height, we must account for it in this step.
-      // Sets the to-time to the min-event-height (translated into minutes).
-      if (Number.parseInt(eventHeight, 10) < this.MIN_EVENT_HEIGHT) {
-        startEndTimes.push({ time: addDuration(e.fromTime, { minutes: (1 / this.HOUR_PX_RATIO) * this.MIN_EVENT_HEIGHT }), event: e, isStart: false });
-        return;
-      }
-      startEndTimes.push({ time: e.toTime, event: e, isStart: false });
-    });
-    startEndTimes.sort((a, b) => b.time.getTime() - a.time.getTime() || Number(b.isStart) - Number(a.isStart));
-
-    let eventLayouts: EventLayout[] = [];
-    while (startEndTimes.length) {
-      const columns: EventProccessingData[] = [];
-      const group: EventProccessingData[] = [];
-
-      while (columns.length === 0 || (columns.some(column => !!column) && startEndTimes.length)) {
-        const curr = startEndTimes.pop();
-
-        if (curr.isStart) {
-          // find available column
-          let index = columns.findIndex(column => column === null);
-          const eventProcessingData: EventProccessingData = { event: curr.event, column: index, right: -1 };
-          if (index === -1) {
-            index = columns.length;
-            eventProcessingData.column = index;
-            columns.push(eventProcessingData);
-          } else {
-            columns[index] = eventProcessingData;
-          }
-
-          // update any value to the left of this value
-          for (let i = index - 1; i >= 0; i--) {
-            if (columns[i]) {
-              columns[i].right = index;
-              break;
-            }
-          }
-
-          // update right to the next non-empty column
-          for (let i = index + 1; i < columns.length; i++) {
-            if (columns[i]) {
-              columns[index].right = i;
-              break;
-            }
-          }
-        } else {
-          // remove from column
-          const index = columns.findIndex(column => column?.event === curr.event);
-          const value = columns[index];
-          group.push(value);
-          columns[index] = null;
-        }
-      }
-
-      // compute layout for each event
-      const numColumns = columns.length;
-      const layouts: EventLayout[] = group.map(v => {
-        return {
-          event: v.event,
-          top: this.eventTopPosition(v.event),
-          height: this.eventHeight(v.event),
-          left: this.eventLeft(v.column, numColumns),
-          width: this.eventWidth(v.column, v.right, numColumns),
-        };
-      });
-
-      eventLayouts = [...eventLayouts, ...layouts];
-    }
-
-    return eventLayouts;
-  }
-
-  private eventTopPosition(event: CalendarEventInternal) {
-    const top = event.fromTime.getHours() * this.CELL_HEIGHT + event.fromTime.getMinutes() * this.HOUR_PX_RATIO + this.TOP_OFFSET;
-
-    return `${top}px`;
-  }
-
-  private eventHeight(event: CalendarEventInternal) {
+  const calculateEventHeight = (event: CalendarEventInternal) => {
     const from = event.fromTime.getHours() * 60 + event.fromTime.getMinutes();
     const to = event.toTime.getHours() * 60 + event.toTime.getMinutes();
-    const height = (to - from) * this.HOUR_PX_RATIO;
+    const height = (to - from) * hourPxRatio;
 
     return `${height - 1}px`;
-  }
+  };
 
-  private eventLeft(column: number, numnumColumns: number) {
-    return `${(column / numnumColumns) * 100}%`;
-  }
+  // startEndTimes stores the start and end times to push/pop events for the layout algorithm
+  const startEndTimes: { time: Date; event: CalendarEventInternal; isStart: boolean }[] = [];
+  events.forEach(e => {
+    startEndTimes.push({ time: e.fromTime, event: e, isStart: true });
 
-  private eventWidth(column: number, right: number, numColumns: number) {
-    if (right === -1) {
-      right = numColumns;
+    const eventHeight = calculateEventHeight(e);
+    // Since the events can have a minimum height, we must account for it in this step.
+    // Sets the to-time to the min-event-height (translated into minutes).
+    if (Number.parseInt(eventHeight, 10) < minEventHeight) {
+      startEndTimes.push({ time: addDuration(e.fromTime, { minutes: (1 / hourPxRatio) * minEventHeight }), event: e, isStart: false });
+      return;
     }
-    return `${((right - column) / numColumns) * 100}%`;
+    startEndTimes.push({ time: e.toTime, event: e, isStart: false });
+  });
+  startEndTimes.sort((a, b) => b.time.getTime() - a.time.getTime() || Number(b.isStart) - Number(a.isStart));
+
+  let eventLayouts: EventLayout[] = [];
+  while (startEndTimes.length) {
+    const columns: EventProccessingData[] = [];
+    const group: EventProccessingData[] = [];
+
+    while (columns.length === 0 || (columns.some(column => !!column) && startEndTimes.length)) {
+      const curr = startEndTimes.pop();
+
+      if (curr.isStart) {
+        // find available column
+        let index = columns.findIndex(column => column === null);
+        const eventProcessingData: EventProccessingData = { event: curr.event, column: index, right: -1 };
+        if (index === -1) {
+          index = columns.length;
+          eventProcessingData.column = index;
+          columns.push(eventProcessingData);
+        } else {
+          columns[index] = eventProcessingData;
+        }
+
+        // update any value to the left of this value
+        for (let i = index - 1; i >= 0; i--) {
+          if (columns[i]) {
+            columns[i].right = index;
+            break;
+          }
+        }
+
+        // update right to the next non-empty column
+        for (let i = index + 1; i < columns.length; i++) {
+          if (columns[i]) {
+            columns[index].right = i;
+            break;
+          }
+        }
+      } else {
+        // remove from column
+        const index = columns.findIndex(column => column?.event === curr.event);
+        const value = columns[index];
+        group.push(value);
+        columns[index] = null;
+      }
+    }
+
+    // compute layout for each event
+    const numColumns = columns.length;
+    const layouts: EventLayout[] = group.map(v => {
+      return {
+        event: v.event,
+        top: `${v.event.fromTime.getHours() * cellHeight + v.event.fromTime.getMinutes() * hourPxRatio + topOffset}px`,
+        height: calculateEventHeight(v.event),
+        left: `${(v.column / numColumns) * 100}%`,
+        width: `${(((v.right === -1 ? numColumns : v.right) - v.column) / numColumns) * 100}%`,
+      };
+    });
+
+    eventLayouts = [...eventLayouts, ...layouts];
   }
+
+  return eventLayouts;
+}
+
+export function dateKey(date: Date) {
+  return `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}`;
+}
+
+export function eventsMap(events: CalendarEventInternal[]) {
+  const eventMap = events.reduce((map: Map<string, CalendarEventInternal[]>, event: CalendarEventInternal) => {
+    const key = dateKey(event.fromTime);
+    const events = map.get(key);
+    if (!events) {
+      map.set(key, [event]);
+    } else {
+      events.push(event);
+    }
+
+    return map;
+  }, new Map<string, CalendarEventInternal[]>());
+
+  return eventMap;
 }

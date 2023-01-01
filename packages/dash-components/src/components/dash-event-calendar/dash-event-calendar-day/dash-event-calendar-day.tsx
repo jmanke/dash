@@ -1,5 +1,5 @@
 import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
-import { EventCalendar } from '../../../common/event-calendar';
+import { processEventLayouts } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, toLocaleString } from '../../../utils/date-time';
@@ -23,7 +23,6 @@ const MIN_EVENT_HEIGHT = 10;
 export class DashEventCalendarDay {
   //#region Own properties
   hours: string[];
-  eventCalendar = new EventCalendar(HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT);
   intervalId: number;
   //#endregion
 
@@ -157,7 +156,7 @@ export class DashEventCalendarDay {
     };
 
     const events = isSameDay(this._date, this.now) ? this._events : undefined;
-    day.eventLayouts = this.eventCalendar.processEventLayouts(events);
+    day.eventLayouts = processEventLayouts(events, HOUR_CELL_HEIGHT, MIN_EVENT_HEIGHT);
     this.day = day;
   }
 
@@ -225,7 +224,7 @@ export class DashEventCalendarDay {
               </div>
 
               <div class='day-cell'>
-                {this.day?.eventLayouts &&
+                {this.day?.eventLayouts?.length &&
                   this.day.eventLayouts.map(layout => <EventButton layout={layout} onClick={this.updateSelectedEvent.bind(this, layout.event)}></EventButton>)}
                 {isSameDay(this.day.date, this.now) && <TimeBar top={this.timeBarTop}></TimeBar>}
               </div>
