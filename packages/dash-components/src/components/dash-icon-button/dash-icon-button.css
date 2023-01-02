@@ -6,62 +6,62 @@
   --dash-icon-button-padding: var(--dash-spacing-1);
   --dash-icon-color: var(--dash-text-color-1);
   line-height: 1;
+}
 
-  &([scale="s"]) {
-    button {
-      width: var(--dash-spacing-6);
-      height: var(--dash-spacing-6);
+:host([scale='s']) {
+  button {
+    width: var(--dash-spacing-6);
+    height: var(--dash-spacing-6);
+  }
+}
+
+:host([scale='l']) {
+  button {
+    width: var(--dash-spacing-12);
+    height: var(--dash-spacing-12);
+  }
+}
+
+:host([scale='xl']) {
+  button {
+    width: var(--dash-spacing-16);
+    height: var(--dash-spacing-16);
+  }
+}
+
+:host([loading]) {
+  dash-icon,
+  .content {
+    visibility: hidden;
+  }
+}
+
+:host([disabled]) {
+  button {
+    cursor: initial;
+    color: var(--dash-text-color-3);
+  }
+}
+
+:host(:not([loading]):not([disabled])) {
+  button {
+    &:hover {
+      background-color: var(--dash-bg-darken-1);
+    }
+
+    &:focus-visible {
+      @extend .focus-outline;
+    }
+
+    &:active {
+      background-color: var(--dash-bg-darken-2);
     }
   }
+}
 
-  &([scale="l"]) {
-    button {
-      width: var(--dash-spacing-12);
-      height: var(--dash-spacing-12);
-    }
-  }
-
-  &([scale="xl"]) {
-    button {
-      width: var(--dash-spacing-16);
-      height: var(--dash-spacing-16);
-    }
-  }
-
-  &([loading]) {
-    dash-icon,
-    .content {
-      visibility: hidden;
-    }
-  }
-
-  &([disabled]) {
-    button {
-      cursor: initial;
-      color: var(--dash-text-color-3);
-    }
-  }
-
-  &(:not([loading]):not([disabled])) {
-    button {
-      &:hover {
-        background-color: var(--dash-bg-darken-1);
-      }
-
-      &:focus-visible {
-        @extend .focus-outline;
-      }
-
-      &:active {
-        background-color: var(--dash-bg-darken-2);
-      }
-    }
-  }
-
-  &([rounded]) {
-    button {
-      border-radius: var(--dash-spacing-full);
-    }
+:host([rounded]) {
+  button {
+    border-radius: var(--dash-spacing-full);
   }
 }
 

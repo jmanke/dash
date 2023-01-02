@@ -5,14 +5,14 @@
   justify-content: center;
   align-items: center;
   --dash-loader-size: var(--dash-spacing-10);
+}
 
-  &([scale="s"]) {
-    --dash-loader-size: var(--dash-spacing-5);
-  }
+:host([scale='s']) {
+  --dash-loader-size: var(--dash-spacing-5);
+}
 
-  &([scale="l"]) {
-    --dash-loader-size: var(--dash-spacing-16);
-  }
+:host([scale='l']) {
+  --dash-loader-size: var(--dash-spacing-16);
 }
 
 @keyframes spinner {

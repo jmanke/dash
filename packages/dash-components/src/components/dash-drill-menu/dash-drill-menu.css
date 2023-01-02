@@ -1,10 +1,10 @@
 :host {
   display: block;
+}
 
-  &([active]) {
-    .main-content-wrapper {
-      display: none;
-    }
+:host([active]) {
+  .main-content-wrapper {
+    display: none;
   }
 }
 
