@@ -46,8 +46,16 @@
       flex-direction: column;
 
       .day-number {
+        --dash-button-border-radius: var(--dash-spacing-full);
+        --dash-button-height: var(--dash-spacing-6);
+        width: var(--dash-spacing-6);
         display: flex;
         align-self: center;
+
+        .day-text {
+          width: 100%;
+          text-align: center;
+        }
       }
     }
 

@@ -169,7 +169,7 @@ export class DashEventCalendarMonth {
     this.closeEventPopover();
   }
 
-  DAY_CELL_OFFSET_HEIGHT = 29;
+  DAY_CELL_OFFSET_HEIGHT = 28;
   EVENT_HEIGHT = 20;
   setDayCell(e: HTMLElement) {
     this.dayCellResizeObserver?.disconnect();
@@ -203,7 +203,7 @@ export class DashEventCalendarMonth {
                 week.map((weekday, j) => (
                   <div ref={e => i === 0 && j === 0 && this.setDayCell(e)} class={`day-cell ${this._date.getMonth() === weekday.date.getMonth() ? '' : 'faded'}`}>
                     <dash-button class='day-number' scale='s' appearance={isSameDay(this.today, weekday.date) ? 'outline' : 'clear'}>
-                      {weekday.date.getDate()}
+                      <div class='day-text'>{weekday.date.getDate()}</div>
                     </dash-button>
                     {weekday.events && (
                       <dash-list selectionMode='none' scale='s'>
