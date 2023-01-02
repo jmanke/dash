@@ -49,34 +49,6 @@
         display: flex;
         align-self: center;
       }
-
-      dash-list {
-        display: flex;
-        flex-direction: column;
-        overflow: hidden;
-
-        dash-list-item {
-          display: block;
-
-          .item-wrapper {
-            display: flex;
-            align-items: center;
-          }
-        }
-      }
-
-      .event-dot {
-        display: block;
-        width: 8px;
-        height: 8px;
-        border-radius: 9999px;
-        background-color: var(--dash-brand);
-        margin-inline-end: var(--dash-spacing-1-half);
-      }
-
-      .event-name {
-        white-space: nowrap;
-      }
     }
 
     .faded {
@@ -84,4 +56,39 @@
       color: var(--dash-text-color-3);
     }
   }
+}
+
+dash-list {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+
+  dash-list-item {
+    display: block;
+
+    .item-wrapper {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.event-dot {
+  display: block;
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background-color: var(--dash-brand);
+  margin-inline-end: var(--dash-spacing-1-half);
+}
+
+.event-name {
+  white-space: nowrap;
+}
+
+.events-dropdown {
+  padding: var(--dash-spacing-3);
+  background-color: var(--dash-background-1);
+  box-shadow: var(--dash-box-shadow);
+  border-radius: var(--dash-border-radius);
 }

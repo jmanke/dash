@@ -17,6 +17,7 @@ export interface Day {
 export class DashEventCalendarMonth {
   //#region Own properties
   today: Date;
+  dayCellResizeObserver: ResizeObserver;
   //#endregion
 
   //#region @Element
@@ -45,6 +46,15 @@ export class DashEventCalendarMonth {
     element: HTMLElement;
     event: CalendarEventInternal;
   };
+
+  @State()
+  selectedEventGroup: {
+    element: HTMLElement;
+    events: CalendarEventInternal[];
+  };
+
+  @State()
+  maxEventsPerCell: number;
   //#endregion
 
   //#region @Prop
@@ -138,6 +148,13 @@ export class DashEventCalendarMonth {
     };
   }
 
+  updateSelectedEventGroup(events: CalendarEventInternal[], { currentTarget }) {
+    this.selectedEventGroup = {
+      element: currentTarget,
+      events,
+    };
+  }
+
   closeEventPopover() {
     this.selectedEvent = null;
   }
@@ -150,6 +167,18 @@ export class DashEventCalendarMonth {
   deleteEvent() {
     this.eventCalendarDeleteEvent.emit({ eventId: this.selectedEvent.event.id });
     this.closeEventPopover();
+  }
+
+  DAY_CELL_OFFSET_HEIGHT = 29;
+  EVENT_HEIGHT = 20;
+  setDayCell(e: HTMLElement) {
+    this.dayCellResizeObserver?.disconnect();
+    const observer = new ResizeObserver(() => {
+      let maxEventsPerCell = Math.floor((e.clientHeight - this.DAY_CELL_OFFSET_HEIGHT) / this.EVENT_HEIGHT);
+      this.maxEventsPerCell = maxEventsPerCell === 0 ? 1 : maxEventsPerCell;
+    });
+    observer.observe(e);
+    this.dayCellResizeObserver = observer;
   }
   //#endregion
 
@@ -170,22 +199,34 @@ export class DashEventCalendarMonth {
               {weekdays('short').map(d => (
                 <span class='week-day-cell'>{d}</span>
               ))}
-              {this.weeks.map(week =>
-                week.map(weekday => (
-                  <div class={`day-cell ${this._date.getMonth() === weekday.date.getMonth() ? undefined : 'faded'}`}>
+              {this.weeks.map((week, i) =>
+                week.map((weekday, j) => (
+                  <div ref={e => i === 0 && j === 0 && this.setDayCell(e)} class={`day-cell ${this._date.getMonth() === weekday.date.getMonth() ? '' : 'faded'}`}>
                     <dash-button class='day-number' scale='s' appearance={isSameDay(this.today, weekday.date) ? 'outline' : 'clear'}>
                       {weekday.date.getDate()}
                     </dash-button>
                     {weekday.events && (
                       <dash-list selectionMode='none' scale='s'>
-                        {weekday.events.map(event => (
-                          <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEvent.bind(this, event)}>
-                            <div class='item-wrapper'>
-                              <span class='event-dot'></span>
-                              <span class='event-name'>{event.name}</span>
-                            </div>
-                          </dash-list-item>
-                        ))}
+                        {weekday.events.map((event, i) => {
+                          if (i < this.maxEventsPerCell - 1 || weekday.events.length === this.maxEventsPerCell) {
+                            return (
+                              <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEvent.bind(this, event)}>
+                                <div class='item-wrapper'>
+                                  <span class='event-dot'></span>
+                                  <span class='event-name'>{event.name}</span>
+                                </div>
+                              </dash-list-item>
+                            );
+                          } else if (i === this.maxEventsPerCell - 1) {
+                            return (
+                              <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEventGroup.bind(this, weekday.events.slice(i))}>
+                                <div class='item-wrapper'>
+                                  <span class='event-name'>{`${weekday.events.length - this.maxEventsPerCell + 1} ${i > 1 ? 'more' : ''} events`}</span>
+                                </div>
+                              </dash-list-item>
+                            );
+                          }
+                        })}
                       </dash-list>
                     )}
                   </div>
@@ -201,6 +242,31 @@ export class DashEventCalendarMonth {
               onEdit={this.editEvent.bind(this)}
               onDelete={this.deleteEvent.bind(this)}
             ></EventDropdown>
+
+            <dash-popover
+              target={this.selectedEventGroup?.element}
+              active={!!this.selectedEventGroup}
+              placement='right-start'
+              stayInView
+              autoClose
+              onDashPopoverClose={() => (this.selectedEventGroup = null)}
+            >
+              <dash-list class='events-dropdown' selectionMode='none' scale='s'>
+                {this.selectedEventGroup?.events.map(e => (
+                  <dash-list-item
+                    onDashListItemSelectedChanged={() => {
+                      this.updateSelectedEvent(e, { currentTarget: this.selectedEventGroup.element });
+                      this.selectedEventGroup = null;
+                    }}
+                  >
+                    <div class='item-wrapper'>
+                      <span class='event-dot'></span>
+                      <span class='event-name'>{e.name}</span>
+                    </div>
+                  </dash-list-item>
+                ))}
+              </dash-list>
+            </dash-popover>
           </div>
         )}
       </Host>
