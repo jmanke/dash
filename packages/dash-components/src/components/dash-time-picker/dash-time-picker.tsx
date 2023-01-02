@@ -76,7 +76,7 @@ export class DashTimePicker {
     const minutes = partsInfo.parts.hour * 60 + partsInfo.parts.minute;
     this.updateTime(addDuration(day, { minutes }));
     if (closeDropdown) {
-      // this.dropdownElement.close();
+      this.dropdownElement.close();
     }
   }
   //#endregion
@@ -84,7 +84,7 @@ export class DashTimePicker {
   render() {
     return (
       <Host>
-        <dash-dropdown ref={e => (this.dropdownElement = e)} autoClose autoFocus={false}>
+        <dash-dropdown ref={e => (this.dropdownElement = e)} autoFocus={false} autoClose>
           <dash-input
             ref={e => (this.inputElement = e)}
             slot='dropdown-trigger'

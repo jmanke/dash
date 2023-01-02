@@ -20,21 +20,7 @@ const editEventPopoverStyle = {
 
 export const EditEventDropdown: FunctionalComponent<EditEventDropdownProps> = ({ target, active, event, onClose, onEventUpdate }) => {
   return (
-    <dash-popover
-      class='edit-event-dropdown'
-      target={target}
-      active={active}
-      placement='left-start'
-      onDashPopoverClose={e => {
-        // if (e.currentTarget instanceof HTMLElement) {
-        //   !e.currentTarget.classList.contains('edit-event-dropdown');
-        //   return;
-        // }
-        onClose?.();
-      }}
-      stayInView
-      autoClose
-    >
+    <dash-popover class='edit-event-dropdown' target={target} active={active} placement='left-start' onDashPopoverClose={onClose} stayInView autoClose>
       <div class='edit-event-popover' style={editEventPopoverStyle}>
         <dash-event-calendar-edit-event
           event={event}
