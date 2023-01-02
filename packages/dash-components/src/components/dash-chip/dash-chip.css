@@ -3,24 +3,23 @@
 
 :host {
   display: block;
-
-  &([removeable]) {
-    .heading {
-      margin-inline-end: var(--dash-spacing-1);
-    }
-  }
-  
-  &(:not([removeable])) {
-    .chip {
-      padding-right: var(--dash-spacing-3);
-    }
-  }
-
-  &(:not([selectable])) .chip {
-    cursor: default;
-  }
-
   --dash-chip-background-color: var(--dash-color-gray);
+}
+
+:host([removeable]) {
+  .heading {
+    margin-inline-end: var(--dash-spacing-1);
+  }
+}
+
+:host(:not([removeable])) {
+  .chip {
+    padding-right: var(--dash-spacing-3);
+  }
+}
+
+:host(:not([selectable])) .chip {
+  cursor: default;
 }
 
 .chip {

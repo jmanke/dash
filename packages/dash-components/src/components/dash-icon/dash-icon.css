@@ -1,22 +1,21 @@
 :host {
   --dash-icon-size: 20px;
-
-  &([scale="s"]) {
-    --dash-icon-size: 16px;
-  }
-
-  &([scale="l"]) {
-    --dash-icon-size: 32px;
-  }
-
-  &([scale="xl"]) {
-    --dash-icon-size: 48px;
-  }
-
   display: flex;
 
   width: var(--dash-icon-size);
   height: var(--dash-icon-size);
+}
+
+:host([scale='s']) {
+  --dash-icon-size: 16px;
+}
+
+:host([scale='l']) {
+  --dash-icon-size: 32px;
+}
+
+:host([scale='xl']) {
+  --dash-icon-size: 48px;
 }
 
 div {

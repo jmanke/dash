@@ -1,13 +1,13 @@
 :host {
   margin: var(--dash-spacing-4);
   display: block;
+}
 
-  &([sticky-header]) {
-    header {
-      position: sticky;
-      top: 0;
-      z-index: var(--dash-z-index-section-header);
-    }
+:host([sticky-header]) {
+  header {
+    position: sticky;
+    top: 0;
+    z-index: var(--dash-z-index-section-header);
   }
 }
 

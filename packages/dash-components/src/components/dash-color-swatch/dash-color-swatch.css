@@ -3,25 +3,25 @@
 :host {
   display: inline-block;
   line-height: 1;
+}
 
-  &([scale='s']) {
-    .color-swatch {
-      width: var(--dash-spacing-3);
-      height: var(--dash-spacing-3);
-    }
+:host([scale='s']) {
+  .color-swatch {
+    width: var(--dash-spacing-3);
+    height: var(--dash-spacing-3);
   }
+}
 
-  &([scale='l']) {
-    .color-swatch {
-      width: var(--dash-spacing-8);
-      height: var(--dash-spacing-8);
-    }
+:host([scale='l']) {
+  .color-swatch {
+    width: var(--dash-spacing-8);
+    height: var(--dash-spacing-8);
   }
+}
 
-  &([selected]) {
-    .color-swatch {
-      border: 2px solid white;
-    }
+:host([selected]) {
+  .color-swatch {
+    border: 2px solid white;
   }
 }
 

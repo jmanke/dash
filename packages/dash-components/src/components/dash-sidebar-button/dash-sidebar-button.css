@@ -4,33 +4,33 @@
 :host {
   display: flex;
   height: var(--dash-spacing-12);
+}
 
-  &([collapsed]) {
-    width: var(--dash-spacing-12);
+:host([collapsed]) {
+  width: var(--dash-spacing-12);
 
-    button {
-      padding-inline-start: 0;
-      padding-inline-end: 0;
-      border-radius: var(--dash-spacing-full);
-      justify-content: center;
-      width: 100%;
-      height: 100%;
-      margin-inline-start: 0;
+  button {
+    padding-inline-start: 0;
+    padding-inline-end: 0;
+    border-radius: var(--dash-spacing-full);
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    margin-inline-start: 0;
 
-      dash-icon {
-        margin-right: 0;
-      }
+    dash-icon {
+      margin-right: 0;
+    }
 
-      .text {
-        width: 0;
-      }
+    .text {
+      width: 0;
     }
   }
+}
 
-  &([active]) {
-    button {
-      background-color: var(--dash-brand-faded);
-    }
+:host([active]) {
+  button {
+    background-color: var(--dash-brand-faded);
   }
 }
 
