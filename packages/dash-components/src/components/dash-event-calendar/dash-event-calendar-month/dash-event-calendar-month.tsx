@@ -208,6 +208,7 @@ export class DashEventCalendarMonth {
                     {weekday.events && (
                       <dash-list selectionMode='none' scale='s'>
                         {weekday.events.map((event, i) => {
+                          // render event item
                           if (i < this.maxEventsPerCell - 1 || weekday.events.length === this.maxEventsPerCell) {
                             return (
                               <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEvent.bind(this, event)}>
@@ -217,7 +218,9 @@ export class DashEventCalendarMonth {
                                 </div>
                               </dash-list-item>
                             );
-                          } else if (i === this.maxEventsPerCell - 1) {
+                          }
+                          // if overflowing, render item that will display how many events are overflowing
+                          else if (i === this.maxEventsPerCell - 1) {
                             return (
                               <dash-list-item onDashListItemSelectedChanged={this.updateSelectedEventGroup.bind(this, weekday.events.slice(i))}>
                                 <div class='item-wrapper'>
