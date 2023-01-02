@@ -26,7 +26,7 @@
 :host([disabled]) {
   button {
     cursor: initial;
-    color: var(--dash-text-color-2);
+    color: var(--dash-text-color-3);
     filter: brightness(0.9);
   }
 }
