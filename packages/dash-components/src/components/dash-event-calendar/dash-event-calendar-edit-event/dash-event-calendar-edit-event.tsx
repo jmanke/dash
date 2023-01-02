@@ -1,6 +1,5 @@
-import { deepCopy } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, Event, EventEmitter, State, Watch } from '@stencil/core';
-import { CalendarEvent } from '../../../interfaces/calendar-event';
+import { CalendarEvent, CalendarEventInternal } from '../../../interfaces/calendar-event';
 import { setTimeISO8601 } from '../../../utils/date-time';
 
 @Component({
@@ -18,25 +17,44 @@ export class DashEventCalendarEditEvent {
   //#region @State
   @State()
   _event: CalendarEvent;
+
+  @State()
+  isDirty: boolean;
   //#endregion
 
   //#region @Prop
   @Prop()
-  event: CalendarEvent;
+  event: CalendarEvent | CalendarEventInternal;
   @Watch('event')
   eventChanged() {
-    this._event = deepCopy(this.event);
+    const event: CalendarEvent | CalendarEventInternal = { ...this.event };
+
+    // ensure event is in CalendarEvent format
+    if (event.fromTime instanceof Date) {
+      event.fromTime = event.fromTime.toISOString();
+    }
+    if (event.toTime instanceof Date) {
+      event.toTime = event.toTime.toISOString();
+    }
+
+    this._event = event as CalendarEvent;
   }
+
+  @Prop()
+  header: string;
   //#endregion
 
   //#region @Event
   @Event({ eventName: 'dashEventCalendarEditEventEventUpdate' })
-  eventCalendarEditEventEventUpdate: EventEmitter<CalendarEvent>;
+  eventCalendarEditEventEventUpdate: EventEmitter<void>;
+
+  @Event({ eventName: 'dashEventCalendarEditEventEventCancel' })
+  eventCalendarEditEventEventCancel: EventEmitter<void>;
   //#endregion
 
   //#region Component lifecycle
   componentWillLoad() {
-    this._event = this.event;
+    this.eventChanged();
   }
   //#endregion
 
@@ -49,13 +67,29 @@ export class DashEventCalendarEditEvent {
   //#region Local methods
 
   updateEvent(property: string, value: string) {
+    this.isDirty = true;
     this._event = { ...this._event, [property]: value };
-    this.eventCalendarEditEventEventUpdate.emit(this._event);
   }
 
   updateDate(property: string, value: string) {
     const date = setTimeISO8601(value, this._event[property]);
     this.updateEvent(property, date);
+  }
+
+  saveEvent() {
+    this.isDirty = false;
+    const event: any = { ...this._event };
+
+    // ensure event is in correct format
+    if (this.event.fromTime instanceof Date) {
+      event.fromTime = new Date(event.fromTime);
+    }
+    if (this.event.toTime instanceof Date) {
+      event.toTime = new Date(event.toTime);
+    }
+
+    this.event = event;
+    this.eventCalendarEditEventEventUpdate.emit();
   }
 
   //#endregion
@@ -64,6 +98,8 @@ export class DashEventCalendarEditEvent {
       <Host>
         {this._event && (
           <div>
+            <h3>{this.header}</h3>
+
             <dash-label>
               Event name
               <dash-input value={this._event.name} onDashInputInput={e => this.updateEvent('name', e.target.value)}></dash-input>
@@ -89,6 +125,13 @@ export class DashEventCalendarEditEvent {
                 <dash-time-picker time={this._event.toTime} onDashTimePickerTimeChange={e => this.updateEvent('toTime', e.target.time)}></dash-time-picker>
               </div>
             </dash-label>
+
+            <div class='footer'>
+              <dash-button onClick={() => this.eventCalendarEditEventEventCancel.emit()}>Cancel</dash-button>
+              <dash-button disabled={!this.isDirty} onClick={this.saveEvent.bind(this)}>
+                Save
+              </dash-button>
+            </div>
           </div>
         )}
       </Host>

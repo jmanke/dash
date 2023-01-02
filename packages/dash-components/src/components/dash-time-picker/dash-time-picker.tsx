@@ -76,7 +76,7 @@ export class DashTimePicker {
     const minutes = partsInfo.parts.hour * 60 + partsInfo.parts.minute;
     this.updateTime(addDuration(day, { minutes }));
     if (closeDropdown) {
-      this.dropdownElement.close();
+      // this.dropdownElement.close();
     }
   }
   //#endregion

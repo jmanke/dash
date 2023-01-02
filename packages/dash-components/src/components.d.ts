@@ -7,7 +7,7 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
-import { CalendarEvent } from "./interfaces/calendar-event";
+import { CalendarEvent, CalendarEventInternal } from "./interfaces/calendar-event";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
 import { SelectionMode } from "./components/dash-list/dash-list";
@@ -77,7 +77,8 @@ export namespace Components {
         "events": CalendarEvent[];
     }
     interface DashEventCalendarEditEvent {
-        "event": CalendarEvent;
+        "event": CalendarEvent | CalendarEventInternal;
+        "header": string;
     }
     interface DashEventCalendarMonth {
         "date": string;
@@ -642,8 +643,10 @@ declare namespace LocalJSX {
         "onDashEventCalendarPrevDay"?: (event: DashEventCalendarDayCustomEvent<void>) => void;
     }
     interface DashEventCalendarEditEvent {
-        "event"?: CalendarEvent;
-        "onDashEventCalendarEditEventEventUpdate"?: (event: DashEventCalendarEditEventCustomEvent<CalendarEvent>) => void;
+        "event"?: CalendarEvent | CalendarEventInternal;
+        "header"?: string;
+        "onDashEventCalendarEditEventEventCancel"?: (event: DashEventCalendarEditEventCustomEvent<void>) => void;
+        "onDashEventCalendarEditEventEventUpdate"?: (event: DashEventCalendarEditEventCustomEvent<void>) => void;
     }
     interface DashEventCalendarMonth {
         "date"?: string;

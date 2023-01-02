@@ -42,8 +42,8 @@ dash-input {
 
       dash-button {
         --dash-button-border-radius: var(--dash-spacing-full);
-        --dash-button-height: var(--dash-spacing-8);
-        width: var(--dash-spacing-8);
+        --dash-button-height: var(--dash-spacing-6);
+        width: var(--dash-spacing-6);
 
         .day-number {
           width: 100%;

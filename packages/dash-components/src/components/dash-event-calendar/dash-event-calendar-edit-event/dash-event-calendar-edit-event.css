@@ -10,3 +10,9 @@ textarea {
   display: flex;
   column-gap: var(--dash-spacing-2);
 }
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  column-gap: var(--dash-spacing-2);
+}

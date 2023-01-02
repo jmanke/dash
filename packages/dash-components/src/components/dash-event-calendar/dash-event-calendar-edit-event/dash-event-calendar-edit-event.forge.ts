@@ -4,7 +4,11 @@ import { DateTime } from 'luxon';
 const eventDate = DateTime.fromISO(DateTime.now().toISO());
 
 const template = (args, updateArg) =>
-  html`<dash-event-calendar-edit-event .event=${args.event} @dashEventCalendarEditEventEventUpdate=${e => updateArg('event', e.detail)}></dash-event-calendar-edit-event>`;
+  html`<dash-event-calendar-edit-event
+    header=${args.header}
+    .event=${args.event}
+    @dashEventCalendarEditEventEventUpdate=${e => updateArg('event', e.target.event)}
+  ></dash-event-calendar-edit-event>`;
 
 export const eventCalendarEditEventDefinition = {
   name: '<dash-event-calendar-edit-event>',
@@ -12,9 +16,13 @@ export const eventCalendarEditEventDefinition = {
     event: {
       type: 'json',
     },
+    header: {
+      type: 'text',
+    },
   },
   template,
   args: {
+    header: 'Edit event',
     event: {
       id: '0',
       name: 'Walk Hazel',
