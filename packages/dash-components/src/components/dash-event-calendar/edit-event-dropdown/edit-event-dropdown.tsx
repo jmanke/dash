@@ -24,7 +24,10 @@ export const EditEventDropdown: FunctionalComponent<EditEventDropdownProps> = ({
       <div class='edit-event-popover' style={editEventPopoverStyle}>
         <dash-event-calendar-edit-event
           event={event}
-          onDashEventCalendarEditEventEventUpdate={e => onEventUpdate(e.target.event)}
+          onDashEventCalendarEditEventEventUpdate={e => {
+            onEventUpdate?.(e.target.event);
+            onClose?.();
+          }}
           onDashEventCalendarEditEventEventCancel={onClose}
         ></dash-event-calendar-edit-event>
       </div>
