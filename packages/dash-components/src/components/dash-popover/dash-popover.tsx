@@ -104,6 +104,15 @@ export class DashPopover {
   //#region Component lifecycle
   componentDidLoad() {
     this.createPopover();
+    const container = this.element.shadowRoot.querySelector('.container');
+    container.addEventListener('dashPopoverOpen', (e: CustomEvent) => {
+      // prevent nested popovers from propagating this event
+      e.stopPropagation();
+    });
+    container.addEventListener('dashPopoverClose', (e: CustomEvent) => {
+      // prevent nested popovers from propagating this event
+      e.stopPropagation();
+    });
   }
 
   disconnectedCallback() {
@@ -113,25 +122,6 @@ export class DashPopover {
   //#endregion
 
   //#region Listeners
-  @Listen('dashPopoverOpen')
-  handleDashPopoverOpen(e: CustomEvent) {
-    // prevent nested popovers from propagating this event
-    if (this.element === e.composedPath()[0]) {
-      return;
-    }
-
-    e.stopPropagation();
-  }
-
-  @Listen('dashPopoverClose')
-  handleDashPopoverClose(e: CustomEvent<PopoverCloseEvent>) {
-    // prevent nested popovers from propagating this event
-    if (this.element === e.composedPath()[0]) {
-      return;
-    }
-
-    e.stopPropagation();
-  }
   //#endregion
 
   //#region @Method
