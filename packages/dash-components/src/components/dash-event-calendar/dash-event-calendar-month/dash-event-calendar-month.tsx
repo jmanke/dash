@@ -2,6 +2,7 @@ import { Component, Host, h, State, Watch, Prop, Event, EventEmitter } from '@st
 import { dateKey, eventsDateMap } from '../../../common/event-calendar';
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { addDuration, isSameDay, minusDuration, startOfDay, startOfMonth, toLocaleString, weekdays, weeksInMonth } from '../../../utils/date-time';
+import { EditEventDropdown } from '../edit-event-dropdown/edit-event-dropdown';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 
 export interface Day {
@@ -43,6 +44,12 @@ export class DashEventCalendarMonth {
 
   @State()
   selectedEvent: {
+    element: HTMLElement;
+    event: CalendarEventInternal;
+  };
+
+  @State()
+  selectedEditingEvent: {
     element: HTMLElement;
     event: CalendarEventInternal;
   };
@@ -155,18 +162,17 @@ export class DashEventCalendarMonth {
     };
   }
 
-  closeEventPopover() {
-    this.selectedEvent = null;
-  }
-
   editEvent() {
     this.eventCalendarEditEvent.emit({ eventId: this.selectedEvent.event.id });
-    this.closeEventPopover();
+    this.selectedEditingEvent = {
+      ...this.selectedEvent,
+    };
+    this.selectedEvent = null;
   }
 
   deleteEvent() {
     this.eventCalendarDeleteEvent.emit({ eventId: this.selectedEvent.event.id });
-    this.closeEventPopover();
+    this.selectedEvent = null;
   }
 
   DAY_CELL_OFFSET_HEIGHT = 28;
@@ -241,10 +247,18 @@ export class DashEventCalendarMonth {
               target={this.selectedEvent?.element}
               event={this.selectedEvent?.event}
               active={!!this.selectedEvent}
-              onClose={this.closeEventPopover.bind(this)}
+              onClose={() => (this.selectedEvent = null)}
               onEdit={this.editEvent.bind(this)}
               onDelete={this.deleteEvent.bind(this)}
             ></EventDropdown>
+
+            <EditEventDropdown
+              target={this.selectedEditingEvent?.element}
+              event={this.selectedEditingEvent?.event}
+              active={!!this.selectedEditingEvent}
+              onClose={() => (this.selectedEditingEvent = null)}
+              onEventUpdate={e => console.log(e)}
+            ></EditEventDropdown>
 
             <dash-popover
               target={this.selectedEventGroup?.element}

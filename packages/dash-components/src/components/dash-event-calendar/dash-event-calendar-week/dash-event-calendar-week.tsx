@@ -3,6 +3,7 @@ import { dateKey, eventsDateMap, processEventLayouts } from '../../../common/eve
 import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, startOfWeek, toLocaleString } from '../../../utils/date-time';
+import { EditEventDropdown } from '../edit-event-dropdown/edit-event-dropdown';
 import { EventButton } from '../event-button/event-button';
 import { EventDropdown } from '../event-dropdown/event-dropdown';
 import { TimeBar } from '../time-bar/time-bar';
@@ -57,6 +58,12 @@ export class DashEventCalendarWeek {
 
   @State()
   selectedEvent: {
+    element: HTMLElement;
+    event: CalendarEventInternal;
+  };
+
+  @State()
+  selectedEditingEvent: {
     element: HTMLElement;
     event: CalendarEventInternal;
   };
@@ -188,18 +195,17 @@ export class DashEventCalendarWeek {
     };
   }
 
-  closeEventPopover() {
-    this.selectedEvent = null;
-  }
-
   editEvent() {
     this.eventCalendarEditEvent.emit({ eventId: this.selectedEvent.event.id });
-    this.closeEventPopover();
+    this.selectedEditingEvent = {
+      ...this.selectedEvent,
+    };
+    this.selectedEvent = null;
   }
 
   deleteEvent() {
     this.eventCalendarDeleteEvent.emit({ eventId: this.selectedEvent.event.id });
-    this.closeEventPopover();
+    this.selectedEvent = null;
   }
 
   updateNow() {
@@ -259,10 +265,18 @@ export class DashEventCalendarWeek {
               target={this.selectedEvent?.element}
               event={this.selectedEvent?.event}
               active={!!this.selectedEvent}
-              onClose={this.closeEventPopover.bind(this)}
+              onClose={() => (this.selectedEvent = null)}
               onEdit={this.editEvent.bind(this)}
               onDelete={this.deleteEvent.bind(this)}
             ></EventDropdown>
+
+            <EditEventDropdown
+              target={this.selectedEditingEvent?.element}
+              event={this.selectedEditingEvent?.event}
+              active={!!this.selectedEditingEvent}
+              onClose={() => (this.selectedEditingEvent = null)}
+              onEventUpdate={e => console.log(e)}
+            ></EditEventDropdown>
           </div>
         )}
       </Host>
