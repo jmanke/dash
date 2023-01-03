@@ -1,14 +1,16 @@
 import { html } from 'lit-html';
 import { scaleControl } from '../../../.forge/common/controls';
 
-const template = args =>
+const template = (args, updateArg) =>
   html`<dash-modal
+    ?open=${args.open}
     heading=${args.heading}
     scale=${args.scale}
     ?fullscreen=${args.fullscreen}
     ?hide-close-button=${args.hideCloseButton}
     ?auto-focus=${args.autoFocus}
     ?disable-fullscreen-mobile-view=${args.disableFullscreenMobileView}
+    @dashModalClosed=${() => updateArg('open', false)}
   >
     This is some modal content
 
@@ -24,7 +26,7 @@ export const modalDefinition = {
     options: {
       properties: {
         label: 'Properties',
-        controls: ['heading', 'fullscreen', 'scale', 'hideCloseButton', 'autoFocus', 'disableFullscreenMobileView'],
+        controls: ['open', 'heading', 'fullscreen', 'scale', 'hideCloseButton', 'autoFocus', 'disableFullscreenMobileView'],
       },
       methods: {
         label: 'Methods',
@@ -33,6 +35,9 @@ export const modalDefinition = {
     },
   },
   controls: {
+    open: {
+      type: 'boolean',
+    },
     heading: { type: 'text' },
     fullscreen: { type: 'boolean' },
     scale: scaleControl,
@@ -51,6 +56,7 @@ export const modalDefinition = {
   },
   template,
   args: {
+    open: true,
     heading: 'Test heading',
     fullscreen: false,
     scale: 'm',

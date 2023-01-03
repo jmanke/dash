@@ -195,7 +195,7 @@ export class DashModalNote implements Modal {
     const labels = this.note ? labelsState.getLabelsByIds(this.note.labels) : [];
 
     return (
-      <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
+      <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
         <dash-text-editor
           ref={element => (this.textEditor = element)}
           heading={this.note?.title ?? ''}

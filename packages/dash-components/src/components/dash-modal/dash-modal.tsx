@@ -6,6 +6,7 @@ import { wait } from '@didyoumeantoast/dash-utils';
 @Component({
   tag: 'dash-modal',
   styleUrl: 'dash-modal.css',
+  shadow: true,
 })
 export class DashModal implements Modal {
   //#region Own properties
@@ -24,6 +25,12 @@ export class DashModal implements Modal {
   //#endregion
 
   //#region @Prop
+  @Prop({
+    mutable: true,
+    reflect: true,
+  })
+  open: boolean;
+
   @Prop({
     reflect: true,
   })
@@ -85,17 +92,15 @@ export class DashModal implements Modal {
   //#region @Method
   @Method()
   async close() {
-    if (this.closing) {
-      return;
-    }
-
     this.closing = true;
-    const transitionTimeStr = getComputedStyle(this.element).getPropertyValue('--dash-transition-time-default');
-    const transitionTime = parseInt(transitionTimeStr);
     this.dashModalBeforeClose.emit();
+    const transitionTimeStr = getComputedStyle(this.element).getPropertyValue('--dash-transition-time-default');
+    const transitionTime = parseInt(transitionTimeStr) - 50;
 
-    await wait(transitionTime + 50);
+    await wait(transitionTime);
 
+    this.open = false;
+    this.closing = false;
     this.dashModalClosed.emit();
   }
   //#endregion
@@ -105,35 +110,37 @@ export class DashModal implements Modal {
 
   render() {
     return (
-      <Host class={this.closing && 'closing'}>
-        <dash-scrim active={!this.closing} onClick={() => this.close()}></dash-scrim>
-        <dash-focus-trap class='body'>
-          {this.heading && (
-            <div class='heading'>
-              <div class='heading-text'>{this.heading}</div>
+      <Host>
+        <div class={`modal ${this.closing ? 'closing' : ''}`}>
+          <dash-scrim active={!this.closing} onClick={this.close.bind(this)}></dash-scrim>
+          <dash-focus-trap class='body'>
+            {this.heading && (
+              <div class='heading'>
+                <div class='heading-text'>{this.heading}</div>
 
-              {!this.hideCloseButton && <dash-icon-button class='close-button-x' icon='x' scale='l' onClick={() => this.close()}></dash-icon-button>}
+                {!this.hideCloseButton && <dash-icon-button class='close-button-x' icon='x' scale='l' onClick={this.close.bind(this)}></dash-icon-button>}
+              </div>
+            )}
+
+            <div class='content'>
+              <slot></slot>
             </div>
-          )}
 
-          <div class='content'>
-            <slot></slot>
-          </div>
+            <div class='footer'>
+              <slot name='footer-start'></slot>
 
-          <div class='footer'>
-            <slot name='footer-start'></slot>
+              <div class='footer-end'>
+                <slot name='footer-end'></slot>
 
-            <div class='footer-end'>
-              <slot name='footer-end'></slot>
-
-              {!this.hideCloseButton && (
-                <dash-button ref={element => (this.closeButton = element)} class='close-button' scale='l' onClick={() => this.close()}>
-                  Close
-                </dash-button>
-              )}
+                {!this.hideCloseButton && (
+                  <dash-button ref={element => (this.closeButton = element)} class='close-button' scale='l' onClick={this.close.bind(this)}>
+                    Close
+                  </dash-button>
+                )}
+              </div>
             </div>
-          </div>
-        </dash-focus-trap>
+          </dash-focus-trap>
+        </div>
       </Host>
     );
   }

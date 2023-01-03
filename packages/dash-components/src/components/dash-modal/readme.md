@@ -14,6 +14,7 @@
 | `fullscreen`                  | `fullscreen`                     |             | `boolean`           | `undefined` |
 | `heading`                     | `heading`                        |             | `string`            | `undefined` |
 | `hideCloseButton`             | `hide-close-button`              |             | `boolean`           | `undefined` |
+| `open`                        | `open`                           |             | `boolean`           | `undefined` |
 | `scale`                       | `scale`                          |             | `"l" \| "m" \| "s"` | `'m'`       |
 
 

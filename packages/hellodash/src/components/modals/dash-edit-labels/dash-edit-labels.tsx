@@ -109,7 +109,7 @@ export class DashEditLabels implements Modal {
 
   render() {
     return (
-      <dash-modal ref={element => (this.modal = element)} heading='Edit labels' scale='s' autoFocus>
+      <dash-modal ref={element => (this.modal = element)} heading='Edit labels' scale='s' autoFocus open>
         <form class='new-label-container'>
           <dash-input
             ref={element => element.setFocus()}
