@@ -6,6 +6,10 @@ textarea {
   resize: vertical;
 }
 
+.dash-event-calendar-edit-event {
+  background-color: var(--dash-background-2);
+}
+
 .date-picker-container {
   display: flex;
   column-gap: var(--dash-spacing-2);

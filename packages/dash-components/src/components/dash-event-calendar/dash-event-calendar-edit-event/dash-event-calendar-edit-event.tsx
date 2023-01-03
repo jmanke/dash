@@ -23,7 +23,9 @@ export class DashEventCalendarEditEvent {
   //#endregion
 
   //#region @Prop
-  @Prop()
+  @Prop({
+    mutable: true,
+  })
   event: CalendarEvent | CalendarEventInternal;
   @Watch('event')
   eventChanged() {
@@ -39,9 +41,6 @@ export class DashEventCalendarEditEvent {
 
     this._event = event as CalendarEvent;
   }
-
-  @Prop()
-  header: string;
   //#endregion
 
   //#region @Event
@@ -97,9 +96,7 @@ export class DashEventCalendarEditEvent {
     return (
       <Host>
         {this._event && (
-          <div>
-            <h3>{this.header}</h3>
-
+          <div class='dash-event-calendar-edit-event'>
             <dash-label>
               Event name
               <dash-input value={this._event.name} onDashInputInput={e => this.updateEvent('name', e.target.value)}></dash-input>
@@ -107,7 +104,7 @@ export class DashEventCalendarEditEvent {
 
             <dash-label>
               Description
-              <dash-textarea resize='vertical' value={this._event.description} onDashTextareaInput={e => this.updateEvent('description', e.target.value)}></dash-textarea>
+              <dash-textarea value={this._event.description} resize='none' rows={6} onDashTextareaInput={e => this.updateEvent('description', e.target.value)}></dash-textarea>
             </dash-label>
 
             <dash-label>

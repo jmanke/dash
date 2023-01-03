@@ -5,6 +5,10 @@
   display: flex;
 }
 
+:host([resize='none']) textarea {
+  resize: none;
+}
+
 :host([resize='both']) textarea {
   resize: both;
 }

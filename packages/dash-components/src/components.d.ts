@@ -78,7 +78,6 @@ export namespace Components {
     }
     interface DashEventCalendarEditEvent {
         "event": CalendarEvent | CalendarEventInternal;
-        "header": string;
     }
     interface DashEventCalendarMonth {
         "date": string;
@@ -644,7 +643,6 @@ declare namespace LocalJSX {
     }
     interface DashEventCalendarEditEvent {
         "event"?: CalendarEvent | CalendarEventInternal;
-        "header"?: string;
         "onDashEventCalendarEditEventEventCancel"?: (event: DashEventCalendarEditEventCustomEvent<void>) => void;
         "onDashEventCalendarEditEventEventUpdate"?: (event: DashEventCalendarEditEventCustomEvent<void>) => void;
     }

@@ -12,7 +12,7 @@ interface EventDropdownProps {
 }
 
 const eventPopoverStyle = {
-  backgroundColor: 'var(--dash-background-1)',
+  backgroundColor: 'var(--dash-background-2)',
   borderRadius: 'var(--dash-border-radius)',
   padding: 'var(--dash-spacing-2)',
   boxShadow: 'var(--dash-box-shadow)',

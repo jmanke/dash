@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
 
-export type Resize = 'vertical' | 'horizontal' | 'both';
+export type Resize = 'vertical' | 'horizontal' | 'both' | 'none';
 
 @Component({
   tag: 'dash-textarea',
