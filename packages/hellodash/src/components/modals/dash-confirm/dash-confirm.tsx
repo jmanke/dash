@@ -95,7 +95,7 @@ export class DashConfirm implements Modal {
 
   render() {
     return (
-      <dash-modal ref={element => (this.modal = element)} heading={this.heading ? this.heading : 'Are you sure?'} scale='s' hideCloseButton disableFullscreenMobileView>
+      <dash-modal ref={element => (this.modal = element)} heading={this.heading ? this.heading : 'Are you sure?'} scale='s' hideCloseButton disableFullscreenMobileView open>
         <slot></slot>
 
         <div slot='footer-end'>

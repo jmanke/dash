@@ -139,6 +139,7 @@ export namespace Components {
         "fullscreen": boolean;
         "heading": string;
         "hideCloseButton": boolean;
+        "open": boolean;
         "scale": Scale;
     }
     interface DashPopover {
@@ -598,6 +599,7 @@ declare namespace LocalJSX {
         "hideCloseButton"?: boolean;
         "onDashModalBeforeClose"?: (event: DashModalCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: DashModalCustomEvent<any>) => void;
+        "open"?: boolean;
         "scale"?: Scale;
     }
     interface DashPopover {
