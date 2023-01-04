@@ -14,7 +14,7 @@
     "start:components": "turbo run start:components",
     "start:components:forge": "turbo run start:components:forge"
   },
-  "packageManager": "pnpm@7.18.2",
+  "packageManager": "pnpm@7.22.0",
   "dependencies": {
     "express": "^4.18.1",
     "serve-handler": "^6.1.5"
@@ -27,7 +27,6 @@
     "pnpm": "7.x"
   },
   "volta": {
-    "node": "18.12.1",
-    "pnpm": "7.18.2"
+    "node": "18.12.1"
   }
 }
