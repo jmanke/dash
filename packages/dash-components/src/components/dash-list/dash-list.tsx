@@ -144,7 +144,8 @@ export class DashList {
 
   updateMaxHeight() {
     let height = 0;
-    for (let i = 0; i < this.maxItems; i++) {
+    const itemsLength = Math.min(this.maxItems ?? 0, this.listItems?.length ?? 0);
+    for (let i = 0; i < itemsLength; i++) {
       height += this.listItems[i].offsetHeight;
     }
     this.maxHeight = height;
