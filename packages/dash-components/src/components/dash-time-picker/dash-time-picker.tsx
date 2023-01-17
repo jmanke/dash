@@ -92,7 +92,7 @@ export class DashTimePicker {
             onDashInputChange={this.inputChanged.bind(this)}
           ></dash-input>
 
-          <dash-list selectionMode='none'>
+          <dash-list selectionMode='none' maxItems={6}>
             {TIMES.map(time => (
               <dash-list-item onDashListItemSelectedChanged={() => this.selectTime(time)}>{time}</dash-list-item>
             ))}
