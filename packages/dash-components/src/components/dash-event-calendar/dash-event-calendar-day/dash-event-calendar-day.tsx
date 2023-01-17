@@ -70,7 +70,9 @@ export class DashEventCalendarDay {
   //#endregion
 
   //#region @Prop
-  @Prop()
+  @Prop({
+    mutable: true,
+  })
   date: string;
   @Watch('date')
   dateChanged() {
