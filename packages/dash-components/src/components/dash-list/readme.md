@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type                               | Default    |
-| --------------- | ---------------- | ----------- | ---------------------------------- | ---------- |
-| `scale`         | `scale`          |             | `"l" \| "m" \| "s"`                | `'m'`      |
-| `selectionMode` | `selection-mode` |             | `"multiple" \| "none" \| "single"` | `'single'` |
+| Property        | Attribute        | Description | Type                               | Default     |
+| --------------- | ---------------- | ----------- | ---------------------------------- | ----------- |
+| `maxItems`      | `max-items`      |             | `number`                           | `undefined` |
+| `scale`         | `scale`          |             | `"l" \| "m" \| "s"`                | `'m'`       |
+| `selectionMode` | `selection-mode` |             | `"multiple" \| "none" \| "single"` | `'single'`  |
 
 
 ----------------------------------------------

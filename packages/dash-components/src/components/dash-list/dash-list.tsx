@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Element, Watch } from '@stencil/core';
+import { Component, Host, h, Prop, Element, Watch, State } from '@stencil/core';
 import { isDefined } from '@didyoumeantoast/dash-utils';
 import { Scale } from '../../types/types';
 
@@ -12,6 +12,7 @@ export type SelectionMode = 'single' | 'multiple' | 'none';
 export class DashList {
   //#region Own properties
   listItems: HTMLDashListItemElement[] = [];
+  resizeObserver: ResizeObserver;
   //#endregion
 
   //#region @Element
@@ -20,6 +21,8 @@ export class DashList {
   //#endregion
 
   //#region @State
+  @State()
+  maxHeight?: number;
   //#endregion
 
   //#region @Prop
@@ -40,6 +43,15 @@ export class DashList {
   scaleChanged() {
     this.updateChildProps();
   }
+
+  @Prop({
+    reflect: true,
+  })
+  maxItems?: number;
+  @Watch('maxItems')
+  maxItemsChanged() {
+    this.updateResizeObserver();
+  }
   //#endregion
 
   //#region @Event
@@ -47,12 +59,13 @@ export class DashList {
 
   //#region Component lifecycle
   async componentWillLoad() {
-    const observer = new MutationObserver(() => {
+    const mutationObserver = new MutationObserver(() => {
       this.updateChildProps();
     });
 
-    observer.observe(this.element, { childList: true });
+    mutationObserver.observe(this.element, { childList: true });
     this.updateChildProps();
+    this.updateResizeObserver();
   }
   //#endregion
 
@@ -63,6 +76,25 @@ export class DashList {
   //#endregion
 
   //#region Local methods
+  updateResizeObserver() {
+    if (!this.maxItems || this.maxItems < 1) {
+      this.resizeObserver?.disconnect();
+      this.resizeObserver = null;
+      this.maxHeight = null;
+      return;
+    }
+
+    if (this.resizeObserver) {
+      this.updateMaxHeight();
+      return;
+    }
+
+    this.resizeObserver = new ResizeObserver(() => {
+      this.updateMaxHeight();
+    });
+    this.resizeObserver.observe(this.element);
+  }
+
   nextSibling(e: HTMLDashListItemElement) {
     return (e.nextSibling as HTMLDashListItemElement) ?? this.listItems[0];
   }
@@ -109,12 +141,22 @@ export class DashList {
       element.tabIndex = index === 0 ? 0 : -1;
     });
   }
+
+  updateMaxHeight() {
+    let height = 0;
+    for (let i = 0; i < this.maxItems; i++) {
+      height += this.listItems[i].offsetHeight;
+    }
+    this.maxHeight = height;
+  }
   //#endregion
 
   render() {
     return (
       <Host role='list' onDashInternalListItemMoveNext={e => this.focusNextListItem(e.target)} onDashInternalListItemMovePrevious={e => this.focusPreviousListItem(e.target)}>
-        <slot></slot>
+        <div class='container' style={typeof this.maxHeight === 'number' ? { maxHeight: `${this.maxHeight}px` } : null}>
+          <slot></slot>
+        </div>
       </Host>
     );
   }

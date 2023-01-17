@@ -119,6 +119,7 @@ export namespace Components {
         "layout": LabelLayout;
     }
     interface DashList {
+        "maxItems"?: number;
         "scale": Scale;
         "selectionMode": SelectionMode;
     }
@@ -576,6 +577,7 @@ declare namespace LocalJSX {
         "layout"?: LabelLayout;
     }
     interface DashList {
+        "maxItems"?: number;
         "scale"?: Scale;
         "selectionMode"?: SelectionMode;
     }

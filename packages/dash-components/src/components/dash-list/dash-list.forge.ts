@@ -24,7 +24,7 @@ const template = (args, updateArg) => {
     }
   };
 
-  return html`<dash-list style="width: 10rem;" selection-mode=${args.selectionMode} scale=${args.scale}>
+  return html`<dash-list style="width: 10rem;" max-items=${args.maxItems} selection-mode=${args.selectionMode} scale=${args.scale}>
     ${items.map(item => html` <dash-list-item selected=${args.selected.includes(item)} @dashListItemSelectedChanged=${() => itemSelected(item)}>${item}</dash-list-item>`)}
   </dash-list>`;
 };
@@ -36,6 +36,9 @@ export const listDefinition = {
       type: 'radio',
       options: ['single', 'multiple', 'none'],
     },
+    maxItems: {
+      type: 'number',
+    },
     scale: scaleControl,
   },
   argChanged: ({ arg, value, args, updateArg }) => {
@@ -45,6 +48,7 @@ export const listDefinition = {
   },
   template,
   args: {
+    maxItems: null,
     selectionMode: 'single',
     selected: ['Item 0'],
     scale: 'm',

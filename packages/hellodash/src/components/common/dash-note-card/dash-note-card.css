@@ -3,14 +3,14 @@
 
 :host {
   display: block;
+}
 
-  &([mode="selectable"]) {
-    .note-card button {
-      border: var(--dash-border-style-transparent);
+:host([mode='selectable']) {
+  .note-card button {
+    border: var(--dash-border-style-transparent);
 
-      &.selected {
-        border: var(--dash-border-style-brand);
-      }
+    &.selected {
+      border: var(--dash-border-style-brand);
     }
   }
 }
