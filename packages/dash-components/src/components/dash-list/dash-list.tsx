@@ -148,6 +148,11 @@ export class DashList {
     for (let i = 0; i < itemsLength; i++) {
       height += this.listItems[i].offsetHeight;
     }
+
+    if (this.maxHeight === this.maxHeight) {
+      return;
+    }
+
     this.maxHeight = height;
   }
   //#endregion
