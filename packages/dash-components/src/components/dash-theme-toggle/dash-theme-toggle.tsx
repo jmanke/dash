@@ -1,4 +1,4 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { Theme } from '../../types/types';
 
 @Component({
@@ -17,13 +17,28 @@ export class ThemeToggle {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Current theme
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   theme: Theme = 'light';
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when the theme changed
+   */
+  @Event({
+    eventName: 'dashThemeToggleChange',
+  })
+  themeToggleChange: EventEmitter<void>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -36,11 +51,20 @@ export class ThemeToggle {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Toggles the theme
+   */
+  toggleTheme() {
+    this.theme = this.theme === 'light' ? 'dark' : 'light';
+    this.themeToggleChange.emit();
+  }
+
   //#endregion
 
   render() {
     return (
-      <button class={`theme-${this.theme}`} title='Toggle light & dark' aria-label='auto' aria-live='polite'>
+      <button class={`theme-${this.theme}`} title='Toggle light & dark' aria-label='auto' aria-live='polite' onClick={this.toggleTheme.bind(this)}>
         <svg class='sun-and-moon' aria-hidden='true' width='24' height='24' viewBox='0 0 24 24'>
           <circle class='sun' cx='12' cy='12' r='6' mask='url(#moon-mask)' fill='currentColor' />
           <g class='sun-beams' stroke='currentColor' stroke-linecap='round' stroke-width='2'>

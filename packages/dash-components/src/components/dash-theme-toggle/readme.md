@@ -7,9 +7,16 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                | Default   |
-| -------- | --------- | ----------- | ------------------- | --------- |
-| `theme`  | `theme`   |             | `"dark" \| "light"` | `'light'` |
+| Property | Attribute | Description   | Type                | Default   |
+| -------- | --------- | ------------- | ------------------- | --------- |
+| `theme`  | `theme`   | Current theme | `"dark" \| "light"` | `'light'` |
+
+
+## Events
+
+| Event                   | Description                    | Type                |
+| ----------------------- | ------------------------------ | ------------------- |
+| `dashThemeToggleChange` | Emitted when the theme changed | `CustomEvent<void>` |
 
 
 ----------------------------------------------

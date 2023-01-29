@@ -16,11 +16,20 @@ export class DashDrillMenu {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * When true, drill menu is activated
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   active: boolean;
 
+  /**
+   * Heading for the drill menu
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
@@ -28,10 +37,15 @@ export class DashDrillMenu {
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when drill menu is closed
+   */
   @Event({
     eventName: 'dashDrillMenuClosed',
   })
   dashDrillMenuClosed: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle

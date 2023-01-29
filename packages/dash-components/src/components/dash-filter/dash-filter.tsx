@@ -10,15 +10,23 @@ import { Scale } from '../../types/types';
 })
 export class DashFilter implements Focusable {
   //#region Own properties
+
   inputElement: HTMLDashInputElement;
+
   //#endregion
 
   //#region @Element
+
   @Element()
   element: HTMLDashFilterElement;
+
   //#endregion
 
   //#region @State
+
+  /**
+   * Items that match the current filter value
+   */
   @State()
   filteredItems: {}[] | string[] = [];
   @Watch('filteredItems')
@@ -45,6 +53,11 @@ export class DashFilter implements Focusable {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Value to filter items by
+   * @optional
+   */
   @Prop({
     reflect: true,
     mutable: true,
@@ -55,16 +68,28 @@ export class DashFilter implements Focusable {
     this.filterItems();
   }
 
+  /**
+   * Placeholder text for input
+   * @default 'Filter''
+   */
   @Prop({
     reflect: true,
   })
   placeholder?: string = 'Filter';
 
+  /**
+   * Size of the filter input
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
   scale: Scale = 'm';
 
+  /**
+   * Items to filter
+   * @required
+   */
   @Prop()
   items: {}[] | string[];
   @Watch('items')
@@ -72,63 +97,103 @@ export class DashFilter implements Focusable {
     this.filterItems();
   }
 
-  // can support up two two levels of nesting. For example, 'state.title' is valid
+  /**
+   * Key to filter items by. Supports up two two levels of nesting. For example, 'state.title' is valid
+   * @optional
+   */
   @Prop()
   objKey: string;
 
+  /**
+   * Debounces input in milliseconds
+   * @default 250
+   */
   @Prop()
   debounce: number = 250;
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when filtered items change
+   */
   @Event({
     eventName: 'dashFilterFilteredItems',
   })
   dashFilterFilteredItems: EventEmitter<object[]>;
 
+  /**
+   * Emitted when filtered value changes
+   */
   @Event({
     eventName: 'dashFilterValueChanged',
   })
   dashFilterValueChanged: EventEmitter<void>;
 
+  /**
+   * Emitted when user submits filter input
+   */
   @Event({
     eventName: 'dashFilterSubmit',
   })
   dashFilterSubmit: EventEmitter<void>;
+
   //#endregion
 
   //#region Component lifecycle
+
   componentWillLoad() {
     this.filterItems();
   }
+
   //#endregion
 
   //#region Listeners
   //#endregion
 
   //#region @Method
+
+  /**
+   * Sets focus on this element
+   */
   @Method()
   async setFocus() {
     this.inputElement.setFocus();
   }
 
+  /**
+   * Selects text in filter input
+   */
   @Method()
   async select() {
     this.inputElement.select();
   }
 
+  /**
+   * Clears filter value
+   */
   @Method()
   async clear() {
     this.updateFilterValue('');
   }
+
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Updates the filterValue property
+   * @param value - filterValue value
+   */
   updateFilterValue(value: string) {
     this.filterValue = value;
     this.dashFilterValueChanged.emit();
   }
 
+  /**
+   * Filters items based on the filter value
+   */
   filterItems() {
     const value = this.filterValue;
 
@@ -158,6 +223,7 @@ export class DashFilter implements Focusable {
       return value?.match(regex);
     });
   }
+
   //#endregion
 
   render() {

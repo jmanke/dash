@@ -7,30 +7,30 @@
 
 ## Properties
 
-| Property      | Attribute      | Description | Type                | Default     |
-| ------------- | -------------- | ----------- | ------------------- | ----------- |
-| `debounce`    | `debounce`     |             | `number`            | `250`       |
-| `filterValue` | `filter-value` |             | `string`            | `undefined` |
-| `items`       | --             |             | `string[] \| {}[]`  | `undefined` |
-| `objKey`      | `obj-key`      |             | `string`            | `undefined` |
-| `placeholder` | `placeholder`  |             | `string`            | `'Filter'`  |
-| `scale`       | `scale`        |             | `"l" \| "m" \| "s"` | `'m'`       |
+| Property      | Attribute      | Description                                                                                        | Type                | Default     |
+| ------------- | -------------- | -------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `debounce`    | `debounce`     | Debounces input in milliseconds                                                                    | `number`            | `250`       |
+| `filterValue` | `filter-value` | Value to filter items by                                                                           | `string`            | `undefined` |
+| `items`       | --             | Items to filter                                                                                    | `string[] \| {}[]`  | `undefined` |
+| `objKey`      | `obj-key`      | Key to filter items by. Supports up two two levels of nesting. For example, 'state.title' is valid | `string`            | `undefined` |
+| `placeholder` | `placeholder`  | Placeholder text for input                                                                         | `string`            | `'Filter'`  |
+| `scale`       | `scale`        | Size of the filter input                                                                           | `"l" \| "m" \| "s"` | `'m'`       |
 
 
 ## Events
 
-| Event                     | Description | Type                    |
-| ------------------------- | ----------- | ----------------------- |
-| `dashFilterFilteredItems` |             | `CustomEvent<object[]>` |
-| `dashFilterSubmit`        |             | `CustomEvent<void>`     |
-| `dashFilterValueChanged`  |             | `CustomEvent<void>`     |
+| Event                     | Description                            | Type                    |
+| ------------------------- | -------------------------------------- | ----------------------- |
+| `dashFilterFilteredItems` | Emitted when filtered items change     | `CustomEvent<object[]>` |
+| `dashFilterSubmit`        | Emitted when user submits filter input | `CustomEvent<void>`     |
+| `dashFilterValueChanged`  | Emitted when filtered value changes    | `CustomEvent<void>`     |
 
 
 ## Methods
 
 ### `clear() => Promise<void>`
 
-
+Clears filter value
 
 #### Returns
 
@@ -40,7 +40,7 @@ Type: `Promise<void>`
 
 ### `select() => Promise<void>`
 
-
+Selects text in filter input
 
 #### Returns
 
@@ -50,7 +50,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Sets focus on this element
 
 #### Returns
 

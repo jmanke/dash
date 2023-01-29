@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type      | Default     |
-| -------------- | --------------- | ----------- | --------- | ----------- |
-| `heading`      | `heading`       |             | `string`  | `undefined` |
-| `stickyHeader` | `sticky-header` |             | `boolean` | `undefined` |
+| Property       | Attribute       | Description                         | Type      | Default     |
+| -------------- | --------------- | ----------------------------------- | --------- | ----------- |
+| `heading`      | `heading`       | Section heading                     | `string`  | `undefined` |
+| `stickyHeader` | `sticky-header` | When true, header sticks to the top | `boolean` | `undefined` |
 
 
 ----------------------------------------------

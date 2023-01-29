@@ -7,28 +7,24 @@
 
 ## Properties
 
-| Property        | Attribute        | Description | Type                               | Default     |
-| --------------- | ---------------- | ----------- | ---------------------------------- | ----------- |
-| `disabled`      | `disabled`       |             | `boolean`                          | `undefined` |
-| `scale`         | `scale`          |             | `"l" \| "m" \| "s"`                | `'m'`       |
-| `selected`      | `selected`       |             | `boolean`                          | `false`     |
-| `selectionMode` | `selection-mode` |             | `"multiple" \| "none" \| "single"` | `'single'`  |
+| Property   | Attribute  | Description                        | Type      | Default     |
+| ---------- | ---------- | ---------------------------------- | --------- | ----------- |
+| `disabled` | `disabled` | When true, interaction is disabled | `boolean` | `undefined` |
+| `selected` | `selected` | When true, list-item is selected   | `boolean` | `false`     |
 
 
 ## Events
 
-| Event                              | Description | Type                |
-| ---------------------------------- | ----------- | ------------------- |
-| `dashInternalListItemMoveNext`     |             | `CustomEvent<void>` |
-| `dashInternalListItemMovePrevious` |             | `CustomEvent<void>` |
-| `dashListItemSelectedChanged`      |             | `CustomEvent<void>` |
+| Event                         | Description                       | Type                |
+| ----------------------------- | --------------------------------- | ------------------- |
+| `dashListItemSelectedChanged` | Emitted when selected has changed | `CustomEvent<void>` |
 
 
 ## Methods
 
 ### `setFocus() => Promise<void>`
 
-
+Sets focus on this element
 
 #### Returns
 

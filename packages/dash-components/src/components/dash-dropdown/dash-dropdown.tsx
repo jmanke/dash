@@ -9,36 +9,62 @@ import { Placement, PlacementStrategy, PopoverCloseEvent } from '../dash-popover
 })
 export class DashDropdown {
   //#region Own properties
+
   popoverContentContainer: HTMLElement;
+
   //#endregion
 
   //#region @Element
+
   @Element()
   element: HTMLDashDropdownElement;
+
   //#endregion
 
   //#region @State
+
+  /**
+   * Popover target
+   */
   @State()
   target: HTMLElement;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * When true, dropdown is open
+   * @default false
+   */
   @Prop({
     mutable: true,
     reflect: true,
   })
   open: boolean = false;
 
+  /**
+   * Placement strategy for dropdown
+   * @default 'absolute'
+   */
   @Prop({
     reflect: true,
   })
   placementStrategy: PlacementStrategy = 'absolute';
 
+  /**
+   * Placement of the dropdown relative to its target
+   * @default 'bottom'
+   */
   @Prop({
     reflect: true,
   })
   placement: Placement = 'bottom';
 
+  /**
+   * When true, dropdown will close when focus is lost
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
@@ -52,24 +78,37 @@ export class DashDropdown {
     reflect: true,
   })
   autoFocus: boolean = true;
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when dropdown is either opened or closed
+   */
   @Event({
     eventName: 'dashDropdownOpenChange',
     composed: true,
     bubbles: true,
   })
   dropdownOpenChange: EventEmitter<void>;
+
   //#endregion
 
   //#region Component lifecycle
+
   disconnectedCallback() {
     this.close();
   }
+
   //#endregion
 
   //#region Listeners
+
+  /**
+   * Reacts to the dropdown visiblity changing
+   * @param e - Event
+   */
   @Listen('dashDropdownOpenChange')
   handleDropdownVisibleChanged(e: Event) {
     // prevent this element from blocking its own event
@@ -81,6 +120,9 @@ export class DashDropdown {
     e.stopPropagation();
   }
 
+  /**
+   * Reacts to the dropdown's popover opening
+   */
   @Listen('dashPopoverOpen')
   popoverOpened() {
     if (this.autoFocus) {
@@ -88,6 +130,9 @@ export class DashDropdown {
     }
   }
 
+  /**
+   * Reacts to the dropdown's popover closing
+   */
   @Listen('dashPopoverClose')
   async popoverClosed(e: CustomEvent<PopoverCloseEvent>) {
     this.close(e.detail.escapeInitiated);
@@ -95,6 +140,11 @@ export class DashDropdown {
   //#endregion
 
   //#region @Method
+
+  /**
+   * Close the dropdown
+   * @param focusTarget - target to focus once dropdown is closed
+   */
   @Method()
   async close(focusTarget?: boolean) {
     if (!this.open) {
@@ -106,16 +156,29 @@ export class DashDropdown {
       this.focusTarget();
     }
   }
+
   //#endregion
 
   //#region Local methods
+
+  /**
+   * callback for the target being clicked, must be a member variable to remove listener
+   */
   onDropdownTargetClicked: () => void;
 
+  /**
+   * Updates `open` property
+   * @param open - open value to assign
+   */
   updateOpen(open: boolean) {
     this.open = open;
     this.dropdownOpenChange.emit();
   }
 
+  /**
+   * Reacts to the dropdown target changing (slot changed)
+   * @param e - Slot changed event
+   */
   dropdownTargetChanged(e: Event) {
     if (this.target) {
       // remove click event on target if it exists
@@ -134,16 +197,26 @@ export class DashDropdown {
     }
   }
 
+  /**
+   * Focuses target element
+   */
   focusTarget() {
     this.target?.classList.remove(SKIP_NODE_CLASS);
     focus(this.target);
     this.target?.classList.add(SKIP_NODE_CLASS);
   }
 
+  /**
+   * Reacts to the dropdown target being clicked
+   */
   dropdownTargetClicked() {
     this.updateOpen(!this.open);
   }
 
+  /**
+   * Reacts to focus out event on dropdown popover
+   * @param e - dropdown focus out event
+   */
   popoverFocusOut(e: FocusEvent) {
     if (this.autoClose && !!e.relatedTarget && !contains(this.element, e.relatedTarget as HTMLElement)) {
       this.close();

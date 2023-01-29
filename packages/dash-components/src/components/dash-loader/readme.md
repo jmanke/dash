@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                | Default     |
-| -------- | --------- | ----------- | ------------------- | ----------- |
-| `scale`  | `scale`   |             | `"l" \| "m" \| "s"` | `undefined` |
+| Property | Attribute | Description        | Type                | Default |
+| -------- | --------- | ------------------ | ------------------- | ------- |
+| `scale`  | `scale`   | Size of the loader | `"l" \| "m" \| "s"` | `'m'`   |
 
 
 ## Dependencies

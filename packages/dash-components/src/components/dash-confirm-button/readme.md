@@ -7,17 +7,17 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type                | Default     |
-| -------- | --------- | ----------- | ------------------- | ----------- |
-| `icon`   | `icon`    |             | `string`            | `undefined` |
-| `scale`  | `scale`   |             | `"l" \| "m" \| "s"` | `undefined` |
+| Property | Attribute | Description                                     | Type                | Default     |
+| -------- | --------- | ----------------------------------------------- | ------------------- | ----------- |
+| `icon`   | `icon`    | Icon used in button that triggers confirm state | `string`            | `undefined` |
+| `scale`  | `scale`   | Size of the confirm button                      | `"l" \| "m" \| "s"` | `undefined` |
 
 
 ## Events
 
-| Event                        | Description | Type               |
-| ---------------------------- | ----------- | ------------------ |
-| `dashConfirmButtonConfirmed` |             | `CustomEvent<any>` |
+| Event                        | Description                | Type               |
+| ---------------------------- | -------------------------- | ------------------ |
+| `dashConfirmButtonConfirmed` | Emitted when user confirms | `CustomEvent<any>` |
 
 
 ## Dependencies

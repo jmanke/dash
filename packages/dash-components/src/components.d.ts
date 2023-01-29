@@ -16,33 +16,110 @@ import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, Popov
 import { Resize } from "./components/dash-textarea/dash-textarea";
 export namespace Components {
     interface DashButton {
+        /**
+          * Visible appearance of the button
+          * @default 'clear'
+         */
         "appearance": Appearance;
+        /**
+          * When true, disables interaction
+          * @default false
+         */
         "disabled": boolean;
+        /**
+          * Size of button
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
-        "startIcon": string;
-        "status": Status;
+        /**
+          * Icon displayed at the start of the button
+          * @optional
+         */
+        "startIcon"?: string;
+        /**
+          * Status of the button shown with various styles
+          * @optional
+         */
+        "status"?: Status;
     }
     interface DashChip {
+        /**
+          * Background color of the chip
+          * @required
+         */
         "color": Color | string;
+        /**
+          * Text to display when user focuses or hovers over dismiss button
+          * @optional
+         */
         "dismissTooltipText"?: string;
+        /**
+          * When true, chip can be removed
+          * @default false
+         */
+        "dismissible": boolean;
+        /**
+          * Displayed heading on the chip
+          * @required
+         */
         "heading": string;
-        "removeable": boolean;
+        /**
+          * When true, the chip can be interacted with
+          * @default false
+         */
         "selectable": boolean;
     }
     interface DashColorPicker {
+        /**
+          * Currently selected color
+          * @optional
+         */
         "color": Color;
+        /**
+          * Colors to pick from
+          * @required
+         */
         "colors": Color[];
+        /**
+          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
+          * @default colors.length
+         */
         "cols": number;
     }
     interface DashColorSwatch {
+        /**
+          * Color of the swatch
+          * @required
+         */
         "color": Color | string;
+        /**
+          * Size of swatch
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * When true, the swatch is selected and provides visual feedback
+          * @default false
+         */
         "selected": boolean;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
     }
     interface DashConfirmButton {
+        /**
+          * Icon used in button that triggers confirm state
+          * @required
+         */
         "icon": string;
+        /**
+          * Size of the confirm button
+         */
         "scale": Scale;
     }
     interface DashDatePicker {
@@ -57,19 +134,47 @@ export namespace Components {
         "format": Intl.DateTimeFormatOptions;
     }
     interface DashDrillMenu {
+        /**
+          * When true, drill menu is activated
+          * @default false
+         */
         "active": boolean;
+        /**
+          * Heading for the drill menu
+          * @optional
+         */
         "drillHeading": string;
     }
     interface DashDropdown {
+        /**
+          * When true, dropdown will close when focus is lost
+          * @default false
+         */
         "autoClose": boolean;
         /**
           * Auto focus dropdown content on open
           * @default true
          */
         "autoFocus": boolean;
+        /**
+          * Close the dropdown
+          * @param focusTarget - target to focus once dropdown is closed
+         */
         "close": (focusTarget?: boolean) => Promise<void>;
+        /**
+          * When true, dropdown is open
+          * @default false
+         */
         "open": boolean;
+        /**
+          * Placement of the dropdown relative to its target
+          * @default 'bottom'
+         */
         "placement": Placement;
+        /**
+          * Placement strategy for dropdown
+          * @default 'absolute'
+         */
         "placementStrategy": PlacementStrategy;
     }
     interface DashEventCalendarDay {
@@ -88,153 +193,531 @@ export namespace Components {
         "events": CalendarEvent[];
     }
     interface DashFab {
+        /**
+          * Icon to display
+          * @required
+         */
         "icon": string;
+        /**
+          * Size of the fab
+          * @default 'm'
+         */
         "scale": ScaleExtended;
     }
     interface DashFilter {
+        /**
+          * Clears filter value
+         */
         "clear": () => Promise<void>;
+        /**
+          * Debounces input in milliseconds
+          * @default 250
+         */
         "debounce": number;
+        /**
+          * Value to filter items by
+          * @optional
+         */
         "filterValue"?: string;
+        /**
+          * Items to filter
+          * @required
+         */
         "items": {}[] | string[];
+        /**
+          * Key to filter items by. Supports up two two levels of nesting. For example, 'state.title' is valid
+          * @optional
+         */
         "objKey": string;
+        /**
+          * Placeholder text for input
+          * @default 'Filter''
+         */
         "placeholder"?: string;
+        /**
+          * Size of the filter input
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * Selects text in filter input
+         */
         "select": () => Promise<void>;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
     }
     interface DashFocusTrap {
     }
     interface DashGrid {
+        /**
+          * Number of columns when the screen size is large
+          * @required
+         */
         "colL": number;
+        /**
+          * Number of columns when the screen size is medium
+          * @required
+         */
         "colM": number;
+        /**
+          * Number of columns when the screen size is small
+          * @required
+         */
         "colS": number;
+        /**
+          * Number of columns when the screen size is extra large
+          * @required
+         */
         "colXl": number;
     }
     interface DashIcon {
+        /**
+          * Color of the icon
+          * @default 'neutral'
+         */
         "color": IconColor;
+        /**
+          * Icon name to display
+          * @optional
+         */
         "icon": string;
+        /**
+          * URL pointing to icon
+          * @optional
+         */
         "iconUrl": string;
+        /**
+          * When true, icon is rounded
+          * @default false
+         */
         "rounded": boolean;
+        /**
+          * Size of the icon
+          * @default 'm'
+         */
         "scale"?: ScaleExtended;
+        /**
+          * Width of the icon in pixels
+          * @optional
+         */
         "width"?: number;
     }
     interface DashIconButton {
+        /**
+          * When true, the icon button cannot be interacted with
+          * @default false
+         */
         "disabled": boolean;
+        /**
+          * Icon to display
+          * @optional
+         */
         "icon": string;
+        /**
+          * Icon to display from URL
+          * @optional
+         */
         "iconUrl": string;
+        /**
+          * When true, indicates the button is loading and cannot be interacted with
+          * @default false
+         */
         "loading": boolean;
+        /**
+          * When true, the icon button will be round
+          * @default false
+         */
         "rounded": boolean;
-        "scale"?: ScaleExtended;
+        /**
+          * Size of the icon button
+          * @default 'm'
+         */
+        "scale": ScaleExtended;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
-        "tooltipPlacement": Placement;
+        /**
+          * Indicates where the tooltip should be placed relative to the icon button
+          * @optional
+         */
+        "tooltipPlacement"?: Placement;
+        /**
+          * When provided, a tooltip will display when interacted with
+          * @optional
+         */
         "tooltipText"?: string;
-        "type": string;
+        /**
+          * HTML button type https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
+          * @optional
+         */
+        "type"?: string;
     }
     interface DashInlineEdit {
+        /**
+          * When true, disabled interaction
+          * @default false
+         */
         "disabled": boolean;
+        /**
+          * Size of the inline edit
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * Value to be used for editing
+          * @required
+         */
         "value": string;
     }
     interface DashInput {
+        /**
+          * When true, a clear button will be displayed at the end of the input
+          * @default false
+         */
         "clearable": boolean;
+        /**
+          * Debounces input changes in milliseconds Note: debounce is only initialized on component load. Modifying debounce after initialization will not do anything.
+          * @optional
+         */
         "debounce"?: number;
+        /**
+          * Icon displayed at the end of the input
+          * @optional
+         */
         "icon"?: string;
-        "placeholder": string;
+        /**
+          * Placeholder text for input
+          * @optional
+         */
+        "placeholder"?: string;
+        /**
+          * Size of the input
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * Selects text in input
+         */
         "select": () => Promise<void>;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Input type
+          * @optional
+         */
         "type": string;
-        "value": string;
+        /**
+          * Value of input
+          * @optional
+         */
+        "value"?: string;
     }
     interface DashLabel {
+        /**
+          * Label for id https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attr-for
+          * @optional
+         */
         "for": string;
+        /**
+          * Determines how the label and content is laid out
+          * @default 'default'
+         */
         "layout": LabelLayout;
     }
     interface DashList {
+        /**
+          * Number of items to show in the list - a scrollbar appears for overflow
+          * @optional
+         */
         "maxItems"?: number;
+        /**
+          * Size of the list and its items
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * Selection mode of the list and its items
+          * @default 'single'
+         */
         "selectionMode": SelectionMode;
     }
     interface DashListItem {
+        /**
+          * When true, interaction is disabled
+         */
         "disabled": boolean;
+        /**
+          * Size of the list-item
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * When true, list-item is selected
+          * @default false
+         */
         "selected": boolean;
+        /**
+          * Selection mode of the list item
+          * @default 'single'
+         */
         "selectionMode": SelectionMode1;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
     }
     interface DashLoader {
+        /**
+          * Size of the loader
+          * @default 'm'
+         */
         "scale": Scale;
     }
     interface DashModal {
+        /**
+          * When true, sets focus on the close button if it's available
+          * @default false
+         */
         "autoFocus": boolean;
+        /**
+          * Closes the modal
+         */
         "close": () => Promise<void>;
+        /**
+          * When true, the modal will not automatically go into fullscreen mode when the screen size is mobile.
+          * @default false
+         */
         "disableFullscreenMobileView": boolean;
+        /**
+          * When true, modal is in fullscreen mode
+          * @default false
+         */
         "fullscreen": boolean;
-        "heading": string;
+        /**
+          * Modal heading
+          * @optional
+         */
+        "heading"?: string;
+        /**
+          * When true, the close button is not displayed
+          * @default false
+         */
         "hideCloseButton": boolean;
+        /**
+          * When true, the modal is open
+          * @default false
+         */
         "open": boolean;
+        /**
+          * Size of the modal
+          * @default 'm'
+         */
         "scale": Scale;
     }
     interface DashPopover {
+        /**
+          * When true, the popover will be open
+          * @default false
+         */
         "active": boolean;
+        /**
+          * When true, popover will autoclose when it loses focus
+          * @default false
+         */
         "autoClose": boolean;
+        /**
+          * Offset the popover in the x direction in pixels
+          * @optional
+         */
         "offsetX"?: number;
+        /**
+          * Offset the popover in the y direction in pixels
+          * @optional
+         */
         "offsetY"?: number;
+        /**
+          * Position of the popover relative to its target
+          * @default 'bottom'
+         */
         "placement": Placement;
+        /**
+          * Strategy of placing the popover
+          * @default 'absolute'
+         */
         "placementStrategy": PlacementStrategy;
         /**
           * Keeps the popover in view if it's positioned outside the window's view
+          * @default false
          */
         "stayInView": boolean;
+        /**
+          * Popover target reference, can either be an element or element id
+          * @required
+         */
         "target": HTMLElement | string;
     }
     interface DashScrim {
-        "active"?: boolean;
+        /**
+          * When true, the scrim is visible
+          * @default false
+         */
+        "active": boolean;
     }
     interface DashSection {
+        /**
+          * Section heading
+          * @required
+         */
         "heading": string;
+        /**
+          * When true, header sticks to the top
+          * @default false
+         */
         "stickyHeader": boolean;
     }
     interface DashShell {
     }
     interface DashSideBar {
+        /**
+          * When true, the sidebar is collapsed
+          * @default false
+         */
         "collapsed": boolean;
     }
     interface DashSidebarButton {
+        /**
+          * When true, the button is visibly active
+          * @default false
+         */
         "active": boolean;
+        /**
+          * When true, the button is in collapsed mode
+          * @default false
+         */
         "collapsed": boolean;
+        /**
+          * Icon displayed at the start of the button
+          * @required
+         */
         "icon": string;
+        /**
+          * Sets the color of the icon
+          * @optional
+         */
         "iconColor": string;
+        /**
+          * Button text to display
+          * @required
+         */
         "text": string;
     }
     interface DashTextarea {
+        /**
+          * text-area cols
+          * @optional
+         */
         "cols": number;
+        /**
+          * Placeholder text when there is no current value
+          * @optional
+         */
         "placeholder": string;
+        /**
+          * When true, disables updating the text-area value
+          * @default true
+         */
         "readonly": boolean;
+        /**
+          * When true, a value is required for forms
+          * @default false
+         */
         "required": boolean;
+        /**
+          * Determines how the text area can be resized, if at all
+         */
         "resize": Resize;
+        /**
+          * text-area rows
+          * @optional
+         */
         "rows": number;
+        /**
+          * Text of the text-area
+          * @optional
+         */
         "value": string;
     }
     interface DashThemeToggle {
+        /**
+          * Current theme
+          * @required
+         */
         "theme": Theme;
     }
     interface DashTimePicker {
         "time": string;
     }
     interface DashToggleSwitch {
+        /**
+          * When true, toggle is checked
+          * @optional
+         */
         "checked": boolean;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
     }
     interface DashTooltip {
+        /**
+          * When true, an arrow is displayed on the tooltip
+          * @default false
+         */
         "arrow": boolean;
+        /**
+          * When true, tooltip is visible
+          * @default false
+         */
         "enabled": boolean;
+        /**
+          * Offset the tooltip in the x direction in pixels
+          * @optional
+         */
         "offsetX"?: number;
+        /**
+          * Offset the tooltip in the y direction in pixels
+          * @optional
+         */
         "offsetY"?: number;
+        /**
+          * Position of the tooltip relative to its target
+          * @default 'bottom'
+         */
         "placement": Placement;
+        /**
+          * Strategy the tooltip is placed
+          * @default 'absolute'
+         */
         "placementStrategy": PlacementStrategy;
+        /**
+          * Size of the tooltip
+          * @default 'm'
+         */
         "scale": Scale;
+        /**
+          * Target reference element where the tooltip will be positioned next to
+          * @required
+         */
         "target": HTMLElement | string;
+        /**
+          * Text value to be displayed in tooltip
+          * @required
+         */
         "text": string;
     }
 }
@@ -309,6 +792,10 @@ export interface DashSideBarCustomEvent<T> extends CustomEvent<T> {
 export interface DashTextareaCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashTextareaElement;
+}
+export interface DashThemeToggleCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashThemeToggleElement;
 }
 export interface DashTimePickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -576,34 +1063,114 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DashButton {
+        /**
+          * Visible appearance of the button
+          * @default 'clear'
+         */
         "appearance"?: Appearance;
+        /**
+          * When true, disables interaction
+          * @default false
+         */
         "disabled"?: boolean;
+        /**
+          * Size of button
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * Icon displayed at the start of the button
+          * @optional
+         */
         "startIcon"?: string;
+        /**
+          * Status of the button shown with various styles
+          * @optional
+         */
         "status"?: Status;
     }
     interface DashChip {
+        /**
+          * Background color of the chip
+          * @required
+         */
         "color"?: Color | string;
+        /**
+          * Text to display when user focuses or hovers over dismiss button
+          * @optional
+         */
         "dismissTooltipText"?: string;
+        /**
+          * When true, chip can be removed
+          * @default false
+         */
+        "dismissible"?: boolean;
+        /**
+          * Displayed heading on the chip
+          * @required
+         */
         "heading"?: string;
-        "onDashChipRemove"?: (event: DashChipCustomEvent<any>) => void;
-        "removeable"?: boolean;
+        /**
+          * Emitted when the chip is removed
+         */
+        "onDashChipDismiss"?: (event: DashChipCustomEvent<any>) => void;
+        /**
+          * When true, the chip can be interacted with
+          * @default false
+         */
         "selectable"?: boolean;
     }
     interface DashColorPicker {
+        /**
+          * Currently selected color
+          * @optional
+         */
         "color"?: Color;
+        /**
+          * Colors to pick from
+          * @required
+         */
         "colors"?: Color[];
+        /**
+          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
+          * @default colors.length
+         */
         "cols"?: number;
+        /**
+          * Emitted when color has been selected
+         */
         "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<void>) => void;
     }
     interface DashColorSwatch {
+        /**
+          * Color of the swatch
+          * @required
+         */
         "color"?: Color | string;
+        /**
+          * Size of swatch
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * When true, the swatch is selected and provides visual feedback
+          * @default false
+         */
         "selected"?: boolean;
     }
     interface DashConfirmButton {
+        /**
+          * Icon used in button that triggers confirm state
+          * @required
+         */
         "icon"?: string;
+        /**
+          * Emitted when user confirms
+         */
         "onDashConfirmButtonConfirmed"?: (event: DashConfirmButtonCustomEvent<any>) => void;
+        /**
+          * Size of the confirm button
+         */
         "scale"?: Scale;
     }
     interface DashDatePicker {
@@ -619,20 +1186,50 @@ declare namespace LocalJSX {
         "onDashDatePickerDateChange"?: (event: DashDatePickerCustomEvent<void>) => void;
     }
     interface DashDrillMenu {
+        /**
+          * When true, drill menu is activated
+          * @default false
+         */
         "active"?: boolean;
+        /**
+          * Heading for the drill menu
+          * @optional
+         */
         "drillHeading"?: string;
+        /**
+          * Emitted when drill menu is closed
+         */
         "onDashDrillMenuClosed"?: (event: DashDrillMenuCustomEvent<any>) => void;
     }
     interface DashDropdown {
+        /**
+          * When true, dropdown will close when focus is lost
+          * @default false
+         */
         "autoClose"?: boolean;
         /**
           * Auto focus dropdown content on open
           * @default true
          */
         "autoFocus"?: boolean;
+        /**
+          * Emitted when dropdown is either opened or closed
+         */
         "onDashDropdownOpenChange"?: (event: DashDropdownCustomEvent<void>) => void;
+        /**
+          * When true, dropdown is open
+          * @default false
+         */
         "open"?: boolean;
+        /**
+          * Placement of the dropdown relative to its target
+          * @default 'bottom'
+         */
         "placement"?: Placement;
+        /**
+          * Placement strategy for dropdown
+          * @default 'absolute'
+         */
         "placementStrategy"?: PlacementStrategy;
     }
     interface DashEventCalendarDay {
@@ -665,143 +1262,506 @@ declare namespace LocalJSX {
         "onDashEventCalendarPrevWeek"?: (event: DashEventCalendarWeekCustomEvent<void>) => void;
     }
     interface DashFab {
+        /**
+          * Icon to display
+          * @required
+         */
         "icon"?: string;
+        /**
+          * Size of the fab
+          * @default 'm'
+         */
         "scale"?: ScaleExtended;
     }
     interface DashFilter {
+        /**
+          * Debounces input in milliseconds
+          * @default 250
+         */
         "debounce"?: number;
+        /**
+          * Value to filter items by
+          * @optional
+         */
         "filterValue"?: string;
+        /**
+          * Items to filter
+          * @required
+         */
         "items"?: {}[] | string[];
+        /**
+          * Key to filter items by. Supports up two two levels of nesting. For example, 'state.title' is valid
+          * @optional
+         */
         "objKey"?: string;
+        /**
+          * Emitted when filtered items change
+         */
         "onDashFilterFilteredItems"?: (event: DashFilterCustomEvent<object[]>) => void;
+        /**
+          * Emitted when user submits filter input
+         */
         "onDashFilterSubmit"?: (event: DashFilterCustomEvent<void>) => void;
+        /**
+          * Emitted when filtered value changes
+         */
         "onDashFilterValueChanged"?: (event: DashFilterCustomEvent<void>) => void;
+        /**
+          * Placeholder text for input
+          * @default 'Filter''
+         */
         "placeholder"?: string;
+        /**
+          * Size of the filter input
+          * @default 'm'
+         */
         "scale"?: Scale;
     }
     interface DashFocusTrap {
     }
     interface DashGrid {
+        /**
+          * Number of columns when the screen size is large
+          * @required
+         */
         "colL"?: number;
+        /**
+          * Number of columns when the screen size is medium
+          * @required
+         */
         "colM"?: number;
+        /**
+          * Number of columns when the screen size is small
+          * @required
+         */
         "colS"?: number;
+        /**
+          * Number of columns when the screen size is extra large
+          * @required
+         */
         "colXl"?: number;
     }
     interface DashIcon {
+        /**
+          * Color of the icon
+          * @default 'neutral'
+         */
         "color"?: IconColor;
+        /**
+          * Icon name to display
+          * @optional
+         */
         "icon"?: string;
+        /**
+          * URL pointing to icon
+          * @optional
+         */
         "iconUrl"?: string;
+        /**
+          * When true, icon is rounded
+          * @default false
+         */
         "rounded"?: boolean;
+        /**
+          * Size of the icon
+          * @default 'm'
+         */
         "scale"?: ScaleExtended;
+        /**
+          * Width of the icon in pixels
+          * @optional
+         */
         "width"?: number;
     }
     interface DashIconButton {
+        /**
+          * When true, the icon button cannot be interacted with
+          * @default false
+         */
         "disabled"?: boolean;
+        /**
+          * Icon to display
+          * @optional
+         */
         "icon"?: string;
+        /**
+          * Icon to display from URL
+          * @optional
+         */
         "iconUrl"?: string;
+        /**
+          * When true, indicates the button is loading and cannot be interacted with
+          * @default false
+         */
         "loading"?: boolean;
+        /**
+          * When true, the icon button will be round
+          * @default false
+         */
         "rounded"?: boolean;
+        /**
+          * Size of the icon button
+          * @default 'm'
+         */
         "scale"?: ScaleExtended;
+        /**
+          * Indicates where the tooltip should be placed relative to the icon button
+          * @optional
+         */
         "tooltipPlacement"?: Placement;
+        /**
+          * When provided, a tooltip will display when interacted with
+          * @optional
+         */
         "tooltipText"?: string;
+        /**
+          * HTML button type https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
+          * @optional
+         */
         "type"?: string;
     }
     interface DashInlineEdit {
+        /**
+          * When true, disabled interaction
+          * @default false
+         */
         "disabled"?: boolean;
+        /**
+          * Emitted when the value has been changed and confirmed
+         */
         "onDashInlineEditValueChanged"?: (event: DashInlineEditCustomEvent<void>) => void;
+        /**
+          * Size of the inline edit
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * Value to be used for editing
+          * @required
+         */
         "value"?: string;
     }
     interface DashInput {
+        /**
+          * When true, a clear button will be displayed at the end of the input
+          * @default false
+         */
         "clearable"?: boolean;
+        /**
+          * Debounces input changes in milliseconds Note: debounce is only initialized on component load. Modifying debounce after initialization will not do anything.
+          * @optional
+         */
         "debounce"?: number;
+        /**
+          * Icon displayed at the end of the input
+          * @optional
+         */
         "icon"?: string;
+        /**
+          * Emitted
+         */
         "onDashInputChange"?: (event: DashInputCustomEvent<void>) => void;
+        /**
+          * Emitted when input changes
+         */
         "onDashInputInput"?: (event: DashInputCustomEvent<void>) => void;
+        /**
+          * Emitted only when input is submitted
+         */
         "onDashInputSubmit"?: (event: DashInputCustomEvent<void>) => void;
+        /**
+          * Placeholder text for input
+          * @optional
+         */
         "placeholder"?: string;
+        /**
+          * Size of the input
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * Input type
+          * @optional
+         */
         "type"?: string;
+        /**
+          * Value of input
+          * @optional
+         */
         "value"?: string;
     }
     interface DashLabel {
+        /**
+          * Label for id https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attr-for
+          * @optional
+         */
         "for"?: string;
+        /**
+          * Determines how the label and content is laid out
+          * @default 'default'
+         */
         "layout"?: LabelLayout;
     }
     interface DashList {
+        /**
+          * Number of items to show in the list - a scrollbar appears for overflow
+          * @optional
+         */
         "maxItems"?: number;
+        /**
+          * Size of the list and its items
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * Selection mode of the list and its items
+          * @default 'single'
+         */
         "selectionMode"?: SelectionMode;
     }
     interface DashListItem {
+        /**
+          * When true, interaction is disabled
+         */
         "disabled"?: boolean;
+        /**
+          * Emitted when list-item indicates focus should be moved to the next list-item
+         */
         "onDashInternalListItemMoveNext"?: (event: DashListItemCustomEvent<void>) => void;
+        /**
+          * Emitted when list-item indicates focus should be moved to the previous list-item
+         */
         "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<void>) => void;
+        /**
+          * Emitted when selected has changed
+         */
         "onDashListItemSelectedChanged"?: (event: DashListItemCustomEvent<void>) => void;
+        /**
+          * Size of the list-item
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * When true, list-item is selected
+          * @default false
+         */
         "selected"?: boolean;
+        /**
+          * Selection mode of the list item
+          * @default 'single'
+         */
         "selectionMode"?: SelectionMode1;
     }
     interface DashLoader {
+        /**
+          * Size of the loader
+          * @default 'm'
+         */
         "scale"?: Scale;
     }
     interface DashModal {
+        /**
+          * When true, sets focus on the close button if it's available
+          * @default false
+         */
         "autoFocus"?: boolean;
+        /**
+          * When true, the modal will not automatically go into fullscreen mode when the screen size is mobile.
+          * @default false
+         */
         "disableFullscreenMobileView"?: boolean;
+        /**
+          * When true, modal is in fullscreen mode
+          * @default false
+         */
         "fullscreen"?: boolean;
+        /**
+          * Modal heading
+          * @optional
+         */
         "heading"?: string;
+        /**
+          * When true, the close button is not displayed
+          * @default false
+         */
         "hideCloseButton"?: boolean;
+        /**
+          * Emitted when the modal is about to close (before the animation starts playing)
+         */
         "onDashModalBeforeClose"?: (event: DashModalCustomEvent<any>) => void;
+        /**
+          * Emitted after the modal's close animation completes and the modal is actually closed
+         */
         "onDashModalClosed"?: (event: DashModalCustomEvent<any>) => void;
+        /**
+          * When true, the modal is open
+          * @default false
+         */
         "open"?: boolean;
+        /**
+          * Size of the modal
+          * @default 'm'
+         */
         "scale"?: Scale;
     }
     interface DashPopover {
+        /**
+          * When true, the popover will be open
+          * @default false
+         */
         "active"?: boolean;
+        /**
+          * When true, popover will autoclose when it loses focus
+          * @default false
+         */
         "autoClose"?: boolean;
+        /**
+          * Offset the popover in the x direction in pixels
+          * @optional
+         */
         "offsetX"?: number;
+        /**
+          * Offset the popover in the y direction in pixels
+          * @optional
+         */
         "offsetY"?: number;
+        /**
+          * Emitted when the popover is closed
+         */
         "onDashPopoverClose"?: (event: DashPopoverCustomEvent<PopoverCloseEvent>) => void;
+        /**
+          * Emitted when the popover is opened
+         */
         "onDashPopoverOpen"?: (event: DashPopoverCustomEvent<any>) => void;
+        /**
+          * Position of the popover relative to its target
+          * @default 'bottom'
+         */
         "placement"?: Placement;
+        /**
+          * Strategy of placing the popover
+          * @default 'absolute'
+         */
         "placementStrategy"?: PlacementStrategy;
         /**
           * Keeps the popover in view if it's positioned outside the window's view
+          * @default false
          */
         "stayInView"?: boolean;
+        /**
+          * Popover target reference, can either be an element or element id
+          * @required
+         */
         "target"?: HTMLElement | string;
     }
     interface DashScrim {
+        /**
+          * When true, the scrim is visible
+          * @default false
+         */
         "active"?: boolean;
     }
     interface DashSection {
+        /**
+          * Section heading
+          * @required
+         */
         "heading"?: string;
+        /**
+          * When true, header sticks to the top
+          * @default false
+         */
         "stickyHeader"?: boolean;
     }
     interface DashShell {
     }
     interface DashSideBar {
+        /**
+          * When true, the sidebar is collapsed
+          * @default false
+         */
         "collapsed"?: boolean;
+        /**
+          * Emitted when the sidebar is closed
+         */
         "onDashSideBarClose"?: (event: DashSideBarCustomEvent<any>) => void;
     }
     interface DashSidebarButton {
+        /**
+          * When true, the button is visibly active
+          * @default false
+         */
         "active"?: boolean;
+        /**
+          * When true, the button is in collapsed mode
+          * @default false
+         */
         "collapsed"?: boolean;
+        /**
+          * Icon displayed at the start of the button
+          * @required
+         */
         "icon"?: string;
+        /**
+          * Sets the color of the icon
+          * @optional
+         */
         "iconColor"?: string;
+        /**
+          * Button text to display
+          * @required
+         */
         "text"?: string;
     }
     interface DashTextarea {
+        /**
+          * text-area cols
+          * @optional
+         */
         "cols"?: number;
+        /**
+          * Emitted when text area value changes
+         */
         "onDashTextareaInput"?: (event: DashTextareaCustomEvent<any>) => void;
+        /**
+          * Placeholder text when there is no current value
+          * @optional
+         */
         "placeholder"?: string;
+        /**
+          * When true, disables updating the text-area value
+          * @default true
+         */
         "readonly"?: boolean;
+        /**
+          * When true, a value is required for forms
+          * @default false
+         */
         "required"?: boolean;
+        /**
+          * Determines how the text area can be resized, if at all
+         */
         "resize"?: Resize;
+        /**
+          * text-area rows
+          * @optional
+         */
         "rows"?: number;
+        /**
+          * Text of the text-area
+          * @optional
+         */
         "value"?: string;
     }
     interface DashThemeToggle {
+        /**
+          * Emitted when the theme changed
+         */
+        "onDashThemeToggleChange"?: (event: DashThemeToggleCustomEvent<void>) => void;
+        /**
+          * Current theme
+          * @required
+         */
         "theme"?: Theme;
     }
     interface DashTimePicker {
@@ -809,18 +1769,61 @@ declare namespace LocalJSX {
         "time"?: string;
     }
     interface DashToggleSwitch {
+        /**
+          * When true, toggle is checked
+          * @optional
+         */
         "checked"?: boolean;
+        /**
+          * Emitted when checked value has changed
+         */
         "onDashToggleSwitchCheckChanged"?: (event: DashToggleSwitchCustomEvent<any>) => void;
     }
     interface DashTooltip {
+        /**
+          * When true, an arrow is displayed on the tooltip
+          * @default false
+         */
         "arrow"?: boolean;
+        /**
+          * When true, tooltip is visible
+          * @default false
+         */
         "enabled"?: boolean;
+        /**
+          * Offset the tooltip in the x direction in pixels
+          * @optional
+         */
         "offsetX"?: number;
+        /**
+          * Offset the tooltip in the y direction in pixels
+          * @optional
+         */
         "offsetY"?: number;
+        /**
+          * Position of the tooltip relative to its target
+          * @default 'bottom'
+         */
         "placement"?: Placement;
+        /**
+          * Strategy the tooltip is placed
+          * @default 'absolute'
+         */
         "placementStrategy"?: PlacementStrategy;
+        /**
+          * Size of the tooltip
+          * @default 'm'
+         */
         "scale"?: Scale;
+        /**
+          * Target reference element where the tooltip will be positioned next to
+          * @required
+         */
         "target"?: HTMLElement | string;
+        /**
+          * Text value to be displayed in tooltip
+          * @required
+         */
         "text"?: string;
     }
     interface IntrinsicElements {

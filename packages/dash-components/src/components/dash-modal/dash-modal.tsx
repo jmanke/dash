@@ -10,73 +10,125 @@ import { wait } from '@didyoumeantoast/dash-utils';
 })
 export class DashModal implements Modal {
   //#region Own properties
+
   closeButton: HTMLDashButtonElement;
+
+  /**
+   * Callback when modal is closed
+   */
   closeCb: () => void;
+
   //#endregion
 
   //#region @Element
+
   @Element()
   element: HTMLElement;
+
   //#endregion
 
   //#region @State
+
+  /**
+   * When true, the modal is closing and playing its animation
+   */
   @State()
   closing = false;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * When true, the modal is open
+   * @default false
+   */
   @Prop({
     mutable: true,
     reflect: true,
   })
   open: boolean;
 
+  /**
+   * Modal heading
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
-  heading: string;
+  heading?: string;
 
+  /**
+   * When true, modal is in fullscreen mode
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   fullscreen: boolean;
 
+  /**
+   * Size of the modal
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
   scale: Scale = 'm';
 
+  /**
+   * When true, the close button is not displayed
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   hideCloseButton: boolean;
 
+  /**
+   * When true, sets focus on the close button if it's available
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   autoFocus: boolean;
 
+  /**
+   * When true, the modal will not automatically go into fullscreen mode when the screen size is mobile.
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   disableFullscreenMobileView: boolean;
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when the modal is about to close (before the animation starts playing)
+   */
   @Event({
     eventName: 'dashModalBeforeClose',
     bubbles: true,
   })
   dashModalBeforeClose: EventEmitter;
 
+  /**
+   * Emitted after the modal's close animation completes and the modal is actually closed
+   */
   @Event({
     eventName: 'dashModalClosed',
     bubbles: true,
   })
   dashModalClosed: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
+
   componentDidLoad() {
     if (this.autoFocus) {
       setTimeout(() => {
@@ -84,12 +136,17 @@ export class DashModal implements Modal {
       }, 0);
     }
   }
+
   //#endregion
 
   //#region Listeners
   //#endregion
 
   //#region @Method
+
+  /**
+   * Closes the modal
+   */
   @Method()
   async close() {
     this.closing = true;
@@ -103,6 +160,7 @@ export class DashModal implements Modal {
     this.closing = false;
     this.dashModalClosed.emit();
   }
+
   //#endregion
 
   //#region Local methods

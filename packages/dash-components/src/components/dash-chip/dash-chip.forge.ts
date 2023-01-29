@@ -5,7 +5,7 @@ const template = args =>
   html`<dash-chip
     heading=${args.heading}
     ?selectable=${args.selectable}
-    ?removeable=${args.removeable}
+    ?dismissible=${args.dismissible}
     dismiss-tooltip-text=${args.dismissTooltipText}
     color=${args.color}
   ></dash-chip>`;
@@ -17,7 +17,7 @@ export const chipDefinition = {
     dismissTooltipText: { type: 'text' },
     color: colorControl,
     selectable: { type: 'boolean' },
-    removeable: { type: 'boolean' },
+    dismissible: { type: 'boolean' },
   },
   template,
   args: {
@@ -25,7 +25,7 @@ export const chipDefinition = {
     dismissTooltipText: 'Dismiss',
     color: 'red',
     selectable: true,
-    removeable: true,
+    dismissible: true,
   },
 };
 

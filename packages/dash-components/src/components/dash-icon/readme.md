@@ -7,14 +7,14 @@
 
 ## Properties
 
-| Property  | Attribute  | Description | Type                                    | Default     |
-| --------- | ---------- | ----------- | --------------------------------------- | ----------- |
-| `color`   | `color`    |             | `"neutral" \| "primary" \| "secondary"` | `'neutral'` |
-| `icon`    | `icon`     |             | `string`                                | `undefined` |
-| `iconUrl` | `icon-url` |             | `string`                                | `undefined` |
-| `rounded` | `rounded`  |             | `boolean`                               | `undefined` |
-| `scale`   | `scale`    |             | `"l" \| "m" \| "s" \| "xl"`             | `undefined` |
-| `width`   | `width`    |             | `number`                                | `undefined` |
+| Property  | Attribute  | Description                 | Type                                    | Default     |
+| --------- | ---------- | --------------------------- | --------------------------------------- | ----------- |
+| `color`   | `color`    | Color of the icon           | `"neutral" \| "primary" \| "secondary"` | `'neutral'` |
+| `icon`    | `icon`     | Icon name to display        | `string`                                | `undefined` |
+| `iconUrl` | `icon-url` | URL pointing to icon        | `string`                                | `undefined` |
+| `rounded` | `rounded`  | When true, icon is rounded  | `boolean`                               | `undefined` |
+| `scale`   | `scale`    | Size of the icon            | `"l" \| "m" \| "s" \| "xl"`             | `'m'`       |
+| `width`   | `width`    | Width of the icon in pixels | `number`                                | `undefined` |
 
 
 ## Dependencies

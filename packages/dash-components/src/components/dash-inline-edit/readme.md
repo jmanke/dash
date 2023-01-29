@@ -7,18 +7,18 @@
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                | Default     |
-| ---------- | ---------- | ----------- | ------------------- | ----------- |
-| `disabled` | `disabled` |             | `boolean`           | `undefined` |
-| `scale`    | `scale`    |             | `"l" \| "m" \| "s"` | `undefined` |
-| `value`    | `value`    |             | `string`            | `undefined` |
+| Property   | Attribute  | Description                     | Type                | Default     |
+| ---------- | ---------- | ------------------------------- | ------------------- | ----------- |
+| `disabled` | `disabled` | When true, disabled interaction | `boolean`           | `undefined` |
+| `scale`    | `scale`    | Size of the inline edit         | `"l" \| "m" \| "s"` | `'m'`       |
+| `value`    | `value`    | Value to be used for editing    | `string`            | `undefined` |
 
 
 ## Events
 
-| Event                        | Description | Type                |
-| ---------------------------- | ----------- | ------------------- |
-| `dashInlineEditValueChanged` |             | `CustomEvent<void>` |
+| Event                        | Description                                           | Type                |
+| ---------------------------- | ----------------------------------------------------- | ------------------- |
+| `dashInlineEditValueChanged` | Emitted when the value has been changed and confirmed | `CustomEvent<void>` |
 
 
 ## Dependencies

@@ -17,15 +17,25 @@ export class DashFab {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Icon to display
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   icon: string;
 
+  /**
+   * Size of the fab
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
-  scale: ScaleExtended;
+  scale: ScaleExtended = 'm';
+
   //#endregion
 
   //#region @Event

@@ -16,6 +16,7 @@ const entryPoints = [
   'src/space-concat.ts',
   'src/string-search.ts',
   'src/wait.ts',
+  'src/is-none.ts',
 ];
 
 build({

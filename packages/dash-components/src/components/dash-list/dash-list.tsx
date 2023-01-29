@@ -11,21 +11,39 @@ export type SelectionMode = 'single' | 'multiple' | 'none';
 })
 export class DashList {
   //#region Own properties
+
+  /**
+   * dash-list-items that are children of this component
+   */
   listItems: HTMLDashListItemElement[] = [];
+
   resizeObserver: ResizeObserver;
+
   //#endregion
 
   //#region @Element
+
   @Element()
   element: HTMLElement;
+
   //#endregion
 
   //#region @State
+
+  /**
+   * Maximum height of the list
+   */
   @State()
   maxHeight?: number;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Selection mode of the list and its items
+   * @default 'single'
+   */
   @Prop({
     reflect: true,
   })
@@ -35,6 +53,10 @@ export class DashList {
     this.updateChildProps();
   }
 
+  /**
+   * Size of the list and its items
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
@@ -44,6 +66,10 @@ export class DashList {
     this.updateChildProps();
   }
 
+  /**
+   * Number of items to show in the list - a scrollbar appears for overflow
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
@@ -58,6 +84,7 @@ export class DashList {
   //#endregion
 
   //#region Component lifecycle
+
   async componentWillLoad() {
     const mutationObserver = new MutationObserver(() => {
       this.updateChildProps();
@@ -67,6 +94,7 @@ export class DashList {
     this.updateChildProps();
     this.updateResizeObserver();
   }
+
   //#endregion
 
   //#region Listeners
@@ -76,6 +104,10 @@ export class DashList {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Updates the resize observer
+   */
   updateResizeObserver() {
     if (!this.maxItems || this.maxItems < 1) {
       this.resizeObserver?.disconnect();
@@ -95,21 +127,35 @@ export class DashList {
     this.resizeObserver.observe(this.element);
   }
 
-  nextSibling(e: HTMLDashListItemElement) {
-    return (e.nextSibling as HTMLDashListItemElement) ?? this.listItems[0];
+  /**
+   * Returns the next sibling in the list
+   * @param element - reference element
+   * @returns next sibling element
+   */
+  nextSibling(element: HTMLDashListItemElement) {
+    return (element.nextSibling as HTMLDashListItemElement) ?? this.listItems[0];
   }
 
-  prevSibling(e: HTMLDashListItemElement) {
-    return (e.previousSibling as HTMLDashListItemElement) ?? this.listItems[this.listItems.length - 1];
+  /**
+   * Returns the previous sibling in the list
+   * @param element - reference element
+   * @returns previous sibling element
+   */
+  prevSibling(element: HTMLDashListItemElement) {
+    return (element.previousSibling as HTMLDashListItemElement) ?? this.listItems[this.listItems.length - 1];
   }
 
-  focusNextListItem(e: HTMLDashListItemElement) {
-    e.tabIndex = -1;
-    let nextSibling = this.nextSibling(e);
+  /**
+   * Sets focus on the next sibling list item
+   * @param element - reference element
+   */
+  focusNextListItem(element: HTMLDashListItemElement) {
+    element.tabIndex = -1;
+    let nextSibling = this.nextSibling(element);
     while (!isDefined(nextSibling.getAttribute) || isDefined(nextSibling.getAttribute('disabled'))) {
       nextSibling = this.nextSibling(nextSibling);
 
-      if (nextSibling === e) {
+      if (nextSibling === element) {
         break;
       }
     }
@@ -118,6 +164,10 @@ export class DashList {
     nextSibling.tabIndex = 0;
   }
 
+  /**
+   * Sets focus on the previous sibling list item
+   * @param element - reference element
+   */
   focusPreviousListItem(e: HTMLDashListItemElement) {
     e.tabIndex = -1;
     let prevSibling = this.prevSibling(e);
@@ -133,6 +183,9 @@ export class DashList {
     prevSibling.tabIndex = 0;
   }
 
+  /**
+   * Updates properties that need to be set on child dash-list-items
+   */
   updateChildProps() {
     this.listItems = Array.from(this.element.childNodes).filter(child => child.nodeName === 'DASH-LIST-ITEM') as HTMLDashListItemElement[];
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
@@ -142,6 +195,9 @@ export class DashList {
     });
   }
 
+  /**
+   * Updates maxHeight based on the maxItems property
+   */
   updateMaxHeight() {
     let height = 0;
     const itemsLength = Math.min(this.maxItems ?? 0, this.listItems?.length ?? 0);

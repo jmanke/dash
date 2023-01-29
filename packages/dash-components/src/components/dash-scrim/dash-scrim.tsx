@@ -16,8 +16,14 @@ export class DashScrim {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * When true, the scrim is visible
+   * @default false
+   */
   @Prop()
-  active?: boolean;
+  active: boolean;
+
   //#endregion
 
   //#region @Event
