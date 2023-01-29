@@ -16,17 +16,28 @@ export class DashSideBar {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * When true, the sidebar is collapsed
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   collapsed: boolean;
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when the sidebar is closed
+   */
   @Event({
     eventName: 'dashSideBarClose',
   })
   dashSideBarClose: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
@@ -39,9 +50,14 @@ export class DashSideBar {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Closes the sidebar
+   */
   close() {
     this.dashSideBarClose.emit();
   }
+
   //#endregion
 
   render() {

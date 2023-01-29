@@ -17,10 +17,16 @@ export class ThemeToggle {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Current theme
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   theme: Theme = 'light';
+
   //#endregion
 
   //#region @Event

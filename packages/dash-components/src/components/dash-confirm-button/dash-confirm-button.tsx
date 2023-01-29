@@ -9,9 +9,11 @@ import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@st
 })
 export class DashConfirmButton {
   //#region Own properties
+
   confirmWrapper: HTMLElement;
   defaultButton: HTMLDashIconButtonElement;
   cancelButton: HTMLDashIconButtonElement;
+
   //#endregion
 
   //#region @Element
@@ -19,6 +21,9 @@ export class DashConfirmButton {
 
   //#region @State
 
+  /**
+   * True when in the confirming state
+   */
   @State()
   isConfirming: boolean;
   @Watch('isConfirming')
@@ -33,11 +38,18 @@ export class DashConfirmButton {
 
   //#region @Prop
 
+  /**
+   * Icon used in button that triggers confirm state
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   icon: string;
 
+  /**
+   * Size of the confirm button
+   */
   @Prop({
     reflect: true,
   })
@@ -46,10 +58,15 @@ export class DashConfirmButton {
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when user confirms
+   */
   @Event({
     eventName: 'dashConfirmButtonConfirmed',
   })
   dashConfirmButtonConfirmed: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
@@ -63,6 +80,10 @@ export class DashConfirmButton {
 
   //#region Local methods
 
+  /**
+   * Handles when focus leaves confirm button wrapper
+   * @param e - event
+   */
   async confirmFocusedOut(e: FocusEvent) {
     if (contains(this.confirmWrapper, e.relatedTarget as HTMLElement)) {
       return;
@@ -75,12 +96,18 @@ export class DashConfirmButton {
     }
   }
 
+  /**
+   * Cancel confirmation
+   */
   async cancel() {
     this.isConfirming = false;
     await classExists(this.confirmWrapper, 'hidden');
     focus(this.defaultButton);
   }
 
+  /**
+   * Trigger confirmation
+   */
   async confirm() {
     this.isConfirming = false;
     this.dashConfirmButtonConfirmed.emit();

@@ -14,35 +14,59 @@ export class DashSidebarButton {
   //#endregion
 
   //#region @State
+
   @State()
   button: HTMLElement;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Icon displayed at the start of the button
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   icon: string;
 
+  /**
+   * When true, the button is in collapsed mode
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   collapsed: boolean;
 
+  /**
+   * Button text to display
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   text: string;
 
+  /**
+   * Sets the color of the icon
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   iconColor: string;
 
+  /**
+   * When true, the button is visibly active
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   active: boolean;
+
   //#endregion
 
   //#region @Event

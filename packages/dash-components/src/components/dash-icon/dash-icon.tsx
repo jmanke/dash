@@ -17,17 +17,33 @@ export class DashIcon {
   //#endregion
 
   //#region @State
+
+  /**
+   * SVG to display
+   */
   @State()
   svg: string;
 
+  /**
+   * When true, displays an error for the icon's url
+   */
   @State()
   iconUrlError: boolean;
 
+  /**
+   * Paths of the SVG
+   */
   @State()
   paths: Array<string> = [];
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Icon name to display
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
@@ -37,40 +53,62 @@ export class DashIcon {
     this.updateSvg();
   }
 
-  // set icon to fallback to if error occurs loading image url
+  /**
+   * URL pointing to icon
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   iconUrl: string;
 
+  /**
+   * Size of the icon
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
-  scale?: ScaleExtended;
+  scale?: ScaleExtended = 'm';
 
+  /**
+   * Width of the icon in pixels
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   width?: number;
 
+  /**
+   * Color of the icon
+   * @default 'neutral'
+   */
   @Prop({
     reflect: true,
   })
   color: IconColor = 'neutral';
 
+  /**
+   * When true, icon is rounded
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   rounded: boolean;
+
   //#endregion
 
   //#region @Event
   //#endregion
 
   //#region Component lifecycle
+
   componentWillLoad() {
     this.updateSvg();
   }
+
   //#endregion
 
   //#region Listeners
@@ -80,6 +118,10 @@ export class DashIcon {
   //#endregion
 
   //#region Local methods
+
+  /**
+   *  Updates the current SVG to be displayed
+   */
   async updateSvg() {
     if (!this.icon) {
       return;
@@ -87,6 +129,7 @@ export class DashIcon {
 
     this.paths = await iconService.getIconPaths(this.icon);
   }
+
   //#endregion
 
   render() {

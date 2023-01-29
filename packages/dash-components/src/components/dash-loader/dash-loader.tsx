@@ -17,10 +17,16 @@ export class DashLoader {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Size of the loader
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
-  scale: Scale;
+  scale: Scale = 'm';
+
   //#endregion
 
   //#region @Event

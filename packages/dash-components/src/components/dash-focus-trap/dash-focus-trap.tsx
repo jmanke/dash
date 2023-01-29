@@ -8,13 +8,24 @@ import { focus, SKIP_NODE_CLASS } from '@didyoumeantoast/dash-utils';
 })
 export class DashFocusTrap {
   //#region Own properties
+
+  /**
+   * Topmost element that is focusable
+   */
   topFence: HTMLElement;
+
+  /**
+   * Bottommost element that is focusable
+   */
   bottomFence: HTMLElement;
+
   //#endregion
 
   //#region @Element
+
   @Element()
   element: HTMLElement;
+
   //#endregion
 
   //#region @State
@@ -36,13 +47,21 @@ export class DashFocusTrap {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Focuses first element
+   */
   focusFirst() {
     focus(this.element);
   }
 
-  async focusLast() {
+  /**
+   * Focuses last element
+   */
+  focusLast() {
     focus(this.element, true);
   }
+  
   //#endregion
 
   render() {

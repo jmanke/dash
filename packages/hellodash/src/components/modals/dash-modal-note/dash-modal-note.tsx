@@ -219,7 +219,7 @@ export class DashModalNote implements Modal {
           {this.note &&
             this.noteEditorLoaded &&
             labels.map(l => (
-              <dash-chip heading={l.text} color={l.color} removeable onDashChipRemove={() => this.removeLabel(l.id)} dismissTooltipText='Remove label' selectable></dash-chip>
+              <dash-chip heading={l.text} color={l.color} dismissible onDashChipDismiss={() => this.removeLabel(l.id)} dismissTooltipText='Remove label' selectable></dash-chip>
             ))}
         </div>
 

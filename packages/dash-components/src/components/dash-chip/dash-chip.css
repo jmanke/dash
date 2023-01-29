@@ -6,13 +6,13 @@
   --dash-chip-background-color: var(--dash-color-gray);
 }
 
-:host([removeable]) {
+:host([dismissible]) {
   .heading {
     margin-inline-end: var(--dash-spacing-1);
   }
 }
 
-:host(:not([removeable])) {
+:host(:not([dismissible])) {
   .chip {
     padding-right: var(--dash-spacing-3);
   }

@@ -16,15 +16,25 @@ export class DashSection {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Section heading
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   heading: string;
 
+  /**
+   * When true, header sticks to the top
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   stickyHeader: boolean;
+
   //#endregion
 
   //#region @Event

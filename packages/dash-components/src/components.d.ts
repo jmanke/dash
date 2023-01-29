@@ -15,29 +15,99 @@ import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, Popov
 import { Resize } from "./components/dash-textarea/dash-textarea";
 export namespace Components {
     interface DashButton {
+        /**
+          * Visible appearance of the button
+          * @default 'clear'
+         */
         "appearance": Appearance;
+        /**
+          * When true, disables interaction
+          * @default false
+         */
         "disabled": boolean;
+        /**
+          * Size of button
+          * @default m
+         */
         "scale": Scale;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
-        "startIcon": string;
-        "status": Status;
+        /**
+          * Icon displayed at the start of the button
+          * @optional
+         */
+        "startIcon"?: string;
+        /**
+          * Status of the button shown with various styles
+          * @optional
+         */
+        "status"?: Status;
     }
     interface DashChip {
+        /**
+          * Background color of the chip
+          * @required
+         */
         "color": Color | string;
+        /**
+          * Text to display when user focuses or hovers over dismiss button
+          * @optional
+         */
         "dismissTooltipText"?: string;
+        /**
+          * When true, chip can be removed
+          * @default false
+         */
+        "dismissible": boolean;
+        /**
+          * Displayed heading on the chip
+          * @required
+         */
         "heading": string;
-        "removeable": boolean;
+        /**
+          * When true, the chip can be interacted with
+          * @default false
+         */
         "selectable": boolean;
     }
     interface DashColorPicker {
+        /**
+          * Currently selected color
+          * @optional
+         */
         "color": Color;
+        /**
+          * Colors to pick from
+          * @required
+         */
         "colors": Color[];
+        /**
+          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
+          * @default colors.length
+         */
         "cols": number;
     }
     interface DashColorSwatch {
+        /**
+          * Color of the swatch
+          * @required
+         */
         "color": Color | string;
+        /**
+          * Size of swatch
+          * @default m
+         */
         "scale": Scale;
+        /**
+          * When true, the swatch is selected and provides visual feedback
+          * @default false
+         */
         "selected": boolean;
+        /**
+          * Sets focus on this element
+         */
         "setFocus": () => Promise<void>;
     }
     interface DashConfirmButton {
@@ -471,29 +541,99 @@ declare global {
 }
 declare namespace LocalJSX {
     interface DashButton {
+        /**
+          * Visible appearance of the button
+          * @default 'clear'
+         */
         "appearance"?: Appearance;
+        /**
+          * When true, disables interaction
+          * @default false
+         */
         "disabled"?: boolean;
+        /**
+          * Size of button
+          * @default m
+         */
         "scale"?: Scale;
+        /**
+          * Icon displayed at the start of the button
+          * @optional
+         */
         "startIcon"?: string;
+        /**
+          * Status of the button shown with various styles
+          * @optional
+         */
         "status"?: Status;
     }
     interface DashChip {
+        /**
+          * Background color of the chip
+          * @required
+         */
         "color"?: Color | string;
+        /**
+          * Text to display when user focuses or hovers over dismiss button
+          * @optional
+         */
         "dismissTooltipText"?: string;
+        /**
+          * When true, chip can be removed
+          * @default false
+         */
+        "dismissible"?: boolean;
+        /**
+          * Displayed heading on the chip
+          * @required
+         */
         "heading"?: string;
-        "onDashChipRemove"?: (event: DashChipCustomEvent<any>) => void;
-        "removeable"?: boolean;
+        /**
+          * Emitted when the chip is removed
+         */
+        "onDashChipDismiss"?: (event: DashChipCustomEvent<any>) => void;
+        /**
+          * When true, the chip can be interacted with
+          * @default false
+         */
         "selectable"?: boolean;
     }
     interface DashColorPicker {
+        /**
+          * Currently selected color
+          * @optional
+         */
         "color"?: Color;
+        /**
+          * Colors to pick from
+          * @required
+         */
         "colors"?: Color[];
+        /**
+          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
+          * @default colors.length
+         */
         "cols"?: number;
+        /**
+          * Emitted when color has been selected
+         */
         "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<void>) => void;
     }
     interface DashColorSwatch {
+        /**
+          * Color of the swatch
+          * @required
+         */
         "color"?: Color | string;
+        /**
+          * Size of swatch
+          * @default m
+         */
         "scale"?: Scale;
+        /**
+          * When true, the swatch is selected and provides visual feedback
+          * @default false
+         */
         "selected"?: boolean;
     }
     interface DashConfirmButton {

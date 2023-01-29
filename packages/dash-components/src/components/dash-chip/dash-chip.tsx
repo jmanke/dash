@@ -12,47 +12,81 @@ export class DashChip {
   //#endregion
 
   //#region @Element
+
   @Element()
   element: HTMLDashChipElement;
+
   //#endregion
 
   //#region @State
+
+  /**
+   * Reference target of the popover
+   */
   @State()
   popoverTarget: HTMLElement;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Displayed heading on the chip
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   heading: string;
 
+  /**
+   * When true, the chip can be interacted with
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   selectable: boolean;
 
+  /**
+   * Text to display when user focuses or hovers over dismiss button
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   dismissTooltipText?: string;
 
+  /**
+   * When true, chip can be removed
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
-  removeable: boolean;
+  dismissible: boolean = false;
 
+  /**
+   * Background color of the chip
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   color: Color | string;
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when the chip is removed
+   */
   @Event({
-    eventName: 'dashChipRemove',
+    eventName: 'dashChipDismiss',
   })
-  dashChipRemove: EventEmitter;
+  dashChipDismiss: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
@@ -65,10 +99,16 @@ export class DashChip {
   //#endregion
 
   //#region Local methods
-  removeChip(e: MouseEvent) {
+
+  /**
+   * Emits event to dismiss chip
+   * @param e - Mouse event from dismiss button
+   */
+  dismissChip(e: MouseEvent) {
     e.stopPropagation();
-    this.dashChipRemove.emit();
+    this.dashChipDismiss.emit();
   }
+
   //#endregion
 
   render() {
@@ -80,7 +120,7 @@ export class DashChip {
           <div class='heading' title={this.heading}>
             {this.heading}
           </div>
-          {this.removeable && (
+          {this.dismissible && (
             <button
               ref={element =>
                 setTimeout(() => {
@@ -90,13 +130,13 @@ export class DashChip {
               class='dismiss'
               disabled={!this.selectable}
               tabIndex={this.selectable ? 0 : -1}
-              onClick={e => this.removeChip(e)}
+              onClick={e => this.dismissChip(e)}
             >
               <dash-icon class='close-chip' icon='x'></dash-icon>
             </button>
           )}
 
-          {this.removeable && this.dismissTooltipText && this.popoverTarget && (
+          {this.dismissible && this.dismissTooltipText && this.popoverTarget && (
             <dash-tooltip target={this.popoverTarget} text={this.dismissTooltipText} placementStrategy='fixed' offsetX={5} placement='right' scale='s'></dash-tooltip>
           )}
         </div>

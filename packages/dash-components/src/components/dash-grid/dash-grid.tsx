@@ -16,26 +16,48 @@ export class DashGrid {
   //#endregion
 
   //#region @State
+
+  /**
+   * Number of columns in the grid
+   */
   @State()
   numCols: number;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Number of columns when the screen size is small
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   colS: number;
 
+  /**
+   * Number of columns when the screen size is medium
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   colM: number;
 
+  /**
+   * Number of columns when the screen size is large
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   colL: number;
 
+  /**
+   * Number of columns when the screen size is extra large
+   * @required
+   */
   @Prop({
     reflect: true,
   })
@@ -46,6 +68,7 @@ export class DashGrid {
   //#endregion
 
   //#region Component lifecycle
+
   componentWillLoad() {
     this.addMediaListener(`(max-width: ${Breakpoint.small}px)`, 's');
     this.addMediaListener(`(min-width: ${Breakpoint.small}px)`, 'm');
@@ -69,6 +92,7 @@ export class DashGrid {
 
     this.numCols = this.getCols(size);
   }
+
   //#endregion
 
   //#region Listeners
@@ -78,6 +102,12 @@ export class DashGrid {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Gets number of columns given a size
+   * @param size - size of grid
+   * @returns number of columns for the specified size
+   */
   getCols(size: ColSize) {
     switch (size) {
       case 's':
@@ -91,16 +121,27 @@ export class DashGrid {
     }
   }
 
+  /**
+   * Generix method for adding a media listener on the window
+   * @param mediaStr - match media string
+   * @param size - column size
+   */
   addMediaListener(mediaStr: string, size: ColSize) {
     const matchMedia = window.matchMedia(mediaStr);
     matchMedia.onchange = e => this.setMedia(e, size);
   }
 
+  /**
+   * Sets the number of columns based on the screen size
+   * @param mediaQueryList
+   * @param size - size of the columns
+   */
   setMedia(mediaQueryList: MediaQueryListEvent | MediaQueryList, size: ColSize) {
     if (mediaQueryList.matches) {
       this.numCols = this.getCols(size);
     }
   }
+
   //#endregion
 
   render() {

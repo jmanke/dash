@@ -1,7 +1,6 @@
 import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
-import { isEmpty } from 'lodash';
 import { Scale } from '../../types/types';
-import { queryElementById } from '@didyoumeantoast/dash-utils';
+import { queryElementById, isNone } from '@didyoumeantoast/dash-utils';
 import { Placement, PlacementStrategy } from '../dash-popover/dash-popover';
 
 @Component({
@@ -11,19 +10,31 @@ import { Placement, PlacementStrategy } from '../dash-popover/dash-popover';
 })
 export class DashTooltip {
   //#region Own properties
+
   setActiveTrue: () => void;
   setActiveFalse: () => void;
+
   //#endregion
 
   //#region @Element
   //#endregion
 
   //#region @State
+
+  /**
+   * When true, the tooltip is visible
+   */
   @State()
   active: boolean;
+
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Target reference element where the tooltip will be positioned next to
+   * @required
+   */
   @Prop()
   target: HTMLElement | string;
   @Watch('target')
@@ -32,41 +43,73 @@ export class DashTooltip {
     this.connectEvents(newTarget);
   }
 
+  /**
+   * Text value to be displayed in tooltip
+   * @required
+   */
   @Prop({
     reflect: true,
   })
   text: string;
 
+  /**
+   * Strategy the tooltip is placed
+   * @default 'absolute'
+   */
   @Prop({
     reflect: true,
   })
   placementStrategy: PlacementStrategy = 'absolute';
 
+  /**
+   * Offset the tooltip in the x direction in pixels
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   offsetX?: number;
 
+  /**
+   * Offset the tooltip in the y direction in pixels
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   offsetY?: number;
 
+  /**
+   * Position of the tooltip relative to its target
+   * @default 'bottom'
+   */
   @Prop({
     reflect: true,
   })
   placement: Placement = 'bottom';
 
+  /**
+   * Size of the tooltip
+   * @default 'm'
+   */
   @Prop({
     reflect: true,
   })
   scale: Scale = 'm';
 
+  /**
+   * When true, an arrow is displayed on the tooltip
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   arrow: boolean;
 
+  /**
+   * When true, tooltip is visible
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
@@ -77,12 +120,14 @@ export class DashTooltip {
       this.active = false;
     }
   }
+
   //#endregion
 
   //#region @Event
   //#endregion
 
   //#region Component lifecycle
+
   componentDidLoad() {
     this.connectEvents(this.target);
   }
@@ -90,19 +135,20 @@ export class DashTooltip {
   disconnectedCallback() {
     this.disconnectEvents(this.target);
   }
+
   //#endregion
 
   //#region Listeners
 
-  // stop propagation of popover open event since tooltip behaves differently
   @Listen('dashPopoverOpen')
   handleDashPopoverOpen(e: CustomEvent) {
+    // stop propagation of popover open event since tooltip behaves differently
     e.stopPropagation();
   }
 
-  // stop propagation of popover close event since tooltip behaves differently
   @Listen('dashPopoverClose')
   handleDashPopoverClose(e: CustomEvent) {
+    // stop propagation of popover close event since tooltip behaves differently
     e.stopPropagation();
   }
 
@@ -112,14 +158,24 @@ export class DashTooltip {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Finds the target element
+   * @param target - target reference
+   * @returns target element
+   */
   getTargetElement(target: HTMLElement | string) {
-    if (isEmpty(target)) {
+    if (isNone(target)) {
       return;
     }
 
     return typeof target === 'string' ? queryElementById(document.body, target) : target;
   }
 
+  /**
+   * Connects required events for tooltip
+   * @param target - reference HTML element
+   */
   connectEvents(target: HTMLElement | string) {
     const element = this.getTargetElement(target);
     if (!element) {
@@ -139,6 +195,10 @@ export class DashTooltip {
     element.addEventListener('focusout', this.setActiveFalse);
   }
 
+  /**
+   * Disconnects required events for tooltip
+   * @param target - reference HTML element
+   */
   disconnectEvents(target: HTMLElement | string) {
     const element = this.getTargetElement(target);
     if (!element) {
@@ -154,9 +214,14 @@ export class DashTooltip {
     this.setActiveFalse = null;
   }
 
+  /**
+   * Updates the active state of the tooltip
+   * @param isActive - isActive value
+   */
   updateActive(isActive: boolean) {
     this.active = isActive;
   }
+
   //#endregion
 
   render() {

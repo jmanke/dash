@@ -18,45 +18,79 @@ export class DashTextarea {
   //#endregion
 
   //#region @Prop
+
+  /**
+   * Text of the text-area
+   * @optional
+   */
   @Prop({
     mutable: true,
   })
   value: string;
 
+  /**
+   * Determines how the text area can be resized, if at all
+   */
   @Prop({
     reflect: true,
   })
   resize: Resize = 'both';
 
+  /**
+   * text-area cols
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   cols: number;
 
+  /**
+   * text-area rows
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   rows: number;
 
+  /**
+   * Placeholder text when there is no current value
+   * @optional
+   */
   @Prop({
     reflect: true,
   })
   placeholder: string;
 
+  /**
+   * When true, disables updating the text-area value
+   * @default true
+   */
   @Prop({
     reflect: true,
   })
   readonly: boolean;
 
+  /**
+   * When true, a value is required for forms
+   * @default false
+   */
   @Prop({
     reflect: true,
   })
   required: boolean;
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when text area value changes
+   */
   @Event({ eventName: 'dashTextareaInput' })
   textAreaInput: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
@@ -69,10 +103,16 @@ export class DashTextarea {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Reacts to the textarea's value changing
+   * @param value - new value
+   */
   inputChanged(value: string) {
     this.value = value;
     this.textAreaInput.emit();
   }
+
   //#endregion
 
   render() {
