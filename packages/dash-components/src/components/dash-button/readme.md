@@ -34,6 +34,7 @@ Type: `Promise<void>`
 ### Used by
 
  - [dash-date-picker](../dash-date-picker)
+ - [dash-event-calendar-edit-event](../dash-event-calendar/dash-event-calendar-edit-event)
  - [dash-event-calendar-month](../dash-event-calendar/dash-event-calendar-month)
  - [dash-inline-edit](../dash-inline-edit)
  - [dash-modal](../dash-modal)
@@ -47,6 +48,7 @@ Type: `Promise<void>`
 graph TD;
   dash-button --> dash-icon
   dash-date-picker --> dash-button
+  dash-event-calendar-edit-event --> dash-button
   dash-event-calendar-month --> dash-button
   dash-inline-edit --> dash-button
   dash-modal --> dash-button

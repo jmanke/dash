@@ -7,19 +7,26 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type            | Default     |
-| -------- | --------- | ----------- | --------------- | ----------- |
-| `event`  | --        |             | `CalendarEvent` | `undefined` |
+| Property | Attribute | Description | Type                                     | Default     |
+| -------- | --------- | ----------- | ---------------------------------------- | ----------- |
+| `event`  | --        |             | `CalendarEvent \| CalendarEventInternal` | `undefined` |
 
 
 ## Events
 
-| Event                                   | Description | Type                         |
-| --------------------------------------- | ----------- | ---------------------------- |
-| `dashEventCalendarEditEventEventUpdate` |             | `CustomEvent<CalendarEvent>` |
+| Event                                   | Description | Type                |
+| --------------------------------------- | ----------- | ------------------- |
+| `dashEventCalendarEditEventEventCancel` |             | `CustomEvent<void>` |
+| `dashEventCalendarEditEventEventUpdate` |             | `CustomEvent<void>` |
 
 
 ## Dependencies
+
+### Used by
+
+ - [dash-event-calendar-day](../dash-event-calendar-day)
+ - [dash-event-calendar-month](../dash-event-calendar-month)
+ - [dash-event-calendar-week](../dash-event-calendar-week)
 
 ### Depends on
 
@@ -28,6 +35,7 @@
 - [dash-textarea](../../dash-textarea)
 - [dash-date-picker](../../dash-date-picker)
 - [dash-time-picker](../../dash-time-picker)
+- [dash-button](../../dash-button)
 
 ### Graph
 ```mermaid
@@ -37,6 +45,7 @@ graph TD;
   dash-event-calendar-edit-event --> dash-textarea
   dash-event-calendar-edit-event --> dash-date-picker
   dash-event-calendar-edit-event --> dash-time-picker
+  dash-event-calendar-edit-event --> dash-button
   dash-input --> dash-icon
   dash-input --> dash-icon-button
   dash-icon-button --> dash-icon
@@ -54,6 +63,9 @@ graph TD;
   dash-time-picker --> dash-list
   dash-time-picker --> dash-list-item
   dash-list-item --> dash-icon
+  dash-event-calendar-day --> dash-event-calendar-edit-event
+  dash-event-calendar-month --> dash-event-calendar-edit-event
+  dash-event-calendar-week --> dash-event-calendar-edit-event
   style dash-event-calendar-edit-event fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
