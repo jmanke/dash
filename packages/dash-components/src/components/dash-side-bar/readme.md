@@ -7,16 +7,16 @@
 
 ## Properties
 
-| Property    | Attribute   | Description | Type      | Default     |
-| ----------- | ----------- | ----------- | --------- | ----------- |
-| `collapsed` | `collapsed` |             | `boolean` | `undefined` |
+| Property    | Attribute   | Description                         | Type      | Default     |
+| ----------- | ----------- | ----------------------------------- | --------- | ----------- |
+| `collapsed` | `collapsed` | When true, the sidebar is collapsed | `boolean` | `undefined` |
 
 
 ## Events
 
-| Event              | Description | Type               |
-| ------------------ | ----------- | ------------------ |
-| `dashSideBarClose` |             | `CustomEvent<any>` |
+| Event              | Description                        | Type               |
+| ------------------ | ---------------------------------- | ------------------ |
+| `dashSideBarClose` | Emitted when the sidebar is closed | `CustomEvent<any>` |
 
 
 ----------------------------------------------

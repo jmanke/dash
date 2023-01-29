@@ -7,17 +7,17 @@
 
 ## Properties
 
-| Property       | Attribute       | Description | Type      | Default     |
-| -------------- | --------------- | ----------- | --------- | ----------- |
-| `active`       | `active`        |             | `boolean` | `undefined` |
-| `drillHeading` | `drill-heading` |             | `string`  | `undefined` |
+| Property       | Attribute       | Description                        | Type      | Default     |
+| -------------- | --------------- | ---------------------------------- | --------- | ----------- |
+| `active`       | `active`        | When true, drill menu is activated | `boolean` | `undefined` |
+| `drillHeading` | `drill-heading` | Heading for the drill menu         | `string`  | `undefined` |
 
 
 ## Events
 
-| Event                 | Description | Type               |
-| --------------------- | ----------- | ------------------ |
-| `dashDrillMenuClosed` |             | `CustomEvent<any>` |
+| Event                 | Description                       | Type               |
+| --------------------- | --------------------------------- | ------------------ |
+| `dashDrillMenuClosed` | Emitted when drill menu is closed | `CustomEvent<any>` |
 
 
 ## Dependencies

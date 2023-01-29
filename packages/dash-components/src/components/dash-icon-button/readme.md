@@ -7,24 +7,24 @@
 
 ## Properties
 
-| Property           | Attribute           | Description | Type                                                                                                                                                                                                         | Default     |
-| ------------------ | ------------------- | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
-| `disabled`         | `disabled`          |             | `boolean`                                                                                                                                                                                                    | `undefined` |
-| `icon`             | `icon`              |             | `string`                                                                                                                                                                                                     | `undefined` |
-| `iconUrl`          | `icon-url`          |             | `string`                                                                                                                                                                                                     | `undefined` |
-| `loading`          | `loading`           |             | `boolean`                                                                                                                                                                                                    | `undefined` |
-| `rounded`          | `rounded`           |             | `boolean`                                                                                                                                                                                                    | `undefined` |
-| `scale`            | `scale`             |             | `"l" \| "m" \| "s" \| "xl"`                                                                                                                                                                                  | `undefined` |
-| `tooltipPlacement` | `tooltip-placement` |             | `"auto" \| "auto-end" \| "auto-start" \| "bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined` |
-| `tooltipText`      | `tooltip-text`      |             | `string`                                                                                                                                                                                                     | `undefined` |
-| `type`             | `type`              |             | `string`                                                                                                                                                                                                     | `undefined` |
+| Property           | Attribute           | Description                                                                                 | Type                                                                                                                                                                                                         | Default     |
+| ------------------ | ------------------- | ------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------- |
+| `disabled`         | `disabled`          | When true, the icon button cannot be interacted with                                        | `boolean`                                                                                                                                                                                                    | `undefined` |
+| `icon`             | `icon`              | Icon to display                                                                             | `string`                                                                                                                                                                                                     | `undefined` |
+| `iconUrl`          | `icon-url`          | Icon to display from URL                                                                    | `string`                                                                                                                                                                                                     | `undefined` |
+| `loading`          | `loading`           | When true, indicates the button is loading and cannot be interacted with                    | `boolean`                                                                                                                                                                                                    | `undefined` |
+| `rounded`          | `rounded`           | When true, the icon button will be round                                                    | `boolean`                                                                                                                                                                                                    | `undefined` |
+| `scale`            | `scale`             | Size of the icon button                                                                     | `"l" \| "m" \| "s" \| "xl"`                                                                                                                                                                                  | `'m'`       |
+| `tooltipPlacement` | `tooltip-placement` | Indicates where the tooltip should be placed relative to the icon button                    | `"auto" \| "auto-end" \| "auto-start" \| "bottom" \| "bottom-end" \| "bottom-start" \| "left" \| "left-end" \| "left-start" \| "right" \| "right-end" \| "right-start" \| "top" \| "top-end" \| "top-start"` | `undefined` |
+| `tooltipText`      | `tooltip-text`      | When provided, a tooltip will display when interacted with                                  | `string`                                                                                                                                                                                                     | `undefined` |
+| `type`             | `type`              | HTML button type https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type | `string`                                                                                                                                                                                                     | `undefined` |
 
 
 ## Methods
 
 ### `setFocus() => Promise<void>`
 
-
+Sets focus on this element
 
 #### Returns
 

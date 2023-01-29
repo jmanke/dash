@@ -7,23 +7,23 @@
 
 ## Properties
 
-| Property  | Attribute | Description | Type      | Default |
-| --------- | --------- | ----------- | --------- | ------- |
-| `checked` | `checked` |             | `boolean` | `false` |
+| Property  | Attribute | Description                  | Type      | Default |
+| --------- | --------- | ---------------------------- | --------- | ------- |
+| `checked` | `checked` | When true, toggle is checked | `boolean` | `false` |
 
 
 ## Events
 
-| Event                          | Description | Type               |
-| ------------------------------ | ----------- | ------------------ |
-| `dashToggleSwitchCheckChanged` |             | `CustomEvent<any>` |
+| Event                          | Description                            | Type               |
+| ------------------------------ | -------------------------------------- | ------------------ |
+| `dashToggleSwitchCheckChanged` | Emitted when checked value has changed | `CustomEvent<any>` |
 
 
 ## Methods
 
 ### `setFocus() => Promise<void>`
 
-
+Sets focus on this element
 
 #### Returns
 

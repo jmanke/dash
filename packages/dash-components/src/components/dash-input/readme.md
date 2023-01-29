@@ -7,30 +7,30 @@
 
 ## Properties
 
-| Property      | Attribute     | Description | Type                | Default     |
-| ------------- | ------------- | ----------- | ------------------- | ----------- |
-| `clearable`   | `clearable`   |             | `boolean`           | `undefined` |
-| `debounce`    | `debounce`    |             | `number`            | `undefined` |
-| `icon`        | `icon`        |             | `string`            | `undefined` |
-| `placeholder` | `placeholder` |             | `string`            | `undefined` |
-| `scale`       | `scale`       |             | `"l" \| "m" \| "s"` | `'m'`       |
-| `type`        | `type`        |             | `string`            | `undefined` |
-| `value`       | `value`       |             | `string`            | `undefined` |
+| Property      | Attribute     | Description                                                                                                                                                 | Type                | Default     |
+| ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
+| `clearable`   | `clearable`   | When true, a clear button will be displayed at the end of the input                                                                                         | `boolean`           | `undefined` |
+| `debounce`    | `debounce`    | Debounces input changes in milliseconds Note: debounce is only initialized on component load. Modifying debounce after initialization will not do anything. | `number`            | `undefined` |
+| `icon`        | `icon`        | Icon displayed at the end of the input                                                                                                                      | `string`            | `undefined` |
+| `placeholder` | `placeholder` | Placeholder text for input                                                                                                                                  | `string`            | `undefined` |
+| `scale`       | `scale`       | Size of the input                                                                                                                                           | `"l" \| "m" \| "s"` | `'m'`       |
+| `type`        | `type`        | Input type                                                                                                                                                  | `string`            | `undefined` |
+| `value`       | `value`       | Value of input                                                                                                                                              | `string`            | `undefined` |
 
 
 ## Events
 
-| Event             | Description | Type                |
-| ----------------- | ----------- | ------------------- |
-| `dashInputInput`  |             | `CustomEvent<void>` |
-| `dashInputSubmit` |             | `CustomEvent<void>` |
+| Event             | Description                          | Type                |
+| ----------------- | ------------------------------------ | ------------------- |
+| `dashInputInput`  | Emitted when input changes           | `CustomEvent<void>` |
+| `dashInputSubmit` | Emitted only when input is submitted | `CustomEvent<void>` |
 
 
 ## Methods
 
 ### `select() => Promise<void>`
 
-
+Selects text in input
 
 #### Returns
 
@@ -40,7 +40,7 @@ Type: `Promise<void>`
 
 ### `setFocus() => Promise<void>`
 
-
+Sets focus on this element
 
 #### Returns
 

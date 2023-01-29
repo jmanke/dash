@@ -6,6 +6,7 @@ import notesState from '../../stores/notes-state';
 import { LabelViewModel } from '../../view-models/label-view-model';
 import { dashRootService } from '../dash-root/dash-root-service';
 import { getAssetPath } from '@stencil/core';
+import { DashThemeToggleCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 
 enum RootUrls {
   Home = '/home',
@@ -116,8 +117,8 @@ export class DashApp {
     this.selectedLabelId = parseInt(labelId);
   }
 
-  toggleTheme() {
-    appState.settings.theme = appState.settings.theme === 'light' ? 'dark' : 'light';
+  toggleTheme(e: DashThemeToggleCustomEvent<void>) {
+    appState.settings.theme = e.target.theme;
   }
 
   editLabels() {
@@ -139,7 +140,7 @@ export class DashApp {
               <img src={this.logoPath} alt='Hellodash logo' width='48' height='48' />
               <span class='logo-header'>Hellodash</span>
 
-              <dash-theme-toggle slot='content-end' class='theme-toggle' theme={appState.settings.theme} onClick={this.toggleTheme.bind(this)}></dash-theme-toggle>
+              <dash-theme-toggle slot='content-end' class='theme-toggle' theme={appState.settings.theme} onDashThemeToggleChange={this.toggleTheme.bind(this)}></dash-theme-toggle>
               <dash-profile-settings slot='content-end' user={appState.currentUser}></dash-profile-settings>
             </dash-nav-bar>
 
