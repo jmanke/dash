@@ -23,6 +23,7 @@ export class DashSideBar {
    */
   @Prop({
     reflect: true,
+    mutable: true,
   })
   collapsed: boolean;
 
@@ -55,6 +56,7 @@ export class DashSideBar {
    * Closes the sidebar
    */
   close() {
+    this.collapsed = true;
     this.dashSideBarClose.emit();
   }
 
