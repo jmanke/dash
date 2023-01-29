@@ -205,7 +205,7 @@ export class DashList {
       height += this.listItems[i].offsetHeight;
     }
 
-    if (this.maxHeight === this.maxHeight) {
+    if (this.maxHeight === height) {
       return;
     }
 
