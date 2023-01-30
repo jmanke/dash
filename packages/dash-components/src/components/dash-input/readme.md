@@ -9,7 +9,7 @@
 
 | Property      | Attribute     | Description                                                                                                                                                 | Type                | Default     |
 | ------------- | ------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------- | ----------- |
-| `clearable`   | `clearable`   | When true, a clear button will be displayed at the end of the input                                                                                         | `boolean`           | `undefined` |
+| `clearable`   | `clearable`   | When `true`, a clear button will be displayed at the end of the input                                                                                       | `boolean`           | `undefined` |
 | `debounce`    | `debounce`    | Debounces input changes in milliseconds Note: debounce is only initialized on component load. Modifying debounce after initialization will not do anything. | `number`            | `undefined` |
 | `icon`        | `icon`        | Icon displayed at the end of the input                                                                                                                      | `string`            | `undefined` |
 | `placeholder` | `placeholder` | Placeholder text for input                                                                                                                                  | `string`            | `undefined` |

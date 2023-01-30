@@ -10,7 +10,7 @@
 | Property     | Attribute    | Description                                    | Type                   | Default     |
 | ------------ | ------------ | ---------------------------------------------- | ---------------------- | ----------- |
 | `appearance` | `appearance` | Visible appearance of the button               | `"clear" \| "outline"` | `'clear'`   |
-| `disabled`   | `disabled`   | When true, disables interaction                | `boolean`              | `false`     |
+| `disabled`   | `disabled`   | When `true`, disables interaction              | `boolean`              | `false`     |
 | `scale`      | `scale`      | Size of button                                 | `"l" \| "m" \| "s"`    | `'m'`       |
 | `startIcon`  | `start-icon` | Icon displayed at the start of the button      | `string`               | `undefined` |
 | `status`     | `status`     | Status of the button shown with various styles | `"error" \| "success"` | `undefined` |

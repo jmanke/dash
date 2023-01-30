@@ -55,7 +55,7 @@ export class DashIconButton implements Focusable {
   scale: ScaleExtended = 'm';
 
   /**
-   * When true, indicates the button is loading and cannot be interacted with
+   * When `true`, indicates the button is loading and cannot be interacted with
    * @default false
    */
   @Prop({
@@ -64,7 +64,7 @@ export class DashIconButton implements Focusable {
   loading: boolean;
 
   /**
-   * When true, the icon button cannot be interacted with
+   * When `true`, the icon button cannot be interacted with
    * @default false
    */
   @Prop({
@@ -82,7 +82,7 @@ export class DashIconButton implements Focusable {
   type?: string;
 
   /**
-   * When true, the icon button will be round
+   * When `true`, the icon button will be round
    * @default false
    */
   @Prop({

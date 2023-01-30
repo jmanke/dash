@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property  | Attribute | Description                  | Type      | Default |
-| --------- | --------- | ---------------------------- | --------- | ------- |
-| `checked` | `checked` | When true, toggle is checked | `boolean` | `false` |
+| Property  | Attribute | Description                    | Type      | Default |
+| --------- | --------- | ------------------------------ | --------- | ------- |
+| `checked` | `checked` | When `true`, toggle is checked | `boolean` | `false` |
 
 
 ## Events

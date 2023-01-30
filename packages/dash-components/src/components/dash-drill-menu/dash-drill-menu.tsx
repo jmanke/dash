@@ -18,7 +18,7 @@ export class DashDrillMenu {
   //#region @Prop
 
   /**
-   * When true, drill menu is activated
+   * When `true`, drill menu is activated
    * @default false
    */
   @Prop({

@@ -20,7 +20,7 @@ export class DashToggleSwitch implements Focusable {
   //#region @Prop
 
   /**
-   * When true, toggle is checked
+   * When `true`, toggle is checked
    * @optional
    */
   @Prop({

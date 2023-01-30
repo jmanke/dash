@@ -27,7 +27,7 @@ export class DashSection {
   heading: string;
 
   /**
-   * When true, header sticks to the top
+   * When `true`, header sticks to the top
    * @default false
    */
   @Prop({

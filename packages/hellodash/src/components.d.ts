@@ -12,6 +12,13 @@ import { LabelViewModel } from "./view-models/label-view-model";
 import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
 import { UserViewModel } from "./view-models/user-view-model";
+export { RouterHistory } from "@stencil/router";
+export { Auth0Client } from "@auth0/auth0-spa-js";
+export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
+export { LabelViewModel } from "./view-models/label-view-model";
+export { NotePreviewViewModel } from "./view-models/note-preview-view-model";
+export { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
+export { UserViewModel } from "./view-models/user-view-model";
 export namespace Components {
     interface DashApp {
         "history": RouterHistory;

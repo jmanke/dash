@@ -45,7 +45,7 @@ export class DashButton implements Focusable {
   status?: Status;
 
   /**
-   * When true, disables interaction
+   * When `true`, disables interaction
    * @default false
    */
   @Prop({

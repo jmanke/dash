@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                     | Type                | Default     |
-| ---------- | ---------- | ------------------------------- | ------------------- | ----------- |
-| `disabled` | `disabled` | When true, disabled interaction | `boolean`           | `undefined` |
-| `scale`    | `scale`    | Size of the inline edit         | `"l" \| "m" \| "s"` | `'m'`       |
-| `value`    | `value`    | Value to be used for editing    | `string`            | `undefined` |
+| Property   | Attribute  | Description                       | Type                | Default     |
+| ---------- | ---------- | --------------------------------- | ------------------- | ----------- |
+| `disabled` | `disabled` | When `true`, disabled interaction | `boolean`           | `undefined` |
+| `scale`    | `scale`    | Size of the inline edit           | `"l" \| "m" \| "s"` | `'m'`       |
+| `value`    | `value`    | Value to be used for editing      | `string`            | `undefined` |
 
 
 ## Events

@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property       | Attribute       | Description                        | Type      | Default     |
-| -------------- | --------------- | ---------------------------------- | --------- | ----------- |
-| `active`       | `active`        | When true, drill menu is activated | `boolean` | `undefined` |
-| `drillHeading` | `drill-heading` | Heading for the drill menu         | `string`  | `undefined` |
+| Property       | Attribute       | Description                          | Type      | Default     |
+| -------------- | --------------- | ------------------------------------ | --------- | ----------- |
+| `active`       | `active`        | When `true`, drill menu is activated | `boolean` | `undefined` |
+| `drillHeading` | `drill-heading` | Heading for the drill menu           | `string`  | `undefined` |
 
 
 ## Events

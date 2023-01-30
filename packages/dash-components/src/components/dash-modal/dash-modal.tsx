@@ -30,7 +30,7 @@ export class DashModal implements Modal {
   //#region @State
 
   /**
-   * When true, the modal is closing and playing its animation
+   * When `true`, the modal is closing and playing its animation
    */
   @State()
   closing = false;
@@ -40,7 +40,7 @@ export class DashModal implements Modal {
   //#region @Prop
 
   /**
-   * When true, the modal is open
+   * When `true`, the modal is open
    * @default false
    */
   @Prop({
@@ -59,7 +59,7 @@ export class DashModal implements Modal {
   heading?: string;
 
   /**
-   * When true, modal is in fullscreen mode
+   * When `true`, modal is in fullscreen mode
    * @default false
    */
   @Prop({
@@ -77,7 +77,7 @@ export class DashModal implements Modal {
   scale: Scale = 'm';
 
   /**
-   * When true, the close button is not displayed
+   * When `true`, the close button is not displayed
    * @default false
    */
   @Prop({
@@ -86,7 +86,7 @@ export class DashModal implements Modal {
   hideCloseButton: boolean;
 
   /**
-   * When true, sets focus on the close button if it's available
+   * When `true`, sets focus on the close button if it's available
    * @default false
    */
   @Prop({
@@ -95,7 +95,7 @@ export class DashModal implements Modal {
   autoFocus: boolean;
 
   /**
-   * When true, the modal will not automatically go into fullscreen mode when the screen size is mobile.
+   * When `true`, the modal will not automatically go into fullscreen mode when the screen size is mobile.
    * @default false
    */
   @Prop({

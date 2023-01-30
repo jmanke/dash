@@ -18,7 +18,7 @@ export class DashSideBar {
   //#region @Prop
 
   /**
-   * When true, the sidebar is collapsed
+   * When `true`, the sidebar is collapsed
    * @default false
    */
   @Prop({
