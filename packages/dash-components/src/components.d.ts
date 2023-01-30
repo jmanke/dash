@@ -16,6 +16,7 @@ import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, Popov
 import { Resize } from "./components/dash-textarea/dash-textarea";
 export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
 export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
+export { CalendarEvent, CalendarEventInternal } from "./interfaces/calendar-event";
 export { IconColor } from "./components/dash-icon/dash-icon";
 export { LabelLayout } from "./components/dash-label/dash-label";
 export { SelectionMode } from "./components/dash-list/dash-list";
