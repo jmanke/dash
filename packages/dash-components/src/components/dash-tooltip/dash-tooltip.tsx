@@ -22,7 +22,7 @@ export class DashTooltip {
   //#region @State
 
   /**
-   * When true, the tooltip is visible
+   * When `true`, the tooltip is visible
    */
   @State()
   active: boolean;
@@ -98,7 +98,7 @@ export class DashTooltip {
   scale: Scale = 'm';
 
   /**
-   * When true, an arrow is displayed on the tooltip
+   * When `true`, an arrow is displayed on the tooltip
    * @default false
    */
   @Prop({
@@ -107,7 +107,7 @@ export class DashTooltip {
   arrow: boolean;
 
   /**
-   * When true, tooltip is visible
+   * When `true`, tooltip is visible
    * @default false
    */
   @Prop({

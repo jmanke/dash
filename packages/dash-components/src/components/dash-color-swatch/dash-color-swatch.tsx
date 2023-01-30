@@ -42,7 +42,7 @@ export class DashColorSwatch implements Focusable {
   scale: Scale = 'm';
 
   /**
-   * When true, the swatch is selected and provides visual feedback
+   * When `true`, the swatch is selected and provides visual feedback
    * @default false
    */
   @Prop({

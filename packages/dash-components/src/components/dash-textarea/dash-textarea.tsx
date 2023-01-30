@@ -64,7 +64,7 @@ export class DashTextarea {
   placeholder: string;
 
   /**
-   * When true, disables updating the text-area value
+   * When `true`, disables updating the text-area value
    * @default true
    */
   @Prop({
@@ -73,7 +73,7 @@ export class DashTextarea {
   readonly: boolean;
 
   /**
-   * When true, a value is required for forms
+   * When `true`, a value is required for forms
    * @default false
    */
   @Prop({

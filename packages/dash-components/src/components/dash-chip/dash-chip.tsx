@@ -40,7 +40,7 @@ export class DashChip {
   heading: string;
 
   /**
-   * When true, the chip can be interacted with
+   * When `true`, the chip can be interacted with
    * @default false
    */
   @Prop({
@@ -58,7 +58,7 @@ export class DashChip {
   dismissTooltipText?: string;
 
   /**
-   * When true, chip can be removed
+   * When `true`, chip can be removed
    * @default false
    */
   @Prop({

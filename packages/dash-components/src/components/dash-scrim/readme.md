@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description                     | Type      | Default     |
-| -------- | --------- | ------------------------------- | --------- | ----------- |
-| `active` | `active`  | When true, the scrim is visible | `boolean` | `undefined` |
+| Property | Attribute | Description                       | Type      | Default     |
+| -------- | --------- | --------------------------------- | --------- | ----------- |
+| `active` | `active`  | When `true`, the scrim is visible | `boolean` | `undefined` |
 
 
 ## Dependencies

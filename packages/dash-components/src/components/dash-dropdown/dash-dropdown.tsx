@@ -34,7 +34,7 @@ export class DashDropdown {
   //#region @Prop
 
   /**
-   * When true, dropdown is open
+   * When `true`, dropdown is open
    * @default false
    */
   @Prop({
@@ -62,7 +62,7 @@ export class DashDropdown {
   placement: Placement = 'bottom';
 
   /**
-   * When true, dropdown will close when focus is lost
+   * When `true`, dropdown will close when focus is lost
    * @default false
    */
   @Prop({

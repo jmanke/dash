@@ -76,7 +76,7 @@ export class DashInlineEdit {
   scale: Scale = 'm';
 
   /**
-   * When true, disabled interaction
+   * When `true`, disabled interaction
    * @default false
    */
   @Prop({

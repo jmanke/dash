@@ -31,7 +31,7 @@ export class DashPopover {
   clickListener: (e: PointerEvent) => void;
 
   /**
-   * When true, the popover was closed via the escape key
+   * When `true`, the popover was closed via the escape key
    */
   closedByEscape: boolean;
 
@@ -134,7 +134,7 @@ export class DashPopover {
   }
 
   /**
-   * When true, popover will autoclose when it loses focus
+   * When `true`, popover will autoclose when it loses focus
    * @default false
    */
   @Prop({
@@ -203,7 +203,7 @@ export class DashPopover {
 
   /**
    * Updates the popper instace
-   * @param forceCreate - When true, forces the popper to be recreated
+   * @param forceCreate - When `true`, forces the popper to be recreated
    */
   updatePopover(forceCreate = false) {
     if (this.popper && !forceCreate) {
@@ -216,7 +216,7 @@ export class DashPopover {
 
   /**
    * Closes the modal
-   * @param escape - When true, modal was closed via the escape key
+   * @param escape - When `true`, modal was closed via the escape key
    */
   close(escape: boolean = false) {
     this.closedByEscape = escape;

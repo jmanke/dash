@@ -32,7 +32,7 @@ export class DashSidebarButton {
   icon: string;
 
   /**
-   * When true, the button is in collapsed mode
+   * When `true`, the button is in collapsed mode
    * @default false
    */
   @Prop({
@@ -59,7 +59,7 @@ export class DashSidebarButton {
   iconColor: string;
 
   /**
-   * When true, the button is visibly active
+   * When `true`, the button is visibly active
    * @default false
    */
   @Prop({

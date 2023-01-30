@@ -14,6 +14,14 @@ import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 import { Resize } from "./components/dash-textarea/dash-textarea";
+export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
+export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
+export { IconColor } from "./components/dash-icon/dash-icon";
+export { LabelLayout } from "./components/dash-label/dash-label";
+export { SelectionMode } from "./components/dash-list/dash-list";
+export { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
+export { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
+export { Resize } from "./components/dash-textarea/dash-textarea";
 export namespace Components {
     interface DashButton {
         /**
@@ -22,7 +30,7 @@ export namespace Components {
          */
         "appearance": Appearance;
         /**
-          * When true, disables interaction
+          * When `true`, disables interaction
           * @default false
          */
         "disabled": boolean;
@@ -58,7 +66,7 @@ export namespace Components {
          */
         "dismissTooltipText"?: string;
         /**
-          * When true, chip can be removed
+          * When `true`, chip can be removed
           * @default false
          */
         "dismissible": boolean;
@@ -68,7 +76,7 @@ export namespace Components {
          */
         "heading": string;
         /**
-          * When true, the chip can be interacted with
+          * When `true`, the chip can be interacted with
           * @default false
          */
         "selectable": boolean;
@@ -102,7 +110,7 @@ export namespace Components {
          */
         "scale": Scale;
         /**
-          * When true, the swatch is selected and provides visual feedback
+          * When `true`, the swatch is selected and provides visual feedback
           * @default false
          */
         "selected": boolean;
@@ -135,7 +143,7 @@ export namespace Components {
     }
     interface DashDrillMenu {
         /**
-          * When true, drill menu is activated
+          * When `true`, drill menu is activated
           * @default false
          */
         "active": boolean;
@@ -147,7 +155,7 @@ export namespace Components {
     }
     interface DashDropdown {
         /**
-          * When true, dropdown will close when focus is lost
+          * When `true`, dropdown will close when focus is lost
           * @default false
          */
         "autoClose": boolean;
@@ -162,7 +170,7 @@ export namespace Components {
          */
         "close": (focusTarget?: boolean) => Promise<void>;
         /**
-          * When true, dropdown is open
+          * When `true`, dropdown is open
           * @default false
          */
         "open": boolean;
@@ -289,7 +297,7 @@ export namespace Components {
          */
         "iconUrl": string;
         /**
-          * When true, icon is rounded
+          * When `true`, icon is rounded
           * @default false
          */
         "rounded": boolean;
@@ -306,7 +314,7 @@ export namespace Components {
     }
     interface DashIconButton {
         /**
-          * When true, the icon button cannot be interacted with
+          * When `true`, the icon button cannot be interacted with
           * @default false
          */
         "disabled": boolean;
@@ -321,12 +329,12 @@ export namespace Components {
          */
         "iconUrl": string;
         /**
-          * When true, indicates the button is loading and cannot be interacted with
+          * When `true`, indicates the button is loading and cannot be interacted with
           * @default false
          */
         "loading": boolean;
         /**
-          * When true, the icon button will be round
+          * When `true`, the icon button will be round
           * @default false
          */
         "rounded": boolean;
@@ -357,7 +365,7 @@ export namespace Components {
     }
     interface DashInlineEdit {
         /**
-          * When true, disabled interaction
+          * When `true`, disabled interaction
           * @default false
          */
         "disabled": boolean;
@@ -374,7 +382,7 @@ export namespace Components {
     }
     interface DashInput {
         /**
-          * When true, a clear button will be displayed at the end of the input
+          * When `true`, a clear button will be displayed at the end of the input
           * @default false
          */
         "clearable": boolean;
@@ -448,7 +456,7 @@ export namespace Components {
     }
     interface DashListItem {
         /**
-          * When true, interaction is disabled
+          * When `true`, interaction is disabled
          */
         "disabled": boolean;
         /**
@@ -457,7 +465,7 @@ export namespace Components {
          */
         "scale": Scale;
         /**
-          * When true, list-item is selected
+          * When `true`, list-item is selected
           * @default false
          */
         "selected": boolean;
@@ -480,7 +488,7 @@ export namespace Components {
     }
     interface DashModal {
         /**
-          * When true, sets focus on the close button if it's available
+          * When `true`, sets focus on the close button if it's available
           * @default false
          */
         "autoFocus": boolean;
@@ -489,12 +497,12 @@ export namespace Components {
          */
         "close": () => Promise<void>;
         /**
-          * When true, the modal will not automatically go into fullscreen mode when the screen size is mobile.
+          * When `true`, the modal will not automatically go into fullscreen mode when the screen size is mobile.
           * @default false
          */
         "disableFullscreenMobileView": boolean;
         /**
-          * When true, modal is in fullscreen mode
+          * When `true`, modal is in fullscreen mode
           * @default false
          */
         "fullscreen": boolean;
@@ -504,12 +512,12 @@ export namespace Components {
          */
         "heading"?: string;
         /**
-          * When true, the close button is not displayed
+          * When `true`, the close button is not displayed
           * @default false
          */
         "hideCloseButton": boolean;
         /**
-          * When true, the modal is open
+          * When `true`, the modal is open
           * @default false
          */
         "open": boolean;
@@ -526,7 +534,7 @@ export namespace Components {
          */
         "active": boolean;
         /**
-          * When true, popover will autoclose when it loses focus
+          * When `true`, popover will autoclose when it loses focus
           * @default false
          */
         "autoClose": boolean;
@@ -544,12 +552,12 @@ export namespace Components {
           * Position of the popover relative to its target
           * @default 'bottom'
          */
-        "placement": Placement;
+        "placement": Placement1;
         /**
           * Strategy of placing the popover
           * @default 'absolute'
          */
-        "placementStrategy": PlacementStrategy;
+        "placementStrategy": PlacementStrategy1;
         /**
           * Keeps the popover in view if it's positioned outside the window's view
           * @default false
@@ -563,7 +571,7 @@ export namespace Components {
     }
     interface DashScrim {
         /**
-          * When true, the scrim is visible
+          * When `true`, the scrim is visible
           * @default false
          */
         "active": boolean;
@@ -575,7 +583,7 @@ export namespace Components {
          */
         "heading": string;
         /**
-          * When true, header sticks to the top
+          * When `true`, header sticks to the top
           * @default false
          */
         "stickyHeader": boolean;
@@ -584,19 +592,19 @@ export namespace Components {
     }
     interface DashSideBar {
         /**
-          * When true, the sidebar is collapsed
+          * When `true`, the sidebar is collapsed
           * @default false
          */
         "collapsed": boolean;
     }
     interface DashSidebarButton {
         /**
-          * When true, the button is visibly active
+          * When `true`, the button is visibly active
           * @default false
          */
         "active": boolean;
         /**
-          * When true, the button is in collapsed mode
+          * When `true`, the button is in collapsed mode
           * @default false
          */
         "collapsed": boolean;
@@ -628,12 +636,12 @@ export namespace Components {
          */
         "placeholder": string;
         /**
-          * When true, disables updating the text-area value
+          * When `true`, disables updating the text-area value
           * @default true
          */
         "readonly": boolean;
         /**
-          * When true, a value is required for forms
+          * When `true`, a value is required for forms
           * @default false
          */
         "required": boolean;
@@ -664,7 +672,7 @@ export namespace Components {
     }
     interface DashToggleSwitch {
         /**
-          * When true, toggle is checked
+          * When `true`, toggle is checked
           * @optional
          */
         "checked": boolean;
@@ -675,12 +683,12 @@ export namespace Components {
     }
     interface DashTooltip {
         /**
-          * When true, an arrow is displayed on the tooltip
+          * When `true`, an arrow is displayed on the tooltip
           * @default false
          */
         "arrow": boolean;
         /**
-          * When true, tooltip is visible
+          * When `true`, tooltip is visible
           * @default false
          */
         "enabled": boolean;
@@ -1069,7 +1077,7 @@ declare namespace LocalJSX {
          */
         "appearance"?: Appearance;
         /**
-          * When true, disables interaction
+          * When `true`, disables interaction
           * @default false
          */
         "disabled"?: boolean;
@@ -1101,7 +1109,7 @@ declare namespace LocalJSX {
          */
         "dismissTooltipText"?: string;
         /**
-          * When true, chip can be removed
+          * When `true`, chip can be removed
           * @default false
          */
         "dismissible"?: boolean;
@@ -1115,7 +1123,7 @@ declare namespace LocalJSX {
          */
         "onDashChipDismiss"?: (event: DashChipCustomEvent<any>) => void;
         /**
-          * When true, the chip can be interacted with
+          * When `true`, the chip can be interacted with
           * @default false
          */
         "selectable"?: boolean;
@@ -1153,7 +1161,7 @@ declare namespace LocalJSX {
          */
         "scale"?: Scale;
         /**
-          * When true, the swatch is selected and provides visual feedback
+          * When `true`, the swatch is selected and provides visual feedback
           * @default false
          */
         "selected"?: boolean;
@@ -1187,7 +1195,7 @@ declare namespace LocalJSX {
     }
     interface DashDrillMenu {
         /**
-          * When true, drill menu is activated
+          * When `true`, drill menu is activated
           * @default false
          */
         "active"?: boolean;
@@ -1203,7 +1211,7 @@ declare namespace LocalJSX {
     }
     interface DashDropdown {
         /**
-          * When true, dropdown will close when focus is lost
+          * When `true`, dropdown will close when focus is lost
           * @default false
          */
         "autoClose"?: boolean;
@@ -1217,7 +1225,7 @@ declare namespace LocalJSX {
          */
         "onDashDropdownOpenChange"?: (event: DashDropdownCustomEvent<void>) => void;
         /**
-          * When true, dropdown is open
+          * When `true`, dropdown is open
           * @default false
          */
         "open"?: boolean;
@@ -1358,7 +1366,7 @@ declare namespace LocalJSX {
          */
         "iconUrl"?: string;
         /**
-          * When true, icon is rounded
+          * When `true`, icon is rounded
           * @default false
          */
         "rounded"?: boolean;
@@ -1375,7 +1383,7 @@ declare namespace LocalJSX {
     }
     interface DashIconButton {
         /**
-          * When true, the icon button cannot be interacted with
+          * When `true`, the icon button cannot be interacted with
           * @default false
          */
         "disabled"?: boolean;
@@ -1390,12 +1398,12 @@ declare namespace LocalJSX {
          */
         "iconUrl"?: string;
         /**
-          * When true, indicates the button is loading and cannot be interacted with
+          * When `true`, indicates the button is loading and cannot be interacted with
           * @default false
          */
         "loading"?: boolean;
         /**
-          * When true, the icon button will be round
+          * When `true`, the icon button will be round
           * @default false
          */
         "rounded"?: boolean;
@@ -1422,7 +1430,7 @@ declare namespace LocalJSX {
     }
     interface DashInlineEdit {
         /**
-          * When true, disabled interaction
+          * When `true`, disabled interaction
           * @default false
          */
         "disabled"?: boolean;
@@ -1443,7 +1451,7 @@ declare namespace LocalJSX {
     }
     interface DashInput {
         /**
-          * When true, a clear button will be displayed at the end of the input
+          * When `true`, a clear button will be displayed at the end of the input
           * @default false
          */
         "clearable"?: boolean;
@@ -1521,7 +1529,7 @@ declare namespace LocalJSX {
     }
     interface DashListItem {
         /**
-          * When true, interaction is disabled
+          * When `true`, interaction is disabled
          */
         "disabled"?: boolean;
         /**
@@ -1542,7 +1550,7 @@ declare namespace LocalJSX {
          */
         "scale"?: Scale;
         /**
-          * When true, list-item is selected
+          * When `true`, list-item is selected
           * @default false
          */
         "selected"?: boolean;
@@ -1561,17 +1569,17 @@ declare namespace LocalJSX {
     }
     interface DashModal {
         /**
-          * When true, sets focus on the close button if it's available
+          * When `true`, sets focus on the close button if it's available
           * @default false
          */
         "autoFocus"?: boolean;
         /**
-          * When true, the modal will not automatically go into fullscreen mode when the screen size is mobile.
+          * When `true`, the modal will not automatically go into fullscreen mode when the screen size is mobile.
           * @default false
          */
         "disableFullscreenMobileView"?: boolean;
         /**
-          * When true, modal is in fullscreen mode
+          * When `true`, modal is in fullscreen mode
           * @default false
          */
         "fullscreen"?: boolean;
@@ -1581,7 +1589,7 @@ declare namespace LocalJSX {
          */
         "heading"?: string;
         /**
-          * When true, the close button is not displayed
+          * When `true`, the close button is not displayed
           * @default false
          */
         "hideCloseButton"?: boolean;
@@ -1594,7 +1602,7 @@ declare namespace LocalJSX {
          */
         "onDashModalClosed"?: (event: DashModalCustomEvent<any>) => void;
         /**
-          * When true, the modal is open
+          * When `true`, the modal is open
           * @default false
          */
         "open"?: boolean;
@@ -1611,7 +1619,7 @@ declare namespace LocalJSX {
          */
         "active"?: boolean;
         /**
-          * When true, popover will autoclose when it loses focus
+          * When `true`, popover will autoclose when it loses focus
           * @default false
          */
         "autoClose"?: boolean;
@@ -1637,12 +1645,12 @@ declare namespace LocalJSX {
           * Position of the popover relative to its target
           * @default 'bottom'
          */
-        "placement"?: Placement;
+        "placement"?: Placement1;
         /**
           * Strategy of placing the popover
           * @default 'absolute'
          */
-        "placementStrategy"?: PlacementStrategy;
+        "placementStrategy"?: PlacementStrategy1;
         /**
           * Keeps the popover in view if it's positioned outside the window's view
           * @default false
@@ -1656,7 +1664,7 @@ declare namespace LocalJSX {
     }
     interface DashScrim {
         /**
-          * When true, the scrim is visible
+          * When `true`, the scrim is visible
           * @default false
          */
         "active"?: boolean;
@@ -1668,7 +1676,7 @@ declare namespace LocalJSX {
          */
         "heading"?: string;
         /**
-          * When true, header sticks to the top
+          * When `true`, header sticks to the top
           * @default false
          */
         "stickyHeader"?: boolean;
@@ -1677,7 +1685,7 @@ declare namespace LocalJSX {
     }
     interface DashSideBar {
         /**
-          * When true, the sidebar is collapsed
+          * When `true`, the sidebar is collapsed
           * @default false
          */
         "collapsed"?: boolean;
@@ -1688,12 +1696,12 @@ declare namespace LocalJSX {
     }
     interface DashSidebarButton {
         /**
-          * When true, the button is visibly active
+          * When `true`, the button is visibly active
           * @default false
          */
         "active"?: boolean;
         /**
-          * When true, the button is in collapsed mode
+          * When `true`, the button is in collapsed mode
           * @default false
          */
         "collapsed"?: boolean;
@@ -1729,12 +1737,12 @@ declare namespace LocalJSX {
          */
         "placeholder"?: string;
         /**
-          * When true, disables updating the text-area value
+          * When `true`, disables updating the text-area value
           * @default true
          */
         "readonly"?: boolean;
         /**
-          * When true, a value is required for forms
+          * When `true`, a value is required for forms
           * @default false
          */
         "required"?: boolean;
@@ -1770,7 +1778,7 @@ declare namespace LocalJSX {
     }
     interface DashToggleSwitch {
         /**
-          * When true, toggle is checked
+          * When `true`, toggle is checked
           * @optional
          */
         "checked"?: boolean;
@@ -1781,12 +1789,12 @@ declare namespace LocalJSX {
     }
     interface DashTooltip {
         /**
-          * When true, an arrow is displayed on the tooltip
+          * When `true`, an arrow is displayed on the tooltip
           * @default false
          */
         "arrow"?: boolean;
         /**
-          * When true, tooltip is visible
+          * When `true`, tooltip is visible
           * @default false
          */
         "enabled"?: boolean;

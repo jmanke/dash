@@ -7,11 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                                                    | Type                | Default     |
-| ---------- | ---------- | -------------------------------------------------------------- | ------------------- | ----------- |
-| `color`    | `color`    | Color of the swatch                                            | `string`            | `undefined` |
-| `scale`    | `scale`    | Size of swatch                                                 | `"l" \| "m" \| "s"` | `'m'`       |
-| `selected` | `selected` | When true, the swatch is selected and provides visual feedback | `boolean`           | `false`     |
+| Property   | Attribute  | Description                                                      | Type                | Default     |
+| ---------- | ---------- | ---------------------------------------------------------------- | ------------------- | ----------- |
+| `color`    | `color`    | Color of the swatch                                              | `string`            | `undefined` |
+| `scale`    | `scale`    | Size of swatch                                                   | `"l" \| "m" \| "s"` | `'m'`       |
+| `selected` | `selected` | When `true`, the swatch is selected and provides visual feedback | `boolean`           | `false`     |
 
 
 ## Methods

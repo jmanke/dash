@@ -18,7 +18,7 @@ export class DashScrim {
   //#region @Prop
 
   /**
-   * When true, the scrim is visible
+   * When `true`, the scrim is visible
    * @default false
    */
   @Prop()

@@ -26,7 +26,7 @@ export class DashListItem implements Focusable {
   //#region @State
 
   /**
-   * When true, list item visually indicates it's active
+   * When `true`, list item visually indicates it's active
    */
   @State()
   isActive: boolean;
@@ -56,7 +56,7 @@ export class DashListItem implements Focusable {
   scale: Scale = 'm';
 
   /**
-   * When true, list-item is selected
+   * When `true`, list-item is selected
    * @default false
    */
   @Prop({
@@ -66,7 +66,7 @@ export class DashListItem implements Focusable {
   selected: boolean = false;
 
   /**
-   * When true, interaction is disabled
+   * When `true`, interaction is disabled
    */
   @Prop({
     reflect: true,

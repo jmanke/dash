@@ -76,7 +76,7 @@ export class DashInput implements Focusable {
   icon?: string;
 
   /**
-   * When true, a clear button will be displayed at the end of the input
+   * When `true`, a clear button will be displayed at the end of the input
    * @default false
    */
   @Prop({

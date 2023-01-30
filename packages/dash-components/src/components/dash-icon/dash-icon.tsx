@@ -25,7 +25,7 @@ export class DashIcon {
   svg: string;
 
   /**
-   * When true, displays an error for the icon's url
+   * When `true`, displays an error for the icon's url
    */
   @State()
   iconUrlError: boolean;
@@ -90,7 +90,7 @@ export class DashIcon {
   color: IconColor = 'neutral';
 
   /**
-   * When true, icon is rounded
+   * When `true`, icon is rounded
    * @default false
    */
   @Prop({

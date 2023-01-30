@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property    | Attribute   | Description                         | Type      | Default     |
-| ----------- | ----------- | ----------------------------------- | --------- | ----------- |
-| `collapsed` | `collapsed` | When true, the sidebar is collapsed | `boolean` | `undefined` |
+| Property    | Attribute   | Description                           | Type      | Default     |
+| ----------- | ----------- | ------------------------------------- | --------- | ----------- |
+| `collapsed` | `collapsed` | When `true`, the sidebar is collapsed | `boolean` | `undefined` |
 
 
 ## Events
