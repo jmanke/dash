@@ -43,6 +43,7 @@ Type: `Promise<void>`
  - [dash-fab](../dash-fab)
  - [dash-input](../dash-input)
  - [dash-modal](../dash-modal)
+ - [dash-nav-bar](../dash-nav-bar)
 
 ### Depends on
 
@@ -63,6 +64,7 @@ graph TD;
   dash-fab --> dash-icon-button
   dash-input --> dash-icon-button
   dash-modal --> dash-icon-button
+  dash-nav-bar --> dash-icon-button
   style dash-icon-button fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

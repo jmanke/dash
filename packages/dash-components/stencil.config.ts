@@ -4,6 +4,7 @@ import autoprefixer from 'autoprefixer';
 import postcssNested from 'postcss-nested';
 import postcssExtendRule from 'postcss-extend-rule';
 import replace from 'postcss-replace';
+import { reactOutputTarget as react } from '@stencil/react-output-target';
 
 export const config: Config = {
   namespace: 'dash-components',
@@ -26,6 +27,11 @@ export const config: Config = {
       serviceWorker: null, // disable service workers,
       copy: [{ src: 'assets', dest: 'build/assets' }],
     },
+    react({
+      componentCorePackage: '@didyoumeantoast/dash-components',
+      proxiesFile: '../hellodash-react/src/components/stencil-generated/index.ts',
+      includeDefineCustomElements: true,
+    }),
   ],
   //add postcss as a plugin
   plugins: [

@@ -11,15 +11,21 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@auth0/auth0-spa-js": "^1.19.4",
     "@didyoumeantoast/dash-components": "workspace:^1.1.2",
     "@didyoumeantoast/dash-utils": "workspace:^1.1.3",
+    "axios": "^0.24.0",
+    "luxon": "^2.4.0",
     "mobx": "^6.7.0",
     "mobx-react-lite": "^3.4.0",
+    "qs": "^6.10.3",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "vite-plugin-static-copy": "^0.13.0"
   },
   "devDependencies": {
+    "@types/luxon": "^2.3.2",
+    "@types/qs": "^6.9.7",
     "@types/react": "^18.0.27",
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react-swc": "^3.0.0",

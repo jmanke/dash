@@ -495,6 +495,9 @@ export namespace Components {
          */
         "scale": Scale;
     }
+    interface DashNavBar {
+        "setFocus": () => Promise<void>;
+    }
     interface DashPopover {
         /**
           * When true, the popover will be open
@@ -729,6 +732,10 @@ export interface DashModalCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashModalElement;
 }
+export interface DashNavBarCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashNavBarElement;
+}
 export interface DashPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashPopoverElement;
@@ -870,6 +877,12 @@ declare global {
         prototype: HTMLDashModalElement;
         new (): HTMLDashModalElement;
     };
+    interface HTMLDashNavBarElement extends Components.DashNavBar, HTMLStencilElement {
+    }
+    var HTMLDashNavBarElement: {
+        prototype: HTMLDashNavBarElement;
+        new (): HTMLDashNavBarElement;
+    };
     interface HTMLDashPopoverElement extends Components.DashPopover, HTMLStencilElement {
     }
     var HTMLDashPopoverElement: {
@@ -951,6 +964,7 @@ declare global {
         "dash-list-item": HTMLDashListItemElement;
         "dash-loader": HTMLDashLoaderElement;
         "dash-modal": HTMLDashModalElement;
+        "dash-nav-bar": HTMLDashNavBarElement;
         "dash-popover": HTMLDashPopoverElement;
         "dash-scrim": HTMLDashScrimElement;
         "dash-section": HTMLDashSectionElement;
@@ -1456,6 +1470,9 @@ declare namespace LocalJSX {
          */
         "scale"?: Scale;
     }
+    interface DashNavBar {
+        "onDashMenuToggled"?: (event: DashNavBarCustomEvent<any>) => void;
+    }
     interface DashPopover {
         /**
           * When true, the popover will be open
@@ -1690,6 +1707,7 @@ declare namespace LocalJSX {
         "dash-list-item": DashListItem;
         "dash-loader": DashLoader;
         "dash-modal": DashModal;
+        "dash-nav-bar": DashNavBar;
         "dash-popover": DashPopover;
         "dash-scrim": DashScrim;
         "dash-section": DashSection;
@@ -1726,6 +1744,7 @@ declare module "@stencil/core" {
             "dash-list-item": LocalJSX.DashListItem & JSXBase.HTMLAttributes<HTMLDashListItemElement>;
             "dash-loader": LocalJSX.DashLoader & JSXBase.HTMLAttributes<HTMLDashLoaderElement>;
             "dash-modal": LocalJSX.DashModal & JSXBase.HTMLAttributes<HTMLDashModalElement>;
+            "dash-nav-bar": LocalJSX.DashNavBar & JSXBase.HTMLAttributes<HTMLDashNavBarElement>;
             "dash-popover": LocalJSX.DashPopover & JSXBase.HTMLAttributes<HTMLDashPopoverElement>;
             "dash-scrim": LocalJSX.DashScrim & JSXBase.HTMLAttributes<HTMLDashScrimElement>;
             "dash-section": LocalJSX.DashSection & JSXBase.HTMLAttributes<HTMLDashSectionElement>;

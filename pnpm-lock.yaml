@@ -22,6 +22,7 @@ importers:
       '@popperjs/core': ^2.11.5
       '@stencil/core': ^3.0.0
       '@stencil/postcss': ^2.1.0
+      '@stencil/react-output-target': ^0.4.0
       '@types/jest': ^27.0.3
       '@types/lodash': ^4.14.177
       '@types/luxon': ^2.3.2
@@ -52,6 +53,7 @@ importers:
       '@babel/core': 7.20.5
       '@didyoumeantoast/component-forge': 0.4.1
       '@stencil/postcss': 2.1.0_@stencil+core@3.0.0
+      '@stencil/react-output-target': 0.4.0_@stencil+core@3.0.0
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.191
       autoprefixer: 10.4.13_postcss@8.4.6
@@ -161,27 +163,39 @@ importers:
 
   packages/hellodash-react:
     specifiers:
+      '@auth0/auth0-spa-js': ^1.19.4
       '@didyoumeantoast/dash-components': workspace:^1.1.2
       '@didyoumeantoast/dash-utils': workspace:^1.1.3
+      '@types/luxon': ^2.3.2
+      '@types/qs': ^6.9.7
       '@types/react': ^18.0.27
       '@types/react-dom': ^18.0.10
       '@vitejs/plugin-react-swc': ^3.0.0
+      axios: ^0.24.0
+      luxon: ^2.4.0
       mobx: ^6.7.0
       mobx-react-lite: ^3.4.0
+      qs: ^6.10.3
       react: ^18.2.0
       react-dom: ^18.2.0
       typescript: ^4.9.3
       vite: ^4.1.0
       vite-plugin-static-copy: ^0.13.0
     dependencies:
+      '@auth0/auth0-spa-js': 1.22.5
       '@didyoumeantoast/dash-components': link:../dash-components
       '@didyoumeantoast/dash-utils': link:../dash-utils
+      axios: 0.24.0
+      luxon: 2.5.0
       mobx: 6.7.0
       mobx-react-lite: 3.4.0_jofyzmwkboewm6mjrhi25mngky
+      qs: 6.11.0
       react: 18.2.0
       react-dom: 18.2.0_react@18.2.0
       vite-plugin-static-copy: 0.13.0_vite@4.1.1
     devDependencies:
+      '@types/luxon': 2.4.0
+      '@types/qs': 6.9.7
       '@types/react': 18.0.27
       '@types/react-dom': 18.0.10
       '@vitejs/plugin-react-swc': 3.1.0_vite@4.1.1
@@ -1151,6 +1165,14 @@ packages:
       postcss: 8.3.11
     dev: true
 
+  /@stencil/react-output-target/0.4.0_@stencil+core@3.0.0:
+    resolution: {integrity: sha512-X7XW6aHSU7ZypkFj4wX/XL7ROj2GXcdTL+Emo1mKNg5laBcuTVtt8zPR4ERG/grq8ec8wav+FxBuSlQ3cH0qcg==}
+    peerDependencies:
+      '@stencil/core': ^2.9.0 || ^3.0.0-beta.0
+    dependencies:
+      '@stencil/core': 3.0.0
+    dev: true
+
   /@stencil/router/1.0.1:
     resolution: {integrity: sha512-ZMholl1BE+glNAc/8pcEb9RYkeH0XETxsJbx6D7f3azTmaTXqKYty1IACP/3BtVjuimpfLdxQJ+J95wKmnYBtA==}
     deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
@@ -1403,7 +1425,6 @@ packages:
 
   /@types/qs/6.9.7:
     resolution: {integrity: sha512-FGa1F62FT09qcrueBA6qYTrJPVDzah9a+493+o2PCXsesWHIn27G98TsSMs3WPNbZIEj4+VJf6saSFpvD+3Zsw==}
-    dev: false
 
   /@types/react-dom/18.0.10:
     resolution: {integrity: sha512-E42GW/JA4Qv15wQdqJq8DL4JhNpB3prJgjgapN3qJT9K2zO5IIAQh4VXvCEDupoqAwnz0cY4RlXeC/ajX5SFHg==}
