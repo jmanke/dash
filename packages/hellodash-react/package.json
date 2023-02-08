@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
     "build": "tsc && vite build",
+    "start": "vite",
+    "start:hellodash-react": "vite",
     "preview": "vite preview"
   },
   "dependencies": {

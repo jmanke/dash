@@ -14,7 +14,7 @@
       "outputs": ["dist/**", "www/**"]
     },
     "start:hellodash-react": {
-      "dependsOn": ["^start:hellodash"],
+      "dependsOn": ["^build:dev", "^start:hellodash-react"],
       "outputs": ["dist/**", "www/**"]
     },
     "start:components": {
