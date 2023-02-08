@@ -23,12 +23,11 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
+    "build:dev": "stencil build",
     "publish:npm": "npm publish",
     "start": "cross-env concurrently 'pnpm start:dev' 'start:forge' -g -k",
     "start:dev": "stencil build --dev --watch",
     "start:components": "pnpm start:dev",
-    "start:components:forge": "pnpm start:forge",
-    "start:hellodash": "stencil build",
     "start:forge": "component-forge",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
