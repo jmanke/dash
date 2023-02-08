@@ -1,8 +1,9 @@
 {
   "name": "hellodash-react",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Hellodash is a modern note taking web-app",
   "scripts": {
     "build": "tsc && vite build",
     "start": "vite",
@@ -10,8 +11,13 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@didyoumeantoast/dash-components": "workspace:^1.1.2",
+    "@didyoumeantoast/dash-utils": "workspace:^1.1.3",
+    "mobx": "^6.7.0",
+    "mobx-react-lite": "^3.4.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "vite-plugin-static-copy": "^0.13.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
