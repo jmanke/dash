@@ -11,6 +11,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
     "start:hellodash": "turbo run start:hellodash",
+    "start:hellodash-react": "turbo run start:hellodash-react",
     "start:components": "turbo run start:components",
     "start:components:forge": "turbo run start:components:forge"
   },

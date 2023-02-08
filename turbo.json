@@ -9,6 +9,10 @@
       "dependsOn": ["^start:hellodash"],
       "outputs": ["dist/**", "www/**"]
     },
+    "start:hellodash-react": {
+      "dependsOn": ["^start:hellodash"],
+      "outputs": ["dist/**", "www/**"]
+    },
     "start:components": {
       "dependsOn": ["^start:components"],
       "outputs": ["dist/**", "www/**"]
