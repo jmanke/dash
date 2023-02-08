@@ -5,8 +5,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "www/**"]
     },
+    "build:dev": {
+      "dependsOn": ["^build:dev"],
+      "outputs": ["dist/**", "www/**"]
+    },
     "start:hellodash": {
-      "dependsOn": ["^start:hellodash"],
+      "dependsOn": ["^build:dev", "^start:hellodash"],
       "outputs": ["dist/**", "www/**"]
     },
     "start:hellodash-react": {
@@ -14,7 +18,7 @@
       "outputs": ["dist/**", "www/**"]
     },
     "start:components": {
-      "dependsOn": ["^start:components"],
+      "dependsOn": ["^build:dev", "^start:components"],
       "outputs": ["dist/**", "www/**"]
     },
     "start:components:forge": {

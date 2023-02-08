@@ -8,8 +8,7 @@
   "main": "lib/index.js",
   "scripts": {
     "build": "node build.js",
-    "start:hellodash": "pnpm build",
-    "start:components": "pnpm build"
+    "build:dev": "pnpm build"
   },
   "files": [
     "lib/"
