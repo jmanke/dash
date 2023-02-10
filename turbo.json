@@ -5,21 +5,23 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "www/**"]
     },
+    "build:components": {
+      "dependsOn": ["^build:utils"],
+      "outputs": ["dist/**", "www/**"]
+    },
     "build:dev": {
       "dependsOn": ["^build:dev"],
       "outputs": ["dist/**", "www/**"]
     },
-    "start:hellodash": {
-      "dependsOn": ["^build:dev", "^start:hellodash"],
+    "build:utils": {
       "outputs": ["dist/**", "www/**"]
+    },
+    "start:hellodash": {
+      "dependsOn": ["^build:components"]
     },
     "start:components": {
-      "dependsOn": ["^build:dev", "^start:components"],
-      "outputs": ["dist/**", "www/**"]
+      "dependsOn": ["^build:utils"]
     },
-    "start:components:forge": {
-      "dependsOn": ["^start:components:forge"],
-      "outputs": ["dist/**", "www/**"]
-    }
+    "start:components:forge": {}
   }
 }
