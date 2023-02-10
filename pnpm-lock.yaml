@@ -97,9 +97,9 @@ importers:
       '@didyoumeantoast/stencil-view-model': ^1.0.5
       '@didyoumeantoast/tinymce-plugins': ^1.1.4
       '@popperjs/core': ^2.11.0
+      '@stencil-community/router': ^1.0.2
       '@stencil/core': ^3.0.0
       '@stencil/postcss': ^2.1.0
-      '@stencil/router': ^1.0.1
       '@stencil/store': ^1.4.1
       '@types/jest': ^26.0.24
       '@types/lodash': ^4.14.177
@@ -132,6 +132,7 @@ importers:
       '@didyoumeantoast/stencil-view-model': 1.0.5
       '@didyoumeantoast/tinymce-plugins': 1.1.4
       '@popperjs/core': 2.11.6
+      '@stencil-community/router': 1.0.2
       '@types/qs': 6.9.7
       axios: 0.24.0
       lodash: 4.17.21
@@ -143,7 +144,6 @@ importers:
     devDependencies:
       '@stencil/core': 3.0.0
       '@stencil/postcss': 2.1.0_@stencil+core@3.0.0
-      '@stencil/router': 1.0.1
       '@stencil/store': 1.5.0_@stencil+core@3.0.0
       '@types/jest': 26.0.24
       '@types/lodash': 4.14.191
@@ -931,6 +931,12 @@ packages:
       '@sinonjs/commons': 1.8.6
     dev: true
 
+  /@stencil-community/router/1.0.2:
+    resolution: {integrity: sha512-GQkhcwDZdkX6k6rE/ZqrH2mbxGt9wPq0KGAdwPJOcZJbfq9cKaSMOuS7heDEBcWgXgxJS2rKqwUKyKTj41g9pA==}
+    dependencies:
+      '@stencil/state-tunnel': 1.0.1
+    dev: false
+
   /@stencil/core/2.19.3:
     resolution: {integrity: sha512-rb6pBWTfD5xDg5M/uEJUeclatE/tqBE3zCCNrEB47AtdkNCzC9fOikdzCYbpdAEpU6GvC60REFr0bd8QFUjn3Q==}
     engines: {node: '>=12.10.0', npm: '>=6.0.0'}
@@ -952,17 +958,10 @@ packages:
       postcss: 8.3.11
     dev: true
 
-  /@stencil/router/1.0.1:
-    resolution: {integrity: sha512-ZMholl1BE+glNAc/8pcEb9RYkeH0XETxsJbx6D7f3azTmaTXqKYty1IACP/3BtVjuimpfLdxQJ+J95wKmnYBtA==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
-    dependencies:
-      '@stencil/state-tunnel': 1.0.1
-    dev: true
-
   /@stencil/state-tunnel/1.0.1:
     resolution: {integrity: sha512-DYG8uROgL9hkjVTCtCfRBb0d3FwpiFB0muRrNZQ2X1Qo5hxMuNNji76/ILddqeq0AfgkKCW82xrMPDpy+rNIhQ==}
     deprecated: '@stencil/state-tunnel is no longer supported'
-    dev: true
+    dev: false
 
   /@stencil/store/1.5.0_@stencil+core@3.0.0:
     resolution: {integrity: sha512-fe5fCF6dgVlDM1iLRkkJUyUh0Tfx305asVGgMAJjIs7Q+x/b1pGgTLROm9Ibr53PZuFwr5Kg+4h9p4FLbYqHgA==}

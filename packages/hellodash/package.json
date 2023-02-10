@@ -3,6 +3,7 @@
   "private": true,
   "version": "1.0.0",
   "description": "Hellodash is a modern note taking web-app built with StencilJS",
+  "module": "esm",
   "scripts": {
     "build": "stencil build",
     "start": "stencil build --dev --watch --serve",
@@ -15,7 +16,6 @@
   "devDependencies": {
     "@stencil/core": "^3.0.0",
     "@stencil/postcss": "^2.1.0",
-    "@stencil/router": "^1.0.1",
     "@stencil/store": "^1.4.1",
     "@types/jest": "^26.0.24",
     "@types/lodash": "^4.14.177",
@@ -36,11 +36,12 @@
   "dependencies": {
     "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
-    "@didyoumeantoast/dash-components": "^1.1.2",
-    "@didyoumeantoast/dash-utils": "^1.1.3",
+    "@didyoumeantoast/dash-components": "^1.2.0",
+    "@didyoumeantoast/dash-utils": "^1.1.4",
     "@didyoumeantoast/stencil-view-model": "^1.0.5",
     "@didyoumeantoast/tinymce-plugins": "^1.1.4",
     "@popperjs/core": "^2.11.0",
+    "@stencil-community/router": "^1.0.2",
     "@types/qs": "^6.9.7",
     "axios": "^0.24.0",
     "lodash": "^4.17.21",
@@ -51,8 +52,7 @@
     "uuid": "^8.3.2"
   },
   "engines": {
-    "node": "18.x",
-    "pnpm": "7.x"
+    "node": "18.x"
   },
   "volta": {
     "node": "18.12.1"

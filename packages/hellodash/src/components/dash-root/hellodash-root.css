@@ -1,0 +1,12 @@
+hellodash-root {
+  .nav-filter {
+    width: 80%;
+    max-width: var(--dash-spacing-120);
+  }
+
+  .root-error-message {
+    margin-top: var(--dash-spacing-48);
+    text-align: center;
+    font-size: var(--dash-font-size-6);
+  }
+}
