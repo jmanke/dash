@@ -10,73 +10,73 @@ import { Auth0Client } from "@auth0/auth0-spa-js";
 import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 import { LabelViewModel } from "./view-models/label-view-model";
 import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
-import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
+import { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
 import { UserViewModel } from "./view-models/user-view-model";
 export { RouterHistory } from "@stencil-community/router";
 export { Auth0Client } from "@auth0/auth0-spa-js";
 export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 export { LabelViewModel } from "./view-models/label-view-model";
 export { NotePreviewViewModel } from "./view-models/note-preview-view-model";
-export { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
+export { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
 export { UserViewModel } from "./view-models/user-view-model";
 export namespace Components {
-    interface DashApp {
+    interface HellodashApp {
         "history": RouterHistory;
     }
-    interface DashAuth0Provider {
+    interface HellodashAuth0Provider {
         "authClient": Auth0Client;
     }
-    interface DashConfirm {
+    interface HellodashConfirm {
         "cancelText": string;
         "close": () => Promise<void>;
         "confirmButtonStatus": Status;
         "confirmText": string;
         "heading": string;
     }
-    interface DashEditLabels {
+    interface HellodashEditLabels {
         "close": () => Promise<void>;
     }
-    interface DashLabelColorPicker {
+    interface HellodashLabelColorPicker {
         "color": Color;
     }
-    interface DashLabelEdit {
+    interface HellodashLabelEdit {
         "label": LabelViewModel;
     }
-    interface DashLabelSelect {
+    interface HellodashLabelSelect {
         "autoFocus": boolean;
         "labels": LabelViewModel[];
     }
-    interface DashModalNote {
+    interface HellodashModalNote {
         "close": () => Promise<void>;
         "newLabelId"?: number;
         "newNote": boolean;
         "noteId": number;
     }
-    interface DashNavBar {
+    interface HellodashNavBar {
         "setFocus": () => Promise<void>;
     }
-    interface DashNoteCard {
+    interface HellodashNoteCard {
         "history": RouterHistory;
         "mode": NoteCardMode;
         "notePreview": NotePreviewViewModel;
         "selected": boolean;
     }
-    interface DashNoteEditDropdown {
+    interface HellodashNoteEditDropdown {
         "notePreview": NotePreviewViewModel;
     }
-    interface DashProfileSettings {
+    interface HellodashProfileSettings {
         "user": UserViewModel;
     }
-    interface DashRoot {
+    interface HellodashRoot {
         "history": RouterHistory;
     }
-    interface DashRouteBin {
+    interface HellodashRouteBin {
     }
-    interface DashRouteNotes {
+    interface HellodashRouteNotes {
         "history": RouterHistory;
         "match": any;
     }
-    interface DashTextEditor {
+    interface HellodashTextEditor {
         "content": string;
         "debounce": number;
         "deferLoadTime"?: number;
@@ -94,282 +94,282 @@ export namespace Components {
         "showTitleInput"?: boolean;
     }
 }
-export interface DashConfirmCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashConfirmCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashConfirmElement;
+    target: HTMLHellodashConfirmElement;
 }
-export interface DashEditLabelsCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashEditLabelsCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashEditLabelsElement;
+    target: HTMLHellodashEditLabelsElement;
 }
-export interface DashLabelColorPickerCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashLabelColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashLabelColorPickerElement;
+    target: HTMLHellodashLabelColorPickerElement;
 }
-export interface DashLabelEditCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashLabelEditCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashLabelEditElement;
+    target: HTMLHellodashLabelEditElement;
 }
-export interface DashLabelSelectCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashLabelSelectCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashLabelSelectElement;
+    target: HTMLHellodashLabelSelectElement;
 }
-export interface DashModalNoteCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashModalNoteCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashModalNoteElement;
+    target: HTMLHellodashModalNoteElement;
 }
-export interface DashNavBarCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashNavBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashNavBarElement;
+    target: HTMLHellodashNavBarElement;
 }
-export interface DashNoteEditDropdownCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashNoteEditDropdownCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashNoteEditDropdownElement;
+    target: HTMLHellodashNoteEditDropdownElement;
 }
-export interface DashTextEditorCustomEvent<T> extends CustomEvent<T> {
+export interface HellodashTextEditorCustomEvent<T> extends CustomEvent<T> {
     detail: T;
-    target: HTMLDashTextEditorElement;
+    target: HTMLHellodashTextEditorElement;
 }
 declare global {
-    interface HTMLDashAppElement extends Components.DashApp, HTMLStencilElement {
+    interface HTMLHellodashAppElement extends Components.HellodashApp, HTMLStencilElement {
     }
-    var HTMLDashAppElement: {
-        prototype: HTMLDashAppElement;
-        new (): HTMLDashAppElement;
+    var HTMLHellodashAppElement: {
+        prototype: HTMLHellodashAppElement;
+        new (): HTMLHellodashAppElement;
     };
-    interface HTMLDashAuth0ProviderElement extends Components.DashAuth0Provider, HTMLStencilElement {
+    interface HTMLHellodashAuth0ProviderElement extends Components.HellodashAuth0Provider, HTMLStencilElement {
     }
-    var HTMLDashAuth0ProviderElement: {
-        prototype: HTMLDashAuth0ProviderElement;
-        new (): HTMLDashAuth0ProviderElement;
+    var HTMLHellodashAuth0ProviderElement: {
+        prototype: HTMLHellodashAuth0ProviderElement;
+        new (): HTMLHellodashAuth0ProviderElement;
     };
-    interface HTMLDashConfirmElement extends Components.DashConfirm, HTMLStencilElement {
+    interface HTMLHellodashConfirmElement extends Components.HellodashConfirm, HTMLStencilElement {
     }
-    var HTMLDashConfirmElement: {
-        prototype: HTMLDashConfirmElement;
-        new (): HTMLDashConfirmElement;
+    var HTMLHellodashConfirmElement: {
+        prototype: HTMLHellodashConfirmElement;
+        new (): HTMLHellodashConfirmElement;
     };
-    interface HTMLDashEditLabelsElement extends Components.DashEditLabels, HTMLStencilElement {
+    interface HTMLHellodashEditLabelsElement extends Components.HellodashEditLabels, HTMLStencilElement {
     }
-    var HTMLDashEditLabelsElement: {
-        prototype: HTMLDashEditLabelsElement;
-        new (): HTMLDashEditLabelsElement;
+    var HTMLHellodashEditLabelsElement: {
+        prototype: HTMLHellodashEditLabelsElement;
+        new (): HTMLHellodashEditLabelsElement;
     };
-    interface HTMLDashLabelColorPickerElement extends Components.DashLabelColorPicker, HTMLStencilElement {
+    interface HTMLHellodashLabelColorPickerElement extends Components.HellodashLabelColorPicker, HTMLStencilElement {
     }
-    var HTMLDashLabelColorPickerElement: {
-        prototype: HTMLDashLabelColorPickerElement;
-        new (): HTMLDashLabelColorPickerElement;
+    var HTMLHellodashLabelColorPickerElement: {
+        prototype: HTMLHellodashLabelColorPickerElement;
+        new (): HTMLHellodashLabelColorPickerElement;
     };
-    interface HTMLDashLabelEditElement extends Components.DashLabelEdit, HTMLStencilElement {
+    interface HTMLHellodashLabelEditElement extends Components.HellodashLabelEdit, HTMLStencilElement {
     }
-    var HTMLDashLabelEditElement: {
-        prototype: HTMLDashLabelEditElement;
-        new (): HTMLDashLabelEditElement;
+    var HTMLHellodashLabelEditElement: {
+        prototype: HTMLHellodashLabelEditElement;
+        new (): HTMLHellodashLabelEditElement;
     };
-    interface HTMLDashLabelSelectElement extends Components.DashLabelSelect, HTMLStencilElement {
+    interface HTMLHellodashLabelSelectElement extends Components.HellodashLabelSelect, HTMLStencilElement {
     }
-    var HTMLDashLabelSelectElement: {
-        prototype: HTMLDashLabelSelectElement;
-        new (): HTMLDashLabelSelectElement;
+    var HTMLHellodashLabelSelectElement: {
+        prototype: HTMLHellodashLabelSelectElement;
+        new (): HTMLHellodashLabelSelectElement;
     };
-    interface HTMLDashModalNoteElement extends Components.DashModalNote, HTMLStencilElement {
+    interface HTMLHellodashModalNoteElement extends Components.HellodashModalNote, HTMLStencilElement {
     }
-    var HTMLDashModalNoteElement: {
-        prototype: HTMLDashModalNoteElement;
-        new (): HTMLDashModalNoteElement;
+    var HTMLHellodashModalNoteElement: {
+        prototype: HTMLHellodashModalNoteElement;
+        new (): HTMLHellodashModalNoteElement;
     };
-    interface HTMLDashNavBarElement extends Components.DashNavBar, HTMLStencilElement {
+    interface HTMLHellodashNavBarElement extends Components.HellodashNavBar, HTMLStencilElement {
     }
-    var HTMLDashNavBarElement: {
-        prototype: HTMLDashNavBarElement;
-        new (): HTMLDashNavBarElement;
+    var HTMLHellodashNavBarElement: {
+        prototype: HTMLHellodashNavBarElement;
+        new (): HTMLHellodashNavBarElement;
     };
-    interface HTMLDashNoteCardElement extends Components.DashNoteCard, HTMLStencilElement {
+    interface HTMLHellodashNoteCardElement extends Components.HellodashNoteCard, HTMLStencilElement {
     }
-    var HTMLDashNoteCardElement: {
-        prototype: HTMLDashNoteCardElement;
-        new (): HTMLDashNoteCardElement;
+    var HTMLHellodashNoteCardElement: {
+        prototype: HTMLHellodashNoteCardElement;
+        new (): HTMLHellodashNoteCardElement;
     };
-    interface HTMLDashNoteEditDropdownElement extends Components.DashNoteEditDropdown, HTMLStencilElement {
+    interface HTMLHellodashNoteEditDropdownElement extends Components.HellodashNoteEditDropdown, HTMLStencilElement {
     }
-    var HTMLDashNoteEditDropdownElement: {
-        prototype: HTMLDashNoteEditDropdownElement;
-        new (): HTMLDashNoteEditDropdownElement;
+    var HTMLHellodashNoteEditDropdownElement: {
+        prototype: HTMLHellodashNoteEditDropdownElement;
+        new (): HTMLHellodashNoteEditDropdownElement;
     };
-    interface HTMLDashProfileSettingsElement extends Components.DashProfileSettings, HTMLStencilElement {
+    interface HTMLHellodashProfileSettingsElement extends Components.HellodashProfileSettings, HTMLStencilElement {
     }
-    var HTMLDashProfileSettingsElement: {
-        prototype: HTMLDashProfileSettingsElement;
-        new (): HTMLDashProfileSettingsElement;
+    var HTMLHellodashProfileSettingsElement: {
+        prototype: HTMLHellodashProfileSettingsElement;
+        new (): HTMLHellodashProfileSettingsElement;
     };
-    interface HTMLDashRootElement extends Components.DashRoot, HTMLStencilElement {
+    interface HTMLHellodashRootElement extends Components.HellodashRoot, HTMLStencilElement {
     }
-    var HTMLDashRootElement: {
-        prototype: HTMLDashRootElement;
-        new (): HTMLDashRootElement;
+    var HTMLHellodashRootElement: {
+        prototype: HTMLHellodashRootElement;
+        new (): HTMLHellodashRootElement;
     };
-    interface HTMLDashRouteBinElement extends Components.DashRouteBin, HTMLStencilElement {
+    interface HTMLHellodashRouteBinElement extends Components.HellodashRouteBin, HTMLStencilElement {
     }
-    var HTMLDashRouteBinElement: {
-        prototype: HTMLDashRouteBinElement;
-        new (): HTMLDashRouteBinElement;
+    var HTMLHellodashRouteBinElement: {
+        prototype: HTMLHellodashRouteBinElement;
+        new (): HTMLHellodashRouteBinElement;
     };
-    interface HTMLDashRouteNotesElement extends Components.DashRouteNotes, HTMLStencilElement {
+    interface HTMLHellodashRouteNotesElement extends Components.HellodashRouteNotes, HTMLStencilElement {
     }
-    var HTMLDashRouteNotesElement: {
-        prototype: HTMLDashRouteNotesElement;
-        new (): HTMLDashRouteNotesElement;
+    var HTMLHellodashRouteNotesElement: {
+        prototype: HTMLHellodashRouteNotesElement;
+        new (): HTMLHellodashRouteNotesElement;
     };
-    interface HTMLDashTextEditorElement extends Components.DashTextEditor, HTMLStencilElement {
+    interface HTMLHellodashTextEditorElement extends Components.HellodashTextEditor, HTMLStencilElement {
     }
-    var HTMLDashTextEditorElement: {
-        prototype: HTMLDashTextEditorElement;
-        new (): HTMLDashTextEditorElement;
+    var HTMLHellodashTextEditorElement: {
+        prototype: HTMLHellodashTextEditorElement;
+        new (): HTMLHellodashTextEditorElement;
     };
     interface HTMLElementTagNameMap {
-        "dash-app": HTMLDashAppElement;
-        "dash-auth0-provider": HTMLDashAuth0ProviderElement;
-        "dash-confirm": HTMLDashConfirmElement;
-        "dash-edit-labels": HTMLDashEditLabelsElement;
-        "dash-label-color-picker": HTMLDashLabelColorPickerElement;
-        "dash-label-edit": HTMLDashLabelEditElement;
-        "dash-label-select": HTMLDashLabelSelectElement;
-        "dash-modal-note": HTMLDashModalNoteElement;
-        "dash-nav-bar": HTMLDashNavBarElement;
-        "dash-note-card": HTMLDashNoteCardElement;
-        "dash-note-edit-dropdown": HTMLDashNoteEditDropdownElement;
-        "dash-profile-settings": HTMLDashProfileSettingsElement;
-        "dash-root": HTMLDashRootElement;
-        "dash-route-bin": HTMLDashRouteBinElement;
-        "dash-route-notes": HTMLDashRouteNotesElement;
-        "dash-text-editor": HTMLDashTextEditorElement;
+        "hellodash-app": HTMLHellodashAppElement;
+        "hellodash-auth0-provider": HTMLHellodashAuth0ProviderElement;
+        "hellodash-confirm": HTMLHellodashConfirmElement;
+        "hellodash-edit-labels": HTMLHellodashEditLabelsElement;
+        "hellodash-label-color-picker": HTMLHellodashLabelColorPickerElement;
+        "hellodash-label-edit": HTMLHellodashLabelEditElement;
+        "hellodash-label-select": HTMLHellodashLabelSelectElement;
+        "hellodash-modal-note": HTMLHellodashModalNoteElement;
+        "hellodash-nav-bar": HTMLHellodashNavBarElement;
+        "hellodash-note-card": HTMLHellodashNoteCardElement;
+        "hellodash-note-edit-dropdown": HTMLHellodashNoteEditDropdownElement;
+        "hellodash-profile-settings": HTMLHellodashProfileSettingsElement;
+        "hellodash-root": HTMLHellodashRootElement;
+        "hellodash-route-bin": HTMLHellodashRouteBinElement;
+        "hellodash-route-notes": HTMLHellodashRouteNotesElement;
+        "hellodash-text-editor": HTMLHellodashTextEditorElement;
     }
 }
 declare namespace LocalJSX {
-    interface DashApp {
+    interface HellodashApp {
         "history"?: RouterHistory;
     }
-    interface DashAuth0Provider {
+    interface HellodashAuth0Provider {
         "authClient"?: Auth0Client;
     }
-    interface DashConfirm {
+    interface HellodashConfirm {
         "cancelText"?: string;
         "confirmButtonStatus"?: Status;
         "confirmText"?: string;
         "heading"?: string;
-        "onDashConfirmConfirmed"?: (event: DashConfirmCustomEvent<any>) => void;
-        "onDashModalBeforeClose"?: (event: DashConfirmCustomEvent<any>) => void;
-        "onDashModalClosed"?: (event: DashConfirmCustomEvent<any>) => void;
+        "onDashConfirmConfirmed"?: (event: HellodashConfirmCustomEvent<any>) => void;
+        "onDashModalBeforeClose"?: (event: HellodashConfirmCustomEvent<any>) => void;
+        "onDashModalClosed"?: (event: HellodashConfirmCustomEvent<any>) => void;
     }
-    interface DashEditLabels {
-        "onDashModalBeforeClose"?: (event: DashEditLabelsCustomEvent<any>) => void;
-        "onDashModalClosed"?: (event: DashEditLabelsCustomEvent<any>) => void;
+    interface HellodashEditLabels {
+        "onDashModalBeforeClose"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
+        "onDashModalClosed"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
     }
-    interface DashLabelColorPicker {
+    interface HellodashLabelColorPicker {
         "color"?: Color;
-        "onDashLabelColorPickerColorChanged"?: (event: DashLabelColorPickerCustomEvent<Color>) => void;
+        "onDashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
     }
-    interface DashLabelEdit {
+    interface HellodashLabelEdit {
         "label"?: LabelViewModel;
-        "onDashDeleteLabel"?: (event: DashLabelEditCustomEvent<LabelViewModel>) => void;
+        "onDashDeleteLabel"?: (event: HellodashLabelEditCustomEvent<LabelViewModel>) => void;
     }
-    interface DashLabelSelect {
+    interface HellodashLabelSelect {
         "autoFocus"?: boolean;
         "labels"?: LabelViewModel[];
-        "onDashLabelSelectLabelAdded"?: (event: DashLabelSelectCustomEvent<LabelViewModel>) => void;
-        "onDashLabelSelectLabelRemoved"?: (event: DashLabelSelectCustomEvent<LabelViewModel>) => void;
+        "onDashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
+        "onDashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
     }
-    interface DashModalNote {
+    interface HellodashModalNote {
         "newLabelId"?: number;
         "newNote"?: boolean;
         "noteId"?: number;
-        "onDashModalBeforeClose"?: (event: DashModalNoteCustomEvent<any>) => void;
-        "onDashModalClosed"?: (event: DashModalNoteCustomEvent<any>) => void;
+        "onDashModalBeforeClose"?: (event: HellodashModalNoteCustomEvent<any>) => void;
+        "onDashModalClosed"?: (event: HellodashModalNoteCustomEvent<any>) => void;
     }
-    interface DashNavBar {
-        "onDashMenuToggled"?: (event: DashNavBarCustomEvent<any>) => void;
+    interface HellodashNavBar {
+        "onDashMenuToggled"?: (event: HellodashNavBarCustomEvent<any>) => void;
     }
-    interface DashNoteCard {
+    interface HellodashNoteCard {
         "history"?: RouterHistory;
         "mode"?: NoteCardMode;
         "notePreview"?: NotePreviewViewModel;
         "selected"?: boolean;
     }
-    interface DashNoteEditDropdown {
+    interface HellodashNoteEditDropdown {
         "notePreview"?: NotePreviewViewModel;
-        "onDashNoteEditDropdownVisibleChanged"?: (event: DashNoteEditDropdownCustomEvent<boolean>) => void;
+        "onDashNoteEditDropdownVisibleChanged"?: (event: HellodashNoteEditDropdownCustomEvent<boolean>) => void;
     }
-    interface DashProfileSettings {
+    interface HellodashProfileSettings {
         "user"?: UserViewModel;
     }
-    interface DashRoot {
+    interface HellodashRoot {
         "history"?: RouterHistory;
     }
-    interface DashRouteBin {
+    interface HellodashRouteBin {
     }
-    interface DashRouteNotes {
+    interface HellodashRouteNotes {
         "history"?: RouterHistory;
         "match"?: any;
     }
-    interface DashTextEditor {
+    interface HellodashTextEditor {
         "content"?: string;
         "debounce"?: number;
         "deferLoadTime"?: number;
         "heading"?: string;
         "loading"?: boolean;
-        "onDashTextEditorBeforeUnload"?: (event: DashTextEditorCustomEvent<Promise<unknown>[]>) => void;
-        "onDashTextEditorContentChanged"?: (event: DashTextEditorCustomEvent<string>) => void;
-        "onDashTextEditorFullscreenChanged"?: (event: DashTextEditorCustomEvent<boolean>) => void;
-        "onDashTextEditorHeadingChanged"?: (event: DashTextEditorCustomEvent<string>) => void;
-        "onDashTextEditorInit"?: (event: DashTextEditorCustomEvent<HTMLDashTextEditorElement>) => void;
-        "onDashTextEditorIsDirty"?: (event: DashTextEditorCustomEvent<any>) => void;
-        "onDashTextEditorNodeChanged"?: (event: DashTextEditorCustomEvent<object>) => void;
-        "onDashTextEditorUnload"?: (event: DashTextEditorCustomEvent<any>) => void;
+        "onDashTextEditorBeforeUnload"?: (event: HellodashTextEditorCustomEvent<Promise<unknown>[]>) => void;
+        "onDashTextEditorContentChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
+        "onDashTextEditorFullscreenChanged"?: (event: HellodashTextEditorCustomEvent<boolean>) => void;
+        "onDashTextEditorHeadingChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
+        "onDashTextEditorInit"?: (event: HellodashTextEditorCustomEvent<HTMLHellodashTextEditorElement>) => void;
+        "onDashTextEditorIsDirty"?: (event: HellodashTextEditorCustomEvent<any>) => void;
+        "onDashTextEditorNodeChanged"?: (event: HellodashTextEditorCustomEvent<object>) => void;
+        "onDashTextEditorUnload"?: (event: HellodashTextEditorCustomEvent<any>) => void;
         "readonly"?: boolean;
         "resize"?: boolean;
         "showFullscreen"?: boolean;
         "showTitleInput"?: boolean;
     }
     interface IntrinsicElements {
-        "dash-app": DashApp;
-        "dash-auth0-provider": DashAuth0Provider;
-        "dash-confirm": DashConfirm;
-        "dash-edit-labels": DashEditLabels;
-        "dash-label-color-picker": DashLabelColorPicker;
-        "dash-label-edit": DashLabelEdit;
-        "dash-label-select": DashLabelSelect;
-        "dash-modal-note": DashModalNote;
-        "dash-nav-bar": DashNavBar;
-        "dash-note-card": DashNoteCard;
-        "dash-note-edit-dropdown": DashNoteEditDropdown;
-        "dash-profile-settings": DashProfileSettings;
-        "dash-root": DashRoot;
-        "dash-route-bin": DashRouteBin;
-        "dash-route-notes": DashRouteNotes;
-        "dash-text-editor": DashTextEditor;
+        "hellodash-app": HellodashApp;
+        "hellodash-auth0-provider": HellodashAuth0Provider;
+        "hellodash-confirm": HellodashConfirm;
+        "hellodash-edit-labels": HellodashEditLabels;
+        "hellodash-label-color-picker": HellodashLabelColorPicker;
+        "hellodash-label-edit": HellodashLabelEdit;
+        "hellodash-label-select": HellodashLabelSelect;
+        "hellodash-modal-note": HellodashModalNote;
+        "hellodash-nav-bar": HellodashNavBar;
+        "hellodash-note-card": HellodashNoteCard;
+        "hellodash-note-edit-dropdown": HellodashNoteEditDropdown;
+        "hellodash-profile-settings": HellodashProfileSettings;
+        "hellodash-root": HellodashRoot;
+        "hellodash-route-bin": HellodashRouteBin;
+        "hellodash-route-notes": HellodashRouteNotes;
+        "hellodash-text-editor": HellodashTextEditor;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
-            "dash-app": LocalJSX.DashApp & JSXBase.HTMLAttributes<HTMLDashAppElement>;
-            "dash-auth0-provider": LocalJSX.DashAuth0Provider & JSXBase.HTMLAttributes<HTMLDashAuth0ProviderElement>;
-            "dash-confirm": LocalJSX.DashConfirm & JSXBase.HTMLAttributes<HTMLDashConfirmElement>;
-            "dash-edit-labels": LocalJSX.DashEditLabels & JSXBase.HTMLAttributes<HTMLDashEditLabelsElement>;
-            "dash-label-color-picker": LocalJSX.DashLabelColorPicker & JSXBase.HTMLAttributes<HTMLDashLabelColorPickerElement>;
-            "dash-label-edit": LocalJSX.DashLabelEdit & JSXBase.HTMLAttributes<HTMLDashLabelEditElement>;
-            "dash-label-select": LocalJSX.DashLabelSelect & JSXBase.HTMLAttributes<HTMLDashLabelSelectElement>;
-            "dash-modal-note": LocalJSX.DashModalNote & JSXBase.HTMLAttributes<HTMLDashModalNoteElement>;
-            "dash-nav-bar": LocalJSX.DashNavBar & JSXBase.HTMLAttributes<HTMLDashNavBarElement>;
-            "dash-note-card": LocalJSX.DashNoteCard & JSXBase.HTMLAttributes<HTMLDashNoteCardElement>;
-            "dash-note-edit-dropdown": LocalJSX.DashNoteEditDropdown & JSXBase.HTMLAttributes<HTMLDashNoteEditDropdownElement>;
-            "dash-profile-settings": LocalJSX.DashProfileSettings & JSXBase.HTMLAttributes<HTMLDashProfileSettingsElement>;
-            "dash-root": LocalJSX.DashRoot & JSXBase.HTMLAttributes<HTMLDashRootElement>;
-            "dash-route-bin": LocalJSX.DashRouteBin & JSXBase.HTMLAttributes<HTMLDashRouteBinElement>;
-            "dash-route-notes": LocalJSX.DashRouteNotes & JSXBase.HTMLAttributes<HTMLDashRouteNotesElement>;
-            "dash-text-editor": LocalJSX.DashTextEditor & JSXBase.HTMLAttributes<HTMLDashTextEditorElement>;
+            "hellodash-app": LocalJSX.HellodashApp & JSXBase.HTMLAttributes<HTMLHellodashAppElement>;
+            "hellodash-auth0-provider": LocalJSX.HellodashAuth0Provider & JSXBase.HTMLAttributes<HTMLHellodashAuth0ProviderElement>;
+            "hellodash-confirm": LocalJSX.HellodashConfirm & JSXBase.HTMLAttributes<HTMLHellodashConfirmElement>;
+            "hellodash-edit-labels": LocalJSX.HellodashEditLabels & JSXBase.HTMLAttributes<HTMLHellodashEditLabelsElement>;
+            "hellodash-label-color-picker": LocalJSX.HellodashLabelColorPicker & JSXBase.HTMLAttributes<HTMLHellodashLabelColorPickerElement>;
+            "hellodash-label-edit": LocalJSX.HellodashLabelEdit & JSXBase.HTMLAttributes<HTMLHellodashLabelEditElement>;
+            "hellodash-label-select": LocalJSX.HellodashLabelSelect & JSXBase.HTMLAttributes<HTMLHellodashLabelSelectElement>;
+            "hellodash-modal-note": LocalJSX.HellodashModalNote & JSXBase.HTMLAttributes<HTMLHellodashModalNoteElement>;
+            "hellodash-nav-bar": LocalJSX.HellodashNavBar & JSXBase.HTMLAttributes<HTMLHellodashNavBarElement>;
+            "hellodash-note-card": LocalJSX.HellodashNoteCard & JSXBase.HTMLAttributes<HTMLHellodashNoteCardElement>;
+            "hellodash-note-edit-dropdown": LocalJSX.HellodashNoteEditDropdown & JSXBase.HTMLAttributes<HTMLHellodashNoteEditDropdownElement>;
+            "hellodash-profile-settings": LocalJSX.HellodashProfileSettings & JSXBase.HTMLAttributes<HTMLHellodashProfileSettingsElement>;
+            "hellodash-root": LocalJSX.HellodashRoot & JSXBase.HTMLAttributes<HTMLHellodashRootElement>;
+            "hellodash-route-bin": LocalJSX.HellodashRouteBin & JSXBase.HTMLAttributes<HTMLHellodashRouteBinElement>;
+            "hellodash-route-notes": LocalJSX.HellodashRouteNotes & JSXBase.HTMLAttributes<HTMLHellodashRouteNotesElement>;
+            "hellodash-text-editor": LocalJSX.HellodashTextEditor & JSXBase.HTMLAttributes<HTMLHellodashTextEditorElement>;
         }
     }
 }

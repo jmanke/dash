@@ -77,7 +77,7 @@ body {
   --dash-scrim-transition: var(--dash-transition-time-default) ease-out;
 
   /* nav bar */
-  --dash-nav-bar-height: var(--dash-spacing-12);
+  --hellodash-nav-bar-height: var(--dash-spacing-12);
 
   /* border radius */
   --dash-border-radius: 6px;

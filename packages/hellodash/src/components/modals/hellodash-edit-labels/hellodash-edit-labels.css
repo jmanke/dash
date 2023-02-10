@@ -1,0 +1,26 @@
+:host {
+  display: block;
+}
+
+.labels-container {
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  padding: var(--dash-spacing-3) var(--dash-spacing-1);
+
+  hellodash-label-edit:not(:last-child) {
+    border-bottom: var(--dash-border-style-1);
+  }
+}
+
+.new-label-container {
+  display: flex;
+  align-items: center;
+  margin-top: var(--dash-spacing-2);
+  padding: 0 var(--dash-spacing-1);
+}
+
+.new-label-input {
+  flex: auto;
+  margin-inline-end: var(--dash-spacing-3);
+}

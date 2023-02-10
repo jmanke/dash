@@ -1,19 +1,19 @@
 import { LocationSegments, RouterHistory } from '@stencil-community/router';
 import { EventEmitter } from '@didyoumeantoast/dash-utils';
-import { DashRoot } from './dash-root';
+import { HellodashRoot } from './hellodash-root';
 
 const HISTORY_CHANGED_EVENTNAME = 'historyChanged';
 
 class DashRootService {
-  dashRoot: DashRoot;
+  root: HellodashRoot;
   private eventEmitter = new EventEmitter();
 
   showModal(content: HTMLElement) {
-    this.dashRoot.modalContent = content;
+    this.root.modalContent = content;
   }
 
   closeModal() {
-    return this.dashRoot.modalContent?.['$elm$'].close();
+    return this.root.modalContent?.['$elm$'].close();
   }
 
   initHistory(history: RouterHistory) {

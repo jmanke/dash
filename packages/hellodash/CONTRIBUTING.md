@@ -30,9 +30,9 @@
 <!-- END Copy and paste regions -->
 
 @Component({
-tag: 'dash-something',
+tag: 'hellodash-something',
 styleUrls: {
-ios: 'das-something.css',
+ios: 'hellodash-something.css',
 }
 })
 export class Something {
