@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
-import { injectHistory, LocationSegments, RouterHistory } from '@stencil/router';
+import { injectHistory, LocationSegments, RouterHistory } from '@stencil-community/router';
 import { appState, onAppChange } from '../../stores/app-state';
 import labelsState from '../../stores/labels-store';
 import notesState from '../../stores/notes-state';

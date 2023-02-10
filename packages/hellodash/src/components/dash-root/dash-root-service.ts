@@ -1,4 +1,4 @@
-import { LocationSegments, RouterHistory } from '@stencil/router';
+import { LocationSegments, RouterHistory } from '@stencil-community/router';
 import { EventEmitter } from '@didyoumeantoast/dash-utils';
 import { DashRoot } from './dash-root';
 

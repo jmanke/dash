@@ -5,14 +5,14 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { RouterHistory } from "@stencil/router";
+import { RouterHistory } from "@stencil-community/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
 import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 import { LabelViewModel } from "./view-models/label-view-model";
 import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 import { NoteCardMode } from "./components/common/dash-note-card/dash-note-card";
 import { UserViewModel } from "./view-models/user-view-model";
-export { RouterHistory } from "@stencil/router";
+export { RouterHistory } from "@stencil-community/router";
 export { Auth0Client } from "@auth0/auth0-spa-js";
 export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 export { LabelViewModel } from "./view-models/label-view-model";

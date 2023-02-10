@@ -1,6 +1,6 @@
 import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js';
 import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
-import { injectHistory, RouterHistory } from '@stencil/router';
+import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { CONSTANTS } from '../../constants';
 import { appState } from '../../stores/app-state';
 import { Theme } from '../../types/types';

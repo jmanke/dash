@@ -1,5 +1,5 @@
 import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
-import { injectHistory, RouterHistory } from '@stencil/router';
+import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { isEmpty, isNumber } from 'lodash';
 import notesState from '../../../stores/notes-state';
 import { stringSearch } from '@didyoumeantoast/dash-utils';

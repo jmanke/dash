@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { injectHistory, RouterHistory } from '@stencil/router';
+import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { DateTime } from 'luxon';
 import labelsState from '../../../stores/labels-store';
 import { LabelViewModel } from '../../../view-models/label-view-model';
