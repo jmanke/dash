@@ -68,7 +68,7 @@ export class HellodashRouteNotes {
   //#endregion
 
   //#region @Prop
-  @Prop()
+  @Prop({ mutable: true })
   history: RouterHistory;
 
   @Prop()

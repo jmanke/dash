@@ -47,7 +47,7 @@ export class HellodashApp {
   //#endregion
 
   //#region @Prop
-  @Prop()
+  @Prop({ mutable: true })
   history: RouterHistory;
   @Watch('history')
   historyChanged(history: RouterHistory) {

@@ -18,7 +18,7 @@ importers:
       '@a11y/focus-trap': ^1.0.5
       '@babel/core': ^7.19.3
       '@didyoumeantoast/component-forge': ^0.4.1
-      '@didyoumeantoast/dash-utils': ^1.1.3
+      '@didyoumeantoast/dash-utils': ^1.1.4
       '@popperjs/core': ^2.11.5
       '@stencil/core': ^3.0.0
       '@stencil/postcss': ^2.1.0
@@ -90,8 +90,8 @@ importers:
     specifiers:
       '@a11y/focus-trap': ^1.0.5
       '@auth0/auth0-spa-js': ^1.19.4
-      '@didyoumeantoast/dash-components': ^1.1.2
-      '@didyoumeantoast/dash-utils': ^1.1.3
+      '@didyoumeantoast/dash-components': ^1.2.0
+      '@didyoumeantoast/dash-utils': ^1.1.4
       '@didyoumeantoast/stencil-view-model': ^1.0.5
       '@didyoumeantoast/tinymce-plugins': ^1.1.4
       '@popperjs/core': ^2.11.0
@@ -551,8 +551,9 @@ packages:
       - terser
     dev: true
 
-  /@didyoumeantoast/dash-utils/1.1.3:
-    resolution: {integrity: sha512-lEr+zH1dDMvLClf8vNmnKc+68XRhpyWqS26CiZlP8/prcGYxZBdaU77+rl77UYTt77rqZpk7Z7c6X71x5j1izg==}
+  /@didyoumeantoast/dash-utils/1.1.4:
+    resolution: {integrity: sha512-S7w28rlus2cy3UbGVNSiMVpWRyRnJSCgbAL+7HB9AKqFLlSwkSBU561XhIuYxM5zlLVHEdJSJ1oMUJMBajpg5A==}
+    engines: {node: 18.x}
     dependencies:
       '@a11y/focus-trap': 1.0.5
     dev: false
@@ -560,7 +561,7 @@ packages:
   /@didyoumeantoast/stencil-view-model/1.0.5:
     resolution: {integrity: sha512-7sBHpThOC1w7yNqElRIZkuz26Z2Rl7rcLXdFL6jELumrlEGsYdU0djorNS4ivsPlYIRUDj4/73SB6WOjzdNgAQ==}
     dependencies:
-      '@didyoumeantoast/dash-utils': 1.1.3
+      '@didyoumeantoast/dash-utils': 1.1.4
       '@stencil/core': 2.19.3
       lodash: 4.17.21
     dev: false

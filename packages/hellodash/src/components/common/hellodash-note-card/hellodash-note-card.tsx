@@ -31,7 +31,7 @@ export class HellodashNoteCard {
   })
   notePreview: NotePreviewViewModel;
 
-  @Prop()
+  @Prop({ mutable: true })
   history: RouterHistory;
 
   @Prop({
