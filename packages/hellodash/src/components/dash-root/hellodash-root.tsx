@@ -1,4 +1,4 @@
-import createAuth0Client, { Auth0Client } from '@auth0/auth0-spa-js';
+import createAuth0Client from '@auth0/auth0-spa-js';
 import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { CONSTANTS } from '../../constants';
@@ -6,6 +6,8 @@ import { appState } from '../../stores/app-state';
 import { Theme } from '../../types/types';
 import { AppSettingsViewModel } from '../../view-models/app-settings-view-model';
 import { dashRootService } from './dash-root-service';
+import { User } from '../../models/user';
+import { UserViewModel } from '../../view-models/user-view-model';
 
 @Component({
   tag: 'hellodash-root',
@@ -33,9 +35,6 @@ export class HellodashRoot {
 
   @State()
   appElementReady: boolean;
-
-  @State()
-  authClient: Auth0Client;
   //#endregion
 
   //#region @Prop
@@ -117,13 +116,24 @@ export class HellodashRoot {
 
     this.appElementReady = true;
   }
+
+  async userSignedIn() {
+    const auth0User = await appState.authClient.getUser();
+    const user = new User();
+    user.givenName = auth0User.given_name;
+    user.familyName = auth0User.family_name;
+    user.picture = auth0User.picture;
+    user.email = auth0User.email;
+    user.userId = auth0User.sub;
+    appState.currentUser = new UserViewModel(user);
+  }
   //#endregion
 
   render() {
     return (
       <Host>
         {this.appStateLoaded && (
-          <hellodash-auth0-provider authClient={appState.authClient}>
+          <hellodash-auth0-provider authClient={appState.authClient} onHellodashAuth0ProviderSignedIn={this.userSignedIn.bind(this)}>
             {!appState.error &&
               appState.currentUser && [<hellodash-app ref={this.appElementConnected.bind(this)}></hellodash-app>, <div class='modal-root'>{this.modalContent}</div>]}
 

@@ -97,6 +97,10 @@ export namespace Components {
         "theme": 'light' | 'dark';
     }
 }
+export interface HellodashAuth0ProviderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLHellodashAuth0ProviderElement;
+}
 export interface HellodashConfirmCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLHellodashConfirmElement;
@@ -255,6 +259,7 @@ declare namespace LocalJSX {
     }
     interface HellodashAuth0Provider {
         "authClient"?: Auth0Client;
+        "onHellodashAuth0ProviderSignedIn"?: (event: HellodashAuth0ProviderCustomEvent<void>) => void;
     }
     interface HellodashConfirm {
         "cancelText"?: string;

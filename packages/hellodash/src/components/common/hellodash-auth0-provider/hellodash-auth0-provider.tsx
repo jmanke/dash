@@ -1,7 +1,5 @@
 import { Auth0Client } from '@auth0/auth0-spa-js';
-import { Component, Host, h, State, Prop, Watch } from '@stencil/core';
-import { User } from '../../../models/user';
-import { UserViewModel } from '../../../view-models/user-view-model';
+import { Component, Host, h, State, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 import { appState } from '../../../stores/app-state';
 import { refreshAuthToken } from '../../../api/auth0-api';
 import { wait } from '@didyoumeantoast/dash-utils';
@@ -62,6 +60,10 @@ export class HellodashAuth0Provider {
   //#endregion
 
   //#region @Event
+
+  @Event({ eventName: 'hellodashAuth0ProviderSignedIn' })
+  signedIn: EventEmitter<void>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -95,15 +97,7 @@ export class HellodashAuth0Provider {
   }
 
   async userSignedIn() {
-    const auth0User = await this.authClient.getUser();
-    const user = new User();
-    user.givenName = auth0User.given_name;
-    user.familyName = auth0User.family_name;
-    user.picture = auth0User.picture;
-    user.email = auth0User.email;
-    user.userId = auth0User.sub;
-    appState.currentUser = new UserViewModel(user);
-
+    this.signedIn.emit();
     this.refreshAuthToken();
   }
   //#endregion
