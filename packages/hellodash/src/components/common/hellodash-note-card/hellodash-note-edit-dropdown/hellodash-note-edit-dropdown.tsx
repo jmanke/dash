@@ -1,5 +1,6 @@
 import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
+import { Label } from '../../../../models/label';
 import labelsState from '../../../../stores/labels-state';
 import notesState from '../../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../../view-models/note-preview-view-model';
@@ -25,6 +26,9 @@ export class HellodashNoteEditDropdown {
 
   @State()
   dropdownMenuPanel: MENU_PANEL = 'default';
+
+  @State()
+  creatingLabel = false;
   //#endregion
 
   //#region @Prop
@@ -61,6 +65,26 @@ export class HellodashNoteEditDropdown {
   //#endregion
 
   //#region Local methods
+  addLabel(id: number) {
+    this.notePreview.labels = [...this.notePreview.labels, id];
+    notesState.updateNotePreview(this.notePreview);
+  }
+
+  removeLabel(id: number) {
+    this.notePreview.labels = this.notePreview.labels.filter(l => l !== id);
+    notesState.updateNotePreview(this.notePreview);
+  }
+
+  async createLabel(label: Label) {
+    this.creatingLabel = true;
+    try {
+      const createdLabel = await labelsState.addLabel(label);
+      this.addLabel(createdLabel.id);
+    } finally {
+      this.creatingLabel = false;
+    }
+  }
+
   duplicateNote() {
     notesState.duplicateNote(this.notePreview);
     this.dropdown.close();
@@ -87,14 +111,11 @@ export class HellodashNoteEditDropdown {
         <hellodash-label-select
           class={this.dropdownMenuPanel !== 'addLabel' ? 'invisible' : ''}
           labels={noteLabels}
-          onDashLabelSelectLabelAdded={e => {
-            this.notePreview.labels = [...this.notePreview.labels, e.detail.id];
-            notesState.updateNotePreview(this.notePreview);
-          }}
-          onDashLabelSelectLabelRemoved={e => {
-            this.notePreview.labels = this.notePreview.labels.filter(l => l !== e.detail.id);
-            notesState.updateNotePreview(this.notePreview);
-          }}
+          allLabels={labelsState.labels}
+          canCreateLabel={!this.creatingLabel}
+          onDashLabelSelectLabelAdded={e => this.addLabel(e.detail.id)}
+          onDashLabelSelectLabelRemoved={e => this.removeLabel(e.detail.id)}
+          onDashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
           autoFocus
         ></hellodash-label-select>
       </dash-dropdown>

@@ -4,6 +4,7 @@ import CancelationToken from '../../../api/cancellation-token';
 import { fetchNote } from '../../../api/note-api';
 import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Note } from '../../../models/note';
+import { Label } from '../../../models/label';
 import labelsState from '../../../stores/labels-state';
 import notesState from '../../../stores/notes-state';
 import { NoteViewModel } from '../../../view-models/note-view-model';
@@ -41,6 +42,9 @@ export class HellodashModalNote implements Modal {
 
   @State()
   disableReadonly: boolean = false;
+
+  @State()
+  creatingLabel: boolean = false;
   //#endregion
 
   //#region @Prop
@@ -110,6 +114,16 @@ export class HellodashModalNote implements Modal {
   removeLabel(id: number) {
     this.note.labels = this.note.labels.filter(l => l !== id);
     this.noteUpdated();
+  }
+
+  async createLabel(label: Label) {
+    this.creatingLabel = true;
+    try {
+      const newLabel = await labelsState.addLabel(label);
+      this.addLabel(newLabel.id);
+    } finally {
+      this.creatingLabel = false;
+    }
   }
 
   textEditorContentChanged(content: string) {
@@ -229,12 +243,15 @@ export class HellodashModalNote implements Modal {
 
           <hellodash-label-select
             labels={labels}
+            allLabels={labelsState.labels}
+            canCreateLabel={!this.creatingLabel}
             onDashLabelSelectLabelAdded={e => {
               this.addLabel(e.detail.id);
             }}
             onDashLabelSelectLabelRemoved={e => {
               this.removeLabel(e.detail.id);
             }}
+            onDashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
           ></hellodash-label-select>
         </dash-dropdown>
 

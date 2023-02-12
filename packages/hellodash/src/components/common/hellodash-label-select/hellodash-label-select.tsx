@@ -2,7 +2,6 @@ import { Component, EventEmitter, Event, h, State, Prop, Watch, Element, Listen 
 import { isEmpty } from 'lodash';
 import { updateLabel } from '../../../api/labels-api';
 import { Label } from '../../../models/label';
-import labelsState from '../../../stores/labels-state';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 
@@ -17,8 +16,6 @@ export class HellodashLabelEdit {
   colorSwatches = new Map<number, HTMLDashColorSwatchElement>();
 
   editingLabel: LabelViewModel;
-
-  canCreateLabel = true;
   //#endregion
 
   //#region @Element
@@ -57,6 +54,14 @@ export class HellodashLabelEdit {
   }
 
   @Prop()
+  allLabels: LabelViewModel[] = [];
+
+  @Prop({
+    reflect: true,
+  })
+  canCreateLabel: boolean;
+
+  @Prop()
   autoFocus: boolean;
   //#endregion
 
@@ -64,12 +69,17 @@ export class HellodashLabelEdit {
   @Event({
     eventName: 'dashLabelSelectLabelAdded',
   })
-  dashPopupLabelEditLabelAdded: EventEmitter<LabelViewModel>;
+  labelAdded: EventEmitter<LabelViewModel>;
 
   @Event({
     eventName: 'dashLabelSelectLabelRemoved',
   })
-  dashPopupLabelEditLabelRemoved: EventEmitter<LabelViewModel>;
+  labelRemoved: EventEmitter<LabelViewModel>;
+
+  @Event({
+    eventName: 'dashLabelSelectLabelCreated',
+  })
+  labelCreated: EventEmitter<Label>;
   //#endregion
 
   //#region Component lifecycle
@@ -97,28 +107,22 @@ export class HellodashLabelEdit {
 
   selectedLabelChanged(label: LabelViewModel, isSelected: Boolean) {
     if (isSelected) {
-      this.dashPopupLabelEditLabelAdded.emit(label);
+      this.labelAdded.emit(label);
       return;
     }
 
-    this.dashPopupLabelEditLabelRemoved.emit(label);
+    this.labelRemoved.emit(label);
   }
 
   async createLabel() {
     if (!this.canCreateLabel) {
       return;
     }
-    this.canCreateLabel = false;
 
-    const createdLabel = { id: 0, text: this.filterValue, color: 'red' } as Label;
-    try {
-      const label = await labelsState.addLabel(createdLabel);
-      this.selectedLabelChanged(label, true);
-      this.filterElement?.clear();
-      this.filterElement?.select();
-    } finally {
-      this.canCreateLabel = true;
-    }
+    const createdLabel = { id: -1, text: this.filterValue, color: 'red' } as Label;
+    this.labelCreated.emit(createdLabel);
+    this.filterElement?.clear();
+    this.filterElement?.select();
   }
 
   labelColorChanged(label: LabelViewModel, color: Color) {
@@ -167,7 +171,7 @@ export class HellodashLabelEdit {
       <div class='no-labels'>No labels</div>
     );
 
-    const showAddLabel = !isEmpty(this.filterValue) && !labelsState.labels.find(l => l.text.trim() === this.filterValue);
+    const showAddLabel = this.canCreateLabel && !isEmpty(this.filterValue) && !this.allLabels.find(l => l.text.trim() === this.filterValue);
     const addLabel = showAddLabel ? (
       <dash-button startIcon='plus' onClick={this.createLabel.bind(this)}>
         Add "{this.filterValue}"
@@ -180,7 +184,7 @@ export class HellodashLabelEdit {
           class='filter'
           ref={this.filterElementAdded.bind(this)}
           placeholder='Filter labels'
-          items={labelsState.labels}
+          items={this.allLabels}
           objKey='text'
           onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
           onDashFilterValueChanged={e => (this.filterValue = e.target.filterValue)}

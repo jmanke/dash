@@ -9,6 +9,7 @@ import { RouterHistory } from "@stencil-community/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
 import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 import { LabelViewModel } from "./view-models/label-view-model";
+import { Label } from "./models/label";
 import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 import { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
 import { UserViewModel } from "./view-models/user-view-model";
@@ -16,6 +17,7 @@ export { RouterHistory } from "@stencil-community/router";
 export { Auth0Client } from "@auth0/auth0-spa-js";
 export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 export { LabelViewModel } from "./view-models/label-view-model";
+export { Label } from "./models/label";
 export { NotePreviewViewModel } from "./view-models/note-preview-view-model";
 export { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
 export { UserViewModel } from "./view-models/user-view-model";
@@ -43,7 +45,9 @@ export namespace Components {
         "label": LabelViewModel;
     }
     interface HellodashLabelSelect {
+        "allLabels": LabelViewModel[];
         "autoFocus": boolean;
+        "canCreateLabel": boolean;
         "labels": LabelViewModel[];
     }
     interface HellodashModalNote {
@@ -283,9 +287,12 @@ declare namespace LocalJSX {
         "onDashDeleteLabel"?: (event: HellodashLabelEditCustomEvent<LabelViewModel>) => void;
     }
     interface HellodashLabelSelect {
+        "allLabels"?: LabelViewModel[];
         "autoFocus"?: boolean;
+        "canCreateLabel"?: boolean;
         "labels"?: LabelViewModel[];
         "onDashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
+        "onDashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
         "onDashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
     }
     interface HellodashModalNote {
