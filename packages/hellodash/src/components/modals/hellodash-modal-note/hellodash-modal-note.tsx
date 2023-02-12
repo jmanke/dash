@@ -4,7 +4,7 @@ import CancelationToken from '../../../api/cancellation-token';
 import { fetchNote } from '../../../api/note-api';
 import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Note } from '../../../models/note';
-import labelsState from '../../../stores/labels-store';
+import labelsState from '../../../stores/labels-state';
 import notesState from '../../../stores/notes-state';
 import { NoteViewModel } from '../../../view-models/note-view-model';
 import appState from '../../../stores/app-state';

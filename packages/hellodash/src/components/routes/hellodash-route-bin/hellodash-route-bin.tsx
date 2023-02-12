@@ -1,6 +1,7 @@
 import { Component, h, State } from '@stencil/core';
 import { orderBy } from 'lodash';
 import appState from '../../../stores/app-state';
+import labelsState from '../../../stores/labels-state';
 import notesState from '../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 import { dashRootService } from '../../dash-root/dash-root-service';
@@ -134,6 +135,7 @@ export class HellodashRouteBin {
                 class={this.noteWithDropdownActive === notePreview ? 'note-overlay' : undefined}
                 selected={this.selectedNotes.has(notePreview.id)}
                 notePreview={notePreview}
+                labels={labelsState.getLabelsByIds(notePreview.labels)}
                 mode='selectable'
                 onClick={() => this.noteClicked(notePreview)}
               ></hellodash-note-card>

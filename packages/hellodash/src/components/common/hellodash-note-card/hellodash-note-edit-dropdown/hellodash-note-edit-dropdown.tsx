@@ -1,6 +1,6 @@
 import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
-import labelsState from '../../../../stores/labels-store';
+import labelsState from '../../../../stores/labels-state';
 import notesState from '../../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../../view-models/note-preview-view-model';
 

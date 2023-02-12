@@ -6,7 +6,7 @@ import { EventEmitter } from '@didyoumeantoast/dash-utils';
 import { Note } from '../models/note';
 import { replaceAt } from '@didyoumeantoast/dash-utils';
 import { NoteViewModel } from '../view-models/note-view-model';
-import labelsState from './labels-store';
+import labelsState from './labels-state';
 import { NotePreviewViewModel } from '../view-models/note-preview-view-model';
 import { NotePreview } from '../models/note-preview';
 import { DateTime } from 'luxon';

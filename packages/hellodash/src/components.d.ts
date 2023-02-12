@@ -57,6 +57,7 @@ export namespace Components {
     }
     interface HellodashNoteCard {
         "history": RouterHistory;
+        "labels": LabelViewModel[];
         "mode": NoteCardMode;
         "notePreview": NotePreviewViewModel;
         "selected": boolean;
@@ -294,6 +295,7 @@ declare namespace LocalJSX {
     }
     interface HellodashNoteCard {
         "history"?: RouterHistory;
+        "labels"?: LabelViewModel[];
         "mode"?: NoteCardMode;
         "notePreview"?: NotePreviewViewModel;
         "selected"?: boolean;

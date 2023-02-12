@@ -2,7 +2,7 @@ import { Component, EventEmitter, Event, h, State, Prop, Watch, Element, Listen 
 import { isEmpty } from 'lodash';
 import { updateLabel } from '../../../api/labels-api';
 import { Label } from '../../../models/label';
-import labelsState from '../../../stores/labels-store';
+import labelsState from '../../../stores/labels-state';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 

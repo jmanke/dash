@@ -6,6 +6,7 @@ import { stringSearch } from '@didyoumeantoast/dash-utils';
 import { dashRootService } from '../../dash-root/dash-root-service';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 import { DashFilterCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
+import labelsState from '../../../stores/labels-state';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -201,7 +202,12 @@ export class HellodashRouteNotes {
             !!this.notePreviews.length ? (
               <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
                 {this.notePreviews.map(note => (
-                  <hellodash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} notePreview={note}>
+                  <hellodash-note-card
+                    class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}
+                    key={note.id}
+                    notePreview={note}
+                    labels={labelsState.getLabelsByIds(note.labels)}
+                  >
                     <hellodash-note-edit-dropdown
                       slot='actions-end'
                       notePreview={note}

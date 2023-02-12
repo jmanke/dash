@@ -1,7 +1,6 @@
 import { Component, h, Prop } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { DateTime } from 'luxon';
-import labelsState from '../../../stores/labels-store';
 import { LabelViewModel } from '../../../view-models/label-view-model';
 import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 
@@ -26,10 +25,11 @@ export class HellodashNoteCard {
   //#endregion
 
   //#region @Prop
-  @Prop({
-    reflect: true,
-  })
+  @Prop()
   notePreview: NotePreviewViewModel;
+
+  @Prop()
+  labels: LabelViewModel[];
 
   @Prop({ mutable: true })
   history: RouterHistory;
@@ -110,8 +110,7 @@ export class HellodashNoteCard {
 
   render() {
     const { title, labels, previewContent, lastModified } = this.notePreview;
-    const noteLabels = labelsState.getLabelsByIds(this.notePreview.labels);
-    const previewLabels = noteLabels.slice(0, MAX_LABELS) ?? [];
+    const previewLabels = (this.labels || []).slice(0, MAX_LABELS) ?? [];
 
     return (
       <div class='note-card'>
