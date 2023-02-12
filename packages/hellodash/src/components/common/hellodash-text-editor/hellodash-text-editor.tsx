@@ -1,6 +1,5 @@
 import { Component, Host, h, Prop, Event, EventEmitter, Element, State, Watch, Method, getAssetPath } from '@stencil/core';
 import tinymce, { Editor, RawEditorSettings } from 'tinymce';
-import { appState } from '../../../stores/app-state';
 import { debounce, DebouncedFunc } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
@@ -41,6 +40,9 @@ export class HellodashTextEditor implements Focusable {
   //#region @Prop
   @Prop()
   content: string;
+
+  @Prop()
+  theme: 'light' | 'dark';
 
   @Prop()
   heading: string;
@@ -248,7 +250,7 @@ export class HellodashTextEditor implements Focusable {
     await this.unloadEditor();
 
     setTimeout(async () => {
-      const theme = appState.settings.theme;
+      const theme = this.theme;
       const editors = await this.initTinyMce(theme);
       this.editor = editors[0];
       this.editor.setContent(this.content);

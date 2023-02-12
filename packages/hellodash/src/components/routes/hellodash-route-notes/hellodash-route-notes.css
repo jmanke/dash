@@ -38,8 +38,8 @@ hellodash-route-notes {
 
     @media only screen and (max-width: 1200px) {
       display: block;
-      right: var(--dash-spacing-6);
-      bottom: var(--dash-spacing-6);
+      right: var(--dash-spacing-3);
+      bottom: var(--dash-spacing-3);
     }
   }
 

@@ -47,7 +47,9 @@ export class HellodashApp {
   //#endregion
 
   //#region @Prop
-  @Prop({ mutable: true })
+  @Prop({
+    mutable: true,
+  })
   history: RouterHistory;
   @Watch('history')
   historyChanged(history: RouterHistory) {
@@ -141,7 +143,7 @@ export class HellodashApp {
               <span class='logo-header'>Hellodash</span>
 
               <dash-theme-toggle slot='content-end' class='theme-toggle' theme={appState.settings.theme} onDashThemeToggleChange={this.toggleTheme.bind(this)}></dash-theme-toggle>
-              <hellodash-profile-settings slot='content-end' user={appState.currentUser}></hellodash-profile-settings>
+              <hellodash-profile-settings slot='content-end' user={appState.currentUser} authClient={appState.authClient}></hellodash-profile-settings>
             </hellodash-nav-bar>
 
             <dash-side-bar slot='left-panel' collapsed={appState.settings.sidebarCollapsed} onDashSideBarClose={() => (appState.settings.sidebarCollapsed = true)}>

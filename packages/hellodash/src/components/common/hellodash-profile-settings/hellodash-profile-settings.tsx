@@ -1,5 +1,5 @@
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { Component, h, Host, Prop } from '@stencil/core';
-import appState from '../../../stores/app-state';
 import { logout } from '../../../utils/logout';
 import { UserViewModel } from '../../../view-models/user-view-model';
 
@@ -21,6 +21,9 @@ export class HellodashProfileSettings {
   //#region @Prop
   @Prop()
   user: UserViewModel;
+
+  @Prop()
+  authClient: Auth0Client;
   //#endregion
 
   //#region @Event
@@ -44,9 +47,9 @@ export class HellodashProfileSettings {
         <Host>
           <dash-dropdown placement='bottom-end' placement-strategy='fixed' autoClose>
             <dash-icon-button slot='dropdown-trigger' iconUrl={this.user.picture} icon='person' scale='l' rounded></dash-icon-button>
-            
+
             <dash-list selection-mode='none'>
-              <dash-list-item onDashListItemSelectedChanged={() => logout(appState.authClient)}>Logout</dash-list-item>
+              <dash-list-item onDashListItemSelectedChanged={() => logout(this.authClient)}>Logout</dash-list-item>
             </dash-list>
           </dash-dropdown>
         </Host>

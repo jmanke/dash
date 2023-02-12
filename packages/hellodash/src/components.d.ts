@@ -65,6 +65,7 @@ export namespace Components {
         "notePreview": NotePreviewViewModel;
     }
     interface HellodashProfileSettings {
+        "authClient": Auth0Client;
         "user": UserViewModel;
     }
     interface HellodashRoot {
@@ -92,6 +93,7 @@ export namespace Components {
         "setFocus": () => Promise<void>;
         "showFullscreen"?: boolean;
         "showTitleInput"?: boolean;
+        "theme": 'light' | 'dark';
     }
 }
 export interface HellodashConfirmCustomEvent<T> extends CustomEvent<T> {
@@ -301,6 +303,7 @@ declare namespace LocalJSX {
         "onDashNoteEditDropdownVisibleChanged"?: (event: HellodashNoteEditDropdownCustomEvent<boolean>) => void;
     }
     interface HellodashProfileSettings {
+        "authClient"?: Auth0Client;
         "user"?: UserViewModel;
     }
     interface HellodashRoot {
@@ -330,6 +333,7 @@ declare namespace LocalJSX {
         "resize"?: boolean;
         "showFullscreen"?: boolean;
         "showTitleInput"?: boolean;
+        "theme"?: 'light' | 'dark';
     }
     interface IntrinsicElements {
         "hellodash-app": HellodashApp;

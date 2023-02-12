@@ -198,6 +198,7 @@ export class HellodashModalNote implements Modal {
       <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
         <hellodash-text-editor
           ref={element => (this.textEditor = element)}
+          theme={appState.settings.theme}
           heading={this.note?.title ?? ''}
           content={this.note?.content ?? ''}
           resize={false}

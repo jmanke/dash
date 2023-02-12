@@ -68,7 +68,9 @@ export class HellodashRouteNotes {
   //#endregion
 
   //#region @Prop
-  @Prop({ mutable: true })
+  @Prop({
+    mutable: true,
+  })
   history: RouterHistory;
 
   @Prop()
@@ -211,7 +213,7 @@ export class HellodashRouteNotes {
             ) : (
               <div>No matching notes</div>
             ),
-            <dash-fab class='add-note-fab' icon='plus' onClick={() => this.addNote()}></dash-fab>,
+            <dash-fab class='add-note-fab' icon='plus' scale='l' onClick={() => this.addNote()}></dash-fab>,
           ]}
 
           {!notesState.notePreviews.length && (
