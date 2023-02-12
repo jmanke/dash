@@ -207,18 +207,17 @@ export class DashListItem implements Focusable {
   render() {
     return (
       <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
-        <div class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}>
+        <div
+          class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}
+          onClick={e => this.click(e)}
+          onPointerDown={this.updateIsActive.bind(this, true)}
+          onPointerUp={this.updateIsActive.bind(this, false)}
+          onPointerLeave={this.updateIsActive.bind(this, false)}
+          onFocusout={this.updateIsActive.bind(this, false)}
+        >
           <slot name='actions-start'></slot>
 
-          <div
-            class='list-item'
-            ref={e => (this.listItem = e)}
-            onClick={e => this.click(e)}
-            onPointerDown={this.updateIsActive.bind(this, true)}
-            onPointerUp={this.updateIsActive.bind(this, false)}
-            onPointerLeave={this.updateIsActive.bind(this, false)}
-            onFocusout={this.updateIsActive.bind(this, false)}
-          >
+          <div class='list-item' ref={e => (this.listItem = e)}>
             {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
             <slot></slot>
           </div>
