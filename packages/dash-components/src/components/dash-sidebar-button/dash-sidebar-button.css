@@ -4,6 +4,7 @@
 :host {
   display: flex;
   height: var(--dash-spacing-12);
+  min-height: var(--dash-spacing-12);
 }
 
 :host([collapsed]) {

@@ -79,7 +79,7 @@ export class HellodashLabelEdit {
         </dash-dropdown>
         <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 
-        <hellodash-confirm-button icon='trash3' onDashConfirmButtonConfirmed={() => this.dashDeleteLabel.emit(this.label)}></hellodash-confirm-button>
+        <dash-confirm-button icon='trash3' onDashConfirmButtonConfirmed={() => this.dashDeleteLabel.emit(this.label)}></dash-confirm-button>
       </div>
     );
   }
