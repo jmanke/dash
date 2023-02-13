@@ -1,6 +1,5 @@
 import { Component, EventEmitter, Event, h, State, Prop, Watch, Element, Listen } from '@stencil/core';
 import { isEmpty } from 'lodash';
-import { updateLabel } from '../../../api/labels-api';
 import { Label } from '../../../models/label';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { LabelViewModel } from '../../../view-models/label-view-model';
@@ -80,6 +79,11 @@ export class HellodashLabelEdit {
     eventName: 'dashLabelSelectLabelCreated',
   })
   labelCreated: EventEmitter<Label>;
+
+  @Event({
+    eventName: 'dashLabelSelectLabelUpdated',
+  })
+  labelUpdated: EventEmitter<LabelViewModel>;
   //#endregion
 
   //#region Component lifecycle
@@ -127,7 +131,7 @@ export class HellodashLabelEdit {
 
   labelColorChanged(label: LabelViewModel, color: Color) {
     label.color = color;
-    updateLabel(label.__toModel());
+    this.labelUpdated.emit(label);
   }
 
   editLabel(label: LabelViewModel) {

@@ -9,6 +9,8 @@ import labelsState from '../../../stores/labels-state';
 import notesState from '../../../stores/notes-state';
 import { NoteViewModel } from '../../../view-models/note-view-model';
 import appState from '../../../stores/app-state';
+import { LabelViewModel } from '../../../view-models/label-view-model';
+import { updateLabel as updateLabelApi } from '../../../api/labels-api';
 
 const PREVIEW_CONTENT_LENGTH = 140;
 const SAVE_DELAY = 5 * 1000;
@@ -124,6 +126,10 @@ export class HellodashModalNote implements Modal {
     } finally {
       this.creatingLabel = false;
     }
+  }
+
+  updateLabel(label: LabelViewModel) {
+    updateLabelApi(label.__toModel());
   }
 
   textEditorContentChanged(content: string) {
@@ -252,6 +258,7 @@ export class HellodashModalNote implements Modal {
               this.removeLabel(e.detail.id);
             }}
             onDashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
+            onDashLabelSelectLabelUpdated={e => this.updateLabel(e.detail)}
           ></hellodash-label-select>
         </dash-dropdown>
 

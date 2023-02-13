@@ -294,6 +294,7 @@ declare namespace LocalJSX {
         "onDashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
         "onDashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
         "onDashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
+        "onDashLabelSelectLabelUpdated"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
     }
     interface HellodashModalNote {
         "newLabelId"?: number;

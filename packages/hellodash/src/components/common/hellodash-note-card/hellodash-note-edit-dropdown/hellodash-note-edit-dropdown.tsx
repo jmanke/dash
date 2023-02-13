@@ -1,9 +1,11 @@
 import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
+import { LabelViewModel } from '../../../../view-models/label-view-model';
 import { Label } from '../../../../models/label';
 import labelsState from '../../../../stores/labels-state';
 import notesState from '../../../../stores/notes-state';
 import { NotePreviewViewModel } from '../../../../view-models/note-preview-view-model';
+import { updateLabel as updateLabelApi } from '../../../../api/labels-api';
 
 type MENU_PANEL = 'default' | 'addLabel';
 
@@ -85,6 +87,10 @@ export class HellodashNoteEditDropdown {
     }
   }
 
+  updateLabel(label: LabelViewModel) {
+    updateLabelApi(label.__toModel());
+  }
+
   duplicateNote() {
     notesState.duplicateNote(this.notePreview);
     this.dropdown.close();
@@ -116,6 +122,7 @@ export class HellodashNoteEditDropdown {
           onDashLabelSelectLabelAdded={e => this.addLabel(e.detail.id)}
           onDashLabelSelectLabelRemoved={e => this.removeLabel(e.detail.id)}
           onDashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
+          onDashLabelSelectLabelUpdated={e => this.updateLabel(e.detail)}
           autoFocus
         ></hellodash-label-select>
       </dash-dropdown>
