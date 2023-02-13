@@ -189,6 +189,14 @@ export class DashListItem implements Focusable {
   }
 
   /**
+   * Stops event propagation
+   * @param e - Event to top propagating
+   */
+  stopPropagation(e: Event) {
+    e.stopPropagation();
+  }
+
+  /**
    * JSX checkmark element
    */
   get checkElement() {
@@ -222,7 +230,17 @@ export class DashListItem implements Focusable {
             <slot></slot>
           </div>
 
-          <slot name='actions-end'></slot>
+          <div
+            class='actions-end-wrapper'
+            onKeyDown={this.stopPropagation.bind(this)}
+            onKeyUp={this.stopPropagation.bind(this)}
+            onClick={this.stopPropagation.bind(this)}
+            onPointerDown={this.stopPropagation.bind(this)}
+            onPointerUp={this.stopPropagation.bind(this)}
+            onPointerLeave={this.stopPropagation.bind(this)}
+          >
+            <slot name='actions-end'></slot>
+          </div>
         </div>
       </Host>
     );
