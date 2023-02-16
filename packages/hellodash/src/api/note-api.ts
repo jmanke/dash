@@ -5,7 +5,7 @@ import CancelationToken from './cancellation-token';
 
 const noteBaseUrl = `notes`;
 
-export function fetchNotePreviews(cancelationToken?: CancelationToken): Promise<NotePreview[] | null> {
+export function fetchNotePreviews(cancelationToken?: CancelationToken): Promise<Note[] | null> {
   return get({ url: `${noteBaseUrl}`, config: { params: { IncludeArchived: true, ExcludeContent: true }, cancelationToken } });
 }
 

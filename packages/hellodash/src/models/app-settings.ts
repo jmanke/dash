@@ -1,6 +1,6 @@
 import { Theme } from '../types/types';
 
-export class AppSettings {
+export interface AppSettings {
   theme: Theme;
   sidebarCollapsed: boolean;
 }

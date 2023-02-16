@@ -1,12 +1,14 @@
 import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { isEmpty, isNumber } from 'lodash';
-import notesState from '../../../stores/notes-state';
 import { stringSearch } from '@didyoumeantoast/dash-utils';
 import { dashRootService } from '../../dash-root/dash-root-service';
-import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
 import { DashFilterCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
-import labelsState from '../../../stores/labels-state';
+import { Note } from '../../../models/note';
+import { store } from '../../../store';
+import { Unsubscribe } from '@reduxjs/toolkit';
+import { DateTime } from 'luxon';
+import { Label } from '../../../models/label';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -16,8 +18,8 @@ type SortOption = 'date' | 'title' | 'last-modified';
 })
 export class HellodashRouteNotes {
   //#region Own properties
-  notesChangedListener: () => void;
   closeNoteModalCb?: () => void;
+  unsubscribeStore: Unsubscribe;
   //#endregion
 
   //#region @Element
@@ -25,7 +27,14 @@ export class HellodashRouteNotes {
 
   //#region @State
   @State()
-  notePreviews: NotePreviewViewModel[] = [];
+  notes: Note[] = [];
+  @Watch('notes')
+  notesChanged() {
+    this.filterNotes();
+  }
+
+  @State()
+  labels: Label[];
 
   @State()
   notesFilter: string;
@@ -65,7 +74,7 @@ export class HellodashRouteNotes {
   }
 
   @State()
-  noteWithDropdownActive: NotePreviewViewModel;
+  noteWithDropdownActive: Note;
   //#endregion
 
   //#region @Prop
@@ -97,16 +106,16 @@ export class HellodashRouteNotes {
 
   // #region Component lifecycle
   async componentWillLoad() {
-    // ensure each state manager is initialized
-    this.filterNotes();
-    this.notesChangedListener = this.filterNotes.bind(this);
-    notesState.addNotesChangedListener(this.notesChangedListener);
     this.matchChanged(this.match);
   }
 
+  connectedCallback() {
+    this.notes = store.getState().notes;
+    this.unsubscribeStore = store.subscribe(() => (this.notes = store.getState().notes));
+  }
+
   disconnectedCallback() {
-    notesState.removeNotesChangedListener(this.notesChangedListener);
-    this.notesChangedListener = null;
+    this.unsubscribeStore();
   }
   // #endregion
 
@@ -118,38 +127,38 @@ export class HellodashRouteNotes {
 
   //#region Local methods
   filterNotes() {
-    const filterFns: ((note: NotePreviewViewModel) => boolean)[] = [];
+    const filterFns: ((note: Note) => boolean)[] = [];
 
     // string filter
     if (!isEmpty(this.notesFilter)) {
-      const noteFilter = (note: NotePreviewViewModel) => stringSearch(note.title, this.notesFilter);
+      const noteFilter = (note: Note) => stringSearch(note.title, this.notesFilter);
       filterFns.push(noteFilter);
     }
 
     // labels filter
     if (this.selectedLabelId) {
-      const labelFilter = (note: NotePreviewViewModel) => {
+      const labelFilter = (note: Note) => {
         return note.labels?.some(label => this.selectedLabelId === label);
       };
       filterFns.push(labelFilter);
     }
 
-    const notePreviews = filterFns.length ? notesState.notePreviews.filter(note => filterFns.every(fn => fn(note))) : [...notesState.notePreviews];
+    const notes = filterFns.length ? this.notes.filter(note => filterFns.every(fn => fn(note))) : [...this.notes];
 
     // sort logic
     switch (this.sortBy) {
       case 'last-modified':
-        notePreviews.sort((a, b) => b.lastModified.toMillis() - a.lastModified.toMillis());
+        notes.sort((a, b) => DateTime.fromISO(b.lastModified).toMillis() - DateTime.fromISO(a.lastModified).toMillis());
         break;
       case 'title':
-        notePreviews.sort((a, b) => a.title.localeCompare(b.title));
+        notes.sort((a, b) => a.title.localeCompare(b.title));
         break;
       case 'date':
-        notePreviews.sort((a, b) => b.dateCreated.toMillis() - a.dateCreated.toMillis());
+        notes.sort((a, b) => DateTime.fromISO(b.created).toMillis() - DateTime.fromISO(a.created).toMillis());
         break;
     }
 
-    this.notePreviews = notePreviews;
+    this.notes = notes;
   }
 
   updateNotesFilterValue(e: DashFilterCustomEvent<void>) {
@@ -170,7 +179,7 @@ export class HellodashRouteNotes {
     return (
       <Host>
         <dash-section stickyHeader>
-          {!!notesState.notePreviews.length && [
+          {!!this.notes?.length && [
             <div slot='header' class='notes-search-container'>
               <dash-filter class='notes-filter' placeholder='Search' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
               <dash-dropdown class='sort-dropdown' placement='bottom-end' autoClose>
@@ -199,9 +208,9 @@ export class HellodashRouteNotes {
               ></dash-icon-button>
             </div>,
 
-            !!this.notePreviews.length ? (
+            !!this.notes.length ? (
               <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-                {this.notePreviews.map(note => (
+                {this.notes.map(note => (
                   <hellodash-note-card
                     class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}
                     key={note.id}
@@ -222,7 +231,7 @@ export class HellodashRouteNotes {
             <dash-fab class='add-note-fab' icon='plus' scale='l' onClick={() => this.addNote()}></dash-fab>,
           ]}
 
-          {!notesState.notePreviews.length && (
+          {!this.notes.length && (
             <div class='note-message-wrapper'>
               <div class='note-message'>Create your first note!</div>
               <dash-fab icon='plus' scale='l' onClick={() => this.addNote()}></dash-fab>

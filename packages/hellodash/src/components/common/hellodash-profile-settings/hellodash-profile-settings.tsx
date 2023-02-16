@@ -1,7 +1,7 @@
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import { Component, h, Host, Prop } from '@stencil/core';
+import { User } from '../../../models/user';
 import { logout } from '../../../utils/logout';
-import { UserViewModel } from '../../../view-models/user-view-model';
 
 @Component({
   tag: 'hellodash-profile-settings',
@@ -20,7 +20,7 @@ export class HellodashProfileSettings {
 
   //#region @Prop
   @Prop()
-  user: UserViewModel;
+  user: User;
 
   @Prop()
   authClient: Auth0Client;

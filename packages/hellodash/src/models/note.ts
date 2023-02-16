@@ -1,7 +1,7 @@
 import { Status } from '../enums/status';
 import { Model } from './model';
 
-export class Note extends Model {
+export interface Note extends Model {
   title: string;
   content: string;
   previewContent: string;

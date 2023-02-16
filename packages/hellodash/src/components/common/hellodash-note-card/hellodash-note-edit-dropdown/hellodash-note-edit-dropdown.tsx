@@ -4,8 +4,11 @@ import { LabelViewModel } from '../../../../view-models/label-view-model';
 import { Label } from '../../../../models/label';
 import labelsState from '../../../../stores/labels-state';
 import notesState from '../../../../stores/notes-state';
-import { NotePreviewViewModel } from '../../../../view-models/note-preview-view-model';
 import { updateLabel as updateLabelApi } from '../../../../api/labels-api';
+import { Note } from '../../../../models/note';
+import { dispatch } from '../../../../store';
+import { replaceNote, addNote } from '../../../../slices/notes-slice';
+import { createNote, duplicateNote, getNote } from '../../../../slices/api-slice';
 
 type MENU_PANEL = 'default' | 'addLabel';
 
@@ -37,7 +40,7 @@ export class HellodashNoteEditDropdown {
   @Prop({
     reflect: true,
   })
-  notePreview: NotePreviewViewModel;
+  note: Note;
   //#endregion
 
   //#region @Event
@@ -68,13 +71,21 @@ export class HellodashNoteEditDropdown {
 
   //#region Local methods
   addLabel(id: number) {
-    this.notePreview.labels = [...this.notePreview.labels, id];
-    notesState.updateNotePreview(this.notePreview);
+    dispatch(
+      replaceNote({
+        ...this.note,
+        labels: [...this.note.labels, id],
+      }),
+    );
   }
 
   removeLabel(id: number) {
-    this.notePreview.labels = this.notePreview.labels.filter(l => l !== id);
-    notesState.updateNotePreview(this.notePreview);
+    dispatch(
+      replaceNote({
+        ...this.note,
+        labels: this.note.labels.filter(l => l !== id),
+      }),
+    );
   }
 
   async createLabel(label: Label) {
@@ -91,18 +102,22 @@ export class HellodashNoteEditDropdown {
     updateLabelApi(label.__toModel());
   }
 
-  duplicateNote() {
-    notesState.duplicateNote(this.notePreview);
+  async duplicateNote() {
+    const noteResult = await dispatch(duplicateNote.initiate(this.note));
+    const note = (noteResult as { data: Note }).data;
+    if (note) {
+      dispatch(addNote(note));
+    }
     this.dropdown.close();
   }
 
   deleteNote() {
-    notesState.archiveNote(this.notePreview);
+    notesState.archiveNote(this.note);
   }
   //#endregion
 
   render() {
-    const noteLabels = labelsState.getLabelsByIds(this.notePreview.labels);
+    const noteLabels = labelsState.getLabelsByIds(this.note.labels);
 
     return (
       <dash-dropdown ref={element => (this.dropdown = element)} placement='bottom-end' autoClose onDashDropdownOpenChange={this.handleDropdownVisibleChanged.bind(this)}>

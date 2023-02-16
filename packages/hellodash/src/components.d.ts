@@ -5,25 +5,28 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { RootState } from "./store";
 import { RouterHistory } from "@stencil-community/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
 import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
-import { LabelViewModel } from "./view-models/label-view-model";
 import { Label } from "./models/label";
-import { NotePreviewViewModel } from "./view-models/note-preview-view-model";
+import { LabelViewModel } from "./view-models/label-view-model";
+import { Note } from "./models/note";
 import { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
-import { UserViewModel } from "./view-models/user-view-model";
+import { User } from "./models/user";
+export { RootState } from "./store";
 export { RouterHistory } from "@stencil-community/router";
 export { Auth0Client } from "@auth0/auth0-spa-js";
 export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
-export { LabelViewModel } from "./view-models/label-view-model";
 export { Label } from "./models/label";
-export { NotePreviewViewModel } from "./view-models/note-preview-view-model";
+export { LabelViewModel } from "./view-models/label-view-model";
+export { Note } from "./models/note";
 export { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
-export { UserViewModel } from "./view-models/user-view-model";
+export { User } from "./models/user";
 export namespace Components {
     interface HellodashApp {
         "history": RouterHistory;
+        "rootState": RootState;
     }
     interface HellodashAuth0Provider {
         "authClient": Auth0Client;
@@ -37,12 +40,13 @@ export namespace Components {
     }
     interface HellodashEditLabels {
         "close": () => Promise<void>;
+        "labels": Label[];
     }
     interface HellodashLabelColorPicker {
         "color": Color;
     }
     interface HellodashLabelEdit {
-        "label": LabelViewModel;
+        "label": Label;
     }
     interface HellodashLabelSelect {
         "allLabels": LabelViewModel[];
@@ -61,17 +65,17 @@ export namespace Components {
     }
     interface HellodashNoteCard {
         "history": RouterHistory;
-        "labels": LabelViewModel[];
+        "labels": Label[];
         "mode": NoteCardMode;
-        "notePreview": NotePreviewViewModel;
+        "notePreview": Note;
         "selected": boolean;
     }
     interface HellodashNoteEditDropdown {
-        "notePreview": NotePreviewViewModel;
+        "note": Note;
     }
     interface HellodashProfileSettings {
         "authClient": Auth0Client;
-        "user": UserViewModel;
+        "user": User;
     }
     interface HellodashRoot {
         "history": RouterHistory;
@@ -260,6 +264,7 @@ declare global {
 declare namespace LocalJSX {
     interface HellodashApp {
         "history"?: RouterHistory;
+        "rootState"?: RootState;
     }
     interface HellodashAuth0Provider {
         "authClient"?: Auth0Client;
@@ -275,16 +280,21 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: HellodashConfirmCustomEvent<any>) => void;
     }
     interface HellodashEditLabels {
+        "labels"?: Label[];
         "onDashModalBeforeClose"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
+        "onHellodashEditLabelsCreateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
+        "onHellodashEditLabelsDeleteLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
+        "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }
     interface HellodashLabelColorPicker {
         "color"?: Color;
         "onDashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
     }
     interface HellodashLabelEdit {
-        "label"?: LabelViewModel;
-        "onDashDeleteLabel"?: (event: HellodashLabelEditCustomEvent<LabelViewModel>) => void;
+        "label"?: Label;
+        "onHellodashLabelEditDeleteLabel"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
+        "onHellodashLabelEditUpdateLabel"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
     }
     interface HellodashLabelSelect {
         "allLabels"?: LabelViewModel[];
@@ -308,18 +318,18 @@ declare namespace LocalJSX {
     }
     interface HellodashNoteCard {
         "history"?: RouterHistory;
-        "labels"?: LabelViewModel[];
+        "labels"?: Label[];
         "mode"?: NoteCardMode;
-        "notePreview"?: NotePreviewViewModel;
+        "notePreview"?: Note;
         "selected"?: boolean;
     }
     interface HellodashNoteEditDropdown {
-        "notePreview"?: NotePreviewViewModel;
+        "note"?: Note;
         "onDashNoteEditDropdownVisibleChanged"?: (event: HellodashNoteEditDropdownCustomEvent<boolean>) => void;
     }
     interface HellodashProfileSettings {
         "authClient"?: Auth0Client;
-        "user"?: UserViewModel;
+        "user"?: User;
     }
     interface HellodashRoot {
         "history"?: RouterHistory;

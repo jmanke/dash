@@ -1,8 +1,8 @@
 import { Component, h, Prop } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { DateTime } from 'luxon';
-import { LabelViewModel } from '../../../view-models/label-view-model';
-import { NotePreviewViewModel } from '../../../view-models/note-preview-view-model';
+import { Note } from '../../../models/note';
+import { Label } from '../../../models/label';
 
 // max labels to display in the card
 const MAX_LABELS = 3;
@@ -26,10 +26,10 @@ export class HellodashNoteCard {
 
   //#region @Prop
   @Prop()
-  notePreview: NotePreviewViewModel;
+  notePreview: Note;
 
   @Prop()
-  labels: LabelViewModel[];
+  labels: Label[];
 
   @Prop({ mutable: true })
   history: RouterHistory;
@@ -82,16 +82,16 @@ export class HellodashNoteCard {
     previewLabels,
     labels,
   }: {
-    lastModified: DateTime;
+    lastModified: string;
     title: string;
     previewContent: string;
-    previewLabels: LabelViewModel[];
+    previewLabels: Label[];
     labels: number[];
   }) {
     return (
       <div class='preview-container'>
         <header>
-          <p class='date-label'>{this.toLocaleDate(lastModified)}</p>
+          <p class='date-label'>{this.toLocaleDate(DateTime.fromISO(lastModified))}</p>
           <h2 class='title'>{title}</h2>
         </header>
         <section class='preview'>{previewContent}</section>

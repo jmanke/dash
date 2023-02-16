@@ -1,11 +1,14 @@
 import { LocationSegments, RouterHistory } from '@stencil-community/router';
 import { EventEmitter } from '@didyoumeantoast/dash-utils';
 import { HellodashRoot } from './hellodash-root';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 
 const HISTORY_CHANGED_EVENTNAME = 'historyChanged';
 
 class DashRootService {
   root: HellodashRoot;
+  authClient: Auth0Client;
+
   private eventEmitter = new EventEmitter();
 
   showModal(content: HTMLElement) {

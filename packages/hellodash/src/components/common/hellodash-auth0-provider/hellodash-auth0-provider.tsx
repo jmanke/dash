@@ -1,6 +1,5 @@
 import { Auth0Client } from '@auth0/auth0-spa-js';
 import { Component, Host, h, State, Prop, Watch, Event, EventEmitter } from '@stencil/core';
-import { appState } from '../../../stores/app-state';
 import { refreshAuthToken } from '../../../api/auth0-api';
 import { wait } from '@didyoumeantoast/dash-utils';
 
@@ -103,7 +102,7 @@ export class HellodashAuth0Provider {
   //#endregion
 
   render() {
-    const content = this.isAuthenticated && appState.currentUser ? <slot></slot> : undefined;
+    const content = this.isAuthenticated ? <slot></slot> : undefined;
 
     return <Host>{content}</Host>;
   }

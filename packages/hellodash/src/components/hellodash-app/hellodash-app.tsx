@@ -1,12 +1,14 @@
 import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, LocationSegments, RouterHistory } from '@stencil-community/router';
-import { appState, onAppChange } from '../../stores/app-state';
-import labelsState from '../../stores/labels-state';
-import notesState from '../../stores/notes-state';
-import { LabelViewModel } from '../../view-models/label-view-model';
 import { dashRootService } from '../dash-root/dash-root-service';
 import { getAssetPath } from '@stencil/core';
-import { DashThemeToggleCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
+import { dispatch, RootState } from '../../store';
+import { setSidebarCollapsed, setTheme, toggleSidebarCollapsed } from '../../slices/app-settings-slice';
+import { getLabels, getNotePreviews } from '../../slices/api-slice';
+import { setError } from '../../slices/app-state-slice';
+import { Label } from '../../models/label';
+import { setNotes } from '../../slices/notes-slice';
+import { setLabels } from '../../slices/labels-slice';
 
 enum RootUrls {
   Home = '/home',
@@ -41,12 +43,12 @@ export class HellodashApp {
   pathNameChanged(pathName: string) {
     this.setSelectedLabel(pathName);
   }
-
-  @State()
-  sidebarCollapsed: boolean;
   //#endregion
 
   //#region @Prop
+  @Prop()
+  rootState: RootState;
+
   @Prop({
     mutable: true,
   })
@@ -73,19 +75,16 @@ export class HellodashApp {
 
   //#region Component lifecycle
   async componentWillLoad() {
-    onAppChange('mobileView', mobileView => {
-      if (mobileView) {
-        appState.settings.sidebarCollapsed = true;
-      }
-    });
     this.logoPath = getAssetPath('./assets/icon/pomeranian.svg');
 
     try {
-      await Promise.all([notesState.init(), labelsState.init()]);
+      const [notePreviewsResult, labelsResult] = await Promise.all([dispatch(getNotePreviews.initiate()), dispatch(getLabels.initiate())]);
+      dispatch(setNotes(notePreviewsResult.data));
+      dispatch(setLabels(labelsResult.data));
       this.initialized = true;
     } catch (error) {
       console.error(error);
-      appState.error = true;
+      dispatch(setError(true));
     }
   }
   //#endregion
@@ -97,7 +96,7 @@ export class HellodashApp {
   //#endregion
 
   //#region Local methods
-  selectLabel(label: LabelViewModel) {
+  selectLabel(label: Label) {
     if (label.id === this.selectedLabelId) {
       return;
     }
@@ -106,8 +105,8 @@ export class HellodashApp {
   }
 
   navigateTo(url: string) {
-    if (appState.mobileView) {
-      appState.settings.sidebarCollapsed = true;
+    if (this.rootState.appState.mobileView && !this.rootState.appSettings.sidebarCollapsed) {
+      dispatch(setSidebarCollapsed(true));
     }
 
     this.history.push(url);
@@ -119,58 +118,70 @@ export class HellodashApp {
     this.selectedLabelId = parseInt(labelId);
   }
 
-  toggleTheme(e: DashThemeToggleCustomEvent<void>) {
-    appState.settings.theme = e.target.theme;
-  }
-
   editLabels() {
-    if (appState.mobileView) {
-      appState.settings.sidebarCollapsed = true;
+    if (this.rootState.appState.mobileView && !this.rootState.appSettings.sidebarCollapsed) {
+      dispatch(setSidebarCollapsed(true));
     }
 
-    const labelsModal = <hellodash-edit-labels></hellodash-edit-labels>;
+    // TODO: implement save labels
+    const saveLabels = () => console.log('save labels');
+    const createLabel = e => console.log('create label');
+    const deleteLabel = e => console.log('delete labels');
+    const updateLabel = e => console.log('update label');
+
+    const labelsModal = (
+      <hellodash-edit-labels
+        onDashModalBeforeClose={saveLabels}
+        onHellodashEditLabelsCreateLabel={createLabel}
+        onHellodashEditLabelsDeleteLabel={deleteLabel}
+        onHellodashEditLabelsUpdateLabel={updateLabel}
+      ></hellodash-edit-labels>
+    );
     dashRootService.showModal(labelsModal);
   }
   //#endregion
 
   render() {
+    const { theme, sidebarCollapsed } = this.rootState.appSettings;
+    const { currentUser } = this.rootState.appState;
+
     return (
       <Host>
         {this.initialized && (
           <dash-shell>
-            <hellodash-nav-bar slot='header' onDashMenuToggled={() => (appState.settings.sidebarCollapsed = !appState.settings.sidebarCollapsed)}>
+            <hellodash-nav-bar slot='header' onDashMenuToggled={() => dispatch(toggleSidebarCollapsed())}>
               <img src={this.logoPath} alt='Hellodash logo' width='48' height='48' />
               <span class='logo-header'>Hellodash</span>
 
-              <dash-theme-toggle slot='content-end' class='theme-toggle' theme={appState.settings.theme} onDashThemeToggleChange={this.toggleTheme.bind(this)}></dash-theme-toggle>
-              <hellodash-profile-settings slot='content-end' user={appState.currentUser} authClient={appState.authClient}></hellodash-profile-settings>
+              <dash-theme-toggle slot='content-end' class='theme-toggle' theme={theme} onDashThemeToggleChange={e => dispatch(setTheme(e.target.theme))}></dash-theme-toggle>
+              <hellodash-profile-settings slot='content-end' user={currentUser} authClient={dashRootService.authClient}></hellodash-profile-settings>
             </hellodash-nav-bar>
 
-            <dash-side-bar slot='left-panel' collapsed={appState.settings.sidebarCollapsed} onDashSideBarClose={() => (appState.settings.sidebarCollapsed = true)}>
+            <dash-side-bar slot='left-panel' collapsed={sidebarCollapsed} onDashSideBarClose={() => dispatch(setSidebarCollapsed(true))}>
               <dash-sidebar-button
                 icon='journal-text'
                 text='Notes'
                 active={this.pathName === '/' || this.pathName === RootUrls.Home}
-                collapsed={appState.settings.sidebarCollapsed}
+                collapsed={sidebarCollapsed}
                 onClick={() => this.navigateTo(RootUrls.Home)}
               ></dash-sidebar-button>
-              {labelsState.labels.map(label => (
+              {this.rootState.labels.map(label => (
                 <dash-sidebar-button
                   key={label.id}
                   icon='tag-fill'
                   active={this.selectedLabelId === label.id}
                   text={label.text}
                   iconColor={label.color}
-                  collapsed={appState.settings.sidebarCollapsed}
+                  collapsed={sidebarCollapsed}
                   onClick={() => this.selectLabel(label)}
                 ></dash-sidebar-button>
               ))}
-              <dash-sidebar-button icon='pencil' text='Edit labels' collapsed={appState.settings.sidebarCollapsed} onClick={this.editLabels.bind(this)}></dash-sidebar-button>
+              <dash-sidebar-button icon='pencil' text='Edit labels' collapsed={sidebarCollapsed} onClick={this.editLabels.bind(this)}></dash-sidebar-button>
               <dash-sidebar-button
                 icon='trash3'
                 text='Bin'
                 active={this.pathName === RootUrls.Bin}
-                collapsed={appState.settings.sidebarCollapsed}
+                collapsed={sidebarCollapsed}
                 onClick={() => this.navigateTo(RootUrls.Bin)}
               ></dash-sidebar-button>
             </dash-side-bar>

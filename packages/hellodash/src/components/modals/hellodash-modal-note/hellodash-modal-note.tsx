@@ -91,21 +91,21 @@ export class HellodashModalNote implements Modal {
 
   //#region Local methods
   async getNote() {
-    if (this.newNote) {
-      this.disableReadonly = true;
-      const note = new Note();
-      note.title = 'New note';
-      if (isNumber(this.newLabelId)) {
-        note.labels = [this.newLabelId];
-      }
+    // if (this.newNote) {
+    //   this.disableReadonly = true;
+    //   const note = new Note();
+    //   note.title = 'New note';
+    //   if (isNumber(this.newLabelId)) {
+    //     note.labels = [this.newLabelId];
+    //   }
 
-      const createdNote = await notesState.addNote(note);
-      this.note = new NoteViewModel(createdNote);
-      return;
-    }
+    //   const createdNote = await notesState.addNote(note);
+    //   this.note = new NoteViewModel(createdNote);
+    //   return;
+    // }
 
-    const note = await fetchNote(this.noteId, this.cancelationToken);
-    this.note = new NoteViewModel(note);
+    // const note = await fetchNote(this.noteId, this.cancelationToken);
+    // this.note = new NoteViewModel(note);
   }
 
   addLabel(id: number) {

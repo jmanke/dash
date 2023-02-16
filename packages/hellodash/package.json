@@ -41,6 +41,7 @@
     "@didyoumeantoast/stencil-view-model": "^1.0.5",
     "@didyoumeantoast/tinymce-plugins": "^1.1.4",
     "@popperjs/core": "^2.11.0",
+    "@reduxjs/toolkit": "^1.9.2",
     "@stencil-community/router": "^1.0.2",
     "@types/qs": "^6.9.7",
     "axios": "^0.24.0",

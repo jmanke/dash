@@ -1,9 +1,6 @@
-import { Component, Event, EventEmitter, h, Listen, Method, State, Watch } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Label } from '../../../models/label';
-import labelsState from '../../../stores/labels-state';
-import { LabelViewModel } from '../../../view-models/label-view-model';
-import { dashRootService } from '../../dash-root/dash-root-service';
 
 @Component({
   tag: 'hellodash-edit-labels',
@@ -14,8 +11,6 @@ export class HellodashEditLabels implements Modal {
   //#region Own properties
   modal: HTMLDashModalElement;
   addLabelButton: HTMLDashIconButtonElement;
-
-  closeModalCb: () => void;
   //#endregion
 
   //#region @Element
@@ -37,6 +32,10 @@ export class HellodashEditLabels implements Modal {
   //#endregion
 
   //#region @Prop
+
+  @Prop()
+  labels: Label[];
+
   //#endregion
 
   //#region @Event
@@ -49,37 +48,36 @@ export class HellodashEditLabels implements Modal {
     eventName: 'dashModalClosed',
   })
   dashModalClosed: EventEmitter;
+
+  @Event({
+    eventName: 'hellodashEditLabelsDeleteLabel',
+  })
+  deleteLabel: EventEmitter<Label>;
+
+  @Event({
+    eventName: 'hellodashEditLabelsUpdateLabel',
+  })
+  updateLabel: EventEmitter<Label>;
+
+  @Event({
+    eventName: 'hellodashEditLabelsCreateLabel',
+  })
+  createLabel: EventEmitter<Label>;
   //#endregion
 
   //#region Component lifecycle
-  connectedCallback() {
-    this.closeModalCb = () => this.modal.close();
-    dashRootService.addHistoryChangedListener(this.closeModalCb);
-  }
-
-  disconnectedCallback() {
-    dashRootService.removeHistoryChangedListener(this.closeModalCb);
-    this.closeModalCb = null;
-  }
   //#endregion
 
   //#region Listeners
-  @Listen('dashModalBeforeClose')
-  async beforeModalClose() {
-    await labelsState.saveAll();
-  }
-
-  @Listen('dashDeleteLabel')
-  async deleteLabel(e: CustomEvent<LabelViewModel>) {
-    await labelsState.deleteLabel(e.detail);
-  }
   //#endregion
 
   //#region @Method
+
   @Method()
   async close() {
     return this.modal.close();
   }
+
   //#endregion
 
   //#region Local methods
@@ -92,18 +90,13 @@ export class HellodashEditLabels implements Modal {
       return;
     }
 
-    const label = new Label();
-    label.color = 'red';
-    label.text = this.newLabelText;
+    const label: Label = {
+      id: -1,
+      color: 'red',
+      text: this.newLabelText,
+    };
     this.newLabelText = undefined;
-    this.creatingLabel = true;
-
-    try {
-      await labelsState.addLabel(label);
-    } finally {
-      // TODO: handle error case
-      this.creatingLabel = false;
-    }
+    this.createLabel.emit(label);
   }
   //#endregion
 
@@ -138,8 +131,13 @@ export class HellodashEditLabels implements Modal {
         </form>
 
         <div class='labels-container'>
-          {labelsState.labels.map(label => (
-            <hellodash-label-edit key={label.id} label={label}></hellodash-label-edit>
+          {this.labels.map(label => (
+            <hellodash-label-edit
+              key={label.id}
+              label={label}
+              onHellodashLabelEditDeleteLabel={e => this.deleteLabel.emit(e.detail)}
+              onHellodashLabelEditUpdateLabel={e => this.updateLabel.emit(e.detail)}
+            ></hellodash-label-edit>
           ))}
         </div>
       </dash-modal>
