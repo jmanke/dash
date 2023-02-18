@@ -72,7 +72,7 @@ export class HellodashTextEditor implements Focusable {
       return;
     }
 
-    // this.loadTinyMce();
+    this.loadTinyMce();
   }
 
   @Prop({
@@ -82,7 +82,7 @@ export class HellodashTextEditor implements Focusable {
   @Watch('readonly')
   readonlyChanged() {
     if (!this.loading) {
-      // this.loadTinyMce();
+      this.loadTinyMce();
     }
   }
   //#endregion
@@ -277,7 +277,7 @@ export class HellodashTextEditor implements Focusable {
     tinymce.PluginManager.add('checklist', checklist);
 
     const sharedConfig: RawEditorSettings = {
-      selector: `#${this.id}`,
+      target: this.element.querySelector(`#${this.id}`),
       importcss_append: true,
       /* and here's our custom image picker*/
       content_style: `body { font-family:Helvetica,Arial,sans-serif; font-size:14px; color: ${

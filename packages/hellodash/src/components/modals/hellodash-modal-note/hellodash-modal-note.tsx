@@ -34,7 +34,7 @@ export class HellodashModalNote implements Modal {
   noteEditorLoaded: boolean;
 
   @State()
-  disableReadonly: boolean = false;
+  disableReadonly: boolean = true;
   //#endregion
 
   //#region @Prop

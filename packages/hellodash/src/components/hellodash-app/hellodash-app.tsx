@@ -20,7 +20,6 @@ enum RootUrls {
 @Component({
   tag: 'hellodash-app',
   styleUrl: 'hellodash-app.css',
-  shadow: true,
 })
 export class HellodashApp {
   //#region Own properties
