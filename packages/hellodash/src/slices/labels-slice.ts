@@ -1,7 +1,34 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Label } from '../models/label';
-import { createNote } from './api-slice';
+import { fetchLabel, fetchLabels, updateLabel as updateLabelApi, deleteLabel as deleteLabelApi } from '../api/labels-api';
+
+export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { dispatch }) => {
+  const labels = await fetchLabels();
+  dispatch(setLabels(labels));
+
+  return labels;
+});
+
+export const getLabelById = createAsyncThunk('labels/fetchLabel', async (id: number, { dispatch }) => {
+  const label = await fetchLabel(id);
+  dispatch(replaceLabel(label));
+
+  return label;
+});
+
+export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: Label, { dispatch }) => {
+  dispatch(replaceLabel(label));
+  await updateLabelApi(label);
+
+  return label;
+});
+
+export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: Label, { dispatch }) => {
+  dispatch(removeLabel(label));
+
+  return deleteLabelApi(label);
+});
 
 const initialState: Label[] = [];
 
@@ -12,25 +39,19 @@ export const labelsSlice = createSlice({
     setLabels: (state, action: PayloadAction<Label[]>) => {
       state = action.payload;
     },
-    create: (state, action: PayloadAction<Label>) => {
+    addLabel: (state, action: PayloadAction<Label>) => {
       state.push(action.payload);
     },
-    update: (state, action: PayloadAction<Label>) => {
+    replaceLabel: (state, action: PayloadAction<Label>) => {
       const index = state.findIndex(note => note.id === action.payload.id);
       state.splice(index, 1, action.payload);
     },
-    remove: (state, action: PayloadAction<Label>) => {
+    removeLabel: (state, action: PayloadAction<Label>) => {
       const index = state.findIndex(note => note.id === action.payload.id);
       state.splice(index, 1);
     },
   },
-  extraReducers: builder => {
-    builder.addCase(createNote., (state, action) => {
-      // Add user to the state array
-      state.entities.push(action.payload);
-    });
-  },
 });
 
 // Action creators are generated for each case reducer function
-export const { setLabels, create, update, remove } = labelsSlice.actions;
+const { setLabels, addLabel, replaceLabel, removeLabel } = labelsSlice.actions;

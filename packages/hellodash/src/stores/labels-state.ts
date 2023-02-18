@@ -1,6 +1,6 @@
 import { createStore } from '@stencil/store';
 import { without } from 'lodash';
-import { createLabel, fetchLabel, fetchLabels, removeLabel, updateLabel } from '../api/labels-api';
+import { createLabel, fetchLabel, fetchLabels, deleteLabel, updateLabel } from '../api/labels-api';
 import { EventEmitter } from '@didyoumeantoast/dash-utils';
 import { Label } from '../models/label';
 import { replaceAt } from '@didyoumeantoast/dash-utils';
@@ -74,7 +74,7 @@ class LabelsState {
     this.state.labels = without(this.state.labels, label);
     // sync with server
     // TODO: if update fails, revert back to previous state
-    return removeLabel(label.__toModel());
+    return deleteLabel(label.__toModel());
   }
 
   async addLabel(label: Label) {

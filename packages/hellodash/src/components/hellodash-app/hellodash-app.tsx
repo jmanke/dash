@@ -4,11 +4,10 @@ import { dashRootService } from '../dash-root/dash-root-service';
 import { getAssetPath } from '@stencil/core';
 import { dispatch, RootState } from '../../store';
 import { setSidebarCollapsed, setTheme, toggleSidebarCollapsed } from '../../slices/app-settings-slice';
-import { getLabels, getNotePreviews } from '../../slices/api-slice';
 import { setError } from '../../slices/app-state-slice';
 import { Label } from '../../models/label';
-import { setNotes } from '../../slices/notes-slice';
-import { setLabels } from '../../slices/labels-slice';
+import { getNotePreviews } from '../../slices/notes-slice';
+import { getLabels } from '../../slices/labels-slice';
 
 enum RootUrls {
   Home = '/home',
@@ -78,9 +77,7 @@ export class HellodashApp {
     this.logoPath = getAssetPath('./assets/icon/pomeranian.svg');
 
     try {
-      const [notePreviewsResult, labelsResult] = await Promise.all([dispatch(getNotePreviews.initiate()), dispatch(getLabels.initiate())]);
-      dispatch(setNotes(notePreviewsResult.data));
-      dispatch(setLabels(labelsResult.data));
+      await Promise.all([dispatch(getNotePreviews()), dispatch(getLabels())]);
       this.initialized = true;
     } catch (error) {
       console.error(error);

@@ -3,7 +3,6 @@ import { labelsSlice } from './slices/labels-slice';
 import { appSettingsSlice } from './slices/app-settings-slice';
 import { appStateSlice } from './slices/app-state-slice';
 import { notesSlice } from './slices/notes-slice';
-import { apiSlice } from './slices/api-slice';
 
 export const store = configureStore({
   reducer: {
@@ -11,9 +10,7 @@ export const store = configureStore({
     [labelsSlice.name]: labelsSlice.reducer,
     [appSettingsSlice.name]: appSettingsSlice.reducer,
     [appStateSlice.name]: appStateSlice.reducer,
-    [apiSlice.reducerPath]: apiSlice.reducer,
   },
-  middleware: getDefaultMiddleware => getDefaultMiddleware().concat(apiSlice.middleware),
 });
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

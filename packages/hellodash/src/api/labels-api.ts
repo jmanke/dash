@@ -20,6 +20,6 @@ export async function updateLabel(label: Label) {
   return put(`${labelBaseUrl}/${label.id}`, label);
 }
 
-export async function removeLabel(label: Label) {
+export async function deleteLabel(label: Label) {
   return remove(`${labelBaseUrl}/${label.id}`);
 }

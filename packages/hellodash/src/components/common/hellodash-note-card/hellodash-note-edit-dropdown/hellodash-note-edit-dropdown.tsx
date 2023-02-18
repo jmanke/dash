@@ -3,12 +3,10 @@ import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
 import { LabelViewModel } from '../../../../view-models/label-view-model';
 import { Label } from '../../../../models/label';
 import labelsState from '../../../../stores/labels-state';
-import notesState from '../../../../stores/notes-state';
 import { updateLabel as updateLabelApi } from '../../../../api/labels-api';
 import { Note } from '../../../../models/note';
 import { dispatch } from '../../../../store';
-import { replaceNote, addNote } from '../../../../slices/notes-slice';
-import { createNote, duplicateNote, getNote } from '../../../../slices/api-slice';
+import { updateNote, duplicateNote, archiveNote } from '../../../../slices/notes-slice';
 
 type MENU_PANEL = 'default' | 'addLabel';
 
@@ -72,7 +70,7 @@ export class HellodashNoteEditDropdown {
   //#region Local methods
   addLabel(id: number) {
     dispatch(
-      replaceNote({
+      updateNote({
         ...this.note,
         labels: [...this.note.labels, id],
       }),
@@ -81,7 +79,7 @@ export class HellodashNoteEditDropdown {
 
   removeLabel(id: number) {
     dispatch(
-      replaceNote({
+      updateNote({
         ...this.note,
         labels: this.note.labels.filter(l => l !== id),
       }),
@@ -103,16 +101,12 @@ export class HellodashNoteEditDropdown {
   }
 
   async duplicateNote() {
-    const noteResult = await dispatch(duplicateNote.initiate(this.note));
-    const note = (noteResult as { data: Note }).data;
-    if (note) {
-      dispatch(addNote(note));
-    }
+    await dispatch(duplicateNote(this.note));
     this.dropdown.close();
   }
 
   deleteNote() {
-    notesState.archiveNote(this.note);
+    dispatch(archiveNote(this.note));
   }
   //#endregion
 

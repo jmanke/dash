@@ -9,6 +9,7 @@ import { store } from '../../../store';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 import { Label } from '../../../models/label';
+import { noteLabels } from '../../../slices/notes-slice';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -35,6 +36,9 @@ export class HellodashRouteNotes {
 
   @State()
   labels: Label[];
+
+  @State()
+  labelsMap: Map<number, Label> = new Map();
 
   @State()
   notesFilter: string;
@@ -110,8 +114,17 @@ export class HellodashRouteNotes {
   }
 
   connectedCallback() {
-    this.notes = store.getState().notes;
-    this.unsubscribeStore = store.subscribe(() => (this.notes = store.getState().notes));
+    const storeUpdated = () => {
+      this.notes = store.getState().notes;
+      this.labels = store.getState().labels;
+      this.labelsMap.clear();
+      this.labels.forEach(label => {
+        this.labelsMap.set(label.id, label);
+      });
+    };
+
+    storeUpdated();
+    this.unsubscribeStore = store.subscribe(storeUpdated);
   }
 
   disconnectedCallback() {
@@ -211,15 +224,10 @@ export class HellodashRouteNotes {
             !!this.notes.length ? (
               <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
                 {this.notes.map(note => (
-                  <hellodash-note-card
-                    class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}
-                    key={note.id}
-                    notePreview={note}
-                    labels={labelsState.getLabelsByIds(note.labels)}
-                  >
+                  <hellodash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} note={note} labels={noteLabels(note)}>
                     <hellodash-note-edit-dropdown
                       slot='actions-end'
-                      notePreview={note}
+                      note={note}
                       onDashNoteEditDropdownVisibleChanged={e => (this.noteWithDropdownActive = e.detail ? note : null)}
                     ></hellodash-note-edit-dropdown>
                   </hellodash-note-card>

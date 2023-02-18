@@ -26,7 +26,7 @@ export class HellodashNoteCard {
 
   //#region @Prop
   @Prop()
-  notePreview: Note;
+  note: Note;
 
   @Prop()
   labels: Label[];
@@ -61,7 +61,7 @@ export class HellodashNoteCard {
       return;
     }
 
-    this.history.push(`/note/${this.notePreview.id}`);
+    this.history.push(`/note/${this.note.id}`);
   }
 
   toLocaleDate(dateTime: DateTime) {
@@ -109,7 +109,7 @@ export class HellodashNoteCard {
   //#endregion
 
   render() {
-    const { title, labels, previewContent, lastModified } = this.notePreview;
+    const { title, labels, previewContent, lastModified } = this.note;
     const previewLabels = (this.labels || []).slice(0, MAX_LABELS) ?? [];
 
     return (
