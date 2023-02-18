@@ -72,7 +72,7 @@ export class HellodashTextEditor implements Focusable {
       return;
     }
 
-    this.loadTinyMce();
+    // this.loadTinyMce();
   }
 
   @Prop({
@@ -82,7 +82,7 @@ export class HellodashTextEditor implements Focusable {
   @Watch('readonly')
   readonlyChanged() {
     if (!this.loading) {
-      this.loadTinyMce();
+      // this.loadTinyMce();
     }
   }
   //#endregion
@@ -132,11 +132,6 @@ export class HellodashTextEditor implements Focusable {
   //#region Component lifecycle
   componentWillLoad() {
     this.id = `dash-text-editor-${uuidv4()}`;
-
-    // if we're not initially loading, load the editor
-    if (!this.loading) {
-      this.loadTinyMce();
-    }
   }
 
   componentDidLoad() {
@@ -147,6 +142,11 @@ export class HellodashTextEditor implements Focusable {
         console.error(error);
       }
     }, this.debounce);
+
+    // if we're not initially loading, load the editor
+    if (!this.loading) {
+      this.loadTinyMce();
+    }
   }
 
   disconnectedCallback() {

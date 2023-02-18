@@ -14,13 +14,19 @@ export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async
 
 export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id: number, { dispatch }) => {
   const note = await fetchNote(id);
-  dispatch(replaceNote(note));
+  dispatch(
+    replaceNote({
+      ...note,
+      content: note.content ?? '',
+    }),
+  );
 
   return note;
 });
 
 export const createNote = createAsyncThunk('labels/createNote', async (note: Note, { dispatch }) => {
-  const id = await createNoteApi(note);
+  // const id = await createNoteApi(note);
+  const id = -1;
   const newNote = {
     ...note,
     id,
@@ -33,12 +39,12 @@ export const createNote = createAsyncThunk('labels/createNote', async (note: Not
 export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note, { dispatch }) => {
   dispatch(replaceNote(note));
 
-  const { lastModified } = await updateNoteApi(note);
+  // const { lastModified } = await updateNoteApi(note);
   const updatedNote = {
     ...note,
-    lastModified,
+    // lastModified,
   };
-  dispatch(replaceNote(updatedNote));
+  // dispatch(replaceNote(updatedNote));
 
   return updatedNote;
 });
@@ -46,7 +52,7 @@ export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note
 export const deleteNote = createAsyncThunk('notes/deleteNote', async (note: Note, { dispatch }) => {
   dispatch(removeNote(note));
 
-  return deleteNoteApi(note);
+  // return deleteNoteApi(note);
 });
 
 export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note: Note, { dispatch }) => {
@@ -58,8 +64,12 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
   const noteCopy = { ...note };
 
   noteCopy.title += ' (copy)';
-  const noteCopyId = await createNoteApi(noteCopy);
-  const newNote = await fetchNote(noteCopyId);
+  // const noteCopyId = await createNoteApi(noteCopy);
+  // const newNote = await fetchNote(noteCopyId);
+  const newNote: Note = {
+    ...note,
+    id: note.id + 101,
+  };
 
   dispatch(addNote(newNote));
 
@@ -73,7 +83,7 @@ export const archiveNote = createAsyncThunk('notes/archiveNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return updateNoteApi(note);
+  // return updateNoteApi(note);
 });
 
 export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: Note, { dispatch }) => {
@@ -83,7 +93,7 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return updateNoteApi(note);
+  // return updateNoteApi(note);
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -93,22 +103,17 @@ export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, 
   };
   dispatch(replaceNote(newNote));
 
-  return updateNoteApi(note);
+  // return updateNoteApi(note);
 });
 
 export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
-  const index = note.labels.findIndex(l => l === label);
-  if (index === -1) {
-    return;
-  }
-
   const newNote: Note = {
     ...note,
-    labels: note.labels.splice(index, 1),
+    labels: note.labels.filter(l => l !== label),
   };
   dispatch(replaceNote(newNote));
 
-  return updateNoteApi(note);
+  // return updateNoteApi(note);
 });
 
 export function noteLabels(note: Note) {
@@ -127,23 +132,31 @@ export const notesSlice = createSlice({
   reducers: {
     setNotes: (state, action: PayloadAction<Note[]>) => {
       state = action.payload;
+
+      console.log('set notes', action.payload);
+
       return state;
     },
     addNote: (state, action: PayloadAction<Note>) => {
       state.push(action.payload);
+
+      console.log('add note', action.payload);
     },
     replaceNote: (state, action: PayloadAction<Note>) => {
       const index = state.findIndex(note => action.payload.id === note.id);
 
       if (index === -1) {
-        state.push(action.payload);
         return;
       }
+
+      console.log('replace note', action.payload);
       state.splice(index, 1, action.payload);
     },
     removeNote: (state, action: PayloadAction<Note>) => {
       const index = state.findIndex(note => note.id === action.payload.id);
       state.splice(index, 1);
+
+      console.log('remove note', action.payload);
     },
   },
 });

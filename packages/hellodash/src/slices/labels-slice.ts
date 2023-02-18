@@ -18,7 +18,8 @@ export const getLabelById = createAsyncThunk('labels/fetchLabel', async (id: num
 });
 
 export const createLabel = createAsyncThunk('labels/createLabel', async (label: Label, { dispatch }) => {
-  const id = await createLabelApi(label);
+  // const id = await createLabelApi(label);
+  const id = -1;
   const newLabel = {
     ...label,
     id,
@@ -30,7 +31,7 @@ export const createLabel = createAsyncThunk('labels/createLabel', async (label: 
 
 export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: Label, { dispatch }) => {
   dispatch(replaceLabel(label));
-  await updateLabelApi(label);
+  // await updateLabelApi(label);
 
   return label;
 });
@@ -38,7 +39,7 @@ export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: 
 export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: Label, { dispatch }) => {
   dispatch(removeLabel(label));
 
-  return deleteLabelApi(label);
+  // return deleteLabelApi(label);
 });
 
 const initialState: Label[] | null = null;
@@ -49,18 +50,26 @@ export const labelsSlice = createSlice({
   reducers: {
     setLabels: (state, action: PayloadAction<Label[]>) => {
       state = action.payload;
+      console.log('set labels', action.payload);
+
       return state;
     },
     addLabel: (state, action: PayloadAction<Label>) => {
       state.push(action.payload);
+
+      console.log('add label', action.payload);
     },
     replaceLabel: (state, action: PayloadAction<Label>) => {
       const index = state.findIndex(note => note.id === action.payload.id);
       state.splice(index, 1, action.payload);
+
+      console.log('replace label', action.payload);
     },
     removeLabel: (state, action: PayloadAction<Label>) => {
       const index = state.findIndex(note => note.id === action.payload.id);
       state.splice(index, 1);
+
+      console.log('remove label', action.payload);
     },
   },
 });

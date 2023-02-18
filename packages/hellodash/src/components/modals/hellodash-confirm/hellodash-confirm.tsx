@@ -1,7 +1,6 @@
 import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
 import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Status } from '@didyoumeantoast/dash-components/dist/types/types/types';
-import { dashRootService } from '../../dash-root/dash-root-service';
 
 @Component({
   tag: 'hellodash-confirm',
@@ -12,7 +11,6 @@ export class HellodashConfirm implements Modal {
   //#region Own properties
   modal: HTMLDashModalElement;
   cancelButton: HTMLDashButtonElement;
-  closeModalCb: () => void;
   //#endregion
 
   //#region @Element
@@ -65,15 +63,6 @@ export class HellodashConfirm implements Modal {
     this.cancelButton.setFocus();
   }
 
-  connectedCallback() {
-    this.closeModalCb = () => this.modal.close();
-    dashRootService.addHistoryChangedListener(this.closeModalCb);
-  }
-
-  disconnectedCallback() {
-    dashRootService.removeHistoryChangedListener(this.closeModalCb);
-    this.closeModalCb = null;
-  }
   //#endregion
 
   //#region Listeners

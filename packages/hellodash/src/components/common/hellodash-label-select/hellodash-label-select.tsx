@@ -129,8 +129,10 @@ export class HellodashLabelEdit {
   }
 
   labelColorChanged(label: Label, color: Color) {
-    label.color = color;
-    this.labelUpdated.emit(label);
+    this.labelUpdated.emit({
+      ...label,
+      color,
+    });
   }
 
   editLabel(label: Label) {

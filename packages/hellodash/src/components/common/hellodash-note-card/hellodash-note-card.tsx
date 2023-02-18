@@ -89,7 +89,8 @@ export class HellodashNoteCard {
     return dateTime.toLocaleString(DateTime.DATE_MED);
   }
 
-  notePreviewFragment({ lastModified, title, previewContent, labels }: { lastModified: string; title: string; previewContent: string; labels: Label[] }) {
+  notePreviewFragment({ lastModified, title, previewContent }: { lastModified: string; title: string; previewContent: string }) {
+    const labels = (this.labels || []).slice(0, MAX_LABELS) ?? [];
     return (
       <div class='preview-container'>
         <header>
@@ -97,12 +98,12 @@ export class HellodashNoteCard {
           <h2 class='title'>{title}</h2>
         </header>
         <section class='preview'>{previewContent}</section>
-        {!!labels.length && (
+        {labels.length > 0 && (
           <div class='labels-container'>
             {labels.map(label => (
               <dash-chip heading={label.text} selectable color={label.color}></dash-chip>
             ))}
-            {labels.length > MAX_LABELS && <dash-chip heading={`+ ${this.labels.length - MAX_LABELS}`} selectable></dash-chip>}
+            {this.labels.length > MAX_LABELS && <dash-chip heading={`+ ${this.labels.length - MAX_LABELS}`} selectable></dash-chip>}
           </div>
         )}
       </div>
@@ -112,12 +113,11 @@ export class HellodashNoteCard {
 
   render() {
     const { title, previewContent, lastModified } = this.note;
-    const labels = (this.labels || []).slice(0, MAX_LABELS) ?? [];
 
     return (
       <div class='note-card'>
         {this.mode === 'edit' && [
-          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ lastModified, title, previewContent, labels })}</button>,
+          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ lastModified, title, previewContent })}</button>,
 
           <div class='actions-end-wrapper'>
             <slot name='actions-end'></slot>
@@ -127,7 +127,7 @@ export class HellodashNoteCard {
         {this.mode === 'selectable' && (
           <button class={this.selected ? 'selected' : ''} onClick={() => (this.selected = !this.selected)}>
             {this.selected && <dash-icon class='card-selected-icon' icon='check-circle' scale='m'></dash-icon>}
-            {this.notePreviewFragment({ lastModified, title, previewContent, labels })}
+            {this.notePreviewFragment({ lastModified, title, previewContent })}
           </button>
         )}
       </div>
