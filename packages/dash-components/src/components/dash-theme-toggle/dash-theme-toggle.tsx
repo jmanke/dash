@@ -24,6 +24,7 @@ export class ThemeToggle {
    */
   @Prop({
     reflect: true,
+    mutable: true,
   })
   theme: Theme = 'light';
 
