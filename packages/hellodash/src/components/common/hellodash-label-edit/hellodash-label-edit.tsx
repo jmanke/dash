@@ -21,7 +21,7 @@ export class HellodashLabelEdit {
   //#endregion
 
   //#region @Prop
-  @Prop()
+  @Prop({ mutable: true })
   label: Label;
   //#endregion
 
@@ -68,6 +68,7 @@ export class HellodashLabelEdit {
       return;
     }
     this.label.text = e.target.value;
+    this.updateLabel.emit(this.label);
   }
   //#endregion
 

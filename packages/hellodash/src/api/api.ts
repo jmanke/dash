@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import qs from 'qs';
-import appState from '../stores/app-state';
 import CancelationToken from './cancellation-token';
 import { CONSTANTS } from '../constants';
+import { dashRootService } from '../components/dash-root/dash-root-service';
 
 //#region interfaces
 
@@ -106,7 +106,7 @@ async function configWithAuthAndParams(config: Record<string, any>) {
   return {
     ...config,
     headers: {
-      Authorization: `Bearer ${await appState.authClient.getTokenSilently()}`,
+      Authorization: `Bearer ${await dashRootService.authClient.getTokenSilently()}`,
     },
     paramsSerializer: (params: string) => {
       return qs.stringify(params, { arrayFormat: 'repeat' });
@@ -118,7 +118,7 @@ async function configWithAuth(config: Record<string, any>) {
   return {
     ...config,
     headers: {
-      Authorization: `Bearer ${await appState.authClient.getTokenSilently()}`,
+      Authorization: `Bearer ${await dashRootService.authClient.getTokenSilently()}`,
     },
   };
 }

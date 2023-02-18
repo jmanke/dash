@@ -7,7 +7,8 @@ import { setSidebarCollapsed, setTheme, toggleSidebarCollapsed } from '../../sli
 import { setError } from '../../slices/app-state-slice';
 import { Label } from '../../models/label';
 import { getNotePreviews } from '../../slices/notes-slice';
-import { getLabels } from '../../slices/labels-slice';
+import { createLabel, deleteLabel, getLabels, updateLabel } from '../../slices/labels-slice';
+import { isNone } from '@didyoumeantoast/dash-utils';
 
 enum RootUrls {
   Home = '/home',
@@ -34,14 +35,17 @@ export class HellodashApp {
   selectedLabelId?: number;
 
   @State()
-  initialized: boolean;
-
-  @State()
   pathName: string;
   @Watch('pathName')
   pathNameChanged(pathName: string) {
     this.setSelectedLabel(pathName);
   }
+
+  @State()
+  isEditingLabels: boolean = false;
+
+  @State()
+  isCreatingLabel: boolean = false;
   //#endregion
 
   //#region @Prop
@@ -78,7 +82,6 @@ export class HellodashApp {
 
     try {
       await Promise.all([dispatch(getNotePreviews()), dispatch(getLabels())]);
-      this.initialized = true;
     } catch (error) {
       console.error(error);
       dispatch(setError(true));
@@ -119,32 +122,27 @@ export class HellodashApp {
     if (this.rootState.appState.mobileView && !this.rootState.appSettings.sidebarCollapsed) {
       dispatch(setSidebarCollapsed(true));
     }
+    this.isEditingLabels = true;
+  }
 
-    // TODO: implement save labels
-    const saveLabels = () => console.log('save labels');
-    const createLabel = e => console.log('create label');
-    const deleteLabel = e => console.log('delete labels');
-    const updateLabel = e => console.log('update label');
-
-    const labelsModal = (
-      <hellodash-edit-labels
-        onDashModalBeforeClose={saveLabels}
-        onHellodashEditLabelsCreateLabel={createLabel}
-        onHellodashEditLabelsDeleteLabel={deleteLabel}
-        onHellodashEditLabelsUpdateLabel={updateLabel}
-      ></hellodash-edit-labels>
-    );
-    dashRootService.showModal(labelsModal);
+  async createLabel(label: Label) {
+    this.isCreatingLabel = true;
+    try {
+      await dispatch(createLabel(label));
+    } finally {
+      this.isCreatingLabel = false;
+    }
   }
   //#endregion
 
   render() {
     const { theme, sidebarCollapsed } = this.rootState.appSettings;
     const { currentUser } = this.rootState.appState;
+    const initialized = !isNone(this.rootState.notes) && !isNone(this.rootState.labels);
 
     return (
       <Host>
-        {this.initialized && (
+        {initialized && (
           <dash-shell>
             <hellodash-nav-bar slot='header' onDashMenuToggled={() => dispatch(toggleSidebarCollapsed())}>
               <img src={this.logoPath} alt='Hellodash logo' width='48' height='48' />
@@ -194,7 +192,18 @@ export class HellodashApp {
           </dash-shell>
         )}
 
-        {!this.initialized && <dash-loader></dash-loader>}
+        {!initialized && <dash-loader></dash-loader>}
+
+        {this.isEditingLabels && (
+          <hellodash-edit-labels
+            labels={this.rootState.labels}
+            creatingLabel={this.isCreatingLabel}
+            onDashModalClosed={() => (this.isEditingLabels = false)}
+            onHellodashEditLabelsCreateLabel={e => this.createLabel(e.detail)}
+            onHellodashEditLabelsDeleteLabel={e => dispatch(deleteLabel(e.detail))}
+            onHellodashEditLabelsUpdateLabel={e => dispatch(updateLabel(e.detail))}
+          ></hellodash-edit-labels>
+        )}
       </Host>
     );
   }

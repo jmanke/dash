@@ -1,4 +1,4 @@
-import { Component, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Label } from '../../../models/label';
 
@@ -14,6 +14,8 @@ export class HellodashEditLabels implements Modal {
   //#endregion
 
   //#region @Element
+  @Element()
+  element: HTMLHellodashEditLabelsElement;
   //#endregion
 
   //#region @State
@@ -25,16 +27,17 @@ export class HellodashEditLabels implements Modal {
   }
 
   @State()
-  creatingLabel: boolean;
-
-  @State()
   canAddLabel: boolean;
+
   //#endregion
 
   //#region @Prop
 
   @Prop()
-  labels: Label[];
+  labels: Label[] = [];
+
+  @Prop()
+  creatingLabel: boolean;
 
   //#endregion
 
@@ -66,6 +69,11 @@ export class HellodashEditLabels implements Modal {
   //#endregion
 
   //#region Component lifecycle
+
+  componentDidLoad() {
+    (this.element.shadowRoot.querySelector('.new-label-input') as HTMLDashInputElement).setFocus();
+  }
+
   //#endregion
 
   //#region Listeners
@@ -105,7 +113,6 @@ export class HellodashEditLabels implements Modal {
       <dash-modal ref={element => (this.modal = element)} heading='Edit labels' scale='s' autoFocus open>
         <form class='new-label-container'>
           <dash-input
-            ref={element => element.setFocus()}
             class='new-label-input'
             placeholder='Add label'
             scale='l'
@@ -134,7 +141,7 @@ export class HellodashEditLabels implements Modal {
           {this.labels.map(label => (
             <hellodash-label-edit
               key={label.id}
-              label={label}
+              label={{ ...label }}
               onHellodashLabelEditDeleteLabel={e => this.deleteLabel.emit(e.detail)}
               onHellodashLabelEditUpdateLabel={e => this.updateLabel.emit(e.detail)}
             ></hellodash-label-edit>

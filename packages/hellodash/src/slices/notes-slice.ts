@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Note } from '../models/note';
-import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote } from '../api/note-api';
+import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi } from '../api/note-api';
 import { Status } from '../enums/status';
+import { store } from '../store';
 
 export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async (_, { dispatch }) => {
-  const notes = await fetchNotePreviews();
+  const notes = (await fetchNotePreviews()) ?? [];
   dispatch(setNotes(notes));
 
   return notes;
@@ -14,6 +15,17 @@ export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async
 export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id: number, { dispatch }) => {
   const note = await fetchNote(id);
   dispatch(replaceNote(note));
+
+  return note;
+});
+
+export const createNote = createAsyncThunk('labels/createNote', async (note: Note, { dispatch }) => {
+  const id = await createNoteApi(note);
+  const newNote = {
+    ...note,
+    id,
+  };
+  dispatch(addNote(newNote));
 
   return note;
 });
@@ -46,7 +58,7 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
   const noteCopy = { ...note };
 
   noteCopy.title += ' (copy)';
-  const noteCopyId = await createNote(noteCopy);
+  const noteCopyId = await createNoteApi(noteCopy);
   const newNote = await fetchNote(noteCopyId);
 
   dispatch(addNote(newNote));
@@ -74,11 +86,40 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
   return updateNoteApi(note);
 });
 
+export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
+  const newNote: Note = {
+    ...note,
+    labels: [...note.labels, label],
+  };
+  dispatch(replaceNote(newNote));
+
+  return updateNoteApi(note);
+});
+
+export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
+  const index = note.labels.findIndex(l => l === label);
+  if (index === -1) {
+    return;
+  }
+
+  const newNote: Note = {
+    ...note,
+    labels: note.labels.splice(index, 1),
+  };
+  dispatch(replaceNote(newNote));
+
+  return updateNoteApi(note);
+});
+
 export function noteLabels(note: Note) {
-  return note.labels?.map(labelId => this.labelsMap.get(labelId)).filter(label => !label) ?? [];
+  const labelsMap = new Map();
+  store.getState().labels?.forEach(label => {
+    labelsMap.set(label.id, label);
+  });
+  return note.labels?.map(labelId => labelsMap.get(labelId)).filter(label => !!label) ?? [];
 }
 
-const initialState: Note[] = [];
+const initialState: Note[] | null = null;
 
 export const notesSlice = createSlice({
   name: 'notes',
@@ -86,6 +127,7 @@ export const notesSlice = createSlice({
   reducers: {
     setNotes: (state, action: PayloadAction<Note[]>) => {
       state = action.payload;
+      return state;
     },
     addNote: (state, action: PayloadAction<Note>) => {
       state.push(action.payload);

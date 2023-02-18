@@ -1,8 +1,9 @@
-import { Component, h, Prop } from '@stencil/core';
+import { Component, h, Prop, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { DateTime } from 'luxon';
 import { Note } from '../../../models/note';
 import { Label } from '../../../models/label';
+import { noteLabels } from '../../../slices/notes-slice';
 
 // max labels to display in the card
 const MAX_LABELS = 3;
@@ -27,6 +28,10 @@ export class HellodashNoteCard {
   //#region @Prop
   @Prop()
   note: Note;
+  @Watch('note')
+  noteUpdated() {
+    this.updateLabels();
+  }
 
   @Prop()
   labels: Label[];
@@ -47,6 +52,11 @@ export class HellodashNoteCard {
   //#endregion
 
   //#region Component lifecycle
+
+  componentWillLoad() {
+    this.updateLabels();
+  }
+
   //#endregion
 
   //#region Listeners
@@ -56,6 +66,10 @@ export class HellodashNoteCard {
   //#endregion
 
   //#region Local methods
+  updateLabels() {
+    this.labels = noteLabels(this.note);
+  }
+
   openNoteModal() {
     if (this.mode !== 'edit') {
       return;
@@ -75,19 +89,7 @@ export class HellodashNoteCard {
     return dateTime.toLocaleString(DateTime.DATE_MED);
   }
 
-  notePreviewFragment({
-    lastModified,
-    title,
-    previewContent,
-    previewLabels,
-    labels,
-  }: {
-    lastModified: string;
-    title: string;
-    previewContent: string;
-    previewLabels: Label[];
-    labels: number[];
-  }) {
+  notePreviewFragment({ lastModified, title, previewContent, labels }: { lastModified: string; title: string; previewContent: string; labels: Label[] }) {
     return (
       <div class='preview-container'>
         <header>
@@ -95,12 +97,12 @@ export class HellodashNoteCard {
           <h2 class='title'>{title}</h2>
         </header>
         <section class='preview'>{previewContent}</section>
-        {!!previewLabels.length && (
+        {!!labels.length && (
           <div class='labels-container'>
-            {previewLabels.map(label => (
+            {labels.map(label => (
               <dash-chip heading={label.text} selectable color={label.color}></dash-chip>
             ))}
-            {labels.length > MAX_LABELS && <dash-chip heading={`+ ${labels.length - MAX_LABELS}`} selectable></dash-chip>}
+            {labels.length > MAX_LABELS && <dash-chip heading={`+ ${this.labels.length - MAX_LABELS}`} selectable></dash-chip>}
           </div>
         )}
       </div>
@@ -109,13 +111,13 @@ export class HellodashNoteCard {
   //#endregion
 
   render() {
-    const { title, labels, previewContent, lastModified } = this.note;
-    const previewLabels = (this.labels || []).slice(0, MAX_LABELS) ?? [];
+    const { title, previewContent, lastModified } = this.note;
+    const labels = (this.labels || []).slice(0, MAX_LABELS) ?? [];
 
     return (
       <div class='note-card'>
         {this.mode === 'edit' && [
-          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ lastModified, title, previewContent, previewLabels, labels })}</button>,
+          <button onClick={this.openNoteModal.bind(this)}>{this.notePreviewFragment({ lastModified, title, previewContent, labels })}</button>,
 
           <div class='actions-end-wrapper'>
             <slot name='actions-end'></slot>
@@ -125,7 +127,7 @@ export class HellodashNoteCard {
         {this.mode === 'selectable' && (
           <button class={this.selected ? 'selected' : ''} onClick={() => (this.selected = !this.selected)}>
             {this.selected && <dash-icon class='card-selected-icon' icon='check-circle' scale='m'></dash-icon>}
-            {this.notePreviewFragment({ lastModified, title, previewContent, previewLabels, labels })}
+            {this.notePreviewFragment({ lastModified, title, previewContent, labels })}
           </button>
         )}
       </div>

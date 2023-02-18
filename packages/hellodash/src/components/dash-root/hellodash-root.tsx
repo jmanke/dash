@@ -74,7 +74,9 @@ export class HellodashRoot {
     if (!this.rootState) {
       this.rootState = store.getState();
     }
-    store.subscribe(() => (this.rootState = store.getState()));
+    store.subscribe(() => {
+      this.rootState = store.getState();
+    });
 
     this.appStateLoaded = true;
   }

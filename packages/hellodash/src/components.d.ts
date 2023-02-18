@@ -10,8 +10,8 @@ import { RouterHistory } from "@stencil-community/router";
 import { Auth0Client } from "@auth0/auth0-spa-js";
 import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 import { Label } from "./models/label";
-import { LabelViewModel } from "./view-models/label-view-model";
 import { Note } from "./models/note";
+import { Theme } from "./types/types";
 import { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
 import { User } from "./models/user";
 export { RootState } from "./store";
@@ -19,8 +19,8 @@ export { RouterHistory } from "@stencil-community/router";
 export { Auth0Client } from "@auth0/auth0-spa-js";
 export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
 export { Label } from "./models/label";
-export { LabelViewModel } from "./view-models/label-view-model";
 export { Note } from "./models/note";
+export { Theme } from "./types/types";
 export { NoteCardMode } from "./components/common/hellodash-note-card/hellodash-note-card";
 export { User } from "./models/user";
 export namespace Components {
@@ -40,6 +40,7 @@ export namespace Components {
     }
     interface HellodashEditLabels {
         "close": () => Promise<void>;
+        "creatingLabel": boolean;
         "labels": Label[];
     }
     interface HellodashLabelColorPicker {
@@ -49,16 +50,19 @@ export namespace Components {
         "label": Label;
     }
     interface HellodashLabelSelect {
-        "allLabels": LabelViewModel[];
+        "allLabels": Label[];
         "autoFocus": boolean;
         "canCreateLabel": boolean;
-        "labels": LabelViewModel[];
+        "labels": Label[];
     }
     interface HellodashModalNote {
         "close": () => Promise<void>;
-        "newLabelId"?: number;
-        "newNote": boolean;
-        "noteId": number;
+        "createLabelDisabled": boolean;
+        "labels": Label[];
+        "loading": boolean;
+        "mobileView": boolean;
+        "note": Note;
+        "theme": Theme;
     }
     interface HellodashNavBar {
         "setFocus": () => Promise<void>;
@@ -71,6 +75,7 @@ export namespace Components {
         "selected": boolean;
     }
     interface HellodashNoteEditDropdown {
+        "labels": Label[];
         "note": Note;
     }
     interface HellodashProfileSettings {
@@ -280,6 +285,7 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: HellodashConfirmCustomEvent<any>) => void;
     }
     interface HellodashEditLabels {
+        "creatingLabel"?: boolean;
         "labels"?: Label[];
         "onDashModalBeforeClose"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
@@ -297,21 +303,27 @@ declare namespace LocalJSX {
         "onHellodashLabelEditUpdateLabel"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
     }
     interface HellodashLabelSelect {
-        "allLabels"?: LabelViewModel[];
+        "allLabels"?: Label[];
         "autoFocus"?: boolean;
         "canCreateLabel"?: boolean;
-        "labels"?: LabelViewModel[];
-        "onDashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
+        "labels"?: Label[];
+        "onDashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
         "onDashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
-        "onDashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
-        "onDashLabelSelectLabelUpdated"?: (event: HellodashLabelSelectCustomEvent<LabelViewModel>) => void;
+        "onDashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
+        "onDashLabelSelectLabelUpdated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
     }
     interface HellodashModalNote {
-        "newLabelId"?: number;
-        "newNote"?: boolean;
-        "noteId"?: number;
+        "createLabelDisabled"?: boolean;
+        "labels"?: Label[];
+        "loading"?: boolean;
+        "mobileView"?: boolean;
+        "note"?: Note;
         "onDashModalBeforeClose"?: (event: HellodashModalNoteCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashModalNoteCustomEvent<any>) => void;
+        "onHellodashModalNoteLabelCreated"?: (event: HellodashModalNoteCustomEvent<Label>) => void;
+        "onHellodashModalNoteLabelUpdated"?: (event: HellodashModalNoteCustomEvent<Label>) => void;
+        "onHellodashModalNoteUpdateNote"?: (event: HellodashModalNoteCustomEvent<Note>) => void;
+        "theme"?: Theme;
     }
     interface HellodashNavBar {
         "onDashMenuToggled"?: (event: HellodashNavBarCustomEvent<any>) => void;
@@ -324,8 +336,15 @@ declare namespace LocalJSX {
         "selected"?: boolean;
     }
     interface HellodashNoteEditDropdown {
+        "labels"?: Label[];
         "note"?: Note;
-        "onDashNoteEditDropdownVisibleChanged"?: (event: HellodashNoteEditDropdownCustomEvent<boolean>) => void;
+        "onHellodashNoteEditDeleteNote"?: (event: HellodashNoteEditDropdownCustomEvent<Note>) => void;
+        "onHellodashNoteEditDropdownVisibleChanged"?: (event: HellodashNoteEditDropdownCustomEvent<boolean>) => void;
+        "onHellodashNoteEditDuplicateNote"?: (event: HellodashNoteEditDropdownCustomEvent<Note>) => void;
+        "onHellodashNoteEditLabelAdded"?: (event: HellodashNoteEditDropdownCustomEvent<number>) => void;
+        "onHellodashNoteEditLabelCreated"?: (event: HellodashNoteEditDropdownCustomEvent<Label>) => void;
+        "onHellodashNoteEditLabelRemoved"?: (event: HellodashNoteEditDropdownCustomEvent<number>) => void;
+        "onHellodashNoteEditLabelUpdated"?: (event: HellodashNoteEditDropdownCustomEvent<Label>) => void;
     }
     interface HellodashProfileSettings {
         "authClient"?: Auth0Client;

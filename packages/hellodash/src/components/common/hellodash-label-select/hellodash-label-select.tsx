@@ -2,7 +2,6 @@ import { Component, EventEmitter, Event, h, State, Prop, Watch, Element, Listen 
 import { isEmpty } from 'lodash';
 import { Label } from '../../../models/label';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
-import { LabelViewModel } from '../../../view-models/label-view-model';
 
 @Component({
   tag: 'hellodash-label-select',
@@ -14,7 +13,7 @@ export class HellodashLabelEdit {
 
   colorSwatches = new Map<number, HTMLDashColorSwatchElement>();
 
-  editingLabel: LabelViewModel;
+  editingLabel: Label;
   //#endregion
 
   //#region @Element
@@ -24,10 +23,10 @@ export class HellodashLabelEdit {
 
   //#region @State
   @State()
-  labelsMap: Map<number, LabelViewModel>;
+  labelsMap: Map<number, Label>;
 
   @State()
-  filteredLabels: LabelViewModel[] = [];
+  filteredLabels: Label[] = [];
 
   @State()
   filterValue: string;
@@ -46,14 +45,14 @@ export class HellodashLabelEdit {
 
   //#region @Prop
   @Prop()
-  labels: LabelViewModel[] = [];
+  labels: Label[] = [];
   @Watch('labels')
   labelsChanged() {
     this.updateLabelsMap();
   }
 
   @Prop()
-  allLabels: LabelViewModel[] = [];
+  allLabels: Label[] = [];
 
   @Prop({
     reflect: true,
@@ -68,12 +67,12 @@ export class HellodashLabelEdit {
   @Event({
     eventName: 'dashLabelSelectLabelAdded',
   })
-  labelAdded: EventEmitter<LabelViewModel>;
+  labelAdded: EventEmitter<Label>;
 
   @Event({
     eventName: 'dashLabelSelectLabelRemoved',
   })
-  labelRemoved: EventEmitter<LabelViewModel>;
+  labelRemoved: EventEmitter<Label>;
 
   @Event({
     eventName: 'dashLabelSelectLabelCreated',
@@ -83,7 +82,7 @@ export class HellodashLabelEdit {
   @Event({
     eventName: 'dashLabelSelectLabelUpdated',
   })
-  labelUpdated: EventEmitter<LabelViewModel>;
+  labelUpdated: EventEmitter<Label>;
   //#endregion
 
   //#region Component lifecycle
@@ -104,12 +103,12 @@ export class HellodashLabelEdit {
 
   //#region Local methods
   updateLabelsMap() {
-    const map = new Map<number, LabelViewModel>();
+    const map = new Map<number, Label>();
     this.labels.forEach(l => map.set(l.id, l));
     this.labelsMap = map;
   }
 
-  selectedLabelChanged(label: LabelViewModel, isSelected: Boolean) {
+  selectedLabelChanged(label: Label, isSelected: Boolean) {
     if (isSelected) {
       this.labelAdded.emit(label);
       return;
@@ -129,12 +128,12 @@ export class HellodashLabelEdit {
     this.filterElement?.select();
   }
 
-  labelColorChanged(label: LabelViewModel, color: Color) {
+  labelColorChanged(label: Label, color: Color) {
     label.color = color;
     this.labelUpdated.emit(label);
   }
 
-  editLabel(label: LabelViewModel) {
+  editLabel(label: Label) {
     this.editingLabel = label;
     this.drillMenuActive = true;
   }
@@ -190,7 +189,7 @@ export class HellodashLabelEdit {
           placeholder='Filter labels'
           items={this.allLabels}
           objKey='text'
-          onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as LabelViewModel[])}
+          onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as Label[])}
           onDashFilterValueChanged={e => (this.filterValue = e.target.filterValue)}
         ></dash-filter>
         {addLabel}

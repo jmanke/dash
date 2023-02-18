@@ -2,14 +2,15 @@ import { Component, h, Host, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { isEmpty, isNumber } from 'lodash';
 import { stringSearch } from '@didyoumeantoast/dash-utils';
-import { dashRootService } from '../../dash-root/dash-root-service';
 import { DashFilterCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 import { Note } from '../../../models/note';
-import { store } from '../../../store';
+import { dispatch, store } from '../../../store';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 import { Label } from '../../../models/label';
-import { noteLabels } from '../../../slices/notes-slice';
+import { addLabelToNote, createNote, deleteNote, duplicateNote, removeLabelFromNote } from '../../../slices/notes-slice';
+import { Status } from '../../../enums/status';
+import { createLabel, updateLabel } from '../../../slices/labels-slice';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -35,10 +36,10 @@ export class HellodashRouteNotes {
   }
 
   @State()
-  labels: Label[];
+  filteredNotes: Note[] = [];
 
   @State()
-  labelsMap: Map<number, Label> = new Map();
+  labels: Label[];
 
   @State()
   notesFilter: string;
@@ -62,20 +63,7 @@ export class HellodashRouteNotes {
   }
 
   @State()
-  selectedNoteId?: number;
-  @Watch('selectedNoteId')
-  selectedNoteIdChanged(noteId: number) {
-    if (!isNumber(noteId)) {
-      return;
-    }
-
-    this.closeNoteModalCb = () => {
-      this.closeNoteModalCb = null;
-      this.history.goBack();
-    };
-    const noteModal = <hellodash-modal-note noteId={noteId} onDashModalBeforeClose={() => this.closeNoteModalCb?.()}></hellodash-modal-note>;
-    dashRootService.showModal(noteModal);
-  }
+  selectedNote?: Note;
 
   @State()
   noteWithDropdownActive: Note;
@@ -91,15 +79,11 @@ export class HellodashRouteNotes {
   match: any;
   @Watch('match')
   matchChanged(match: any) {
-    this.selectedNoteId = match?.params.noteId ? parseInt(match.params.noteId) : null;
-    // close the modal if the user went back with history
-    if (!isNumber(this.selectedNoteId) && this.closeNoteModalCb) {
-      this.closeNoteModalCb = null;
-      dashRootService.closeModal();
-    }
+    const noteId = match?.params.noteId ? parseInt(match.params.noteId) : null;
+    this.selectedNote = noteId ? this.notes.find(note => note.id === noteId) : null;
 
     // don't update selected label when note is being edited
-    if (!isNumber(this.selectedNoteId)) {
+    if (!isNumber(noteId)) {
       this.selectedLabelId = match?.params.labelId ? parseInt(match.params.labelId) : null;
     }
   }
@@ -117,10 +101,6 @@ export class HellodashRouteNotes {
     const storeUpdated = () => {
       this.notes = store.getState().notes;
       this.labels = store.getState().labels;
-      this.labelsMap.clear();
-      this.labels.forEach(label => {
-        this.labelsMap.set(label.id, label);
-      });
     };
 
     storeUpdated();
@@ -171,7 +151,7 @@ export class HellodashRouteNotes {
         break;
     }
 
-    this.notes = notes;
+    this.filteredNotes = notes;
   }
 
   updateNotesFilterValue(e: DashFilterCustomEvent<void>) {
@@ -182,9 +162,18 @@ export class HellodashRouteNotes {
     this.sortBy = sortBy;
   }
 
-  addNote() {
-    const noteModal = <hellodash-modal-note newNote={true} newLabelId={this.selectedLabelId}></hellodash-modal-note>;
-    dashRootService.showModal(noteModal);
+  async addNote() {
+    const newNote = await dispatch(
+      createNote({
+        id: -1,
+        title: 'New note',
+        content: '',
+        status: Status.Active,
+        previewContent: '',
+        labels: this.selectedLabelId ? [this.selectedLabelId] : [],
+      }),
+    ).unwrap();
+    this.selectedNote = newNote;
   }
   //#endregion
 
@@ -192,7 +181,7 @@ export class HellodashRouteNotes {
     return (
       <Host>
         <dash-section stickyHeader>
-          {!!this.notes?.length && [
+          {!!this.filteredNotes?.length && [
             <div slot='header' class='notes-search-container'>
               <dash-filter class='notes-filter' placeholder='Search' scale='l' onDashFilterValueChanged={this.updateNotesFilterValue.bind(this)}></dash-filter>
               <dash-dropdown class='sort-dropdown' placement='bottom-end' autoClose>
@@ -221,14 +210,20 @@ export class HellodashRouteNotes {
               ></dash-icon-button>
             </div>,
 
-            !!this.notes.length ? (
+            !!this.filteredNotes.length ? (
               <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-                {this.notes.map(note => (
-                  <hellodash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} note={note} labels={noteLabels(note)}>
+                {this.filteredNotes.map(note => (
+                  <hellodash-note-card class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined} key={note.id} note={note}>
                     <hellodash-note-edit-dropdown
                       slot='actions-end'
                       note={note}
-                      onDashNoteEditDropdownVisibleChanged={e => (this.noteWithDropdownActive = e.detail ? note : null)}
+                      onHellodashNoteEditDropdownVisibleChanged={e => (this.noteWithDropdownActive = e.detail ? note : null)}
+                      onHellodashNoteEditDeleteNote={() => dispatch(deleteNote(note))}
+                      onHellodashNoteEditDuplicateNote={() => dispatch(duplicateNote(note))}
+                      onHellodashNoteEditLabelAdded={e => dispatch(addLabelToNote({ note, label: e.detail }))}
+                      onHellodashNoteEditLabelRemoved={e => dispatch(removeLabelFromNote({ note, label: e.detail }))}
+                      onHellodashNoteEditLabelUpdated={e => dispatch(updateLabel(e.detail))}
+                      onHellodashNoteEditLabelCreated={e => dispatch(createLabel(e.detail))}
                     ></hellodash-note-edit-dropdown>
                   </hellodash-note-card>
                 ))}
@@ -246,6 +241,8 @@ export class HellodashRouteNotes {
             </div>
           )}
         </dash-section>
+
+        {this.selectedNote && <hellodash-modal-note note={this.selectedNote} labels={this.labels} onDashModalBeforeClose={() => this.history.goBack()}></hellodash-modal-note>}
       </Host>
     );
   }

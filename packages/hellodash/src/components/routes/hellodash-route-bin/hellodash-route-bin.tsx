@@ -5,7 +5,7 @@ import { Label } from '../../../models/label';
 import { dashRootService } from '../../dash-root/dash-root-service';
 import { dispatch, store } from '../../../store';
 import { Unsubscribe } from '@reduxjs/toolkit';
-import { deleteNote, noteLabels, restoreNote } from '../../../slices/notes-slice';
+import { deleteNote, restoreNote } from '../../../slices/notes-slice';
 import { Status } from '../../../enums/status';
 import { DateTime } from 'luxon';
 
@@ -168,7 +168,6 @@ export class HellodashRouteBin {
                 class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}
                 selected={this.selectedNotes.has(note.id)}
                 note={note}
-                labels={noteLabels(note)}
                 mode='selectable'
                 onClick={() => this.noteClicked(note)}
               ></hellodash-note-card>

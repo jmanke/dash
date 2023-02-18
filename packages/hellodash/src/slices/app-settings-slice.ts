@@ -39,6 +39,7 @@ export const appSettingsSlice = createSlice({
     },
     toggleSidebarCollapsed: state => {
       state.sidebarCollapsed = !state.sidebarCollapsed;
+      save(state);
     },
   },
 });

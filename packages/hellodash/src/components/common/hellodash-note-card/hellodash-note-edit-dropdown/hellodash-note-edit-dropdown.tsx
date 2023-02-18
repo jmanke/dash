@@ -1,12 +1,8 @@
 import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 import { Component, Event, EventEmitter, h, Prop, State } from '@stencil/core';
-import { LabelViewModel } from '../../../../view-models/label-view-model';
 import { Label } from '../../../../models/label';
-import labelsState from '../../../../stores/labels-state';
-import { updateLabel as updateLabelApi } from '../../../../api/labels-api';
 import { Note } from '../../../../models/note';
-import { dispatch } from '../../../../store';
-import { updateNote, duplicateNote, archiveNote } from '../../../../slices/notes-slice';
+import { noteLabels } from '../../../../slices/notes-slice';
 
 type MENU_PANEL = 'default' | 'addLabel';
 
@@ -35,17 +31,50 @@ export class HellodashNoteEditDropdown {
   //#endregion
 
   //#region @Prop
-  @Prop({
-    reflect: true,
-  })
+  @Prop()
   note: Note;
+
+  @Prop()
+  labels: Label[];
+
   //#endregion
 
   //#region @Event
   @Event({
-    eventName: 'dashNoteEditDropdownVisibleChanged',
+    eventName: 'hellodashNoteEditDropdownVisibleChanged',
   })
-  dashNoteEditDropdownVisibleChanged: EventEmitter<boolean>;
+  dropdownVisibleChanged: EventEmitter<boolean>;
+
+  @Event({
+    eventName: 'hellodashNoteEditDuplicateNote',
+  })
+  noteDuplicated: EventEmitter<Note>;
+
+  @Event({
+    eventName: 'hellodashNoteEditDeleteNote',
+  })
+  noteDeleted: EventEmitter<Note>;
+
+  @Event({
+    eventName: 'hellodashNoteEditLabelAdded',
+  })
+  labelAdded: EventEmitter<number>;
+
+  @Event({
+    eventName: 'hellodashNoteEditLabelRemoved',
+  })
+  labelRemoved: EventEmitter<number>;
+
+  @Event({
+    eventName: 'hellodashNoteEditLabelCreated',
+  })
+  labelCreated: EventEmitter<Label>;
+
+  @Event({
+    eventName: 'hellodashNoteEditLabelUpdated',
+  })
+  labelUpdated: EventEmitter<Label>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -60,7 +89,7 @@ export class HellodashNoteEditDropdown {
       this.dropdownMenuPanel = 'default';
     }
 
-    this.dashNoteEditDropdownVisibleChanged.emit(open);
+    this.dropdownVisibleChanged.emit(open);
   }
   //#endregion
 
@@ -69,49 +98,33 @@ export class HellodashNoteEditDropdown {
 
   //#region Local methods
   addLabel(id: number) {
-    dispatch(
-      updateNote({
-        ...this.note,
-        labels: [...this.note.labels, id],
-      }),
-    );
+    this.labelAdded.emit(id);
   }
 
   removeLabel(id: number) {
-    dispatch(
-      updateNote({
-        ...this.note,
-        labels: this.note.labels.filter(l => l !== id),
-      }),
-    );
+    this.labelRemoved.emit(id);
   }
 
   async createLabel(label: Label) {
-    this.creatingLabel = true;
-    try {
-      const createdLabel = await labelsState.addLabel(label);
-      this.addLabel(createdLabel.id);
-    } finally {
-      this.creatingLabel = false;
-    }
+    this.labelCreated.emit(label);
   }
 
-  updateLabel(label: LabelViewModel) {
-    updateLabelApi(label.__toModel());
+  updateLabel(label: Label) {
+    this.labelUpdated.emit(label);
   }
 
   async duplicateNote() {
-    await dispatch(duplicateNote(this.note));
+    this.noteDuplicated.emit(this.note);
     this.dropdown.close();
   }
 
   deleteNote() {
-    dispatch(archiveNote(this.note));
+    this.noteDeleted.emit(this.note);
   }
   //#endregion
 
   render() {
-    const noteLabels = labelsState.getLabelsByIds(this.note.labels);
+    const labels = this.labels ? noteLabels(this.note) : [];
 
     return (
       <dash-dropdown ref={element => (this.dropdown = element)} placement='bottom-end' autoClose onDashDropdownOpenChange={this.handleDropdownVisibleChanged.bind(this)}>
@@ -125,8 +138,8 @@ export class HellodashNoteEditDropdown {
 
         <hellodash-label-select
           class={this.dropdownMenuPanel !== 'addLabel' ? 'invisible' : ''}
-          labels={noteLabels}
-          allLabels={labelsState.labels}
+          labels={labels}
+          allLabels={this.labels}
           canCreateLabel={!this.creatingLabel}
           onDashLabelSelectLabelAdded={e => this.addLabel(e.detail.id)}
           onDashLabelSelectLabelRemoved={e => this.removeLabel(e.detail.id)}
