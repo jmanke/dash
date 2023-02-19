@@ -3,7 +3,6 @@ import { postcss } from '@stencil/postcss';
 import autoprefixer from 'autoprefixer';
 import postcssNested from 'postcss-nested';
 import postcssExtendRule from 'postcss-extend-rule';
-import dotenvPlugin from 'rollup-plugin-dotenv';
 
 // https://stenciljs.com/docs/config
 
@@ -29,6 +28,5 @@ export const config: Config = {
       // add postcss plugins
       plugins: [postcssNested(), postcssExtendRule(), autoprefixer()],
     }),
-    dotenvPlugin(),
   ],
 };

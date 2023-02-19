@@ -119,7 +119,6 @@ importers:
       puppeteer: ^10.4.0
       qs: ^6.10.3
       rollup: 1.20.0
-      rollup-plugin-dotenv: ^0.3.0
       serve: ^13.0.4
       tinymce: ^5.10.2
       uuid: ^8.3.2
@@ -159,7 +158,6 @@ importers:
       postcss-nested: 5.0.6_postcss@8.4.6
       puppeteer: 10.4.0
       rollup: 1.20.0
-      rollup-plugin-dotenv: 0.3.0_rollup@1.20.0
 
 packages:
 
