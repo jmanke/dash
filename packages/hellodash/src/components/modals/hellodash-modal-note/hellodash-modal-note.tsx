@@ -228,7 +228,7 @@ export class HellodashModalNote implements Modal {
           content={this.noteDraft?.content ?? ''}
           resize={false}
           showTitleInput={true}
-          loading={!this.noteDraft}
+          loading={this.loading}
           deferLoadTime={250}
           readonly={!this.disableReadonly ?? false}
           onDashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}

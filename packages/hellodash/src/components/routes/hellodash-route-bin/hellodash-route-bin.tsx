@@ -125,7 +125,7 @@ export class HellodashRouteBin {
 
     return (
       <dash-section stickyHeader>
-        {this.archivedNotes.length && [
+        {!!this.archivedNotes.length && [
           <div class='header' slot='header'>
             <span class='notes-selected'>{this.selectedNotes.size ? `Selected: ${this.selectedNotes.size}` : ''}</span>
             <div class='content-end'>

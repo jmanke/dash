@@ -8,7 +8,7 @@ import { dispatch, store } from '../../../store';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { DateTime } from 'luxon';
 import { Label } from '../../../models/label';
-import { addLabelToNote, createNote, deleteNote, duplicateNote, getNoteById, removeLabelFromNote, updateNote } from '../../../slices/notes-slice';
+import { addLabelToNote, archiveNote, createNote, duplicateNote, getNoteById, removeLabelFromNote, updateNote } from '../../../slices/notes-slice';
 import { Status } from '../../../enums/status';
 import { createLabel, updateLabel } from '../../../slices/labels-slice';
 
@@ -70,6 +70,9 @@ export class HellodashRouteNotes {
 
   @State()
   focusedNote: Note;
+
+  @State()
+  loadingNote: boolean;
   //#endregion
 
   //#region @Prop
@@ -83,11 +86,15 @@ export class HellodashRouteNotes {
   @Watch('match')
   async matchChanged(match: any) {
     const noteId = match?.params.noteId ? parseInt(match.params.noteId) : null;
-    let selectedNote = noteId ? this.notes.find(note => note.id === noteId) : null;
-    if (selectedNote && selectedNote.content === null) {
-      selectedNote = await dispatch(getNoteById(selectedNote.id)).unwrap();
+    this.selectedNote = noteId ? this.notes.find(note => note.id === noteId) : null;
+    if (this.selectedNote && this.selectedNote.content === null) {
+      this.loadingNote = true;
+      try {
+        this.selectedNote = await dispatch(getNoteById(this.selectedNote.id)).unwrap();
+      } finally {
+        this.loadingNote = false;
+      }
     }
-    this.selectedNote = selectedNote;
 
     // don't update selected label when note is being edited
     if (!isNumber(noteId)) {
@@ -106,7 +113,7 @@ export class HellodashRouteNotes {
 
   connectedCallback() {
     const storeUpdated = () => {
-      this.notes = store.getState().notes;
+      this.notes = store.getState().notes.filter(note => note.status === Status.Active);
       this.labels = store.getState().labels;
       this.mobileView = store.getState().appState.mobileView;
     };
@@ -226,7 +233,7 @@ export class HellodashRouteNotes {
                       slot='actions-end'
                       note={note}
                       labels={this.labels.map(l => ({ ...l }))}
-                      onHellodashNoteEditDeleteNote={() => dispatch(deleteNote(note))}
+                      onHellodashNoteEditDeleteNote={() => dispatch(archiveNote(note))}
                       onHellodashNoteEditDuplicateNote={() => dispatch(duplicateNote(note))}
                       onHellodashNoteEditLabelAdded={e => dispatch(addLabelToNote({ note, label: e.detail }))}
                       onHellodashNoteEditLabelRemoved={e => dispatch(removeLabelFromNote({ note, label: e.detail }))}
@@ -254,6 +261,7 @@ export class HellodashRouteNotes {
         {this.selectedNote && (
           <hellodash-modal-note
             note={this.selectedNote}
+            loading={this.loadingNote}
             labels={this.labels}
             mobileView={this.mobileView}
             onDashModalBeforeClose={() => this.history.goBack()}
