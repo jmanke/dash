@@ -4,7 +4,6 @@ import { Note } from '../models/note';
 import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi, updateNotePreview } from '../api/note-api';
 import { Status } from '../enums/status';
 import { Label } from '../models/label';
-import { DateTime } from 'luxon';
 
 async function _updateNote(note: Note) {
   return note.content === null ? await updateNotePreview(note) : await updateNoteApi(note);
