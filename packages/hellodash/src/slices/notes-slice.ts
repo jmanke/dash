@@ -27,7 +27,6 @@ export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id
   dispatch(
     replaceNote({
       ...note,
-      content: note.content ?? '',
       labels: sortLabels(note.labels),
     }),
   );
@@ -49,6 +48,10 @@ export const createNote = createAsyncThunk('labels/createNote', async (note: Not
 });
 
 export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note, { dispatch }) => {
+  if (note.content === null) {
+    throw new Error('Cannot update note with null content...');
+  }
+
   dispatch(replaceNote(note));
 
   const { lastModified } = await updateNoteApi(note);
@@ -111,7 +114,7 @@ export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, 
   };
   dispatch(replaceNote(newNote));
 
-  return newNote.content === null ? updateNotePreview(note) : updateNoteApi(note);
+  return newNote.content === null ? updateNotePreview(newNote) : updateNoteApi(newNote);
 });
 
 export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {

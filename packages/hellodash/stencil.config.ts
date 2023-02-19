@@ -3,7 +3,6 @@ import { postcss } from '@stencil/postcss';
 import autoprefixer from 'autoprefixer';
 import postcssNested from 'postcss-nested';
 import postcssExtendRule from 'postcss-extend-rule';
-import replace from 'postcss-replace';
 import dotenvPlugin from 'rollup-plugin-dotenv';
 
 // https://stenciljs.com/docs/config
@@ -28,13 +27,7 @@ export const config: Config = {
   plugins: [
     postcss({
       // add postcss plugins
-      plugins: [
-        postcssNested(),
-        postcssExtendRule(),
-        autoprefixer(),
-        // shadow dom does not respect 'html' and 'body' styling, so we replace it with ':host' instead
-        replace({ pattern: 'html', data: { replaceAll: ':host' } }),
-      ],
+      plugins: [postcssNested(), postcssExtendRule(), autoprefixer()],
     }),
     dotenvPlugin(),
   ],
