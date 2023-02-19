@@ -7,6 +7,7 @@ import { Note } from '../models/note';
  * @returns Labels referenced by note
  */
 export function noteLabels(note: Note, labels: Label[] = []) {
-  const labelsMap = labels.reduce((map, label) => map.set(label.id, label), new Map());
-  return note.labels?.map(labelId => labelsMap.get(labelId)).filter(label => !!label) ?? [];
+  // maintain label order
+  const noteLabelIds = new Set(note.labels);
+  return labels.filter(label => noteLabelIds.has(label.id));
 }

@@ -3,15 +3,11 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { Note } from '../models/note';
 import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi, updateNotePreview } from '../api/note-api';
 import { Status } from '../enums/status';
-import { sortBy, sortedIndexBy } from 'lodash';
 import { Label } from '../models/label';
 import { DateTime } from 'luxon';
 
 export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async (_, { dispatch }) => {
   const notes = (await fetchNotePreviews()) ?? [];
-  notes.forEach(note => {
-    note.labels = sortBy(note.labels);
-  });
   dispatch(setNotes(notes));
 
   return notes;
@@ -19,7 +15,6 @@ export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async
 
 export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id: number, { dispatch }) => {
   const note = await fetchNote(id);
-  note.labels = sortBy(note.labels);
 
   dispatch(replaceNote(note));
 
@@ -100,11 +95,9 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
-  const labels = [...note.labels];
-  labels.splice(sortedIndexBy(note.labels, label), 0, label);
   const newNote: Note = {
     ...note,
-    labels,
+    labels: [...note.labels, label],
   };
   dispatch(replaceNote(newNote));
 

@@ -6,7 +6,6 @@ import { Note } from '../../../models/note';
 import { Theme } from '../../../types/types';
 import produce from 'immer';
 import { noteLabels } from '../../../utils/note-labels';
-import { sortedIndexBy } from 'lodash';
 
 const PREVIEW_CONTENT_LENGTH = 140;
 const SAVE_DELAY = 5 * 1000;
@@ -31,6 +30,10 @@ export class HellodashModalNote implements Modal {
   //#region @State
   @State()
   noteDraft: Note;
+  @Watch('noteDraft')
+  noteDraftChaged(noteDraft: Note) {
+    this.noteDraftLabels = noteLabels(noteDraft, this.allLabels);
+  }
 
   @State()
   noteDraftLabels: Label[];
@@ -52,7 +55,6 @@ export class HellodashModalNote implements Modal {
   @Watch('note')
   noteChanged(note: Note) {
     this.noteDraft = { ...note };
-    this.noteDraftLabels = noteLabels(this.noteDraft, this.allLabels);
   }
 
   @Prop()
@@ -124,7 +126,7 @@ export class HellodashModalNote implements Modal {
   //#region Local methods
   addLabel(id: number) {
     this.noteDraft = produce(this.noteDraft, draft => {
-      draft.labels.splice(sortedIndexBy(draft.labels, id), 0, id);
+      draft.labels.push(id);
     });
     this.updateNote();
   }
