@@ -42,6 +42,9 @@ export class HellodashRouteNotes {
   labels: Label[];
 
   @State()
+  mobileView: boolean;
+
+  @State()
   notesFilter: string;
   @Watch('notesFilter')
   notesFilterChanged() {
@@ -105,6 +108,7 @@ export class HellodashRouteNotes {
     const storeUpdated = () => {
       this.notes = store.getState().notes;
       this.labels = store.getState().labels;
+      this.mobileView = store.getState().appState.mobileView;
     };
 
     storeUpdated();
@@ -251,6 +255,7 @@ export class HellodashRouteNotes {
           <hellodash-modal-note
             note={this.selectedNote}
             labels={this.labels}
+            mobileView={this.mobileView}
             onDashModalBeforeClose={() => this.history.goBack()}
             onHellodashModalNoteLabelCreated={async e => {
               const note = this.selectedNote;

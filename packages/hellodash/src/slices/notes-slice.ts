@@ -144,7 +144,6 @@ export const notesSlice = createSlice({
     },
     replaceNote: (state, action: PayloadAction<Note>) => {
       const index = state.findIndex(note => action.payload.id === note.id);
-
       if (index === -1) {
         return;
       }

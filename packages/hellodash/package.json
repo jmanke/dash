@@ -45,6 +45,7 @@
     "@stencil-community/router": "^1.0.2",
     "@types/qs": "^6.9.7",
     "axios": "^0.24.0",
+    "immer": "^9.0.19",
     "lodash": "^4.17.21",
     "luxon": "^2.4.0",
     "qs": "^6.10.3",

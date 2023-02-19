@@ -1,10 +1,11 @@
-import { Component, Event, EventEmitter, h, Method, Prop, State } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import CancelationToken from '../../../api/cancellation-token';
 import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
 import { Label } from '../../../models/label';
 import { Note } from '../../../models/note';
 import { Theme } from '../../../types/types';
 import { noteLabels } from '../../../slices/notes-slice';
+import produce from 'immer';
 
 const PREVIEW_CONTENT_LENGTH = 140;
 const SAVE_DELAY = 5 * 1000;
@@ -28,6 +29,9 @@ export class HellodashModalNote implements Modal {
 
   //#region @State
   @State()
+  noteDraft: Note;
+
+  @State()
   isFullscreen: boolean;
 
   @State()
@@ -41,6 +45,10 @@ export class HellodashModalNote implements Modal {
 
   @Prop()
   note: Note;
+  @Watch('note')
+  noteChanged(note: Note) {
+    this.noteDraft = { ...note };
+  }
 
   @Prop()
   labels: Label[];
@@ -87,6 +95,11 @@ export class HellodashModalNote implements Modal {
   //#endregion
 
   //#region Component lifecycle
+
+  componentWillLoad() {
+    this.noteChanged(this.note);
+  }
+
   //#endregion
 
   //#region Listeners
@@ -101,12 +114,16 @@ export class HellodashModalNote implements Modal {
 
   //#region Local methods
   addLabel(id: number) {
-    this.note.labels = [...this.note.labels, id];
+    this.noteDraft = produce(this.noteDraft, draft => {
+      draft.labels.push(id);
+    });
     this.updateNote();
   }
 
   removeLabel(id: number) {
-    this.note.labels = this.note.labels.filter(l => l !== id);
+    this.noteDraft = produce(this.noteDraft, draft => {
+      draft.labels = draft.labels.filter(l => l !== id);
+    });
     this.updateNote();
   }
 
@@ -119,12 +136,16 @@ export class HellodashModalNote implements Modal {
   }
 
   textEditorContentChanged(content: string) {
-    this.note.content = content;
+    this.noteDraft = produce(this.noteDraft, draft => {
+      draft.content = content;
+    });
     this.updateNote();
   }
 
   textEditorHeadingChanged(heading: string) {
-    this.note.title = heading;
+    this.noteDraft = produce(this.noteDraft, draft => {
+      draft.title = heading;
+    });
     this.updateNote();
   }
 
@@ -154,9 +175,11 @@ export class HellodashModalNote implements Modal {
       clearTimeout(this.saveDefer);
       this.saveDefer = null;
       const textContent = await this.textEditor.getTextContent();
-      this.note.previewContent = textContent.substring(0, PREVIEW_CONTENT_LENGTH);
+      this.noteDraft = produce(this.noteDraft, draft => {
+        draft.previewContent = textContent.substring(0, PREVIEW_CONTENT_LENGTH);
+      });
 
-      this.noteUpdated.emit(this.note);
+      this.noteUpdated.emit(this.noteDraft);
     };
 
     try {
@@ -194,18 +217,19 @@ export class HellodashModalNote implements Modal {
   //#endregion
 
   render() {
-    const labels = this.note ? noteLabels(this.note) : [];
+    const labels = this.noteDraft ? noteLabels(this.noteDraft) : [];
+    console.log(labels);
 
     return (
       <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
         <hellodash-text-editor
           ref={element => (this.textEditor = element)}
           theme={this.theme}
-          heading={this.note?.title ?? ''}
-          content={this.note?.content ?? ''}
+          heading={this.noteDraft?.title ?? ''}
+          content={this.noteDraft?.content ?? ''}
           resize={false}
           showTitleInput={true}
-          loading={!this.note}
+          loading={!this.noteDraft}
           deferLoadTime={250}
           readonly={!this.disableReadonly ?? false}
           onDashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
@@ -219,7 +243,7 @@ export class HellodashModalNote implements Modal {
         ></hellodash-text-editor>
 
         <div class='labels-container'>
-          {this.note &&
+          {this.noteDraft &&
             this.noteEditorLoaded &&
             labels.map(l => (
               <dash-chip heading={l.text} color={l.color} dismissible onDashChipDismiss={() => this.removeLabel(l.id)} dismissTooltipText='Remove label' selectable></dash-chip>
