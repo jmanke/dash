@@ -67,6 +67,7 @@ export class HellodashApp {
         return;
       }
 
+      this.isEditingLabels = false;
       this.pathName = location.pathname;
     });
   }
