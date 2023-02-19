@@ -165,7 +165,7 @@ export class HellodashRouteBin {
 
       this.showDeleteConfirmation && (
         <hellodash-confirm
-          onDashConfirmConfirmed={() => {
+          onHellodashConfirmConfirmed={() => {
             this.selectedNotes.forEach(note => {
               dispatch(deleteNote(note));
             });

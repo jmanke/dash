@@ -143,7 +143,7 @@ export class HellodashApp {
       <Host>
         {initialized && (
           <dash-shell>
-            <hellodash-nav-bar slot='header' onDashMenuToggled={() => dispatch(toggleSidebarCollapsed())}>
+            <hellodash-nav-bar slot='header' onHellodashMenuToggled={() => dispatch(toggleSidebarCollapsed())}>
               <img src={this.logoPath} alt='Hellodash logo' width='48' height='48' />
               <span class='logo-header'>Hellodash</span>
 

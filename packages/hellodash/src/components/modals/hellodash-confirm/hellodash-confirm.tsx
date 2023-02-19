@@ -53,9 +53,9 @@ export class HellodashConfirm implements Modal {
   dashModalClosed: EventEmitter;
 
   @Event({
-    eventName: 'dashConfirmConfirmed',
+    eventName: 'hellodashConfirmConfirmed',
   })
-  dashConfirmConfirmed: EventEmitter;
+  modalConfirmed: EventEmitter;
   //#endregion
 
   //#region Component lifecycle
@@ -77,7 +77,7 @@ export class HellodashConfirm implements Modal {
 
   //#region Local methods
   confirm() {
-    this.dashConfirmConfirmed.emit();
+    this.modalConfirmed.emit();
     this.close();
   }
   //#endregion

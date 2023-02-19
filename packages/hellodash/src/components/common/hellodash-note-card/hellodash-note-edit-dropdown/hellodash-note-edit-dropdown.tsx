@@ -141,10 +141,10 @@ export class HellodashNoteEditDropdown {
           labels={labels}
           allLabels={this.labels}
           canCreateLabel={!this.creatingLabel}
-          onDashLabelSelectLabelAdded={e => this.addLabel(e.detail.id)}
-          onDashLabelSelectLabelRemoved={e => this.removeLabel(e.detail.id)}
-          onDashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
-          onDashLabelSelectLabelUpdated={e => this.updateLabel(e.detail)}
+          onHellodashLabelSelectLabelAdded={e => this.addLabel(e.detail.id)}
+          onHellodashLabelSelectLabelRemoved={e => this.removeLabel(e.detail.id)}
+          onHellodashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
+          onHellodashLabelSelectLabelUpdated={e => this.updateLabel(e.detail)}
           autoFocus
         ></hellodash-label-select>
       </dash-dropdown>

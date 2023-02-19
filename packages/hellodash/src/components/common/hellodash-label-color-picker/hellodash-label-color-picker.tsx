@@ -26,7 +26,7 @@ export class HelloDashLabelColorPicker {
 
   //#region @Event
   @Event({
-    eventName: 'dashLabelColorPickerColorChanged',
+    eventName: 'hellodashLabelColorPickerColorChanged',
   })
   dashLabelColorPickerColorChanged: EventEmitter<Color>;
   //#endregion

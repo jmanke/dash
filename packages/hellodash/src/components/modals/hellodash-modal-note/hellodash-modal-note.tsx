@@ -231,13 +231,13 @@ export class HellodashModalNote implements Modal {
           loading={this.loading}
           deferLoadTime={250}
           readonly={!this.disableReadonly ?? false}
-          onDashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
-          onDashTextEditorHeadingChanged={e => this.textEditorHeadingChanged(e.detail)}
-          onDashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
-          onDashTextEditorNodeChanged={this.textEditorNodeChanged.bind(this)}
-          onDashTextEditorInit={e => this.textEditorInit(e.detail)}
-          onDashTextEditorBeforeUnload={this.beforeTextEditorUnload.bind(this)}
-          onDashTextEditorUnload={() => (this.noteEditorLoaded = false)}
+          onHellodashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
+          onHellodashTextEditorHeadingChanged={e => this.textEditorHeadingChanged(e.detail)}
+          onHellodashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
+          onHellodashTextEditorNodeChanged={this.textEditorNodeChanged.bind(this)}
+          onHellodashTextEditorInit={e => this.textEditorInit(e.detail)}
+          onHellodashTextEditorBeforeUnload={this.beforeTextEditorUnload.bind(this)}
+          onHellodashTextEditorUnload={() => (this.noteEditorLoaded = false)}
           showFullscreen
         ></hellodash-text-editor>
 
@@ -256,14 +256,14 @@ export class HellodashModalNote implements Modal {
             labels={labels}
             allLabels={this.labels}
             canCreateLabel={!this.createLabelDisabled}
-            onDashLabelSelectLabelAdded={e => {
+            onHellodashLabelSelectLabelAdded={e => {
               this.addLabel(e.detail.id);
             }}
-            onDashLabelSelectLabelRemoved={e => {
+            onHellodashLabelSelectLabelRemoved={e => {
               this.removeLabel(e.detail.id);
             }}
-            onDashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
-            onDashLabelSelectLabelUpdated={e => this.updateLabel(e.detail)}
+            onHellodashLabelSelectLabelCreated={e => this.createLabel(e.detail)}
+            onHellodashLabelSelectLabelUpdated={e => this.updateLabel(e.detail)}
           ></hellodash-label-select>
         </dash-dropdown>
 

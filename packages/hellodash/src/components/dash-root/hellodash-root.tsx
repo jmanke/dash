@@ -1,5 +1,5 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
-import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
 import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { CONSTANTS } from '../../constants';
 import { dashRootService } from './dash-root-service';
@@ -29,9 +29,6 @@ export class HellodashRoot {
   isMenuVisible = false;
 
   @State()
-  modalContent: HTMLElement;
-
-  @State()
   appStateLoaded: boolean;
 
   @State()
@@ -54,10 +51,6 @@ export class HellodashRoot {
   //#endregion
 
   //#region @Event
-  @Listen('dashModalClosed')
-  modalClosed() {
-    this.modalContent = undefined;
-  }
   //#endregion
 
   //#region Component lifecycle
@@ -141,11 +134,7 @@ export class HellodashRoot {
       <Host>
         {this.appStateLoaded && (
           <hellodash-auth0-provider authClient={authClient} onHellodashAuth0ProviderSignedIn={this.userSignedIn.bind(this)}>
-            {!error &&
-              currentUser && [
-                <hellodash-app ref={this.appElementConnected.bind(this)} rootState={this.rootState}></hellodash-app>,
-                <div class='modal-root'>{this.modalContent}</div>,
-              ]}
+            {!error && currentUser && <hellodash-app ref={this.appElementConnected.bind(this)} rootState={this.rootState}></hellodash-app>}
 
             {error && <div class='root-error-message'>Oops! Something went wrong...</div>}
           </hellodash-auth0-provider>

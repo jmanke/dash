@@ -280,9 +280,9 @@ declare namespace LocalJSX {
         "confirmButtonStatus"?: Status;
         "confirmText"?: string;
         "heading"?: string;
-        "onDashConfirmConfirmed"?: (event: HellodashConfirmCustomEvent<any>) => void;
         "onDashModalBeforeClose"?: (event: HellodashConfirmCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashConfirmCustomEvent<any>) => void;
+        "onHellodashConfirmConfirmed"?: (event: HellodashConfirmCustomEvent<any>) => void;
     }
     interface HellodashEditLabels {
         "creatingLabel"?: boolean;
@@ -295,7 +295,7 @@ declare namespace LocalJSX {
     }
     interface HellodashLabelColorPicker {
         "color"?: Color;
-        "onDashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
+        "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
     }
     interface HellodashLabelEdit {
         "label"?: Label;
@@ -307,10 +307,10 @@ declare namespace LocalJSX {
         "autoFocus"?: boolean;
         "canCreateLabel"?: boolean;
         "labels"?: Label[];
-        "onDashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
-        "onDashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
-        "onDashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
-        "onDashLabelSelectLabelUpdated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
+        "onHellodashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
+        "onHellodashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
+        "onHellodashLabelSelectLabelRemoved"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
+        "onHellodashLabelSelectLabelUpdated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
     }
     interface HellodashModalNote {
         "createLabelDisabled"?: boolean;
@@ -326,7 +326,7 @@ declare namespace LocalJSX {
         "theme"?: Theme;
     }
     interface HellodashNavBar {
-        "onDashMenuToggled"?: (event: HellodashNavBarCustomEvent<any>) => void;
+        "onHellodashMenuToggled"?: (event: HellodashNavBarCustomEvent<any>) => void;
     }
     interface HellodashNoteCard {
         "history"?: RouterHistory;
@@ -365,14 +365,14 @@ declare namespace LocalJSX {
         "deferLoadTime"?: number;
         "heading"?: string;
         "loading"?: boolean;
-        "onDashTextEditorBeforeUnload"?: (event: HellodashTextEditorCustomEvent<Promise<unknown>[]>) => void;
-        "onDashTextEditorContentChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
-        "onDashTextEditorFullscreenChanged"?: (event: HellodashTextEditorCustomEvent<boolean>) => void;
-        "onDashTextEditorHeadingChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
-        "onDashTextEditorInit"?: (event: HellodashTextEditorCustomEvent<HTMLHellodashTextEditorElement>) => void;
-        "onDashTextEditorIsDirty"?: (event: HellodashTextEditorCustomEvent<any>) => void;
-        "onDashTextEditorNodeChanged"?: (event: HellodashTextEditorCustomEvent<object>) => void;
-        "onDashTextEditorUnload"?: (event: HellodashTextEditorCustomEvent<any>) => void;
+        "onHellodashTextEditorBeforeUnload"?: (event: HellodashTextEditorCustomEvent<Promise<unknown>[]>) => void;
+        "onHellodashTextEditorContentChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
+        "onHellodashTextEditorFullscreenChanged"?: (event: HellodashTextEditorCustomEvent<boolean>) => void;
+        "onHellodashTextEditorHeadingChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
+        "onHellodashTextEditorInit"?: (event: HellodashTextEditorCustomEvent<HTMLHellodashTextEditorElement>) => void;
+        "onHellodashTextEditorIsDirty"?: (event: HellodashTextEditorCustomEvent<any>) => void;
+        "onHellodashTextEditorNodeChanged"?: (event: HellodashTextEditorCustomEvent<object>) => void;
+        "onHellodashTextEditorUnload"?: (event: HellodashTextEditorCustomEvent<any>) => void;
         "readonly"?: boolean;
         "resize"?: boolean;
         "showFullscreen"?: boolean;

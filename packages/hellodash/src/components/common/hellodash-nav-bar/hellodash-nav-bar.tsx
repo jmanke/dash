@@ -21,7 +21,7 @@ export class HellodashNavBar {
 
   //#region @Event
   @Event({
-    eventName: 'dashMenuToggled',
+    eventName: 'hellodashMenuToggled',
     composed: true,
   })
   menuToggled: EventEmitter;

@@ -65,22 +65,22 @@ export class HellodashLabelEdit {
 
   //#region @Event
   @Event({
-    eventName: 'dashLabelSelectLabelAdded',
+    eventName: 'hellodashLabelSelectLabelAdded',
   })
   labelAdded: EventEmitter<Label>;
 
   @Event({
-    eventName: 'dashLabelSelectLabelRemoved',
+    eventName: 'hellodashLabelSelectLabelRemoved',
   })
   labelRemoved: EventEmitter<Label>;
 
   @Event({
-    eventName: 'dashLabelSelectLabelCreated',
+    eventName: 'hellodashLabelSelectLabelCreated',
   })
   labelCreated: EventEmitter<Label>;
 
   @Event({
-    eventName: 'dashLabelSelectLabelUpdated',
+    eventName: 'hellodashLabelSelectLabelUpdated',
   })
   labelUpdated: EventEmitter<Label>;
   //#endregion
@@ -198,7 +198,7 @@ export class HellodashLabelEdit {
         <hellodash-label-color-picker
           slot='drill-content'
           color={this.editingLabel?.color}
-          onDashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
+          onHellodashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
             this.labelColorChanged(this.editingLabel, e.detail);
             this.drillMenuActive = false;
           }}

@@ -41,7 +41,7 @@ export class HellodashLabelEdit {
   //#endregion
 
   //#region Listeners
-  @Listen('dashLabelColorPickerColorChanged')
+  @Listen('hellodashLabelColorPickerColorChanged')
   colorPicked(e: CustomEvent<Color>) {
     this.updateLabel.emit({
       ...this.label,

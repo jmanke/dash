@@ -89,44 +89,44 @@ export class HellodashTextEditor implements Focusable {
 
   //#region @Event
   @Event({
-    eventName: 'dashTextEditorContentChanged',
+    eventName: 'hellodashTextEditorContentChanged',
   })
-  dashTextEditorContentChanged: EventEmitter<string>;
+  contentChanged: EventEmitter<string>;
 
   @Event({
-    eventName: 'dashTextEditorHeadingChanged',
+    eventName: 'hellodashTextEditorHeadingChanged',
   })
-  dashTextEditorHeadingChanged: EventEmitter<string>;
+  headingChanged: EventEmitter<string>;
 
   @Event({
-    eventName: 'dashTextEditorFullscreenChanged',
+    eventName: 'hellodashTextEditorFullscreenChanged',
   })
-  dashTextEditorFullscreenChanged: EventEmitter<boolean>;
+  fullscreenChanged: EventEmitter<boolean>;
 
   @Event({
-    eventName: 'dashTextEditorInit',
+    eventName: 'hellodashTextEditorInit',
   })
-  dashTextEditorInit: EventEmitter<HTMLHellodashTextEditorElement>;
+  editorInit: EventEmitter<HTMLHellodashTextEditorElement>;
 
   @Event({
-    eventName: 'dashTextEditorBeforeUnload',
+    eventName: 'hellodashTextEditorBeforeUnload',
   })
-  dashTextEditorBeforeUnload: EventEmitter<Promise<unknown>[]>;
+  beforeUnload: EventEmitter<Promise<unknown>[]>;
 
   @Event({
-    eventName: 'dashTextEditorUnload',
+    eventName: 'hellodashTextEditorUnload',
   })
-  dashTextEditorUnload: EventEmitter;
+  editorUnloaded: EventEmitter;
 
   @Event({
-    eventName: 'dashTextEditorIsDirty',
+    eventName: 'hellodashTextEditorIsDirty',
   })
-  dashTextEditorIsDirty: EventEmitter;
+  isDirtyChanged: EventEmitter;
 
   @Event({
-    eventName: 'dashTextEditorNodeChanged',
+    eventName: 'hellodashTextEditorNodeChanged',
   })
-  dashTextEditorNodeChanged: EventEmitter<object>;
+  nodeChanged: EventEmitter<object>;
   //#endregion
 
   //#region Component lifecycle
@@ -197,7 +197,7 @@ export class HellodashTextEditor implements Focusable {
 
     if (emitEvent) {
       const content = await this.getContent();
-      this.dashTextEditorContentChanged.emit(content);
+      this.contentChanged.emit(content);
     }
   }
 
@@ -225,7 +225,7 @@ export class HellodashTextEditor implements Focusable {
   async unloadEditor() {
     if (this.editor) {
       const listeners = [];
-      this.dashTextEditorBeforeUnload.emit(listeners);
+      this.beforeUnload.emit(listeners);
 
       // allow listeners to perform their respective tasks before unloading the editor
       if (listeners.length) {
@@ -241,7 +241,7 @@ export class HellodashTextEditor implements Focusable {
       });
       this.editor = null;
 
-      this.dashTextEditorUnload.emit();
+      this.editorUnloaded.emit();
     }
   }
 
@@ -268,7 +268,7 @@ export class HellodashTextEditor implements Focusable {
       }
 
       this.isEditorLoading = false;
-      this.dashTextEditorInit.emit(this.element);
+      this.editorInit.emit(this.element);
     }, this.deferLoadTime ?? 0);
   }
 
@@ -359,10 +359,10 @@ export class HellodashTextEditor implements Focusable {
             this.contentChangedHandler();
           });
           ed.on('dirty', () => {
-            this.dashTextEditorIsDirty.emit(true);
+            this.isDirtyChanged.emit(true);
           });
           ed.on('nodeChange', e => {
-            this.dashTextEditorNodeChanged.emit(e);
+            this.nodeChanged.emit(e);
           });
         },
       };
@@ -378,8 +378,8 @@ export class HellodashTextEditor implements Focusable {
     headingInput.classList.add('tox-heading-input');
     headingInput.placeholder = 'Title';
     headingInput.addEventListener('change', (e: any) => {
-      this.dashTextEditorHeadingChanged.emit(e.currentTarget.value);
-      this.dashTextEditorIsDirty.emit(true);
+      this.headingChanged.emit(e.currentTarget.value);
+      this.isDirtyChanged.emit(true);
     });
     headingInput.addEventListener('keypress', (e: KeyboardEvent) => {
       if (e.key === 'Enter') {
@@ -419,7 +419,7 @@ export class HellodashTextEditor implements Focusable {
       this.isFullscreen = !this.isFullscreen;
       (e.currentTarget as HTMLElement).blur();
 
-      this.dashTextEditorFullscreenChanged.emit(this.isFullscreen);
+      this.fullscreenChanged.emit(this.isFullscreen);
     });
   }
   //#endregion
