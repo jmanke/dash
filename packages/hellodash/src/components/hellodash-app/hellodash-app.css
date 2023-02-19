@@ -2,6 +2,10 @@
   display: block;
 }
 
+dash-shell {
+  overflow: hidden;
+}
+
 dash-side-bar {
   dash-sidebar-button:not(last-child) {
     margin-bottom: var(--dash-spacing-1);
