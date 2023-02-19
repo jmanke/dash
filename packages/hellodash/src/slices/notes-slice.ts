@@ -35,13 +35,9 @@ export const createNote = createAsyncThunk('labels/createNote', async (note: Not
 });
 
 export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note, { dispatch }) => {
-  if (note.content === null) {
-    throw new Error('Cannot update note with null content...');
-  }
-
   dispatch(replaceNote(note));
 
-  const { lastModified } = await updateNoteApi(note);
+  const { lastModified } = note.content === null ? await updateNotePreview(note) : await updateNoteApi(note);
   const updatedNote = {
     ...note,
     lastModified,
