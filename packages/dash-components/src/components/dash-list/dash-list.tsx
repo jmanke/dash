@@ -88,6 +88,7 @@ export class DashList {
   async componentWillLoad() {
     const mutationObserver = new MutationObserver(() => {
       this.updateChildProps();
+      this.updateMaxHeight();
     });
 
     mutationObserver.observe(this.element, { childList: true });
@@ -199,6 +200,10 @@ export class DashList {
    * Updates maxHeight based on the maxItems property
    */
   updateMaxHeight() {
+    if (!this.maxItems || this.maxItems < 1) {
+      return;
+    }
+
     let height = 0;
     const itemsLength = Math.min(this.maxItems ?? 0, this.listItems?.length ?? 0);
     for (let i = 0; i < itemsLength; i++) {
