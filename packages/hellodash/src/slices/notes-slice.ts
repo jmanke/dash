@@ -7,7 +7,7 @@ import { Label } from '../models/label';
 import { DateTime } from 'luxon';
 
 async function _updateNote(note: Note) {
-  return note.content === null ? updateNotePreview(note) : updateNoteApi(note);
+  return note.content === null ? await updateNotePreview(note) : await updateNoteApi(note);
 }
 
 export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async (_, { dispatch }) => {
@@ -63,9 +63,13 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
     note = await fetchNote(note.id);
   }
 
-  const noteCopy = { ...note };
+  const noteCopy = {
+    ...note,
+    title: note.title + ' (copy)',
+    created: DateTime.now().toISO(),
+    lastModified: DateTime.now().toISO(),
+  };
 
-  noteCopy.title += ' (copy)';
   const noteCopyId = await createNoteApi(noteCopy);
   const newNote = await fetchNote(noteCopyId);
 
@@ -91,7 +95,7 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return _updateNote(note);
+  return _updateNote(archivedNote);
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -111,7 +115,7 @@ export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async (
   };
   dispatch(replaceNote(newNote));
 
-  return _updateNote(note);
+  return _updateNote(newNote);
 });
 
 const initialState: Note[] | null = null;

@@ -28,7 +28,7 @@ export const createLabel = createAsyncThunk('labels/createLabel', async (label: 
   };
   dispatch(addLabel(newLabel));
 
-  return label;
+  return newLabel;
 });
 
 export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: Label, { dispatch }) => {
