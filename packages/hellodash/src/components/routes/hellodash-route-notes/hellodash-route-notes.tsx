@@ -157,7 +157,7 @@ export class HellodashRouteNotes {
     // sort logic
     switch (this.sortBy) {
       case 'last-modified':
-        notes.sort((a, b) => DateTime.fromISO(b.lastModified).toMillis() - DateTime.fromISO(a.lastModified).toMillis());
+        notes.sort((a, b) => DateTime.fromISO(b.lastModified ?? b.created).toMillis() - DateTime.fromISO(a.lastModified ?? a.created).toMillis());
         break;
       case 'title':
         notes.sort((a, b) => a.title.localeCompare(b.title));

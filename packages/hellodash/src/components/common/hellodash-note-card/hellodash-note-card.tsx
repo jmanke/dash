@@ -76,13 +76,13 @@ export class HellodashNoteCard {
   }
 
   notePreviewFragment() {
-    const { title, previewContent, lastModified } = this.note;
+    const { title, previewContent, lastModified, created } = this.note;
     const labels = this.noteLabels ?? [];
     const displayLabels = labels.slice(0, MAX_LABELS) ?? [];
     return (
       <div class='preview-container'>
         <header>
-          <p class='date-label'>{this.toLocaleDate(DateTime.fromISO(lastModified))}</p>
+          <p class='date-label'>{this.toLocaleDate(DateTime.fromISO(lastModified ?? created))}</p>
           <h2 class='title'>{title}</h2>
         </header>
         <section class='preview'>{previewContent}</section>

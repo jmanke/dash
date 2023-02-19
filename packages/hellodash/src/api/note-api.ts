@@ -10,12 +10,7 @@ export function fetchNotePreviews(cancelationToken?: CancelationToken): Promise<
 }
 
 export async function fetchNote(id: number, cancelationToken?: CancelationToken): Promise<Note | null> {
-  const note = await get<Note | null>({ url: `${noteBaseUrl}/${id}`, cancelationToken });
-  if (note.lastModified === null) {
-    note.lastModified = note.created;
-  }
-
-  return note;
+  return get({ url: `${noteBaseUrl}/${id}`, cancelationToken });
 }
 
 export async function createNote(note: Note | NotePreview) {

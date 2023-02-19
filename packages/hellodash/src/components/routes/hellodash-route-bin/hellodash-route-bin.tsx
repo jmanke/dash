@@ -147,7 +147,7 @@ export class HellodashRouteBin {
           </div>,
 
           <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
-            {orderBy(this.archivedNotes, [a => DateTime.fromISO(a.lastModified).toMillis()], ['desc']).map(note => (
+            {orderBy(this.archivedNotes, [a => DateTime.fromISO(a.lastModified ?? a.created).toMillis()], ['desc']).map(note => (
               <hellodash-note-card
                 key={note.id}
                 class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}

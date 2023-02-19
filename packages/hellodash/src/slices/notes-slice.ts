@@ -29,8 +29,6 @@ export const createNote = createAsyncThunk('labels/createNote', async (note: Not
   const id = await createNoteApi(note);
   const newNote: Note = {
     ...note,
-    created: DateTime.now().toISO(),
-    lastModified: DateTime.now().toISO(),
     id,
   };
   dispatch(addNote(newNote));
@@ -66,8 +64,6 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
   const noteCopy = {
     ...note,
     title: note.title + ' (copy)',
-    created: DateTime.now().toISO(),
-    lastModified: DateTime.now().toISO(),
   };
 
   const noteCopyId = await createNoteApi(noteCopy);
