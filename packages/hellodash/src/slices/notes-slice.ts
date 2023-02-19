@@ -6,6 +6,10 @@ import { Status } from '../enums/status';
 import { Label } from '../models/label';
 import { DateTime } from 'luxon';
 
+async function _updateNote(note: Note) {
+  return note.content === null ? updateNotePreview(note) : updateNoteApi(note);
+}
+
 export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async (_, { dispatch }) => {
   const notes = (await fetchNotePreviews()) ?? [];
   dispatch(setNotes(notes));
@@ -37,7 +41,7 @@ export const createNote = createAsyncThunk('labels/createNote', async (note: Not
 export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note, { dispatch }) => {
   dispatch(replaceNote(note));
 
-  const { lastModified } = note.content === null ? await updateNotePreview(note) : await updateNoteApi(note);
+  const { lastModified } = await _updateNote(note);
   const updatedNote = {
     ...note,
     lastModified,
@@ -77,7 +81,7 @@ export const archiveNote = createAsyncThunk('notes/archiveNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return updateNoteApi(archivedNote);
+  return _updateNote(archivedNote);
 });
 
 export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: Note, { dispatch }) => {
@@ -87,7 +91,7 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return updateNoteApi(note);
+  return _updateNote(note);
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -97,7 +101,7 @@ export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, 
   };
   dispatch(replaceNote(newNote));
 
-  return newNote.content === null ? updateNotePreview(newNote) : updateNoteApi(newNote);
+  return _updateNote(newNote);
 });
 
 export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -107,7 +111,7 @@ export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async (
   };
   dispatch(replaceNote(newNote));
 
-  return updateNoteApi(note);
+  return _updateNote(note);
 });
 
 const initialState: Note[] | null = null;
