@@ -168,6 +168,7 @@ export class HellodashRouteBin {
                 class={this.noteWithDropdownActive === note ? 'note-overlay' : undefined}
                 selected={this.selectedNotes.has(note.id)}
                 note={note}
+                labels={this.labels}
                 mode='selectable'
                 onClick={() => this.noteClicked(note)}
               ></hellodash-note-card>

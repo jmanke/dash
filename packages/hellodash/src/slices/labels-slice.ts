@@ -2,10 +2,11 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Label } from '../models/label';
 import { fetchLabel, fetchLabels, createLabel as createLabelApi, updateLabel as updateLabelApi, deleteLabel as deleteLabelApi } from '../api/labels-api';
+import { sortBy } from 'lodash';
 
 export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { dispatch }) => {
   const labels = (await fetchLabels()) ?? [];
-  dispatch(setLabels(labels));
+  dispatch(setLabels(sortBy(labels, 'id')));
 
   return labels;
 });

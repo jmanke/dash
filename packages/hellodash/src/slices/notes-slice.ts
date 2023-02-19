@@ -4,9 +4,17 @@ import { Note } from '../models/note';
 import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi } from '../api/note-api';
 import { Status } from '../enums/status';
 import { store } from '../store';
+import { sortBy } from 'lodash';
+
+function sortLabels(labels: number[] = []) {
+  return sortBy(labels);
+}
 
 export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async (_, { dispatch }) => {
   const notes = (await fetchNotePreviews()) ?? [];
+  notes.forEach(note => {
+    note.labels = sortLabels(note.labels);
+  });
   dispatch(setNotes(notes));
 
   return notes;
@@ -18,6 +26,7 @@ export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id
     replaceNote({
       ...note,
       content: note.content ?? '',
+      labels: sortLabels(note.labels),
     }),
   );
 

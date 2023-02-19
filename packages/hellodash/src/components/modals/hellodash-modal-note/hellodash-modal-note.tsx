@@ -218,7 +218,6 @@ export class HellodashModalNote implements Modal {
 
   render() {
     const labels = this.noteDraft ? noteLabels(this.noteDraft) : [];
-    console.log(labels);
 
     return (
       <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
