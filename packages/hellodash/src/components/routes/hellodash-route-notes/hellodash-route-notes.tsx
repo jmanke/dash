@@ -232,7 +232,7 @@ export class HellodashRouteNotes {
                     <hellodash-note-edit-dropdown
                       slot='actions-end'
                       note={note}
-                      labels={this.labels.map(l => ({ ...l }))}
+                      labels={this.labels}
                       onHellodashNoteEditDeleteNote={() => dispatch(archiveNote(note))}
                       onHellodashNoteEditDuplicateNote={() => dispatch(duplicateNote(note))}
                       onHellodashNoteEditLabelAdded={e => dispatch(addLabelToNote({ note, label: e.detail }))}

@@ -26,7 +26,7 @@ export class HellodashLabelEdit {
   labelsMap: Map<number, Label>;
 
   @State()
-  filteredLabels: Label[] = [];
+  filteredLabelsIds: Set<number> = new Set();
 
   @State()
   filterValue: string;
@@ -103,9 +103,7 @@ export class HellodashLabelEdit {
 
   //#region Local methods
   updateLabelsMap() {
-    const map = new Map<number, Label>();
-    this.labels.forEach(l => map.set(l.id, l));
-    this.labelsMap = map;
+    this.labelsMap = this.labels.reduce((map, label) => map.set(label.id, { ...label }), new Map<number, Label>());
   }
 
   selectedLabelChanged(label: Label, isSelected: Boolean) {
@@ -157,11 +155,12 @@ export class HellodashLabelEdit {
 
   render() {
     this.colorSwatches.clear();
+    const filteredLabels = this.labels?.filter(label => this.filteredLabelsIds.has(label.id)) ?? [];
 
-    const listContent = this.filteredLabels?.length ? (
+    const listContent = filteredLabels.length ? (
       <dash-list class='labels-list' selectionMode='multiple' maxItems={6}>
-        {this.filteredLabels?.map(label => (
-          <dash-list-item selected={this.labelsMap?.has(label.id)} onDashListItemSelectedChanged={e => this.selectedLabelChanged(label, e.target.selected)}>
+        {filteredLabels?.map(label => (
+          <dash-list-item key={label.id} selected={this.labelsMap?.has(label.id)} onDashListItemSelectedChanged={e => this.selectedLabelChanged(label, e.target.selected)}>
             <span class='label-text'>{label.text}</span>
             <dash-color-swatch
               ref={element => this.colorSwatches.set(label.id, element)}
@@ -191,7 +190,7 @@ export class HellodashLabelEdit {
           placeholder='Filter labels'
           items={this.allLabels}
           objKey='text'
-          onDashFilterFilteredItems={e => (this.filteredLabels = e.detail as Label[])}
+          onDashFilterFilteredItems={e => (this.filteredLabelsIds = new Set((e.detail as Label[]).map(label => label.id)))}
           onDashFilterValueChanged={e => (this.filterValue = e.target.filterValue)}
         ></dash-filter>
         {addLabel}
