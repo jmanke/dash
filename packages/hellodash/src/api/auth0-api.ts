@@ -1,11 +1,11 @@
-import appState from '../stores/app-state';
+import { dashRootService } from '../components/dash-root/dash-root-service';
 import { logout } from '../utils/logout';
 
 export async function refreshAuthToken() {
   try {
-    await appState.authClient?.getTokenSilently({ ignoreCache: true });
+    await dashRootService.authClient?.getTokenSilently({ ignoreCache: true });
   } catch (err) {
     console.error(err);
-    logout(appState.authClient);
+    logout(dashRootService.authClient);
   }
 }

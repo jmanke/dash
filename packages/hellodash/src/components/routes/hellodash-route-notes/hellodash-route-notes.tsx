@@ -178,17 +178,22 @@ export class HellodashRouteNotes {
   }
 
   async addNote() {
-    const newNote = await dispatch(
-      createNote({
-        id: -1,
-        title: 'New note',
-        content: '',
-        status: Status.Active,
-        previewContent: '',
-        labels: this.selectedLabelId ? [this.selectedLabelId] : [],
-      }),
-    ).unwrap();
-    this.selectedNote = newNote;
+    const note = {
+      id: -1,
+      title: 'New note',
+      content: '',
+      status: Status.Active,
+      previewContent: '',
+      labels: this.selectedLabelId ? [this.selectedLabelId] : [],
+    };
+    this.selectedNote = note;
+    const newNote = await dispatch(createNote(note)).unwrap();
+    this.history.push(`/note/${newNote.id}`);
+  }
+
+  async createLabelForNote(label: Label, note: Note) {
+    const newLabel = await dispatch(createLabel(label)).unwrap();
+    return dispatch(addLabelToNote({ note, label: newLabel.id }));
   }
   //#endregion
 
@@ -238,7 +243,7 @@ export class HellodashRouteNotes {
                       onHellodashNoteEditLabelAdded={e => dispatch(addLabelToNote({ note, label: e.detail }))}
                       onHellodashNoteEditLabelRemoved={e => dispatch(removeLabelFromNote({ note, label: e.detail }))}
                       onHellodashNoteEditLabelUpdated={e => dispatch(updateLabel(e.detail))}
-                      onHellodashNoteEditLabelCreated={e => dispatch(createLabel(e.detail))}
+                      onHellodashNoteEditLabelCreated={e => this.createLabelForNote(e.detail, note)}
                       onFocusin={() => (this.focusedNote = note)}
                     ></hellodash-note-edit-dropdown>
                   </hellodash-note-card>
@@ -266,9 +271,7 @@ export class HellodashRouteNotes {
             mobileView={this.mobileView}
             onDashModalBeforeClose={() => this.history.goBack()}
             onHellodashModalNoteLabelCreated={async e => {
-              const note = this.selectedNote;
-              const label = await dispatch(createLabel(e.detail)).unwrap();
-              dispatch(addLabelToNote({ note, label: label.id }));
+              this.createLabelForNote(e.detail, this.selectedNote);
             }}
             onHellodashModalNoteLabelUpdated={e => dispatch(updateLabel(e.detail))}
             onHellodashModalNoteUpdateNote={e => dispatch(updateNote(e.detail))}

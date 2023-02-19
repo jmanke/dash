@@ -2,7 +2,6 @@ import { Component, h, State, Watch } from '@stencil/core';
 import { orderBy } from 'lodash';
 import { Note } from '../../../models/note';
 import { Label } from '../../../models/label';
-import { dashRootService } from '../../dash-root/dash-root-service';
 import { dispatch, store } from '../../../store';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { deleteNote, restoreNote } from '../../../slices/notes-slice';
@@ -12,7 +11,6 @@ import { DateTime } from 'luxon';
 @Component({
   tag: 'hellodash-route-bin',
   styleUrl: 'hellodash-route-bin.css',
-  shadow: true,
 })
 export class HellodashRouteBin {
   //#region Own properties
@@ -42,6 +40,9 @@ export class HellodashRouteBin {
 
   @State()
   selectedNotes: Map<number, Note> = new Map<number, Note>();
+
+  @State()
+  showDeleteConfirmation: boolean;
   //#endregion
 
   //#region @Prop
@@ -94,23 +95,6 @@ export class HellodashRouteBin {
     this.selectedNotes = new Map();
   }
 
-  async deleteNotes() {
-    const confirmModal = (
-      <hellodash-confirm
-        onDashConfirmConfirmed={() => {
-          this.selectedNotes.forEach(note => {
-            dispatch(deleteNote(note));
-          });
-
-          this.selectedNotes = new Map();
-        }}
-      >
-        <div>Selected notes ({this.selectedNotes.size}) will be deleted forever.</div>
-      </hellodash-confirm>
-    );
-    dashRootService.showModal(confirmModal);
-  }
-
   selectAll() {
     this.selectedNotes = new Map(this.archivedNotes.map(n => [n.id, n]));
   }
@@ -123,7 +107,7 @@ export class HellodashRouteBin {
   render() {
     const { mobileView } = store.getState().appState;
 
-    return (
+    return [
       <dash-section stickyHeader>
         {!!this.archivedNotes.length && [
           <div class='header' slot='header'>
@@ -136,7 +120,7 @@ export class HellodashRouteBin {
                 <dash-button disabled={this.selectedNotes.size === 0} onClick={this.restoreNotes.bind(this)}>
                   Restore
                 </dash-button>,
-                <dash-button disabled={this.selectedNotes.size === 0} onClick={this.deleteNotes.bind(this)}>
+                <dash-button disabled={this.selectedNotes.size === 0} onClick={() => (this.showDeleteConfirmation = true)}>
                   Delete
                 </dash-button>,
               ]}
@@ -152,7 +136,7 @@ export class HellodashRouteBin {
                     <dash-list-item disabled={this.selectedNotes.size === 0} onDashListItemSelectedChanged={this.restoreNotes.bind(this)}>
                       Restore
                     </dash-list-item>
-                    <dash-list-item disabled={this.selectedNotes.size === 0} onDashListItemSelectedChanged={this.deleteNotes.bind(this)}>
+                    <dash-list-item disabled={this.selectedNotes.size === 0} onDashListItemSelectedChanged={() => (this.showDeleteConfirmation = true)}>
                       Delete
                     </dash-list-item>
                   </dash-list>
@@ -177,7 +161,22 @@ export class HellodashRouteBin {
         ]}
 
         {!this.archivedNotes.length && <div class='bin-empty-message'>Bin is empty</div>}
-      </dash-section>
-    );
+      </dash-section>,
+
+      this.showDeleteConfirmation && (
+        <hellodash-confirm
+          onDashConfirmConfirmed={() => {
+            this.selectedNotes.forEach(note => {
+              dispatch(deleteNote(note));
+            });
+
+            this.selectedNotes = new Map();
+          }}
+          onDashModalClosed={() => (this.showDeleteConfirmation = false)}
+        >
+          <div>Selected notes ({this.selectedNotes.size}) will be deleted forever.</div>
+        </hellodash-confirm>
+      ),
+    ];
   }
 }

@@ -155,11 +155,11 @@ export class HellodashLabelEdit {
 
   render() {
     this.colorSwatches.clear();
-    const filteredLabels = this.labels?.filter(label => this.filteredLabelsIds.has(label.id)) ?? [];
+    const labels = this.filterValue?.length ? this.labels?.filter(label => this.filteredLabelsIds.has(label.id)) ?? [] : this.allLabels;
 
-    const listContent = filteredLabels.length ? (
+    const listContent = labels.length ? (
       <dash-list class='labels-list' selectionMode='multiple' maxItems={6}>
-        {filteredLabels?.map(label => (
+        {labels?.map(label => (
           <dash-list-item key={label.id} selected={this.labelsMap?.has(label.id)} onDashListItemSelectedChanged={e => this.selectedLabelChanged(label, e.target.selected)}>
             <span class='label-text'>{label.text}</span>
             <dash-color-swatch

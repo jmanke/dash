@@ -1,10 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { Note } from '../models/note';
-import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi } from '../api/note-api';
+import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi, updateNotePreview } from '../api/note-api';
 import { Status } from '../enums/status';
 import { store } from '../store';
 import { sortBy } from 'lodash';
+import { Label } from '../models/label';
+import { DateTime } from 'luxon';
 
 function sortLabels(labels: number[] = []) {
   return sortBy(labels);
@@ -34,26 +36,27 @@ export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id
 });
 
 export const createNote = createAsyncThunk('labels/createNote', async (note: Note, { dispatch }) => {
-  // const id = await createNoteApi(note);
-  const id = -1;
-  const newNote = {
+  const id = await createNoteApi(note);
+  const newNote: Note = {
     ...note,
+    created: DateTime.now().toISO(),
+    lastModified: DateTime.now().toISO(),
     id,
   };
   dispatch(addNote(newNote));
 
-  return note;
+  return newNote;
 });
 
 export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note, { dispatch }) => {
   dispatch(replaceNote(note));
 
-  // const { lastModified } = await updateNoteApi(note);
+  const { lastModified } = await updateNoteApi(note);
   const updatedNote = {
     ...note,
-    // lastModified,
+    lastModified,
   };
-  // dispatch(replaceNote(updatedNote));
+  dispatch(replaceNote(updatedNote));
 
   return updatedNote;
 });
@@ -61,7 +64,7 @@ export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note
 export const deleteNote = createAsyncThunk('notes/deleteNote', async (note: Note, { dispatch }) => {
   dispatch(removeNote(note));
 
-  // return deleteNoteApi(note);
+  return deleteNoteApi(note);
 });
 
 export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note: Note, { dispatch }) => {
@@ -73,12 +76,8 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
   const noteCopy = { ...note };
 
   noteCopy.title += ' (copy)';
-  // const noteCopyId = await createNoteApi(noteCopy);
-  // const newNote = await fetchNote(noteCopyId);
-  const newNote: Note = {
-    ...note,
-    id: note.id + 101,
-  };
+  const noteCopyId = await createNoteApi(noteCopy);
+  const newNote = await fetchNote(noteCopyId);
 
   dispatch(addNote(newNote));
 
@@ -92,7 +91,7 @@ export const archiveNote = createAsyncThunk('notes/archiveNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  // return updateNoteApi(note);
+  return updateNoteApi(archivedNote);
 });
 
 export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: Note, { dispatch }) => {
@@ -102,7 +101,7 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  // return updateNoteApi(note);
+  return updateNoteApi(note);
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -112,7 +111,7 @@ export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, 
   };
   dispatch(replaceNote(newNote));
 
-  // return updateNoteApi(note);
+  return newNote.content === null ? updateNotePreview(note) : updateNoteApi(note);
 });
 
 export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -122,14 +121,16 @@ export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async (
   };
   dispatch(replaceNote(newNote));
 
-  // return updateNoteApi(note);
+  return updateNoteApi(note);
 });
 
 export function noteLabels(note: Note) {
-  const labelsMap = new Map();
-  store.getState().labels?.forEach(label => {
-    labelsMap.set(label.id, label);
-  });
+  const labels = store.getState().labels;
+  if (!labels) {
+    return [];
+  }
+
+  const labelsMap = labels.reduce((map, label) => map.set(label.id, label), new Map());
   return note.labels?.map(labelId => labelsMap.get(labelId)).filter(label => !!label) ?? [];
 }
 
@@ -142,14 +143,10 @@ export const notesSlice = createSlice({
     setNotes: (state, action: PayloadAction<Note[]>) => {
       state = action.payload;
 
-      console.log('set notes', action.payload);
-
       return state;
     },
     addNote: (state, action: PayloadAction<Note>) => {
       state.push(action.payload);
-
-      console.log('add note', action.payload);
     },
     replaceNote: (state, action: PayloadAction<Note>) => {
       const index = state.findIndex(note => action.payload.id === note.id);
@@ -157,17 +154,19 @@ export const notesSlice = createSlice({
         return;
       }
 
-      console.log('replace note', action.payload);
       state.splice(index, 1, action.payload);
     },
     removeNote: (state, action: PayloadAction<Note>) => {
       const index = state.findIndex(note => note.id === action.payload.id);
       state.splice(index, 1);
-
-      console.log('remove note', action.payload);
+    },
+    syncLabels: (state, action: PayloadAction<Label[]>) => {
+      const labels = new Set(action.payload.map(label => label.id));
+      state.forEach(note => (note.labels = note.labels.filter(label => labels.has(label))));
     },
   },
 });
 
 // Action creators are generated for each case reducer function
 const { setNotes, addNote, replaceNote, removeNote } = notesSlice.actions;
+export const { syncLabels } = notesSlice.actions;

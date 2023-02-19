@@ -62,7 +62,6 @@ export class HellodashRoot {
 
   //#region Component lifecycle
   async componentWillLoad() {
-    dashRootService.root = this;
     const authClient = await createAuth0Client({
       domain: CONSTANTS.AUTH0_DOMAIN,
       client_id: CONSTANTS.AUTH0_CLIENTID,

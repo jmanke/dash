@@ -1,11 +1,11 @@
 :host {
   display: block;
- }
+}
 
- .confirm-button {
+.confirm-button {
   margin-inline-end: var(--dash-spacing-2);
- }
+}
 
- .content {
-  margin-bottom: var(--dash-spacing-2);
- }
+.footer {
+  margin-block-start: var(--dash-spacing-3);
+}

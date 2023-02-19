@@ -87,7 +87,7 @@ export class HellodashConfirm implements Modal {
       <dash-modal ref={element => (this.modal = element)} heading={this.heading ? this.heading : 'Are you sure?'} scale='s' hideCloseButton disableFullscreenMobileView open>
         <slot></slot>
 
-        <div slot='footer-end'>
+        <div class='footer' slot='footer-end'>
           <dash-button class='confirm-button' onClick={this.confirm.bind(this)} status={this.confirmButtonStatus}>
             {this.confirmText ? this.confirmText : 'Confirm'}
           </dash-button>

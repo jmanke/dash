@@ -11,14 +11,6 @@ class DashRootService {
 
   private eventEmitter = new EventEmitter();
 
-  showModal(content: HTMLElement) {
-    this.root.modalContent = content;
-  }
-
-  closeModal() {
-    return this.root.modalContent?.['$elm$'].close();
-  }
-
   initHistory(history: RouterHistory) {
     history.listen((location: LocationSegments) => {
       this.eventEmitter.emit(HISTORY_CHANGED_EVENTNAME, location);
