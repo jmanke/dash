@@ -56,9 +56,9 @@ export namespace Components {
         "labels": Label[];
     }
     interface HellodashModalNote {
+        "allLabels": Label[];
         "close": () => Promise<void>;
         "createLabelDisabled": boolean;
-        "labels": Label[];
         "loading": boolean;
         "mobileView": boolean;
         "note": Note;
@@ -69,13 +69,13 @@ export namespace Components {
     }
     interface HellodashNoteCard {
         "history": RouterHistory;
-        "labels": Label[];
         "mode": NoteCardMode;
         "note": Note;
+        "noteLabels": Label[];
         "selected": boolean;
     }
     interface HellodashNoteEditDropdown {
-        "labels": Label[];
+        "allLabels": Label[];
         "note": Note;
     }
     interface HellodashProfileSettings {
@@ -313,8 +313,8 @@ declare namespace LocalJSX {
         "onHellodashLabelSelectLabelUpdated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
     }
     interface HellodashModalNote {
+        "allLabels"?: Label[];
         "createLabelDisabled"?: boolean;
-        "labels"?: Label[];
         "loading"?: boolean;
         "mobileView"?: boolean;
         "note"?: Note;
@@ -330,13 +330,13 @@ declare namespace LocalJSX {
     }
     interface HellodashNoteCard {
         "history"?: RouterHistory;
-        "labels"?: Label[];
         "mode"?: NoteCardMode;
         "note"?: Note;
+        "noteLabels"?: Label[];
         "selected"?: boolean;
     }
     interface HellodashNoteEditDropdown {
-        "labels"?: Label[];
+        "allLabels"?: Label[];
         "note"?: Note;
         "onHellodashNoteEditDeleteNote"?: (event: HellodashNoteEditDropdownCustomEvent<Note>) => void;
         "onHellodashNoteEditDropdownVisibleChanged"?: (event: HellodashNoteEditDropdownCustomEvent<boolean>) => void;

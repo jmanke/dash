@@ -11,6 +11,7 @@ import { Label } from '../../../models/label';
 import { addLabelToNote, archiveNote, createNote, duplicateNote, getNoteById, removeLabelFromNote, updateNote } from '../../../slices/notes-slice';
 import { Status } from '../../../enums/status';
 import { createLabel, updateLabel } from '../../../slices/labels-slice';
+import { noteLabels } from '../../../utils/note-labels';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -233,11 +234,11 @@ export class HellodashRouteNotes {
             this.filteredNotes.length > 0 ? (
               <dash-grid col-s={1} col-m={2} col-l={3} col-xl={4}>
                 {this.filteredNotes.map(note => (
-                  <hellodash-note-card class={this.focusedNote?.id === note?.id ? 'note-overlay' : undefined} key={note.id} note={note} labels={this.labels}>
+                  <hellodash-note-card class={this.focusedNote?.id === note?.id ? 'note-overlay' : undefined} key={note.id} note={note} noteLabels={noteLabels(note, this.labels)}>
                     <hellodash-note-edit-dropdown
                       slot='actions-end'
                       note={note}
-                      labels={this.labels}
+                      allLabels={this.labels}
                       onHellodashNoteEditDeleteNote={() => dispatch(archiveNote(note))}
                       onHellodashNoteEditDuplicateNote={() => dispatch(duplicateNote(note))}
                       onHellodashNoteEditLabelAdded={e => dispatch(addLabelToNote({ note, label: e.detail }))}
@@ -267,7 +268,7 @@ export class HellodashRouteNotes {
           <hellodash-modal-note
             note={this.selectedNote}
             loading={this.loadingNote}
-            labels={this.labels}
+            allLabels={this.labels}
             mobileView={this.mobileView}
             onDashModalBeforeClose={() => this.history.goBack()}
             onHellodashModalNoteLabelCreated={async e => {

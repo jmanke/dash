@@ -3,19 +3,14 @@ import type { PayloadAction } from '@reduxjs/toolkit';
 import { Note } from '../models/note';
 import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi, updateNotePreview } from '../api/note-api';
 import { Status } from '../enums/status';
-import { store } from '../store';
-import { sortBy } from 'lodash';
+import { sortBy, sortedIndexBy } from 'lodash';
 import { Label } from '../models/label';
 import { DateTime } from 'luxon';
-
-function sortLabels(labels: number[] = []) {
-  return sortBy(labels);
-}
 
 export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async (_, { dispatch }) => {
   const notes = (await fetchNotePreviews()) ?? [];
   notes.forEach(note => {
-    note.labels = sortLabels(note.labels);
+    note.labels = sortBy(note.labels);
   });
   dispatch(setNotes(notes));
 
@@ -24,12 +19,9 @@ export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async
 
 export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id: number, { dispatch }) => {
   const note = await fetchNote(id);
-  dispatch(
-    replaceNote({
-      ...note,
-      labels: sortLabels(note.labels),
-    }),
-  );
+  note.labels = sortBy(note.labels);
+
+  dispatch(replaceNote(note));
 
   return note;
 });
@@ -108,9 +100,11 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
+  const labels = [...note.labels];
+  labels.splice(sortedIndexBy(note.labels, label), 0, label);
   const newNote: Note = {
     ...note,
-    labels: [...note.labels, label],
+    labels,
   };
   dispatch(replaceNote(newNote));
 
@@ -126,16 +120,6 @@ export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async (
 
   return updateNoteApi(note);
 });
-
-export function noteLabels(note: Note) {
-  const labels = store.getState().labels;
-  if (!labels) {
-    return [];
-  }
-
-  const labelsMap = labels.reduce((map, label) => map.set(label.id, label), new Map());
-  return note.labels?.map(labelId => labelsMap.get(labelId)).filter(label => !!label) ?? [];
-}
 
 const initialState: Note[] | null = null;
 

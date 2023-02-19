@@ -3,7 +3,6 @@ import { injectHistory, RouterHistory } from '@stencil-community/router';
 import { DateTime } from 'luxon';
 import { Note } from '../../../models/note';
 import { Label } from '../../../models/label';
-import { noteLabels } from '../../../slices/notes-slice';
 
 // max labels to display in the card
 const MAX_LABELS = 3;
@@ -30,7 +29,7 @@ export class HellodashNoteCard {
   note: Note;
 
   @Prop()
-  labels: Label[];
+  noteLabels: Label[];
 
   @Prop({ mutable: true })
   history: RouterHistory;
@@ -78,7 +77,7 @@ export class HellodashNoteCard {
 
   notePreviewFragment() {
     const { title, previewContent, lastModified } = this.note;
-    const labels = noteLabels(this.note) ?? [];
+    const labels = this.noteLabels ?? [];
     const displayLabels = labels.slice(0, MAX_LABELS) ?? [];
     return (
       <div class='preview-container'>

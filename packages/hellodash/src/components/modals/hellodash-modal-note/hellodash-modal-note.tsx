@@ -4,8 +4,9 @@ import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/mo
 import { Label } from '../../../models/label';
 import { Note } from '../../../models/note';
 import { Theme } from '../../../types/types';
-import { noteLabels } from '../../../slices/notes-slice';
 import produce from 'immer';
+import { noteLabels } from '../../../utils/note-labels';
+import { sortedIndexBy } from 'lodash';
 
 const PREVIEW_CONTENT_LENGTH = 140;
 const SAVE_DELAY = 5 * 1000;
@@ -32,6 +33,9 @@ export class HellodashModalNote implements Modal {
   noteDraft: Note;
 
   @State()
+  noteDraftLabels: Label[];
+
+  @State()
   isFullscreen: boolean;
 
   @State()
@@ -48,10 +52,15 @@ export class HellodashModalNote implements Modal {
   @Watch('note')
   noteChanged(note: Note) {
     this.noteDraft = { ...note };
+    this.noteDraftLabels = noteLabels(this.noteDraft, this.allLabels);
   }
 
   @Prop()
-  labels: Label[];
+  allLabels: Label[];
+  @Watch('allLabels')
+  allLabelsChanged(allLabels: Label[]) {
+    this.noteDraftLabels = noteLabels(this.noteDraft, allLabels);
+  }
 
   @Prop()
   loading: boolean;
@@ -115,7 +124,7 @@ export class HellodashModalNote implements Modal {
   //#region Local methods
   addLabel(id: number) {
     this.noteDraft = produce(this.noteDraft, draft => {
-      draft.labels.push(id);
+      draft.labels.splice(sortedIndexBy(draft.labels, id), 0, id);
     });
     this.updateNote();
   }
@@ -217,7 +226,7 @@ export class HellodashModalNote implements Modal {
   //#endregion
 
   render() {
-    const labels = this.noteDraft ? noteLabels(this.noteDraft) : [];
+    const labels = this.noteDraftLabels ?? [];
 
     return (
       <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
@@ -245,7 +254,15 @@ export class HellodashModalNote implements Modal {
           {this.noteDraft &&
             this.noteEditorLoaded &&
             labels.map(l => (
-              <dash-chip heading={l.text} color={l.color} dismissible onDashChipDismiss={() => this.removeLabel(l.id)} dismissTooltipText='Remove label' selectable></dash-chip>
+              <dash-chip
+                key={l.id}
+                heading={l.text}
+                color={l.color}
+                dismissible
+                onDashChipDismiss={() => this.removeLabel(l.id)}
+                dismissTooltipText='Remove label'
+                selectable
+              ></dash-chip>
             ))}
         </div>
 
@@ -254,7 +271,7 @@ export class HellodashModalNote implements Modal {
 
           <hellodash-label-select
             labels={labels}
-            allLabels={this.labels}
+            allLabels={this.allLabels}
             canCreateLabel={!this.createLabelDisabled}
             onHellodashLabelSelectLabelAdded={e => {
               this.addLabel(e.detail.id);
