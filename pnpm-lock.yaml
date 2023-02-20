@@ -92,7 +92,6 @@ importers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@didyoumeantoast/dash-components': ^1.2.0
       '@didyoumeantoast/dash-utils': ^1.1.4
-      '@didyoumeantoast/stencil-view-model': ^1.0.5
       '@didyoumeantoast/tinymce-plugins': ^1.1.4
       '@popperjs/core': ^2.11.0
       '@reduxjs/toolkit': ^1.9.2
@@ -127,7 +126,6 @@ importers:
       '@auth0/auth0-spa-js': 1.22.5
       '@didyoumeantoast/dash-components': link:../dash-components
       '@didyoumeantoast/dash-utils': link:../dash-utils
-      '@didyoumeantoast/stencil-view-model': 1.0.5
       '@didyoumeantoast/tinymce-plugins': 1.1.4
       '@popperjs/core': 2.11.6
       '@reduxjs/toolkit': 1.9.2
@@ -558,21 +556,6 @@ packages:
       - terser
     dev: true
 
-  /@didyoumeantoast/dash-utils/1.1.4:
-    resolution: {integrity: sha512-S7w28rlus2cy3UbGVNSiMVpWRyRnJSCgbAL+7HB9AKqFLlSwkSBU561XhIuYxM5zlLVHEdJSJ1oMUJMBajpg5A==}
-    engines: {node: 18.x}
-    dependencies:
-      '@a11y/focus-trap': 1.0.5
-    dev: false
-
-  /@didyoumeantoast/stencil-view-model/1.0.5:
-    resolution: {integrity: sha512-7sBHpThOC1w7yNqElRIZkuz26Z2Rl7rcLXdFL6jELumrlEGsYdU0djorNS4ivsPlYIRUDj4/73SB6WOjzdNgAQ==}
-    dependencies:
-      '@didyoumeantoast/dash-utils': 1.1.4
-      '@stencil/core': 2.19.3
-      lodash: 4.17.21
-    dev: false
-
   /@didyoumeantoast/tinymce-plugins/1.1.4:
     resolution: {integrity: sha512-NDFhP96MhOLivnblGiNnzNRV6lG7whPqjaqkMoPoZnjxsUiS93Ar4V6NfATrG1E7ib5ezUfo02Pqd7I+7VEOuA==}
     dev: false
@@ -957,12 +940,6 @@ packages:
     resolution: {integrity: sha512-GQkhcwDZdkX6k6rE/ZqrH2mbxGt9wPq0KGAdwPJOcZJbfq9cKaSMOuS7heDEBcWgXgxJS2rKqwUKyKTj41g9pA==}
     dependencies:
       '@stencil/state-tunnel': 1.0.1
-    dev: false
-
-  /@stencil/core/2.19.3:
-    resolution: {integrity: sha512-rb6pBWTfD5xDg5M/uEJUeclatE/tqBE3zCCNrEB47AtdkNCzC9fOikdzCYbpdAEpU6GvC60REFr0bd8QFUjn3Q==}
-    engines: {node: '>=12.10.0', npm: '>=6.0.0'}
-    hasBin: true
     dev: false
 
   /@stencil/core/3.0.0:

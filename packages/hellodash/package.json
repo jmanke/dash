@@ -36,7 +36,6 @@
     "@auth0/auth0-spa-js": "^1.19.4",
     "@didyoumeantoast/dash-components": "^1.2.0",
     "@didyoumeantoast/dash-utils": "^1.1.4",
-    "@didyoumeantoast/stencil-view-model": "^1.0.5",
     "@didyoumeantoast/tinymce-plugins": "^1.1.4",
     "@popperjs/core": "^2.11.0",
     "@reduxjs/toolkit": "^1.9.2",
