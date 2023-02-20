@@ -99,14 +99,14 @@ export namespace Components {
         "getTextContent": () => Promise<string>;
         "heading": string;
         "isEditorDirty": () => Promise<boolean>;
-        "loading"?: boolean;
+        "loading": boolean;
         "readonly": boolean;
         "resize"?: boolean;
         "save": (emitEvent?: boolean) => Promise<void>;
         "selectTitle": () => Promise<void>;
         "setFocus": () => Promise<void>;
-        "showFullscreen"?: boolean;
-        "showTitleInput"?: boolean;
+        "showFullscreen": boolean;
+        "showTitleInput": boolean;
         "theme": 'light' | 'dark';
     }
 }
