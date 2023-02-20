@@ -21,69 +21,59 @@ type SortOption = 'date' | 'title' | 'last-modified';
 })
 export class HellodashRouteNotes {
   //#region Own properties
-  closeNoteModalCb?: () => void;
+
   unsubscribeStore: Unsubscribe;
+
   //#endregion
 
   //#region @Element
   //#endregion
 
   //#region @State
-  @State()
-  notes: Note[] = [];
+
+  @State() notes: Note[] = [];
   @Watch('notes')
   notesChanged() {
     this.filterNotes();
   }
 
-  @State()
-  filteredNotes: Note[] = [];
+  @State() filteredNotes: Note[] = [];
 
-  @State()
-  labels: Label[];
+  @State() labels: Label[];
 
-  @State()
-  mobileView: boolean;
+  @State() mobileView: boolean;
 
-  @State()
-  notesFilter: string;
+  @State() notesFilter: string;
   @Watch('notesFilter')
   notesFilterChanged() {
     this.filterNotes();
   }
 
-  @State()
-  sortBy: SortOption = 'last-modified';
+  @State() sortBy: SortOption = 'last-modified';
   @Watch('sortBy')
   sortByChanged() {
     this.filterNotes();
   }
 
-  @State()
-  selectedLabelId?: number;
+  @State() selectedLabelId?: number;
   @Watch('selectedLabelId')
   selectedLabelIdChanged() {
     this.filterNotes();
   }
 
-  @State()
-  selectedNote?: Note;
+  @State() selectedNote?: Note;
 
-  @State()
-  focusedNote: Note;
+  @State() focusedNote: Note;
 
-  @State()
-  loadingNote: boolean;
+  @State() loadingNote: boolean;
+
   //#endregion
 
   //#region @Prop
-  @Prop({
-    mutable: true,
-  })
-  history: RouterHistory;
 
-  @Prop()
-  match: any;
+  @Prop({ mutable: true }) history: RouterHistory;
+
+  @Prop() match: any;
   @Watch('match')
   async matchChanged(match: any) {
     const noteId = match?.params.noteId ? parseInt(match.params.noteId) : null;
@@ -102,12 +92,14 @@ export class HellodashRouteNotes {
       this.selectedLabelId = match?.params.labelId ? parseInt(match.params.labelId) : null;
     }
   }
+
   //#endregion
 
   //#region @Event
   //#endregion
 
   // #region Component lifecycle
+
   async componentWillLoad() {
     this.matchChanged(this.match);
   }
@@ -126,6 +118,7 @@ export class HellodashRouteNotes {
   disconnectedCallback() {
     this.unsubscribeStore();
   }
+
   // #endregion
 
   //#region Listeners
@@ -135,6 +128,7 @@ export class HellodashRouteNotes {
   //#endregion
 
   //#region Local methods
+
   filterNotes() {
     const filterFns: ((note: Note) => boolean)[] = [];
 
@@ -196,6 +190,7 @@ export class HellodashRouteNotes {
     const newLabel = await dispatch(createLabel(label)).unwrap();
     return dispatch(addLabelToNote({ note, label: newLabel.id }));
   }
+
   //#endregion
 
   render() {

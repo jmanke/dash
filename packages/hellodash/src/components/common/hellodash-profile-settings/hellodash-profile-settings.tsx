@@ -19,11 +19,11 @@ export class HellodashProfileSettings {
   //#endregion
 
   //#region @Prop
-  @Prop()
-  user: User;
 
-  @Prop()
-  authClient: Auth0Client;
+  @Prop() user: User;
+
+  @Prop() authClient: Auth0Client;
+
   //#endregion
 
   //#region @Event

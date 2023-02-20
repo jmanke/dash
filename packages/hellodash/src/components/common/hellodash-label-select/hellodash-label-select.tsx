@@ -9,30 +9,30 @@ import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 })
 export class HellodashLabelEdit {
   //#region Own properties
+
   filterElement: HTMLDashFilterElement;
 
   colorSwatches = new Map<number, HTMLDashColorSwatchElement>();
 
   editingLabel: Label;
+
   //#endregion
 
   //#region @Element
-  @Element()
-  element: HTMLHellodashLabelSelectElement;
+
+  @Element() element: HTMLHellodashLabelSelectElement;
+
   //#endregion
 
   //#region @State
-  @State()
-  labelsMap: Map<number, Label>;
 
-  @State()
-  filteredLabelsIds: Set<number> = new Set();
+  @State() labelsMap: Map<number, Label>;
 
-  @State()
-  filterValue: string;
+  @State() filteredLabelsIds: Set<number> = new Set();
 
-  @State()
-  drillMenuActive: boolean;
+  @State() filterValue: string;
+
+  @State() drillMenuActive: boolean;
   @Watch('drillMenuActive')
   drillMenuActiveChanged(drillMenuActive) {
     if (!drillMenuActive) {
@@ -44,64 +44,55 @@ export class HellodashLabelEdit {
   //#endregion
 
   //#region @Prop
-  @Prop()
-  labels: Label[] = [];
+
+  @Prop() labels: Label[] = [];
   @Watch('labels')
   labelsChanged() {
     this.updateLabelsMap();
   }
 
-  @Prop()
-  allLabels: Label[] = [];
+  @Prop() allLabels: Label[] = [];
 
-  @Prop({
-    reflect: true,
-  })
-  canCreateLabel: boolean;
+  @Prop({ reflect: true }) canCreateLabel: boolean;
 
-  @Prop()
-  autoFocus: boolean;
+  @Prop({ reflect: true }) autoFocus: boolean;
+
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'hellodashLabelSelectLabelAdded',
-  })
-  labelAdded: EventEmitter<Label>;
 
-  @Event({
-    eventName: 'hellodashLabelSelectLabelRemoved',
-  })
-  labelRemoved: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashLabelSelectLabelAdded' }) labelAdded: EventEmitter<Label>;
 
-  @Event({
-    eventName: 'hellodashLabelSelectLabelCreated',
-  })
-  labelCreated: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashLabelSelectLabelRemoved' }) labelRemoved: EventEmitter<Label>;
 
-  @Event({
-    eventName: 'hellodashLabelSelectLabelUpdated',
-  })
-  labelUpdated: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashLabelSelectLabelCreated' }) labelCreated: EventEmitter<Label>;
+
+  @Event({ eventName: 'hellodashLabelSelectLabelUpdated' }) labelUpdated: EventEmitter<Label>;
+
   //#endregion
 
   //#region Component lifecycle
+
   componentWillLoad() {
     this.updateLabelsMap();
   }
+
   //#endregion
 
   //#region Listeners
+
   @Listen('dashDrillMenuClosed')
   closeDrillMenu() {
     this.drillMenuActive = false;
   }
+
   //#endregion
 
   //#region @Method
   //#endregion
 
   //#region Local methods
+
   updateLabelsMap() {
     this.labelsMap = this.labels.reduce((map, label) => map.set(label.id, { ...label }), new Map<number, Label>());
   }
@@ -151,6 +142,7 @@ export class HellodashLabelEdit {
     await element.componentOnReady();
     element.setFocus();
   }
+
   //#endregion
 
   render() {

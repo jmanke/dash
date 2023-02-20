@@ -10,8 +10,10 @@ import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeant
 })
 export class HellodashLabelEdit {
   //#region Own properties
+
   confirmDeleteButton: HTMLDashButtonElement;
   labelColorPickerDropdown: HTMLDashDropdownElement;
+
   //#endregion
 
   //#region @Element
@@ -21,40 +23,40 @@ export class HellodashLabelEdit {
   //#endregion
 
   //#region @Prop
-  @Prop({ mutable: true })
-  label: Label;
+
+  @Prop() label: Label;
+
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'hellodashLabelEditDeleteLabel',
-  })
-  deleteLabel: EventEmitter<Label>;
 
-  @Event({
-    eventName: 'hellodashLabelEditUpdateLabel',
-  })
-  updateLabel: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashLabelEditLabelDeleted' }) labelDeleted: EventEmitter<Label>;
+
+  @Event({ eventName: 'hellodashLabelEditLabelUpdated' }) labelUpdated: EventEmitter<Label>;
+
   //#endregion
 
   //#region Component lifecycle
   //#endregion
 
   //#region Listeners
+
   @Listen('hellodashLabelColorPickerColorChanged')
   colorPicked(e: CustomEvent<Color>) {
-    this.updateLabel.emit({
+    this.labelUpdated.emit({
       ...this.label,
       color: e.detail,
     });
     this.labelColorPickerDropdown.close();
   }
+
   //#endregion
 
   //#region @Method
   //#endregion
 
   //#region Local methods
+
   dropdownVisibleChanged(e: DashDropdownCustomEvent<void>) {
     if (e.target.open) {
       this.confirmDeleteButton?.setFocus();
@@ -68,8 +70,9 @@ export class HellodashLabelEdit {
       return;
     }
     this.label.text = e.target.value;
-    this.updateLabel.emit(this.label);
+    this.labelUpdated.emit(this.label);
   }
+
   //#endregion
 
   render() {
@@ -88,7 +91,7 @@ export class HellodashLabelEdit {
         </dash-dropdown>
         <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 
-        <dash-confirm-button icon='trash3' onDashConfirmButtonConfirmed={() => this.deleteLabel.emit(this.label)}></dash-confirm-button>
+        <dash-confirm-button icon='trash3' onDashConfirmButtonConfirmed={() => this.labelDeleted.emit(this.label)}></dash-confirm-button>
       </div>
     );
   }

@@ -15,35 +15,34 @@ import { noteLabels } from '../../../utils/note-labels';
 })
 export class HellodashRouteBin {
   //#region Own properties
+
   unsubscribeStore: Unsubscribe;
+
   //#endregion
 
   //#region @Element
+  //#endregion
 
-  @State()
-  notes: Note[] = [];
+  //#region @State
+
+  @State() notes: Note[] = [];
   @Watch('notes')
   notesChanged(notes: Note[] = []) {
     this.archivedNotes = notes.filter(note => note.status === Status.Archived);
   }
 
-  @State()
-  archivedNotes: Note[] = [];
+  @State() archivedNotes: Note[] = [];
 
-  @State()
-  labels: Label[] = [];
+  @State() labels: Label[] = [];
 
-  //#endregion
-
-  //#region @State
-  @State()
-  noteWithDropdownActive: Note;
+  @State() noteWithDropdownActive: Note;
 
   @State()
   selectedNotes: Map<number, Note> = new Map<number, Note>();
 
   @State()
   showDeleteConfirmation: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -77,6 +76,7 @@ export class HellodashRouteBin {
   //#endregion
 
   //#region Local methods
+
   noteClicked(note: Note) {
     if (this.selectedNotes.has(note.id)) {
       this.selectedNotes.delete(note.id);
@@ -103,6 +103,7 @@ export class HellodashRouteBin {
   deselectAll() {
     this.selectedNotes = new Map();
   }
+
   //#endregion
 
   render() {

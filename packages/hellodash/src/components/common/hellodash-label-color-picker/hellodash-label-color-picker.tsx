@@ -2,6 +2,8 @@ import { Component, h, Event, EventEmitter, Prop } from '@stencil/core';
 import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
 import { DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
 
+const Colors: Color[] = ['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink'];
+
 @Component({
   tag: 'hellodash-label-color-picker',
   styleUrl: 'hellodash-label-color-picker.css',
@@ -18,17 +20,15 @@ export class HelloDashLabelColorPicker {
   //#endregion
 
   //#region @Prop
-  @Prop({
-    reflect: true,
-  })
-  color: Color;
+
+  @Prop({ reflect: true }) color: Color;
+
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'hellodashLabelColorPickerColorChanged',
-  })
-  dashLabelColorPickerColorChanged: EventEmitter<Color>;
+
+  @Event({ eventName: 'hellodashLabelColorPickerColorChanged' }) colorChanged: EventEmitter<Color>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -38,18 +38,14 @@ export class HelloDashLabelColorPicker {
   //#endregion
 
   //#region Local methods
+
   colorPicked(event: DashColorPickerCustomEvent<void>) {
-    this.dashLabelColorPickerColorChanged.emit(event.target.color);
+    this.colorChanged.emit(event.target.color);
   }
+
   //#endregion
+
   render() {
-    return (
-      <dash-color-picker
-        colors={['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink']}
-        cols={3}
-        color={this.color}
-        onDashColorPickerColorChanged={this.colorPicked.bind(this)}
-      ></dash-color-picker>
-    );
+    return <dash-color-picker colors={Colors} cols={3} color={this.color} onDashColorPickerColorChanged={this.colorPicked.bind(this)}></dash-color-picker>;
   }
 }

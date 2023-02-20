@@ -13,33 +13,32 @@ import { setCurrentUser, setMobileView } from '../../slices/app-state-slice';
 })
 export class HellodashRoot {
   //#region Own properties
+
   windowResizeCallback: (e: UIEvent) => void;
+
   //#endregion
 
   //#region @Element
-  @Element()
-  element: HTMLElement;
+
+  @Element() element: HTMLElement;
+
   //#endregion
 
   //#region @State
-  @State()
-  rootState: RootState;
 
-  @State()
-  isMenuVisible = false;
+  @State() rootState: RootState;
 
-  @State()
-  appStateLoaded: boolean;
+  @State() isMenuVisible = false;
 
-  @State()
-  appElementReady: boolean;
+  @State() appStateLoaded: boolean;
+
+  @State() appElementReady: boolean;
+
   //#endregion
 
   //#region @Prop
-  @Prop({
-    mutable: true,
-  })
-  history: RouterHistory;
+
+  @Prop({ mutable: true }) history: RouterHistory;
   @Watch('history')
   historyChanged(history: RouterHistory) {
     if (!history) {
@@ -48,12 +47,14 @@ export class HellodashRoot {
 
     dashRootService.initHistory(history);
   }
+
   //#endregion
 
   //#region @Event
   //#endregion
 
   //#region Component lifecycle
+
   async componentWillLoad() {
     const authClient = await createAuth0Client({
       domain: CONSTANTS.AUTH0_DOMAIN,
@@ -96,6 +97,7 @@ export class HellodashRoot {
   disconnectedCallback() {
     window.removeEventListener('resize', this.windowResizeCallback);
   }
+
   //#endregion
 
   //#region Listeners
@@ -105,6 +107,7 @@ export class HellodashRoot {
   //#endregion
 
   //#region Local methods
+
   async appElementConnected(e: HTMLHellodashAppElement) {
     await e.componentOnReady();
 
@@ -123,6 +126,7 @@ export class HellodashRoot {
     };
     dispatch(setCurrentUser(user));
   }
+
   //#endregion
 
   render() {

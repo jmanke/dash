@@ -1,11 +1,11 @@
-import { dashRootService } from '../components/dash-root/dash-root-service';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { logout } from '../utils/logout';
 
-export async function refreshAuthToken() {
+export async function refreshAuthToken(authClient: Auth0Client) {
   try {
-    await dashRootService.authClient?.getTokenSilently({ ignoreCache: true });
+    return authClient?.getTokenSilently({ ignoreCache: true });
   } catch (err) {
     console.error(err);
-    logout(dashRootService.authClient);
+    logout(authClient);
   }
 }

@@ -9,8 +9,10 @@ import { Status } from '@didyoumeantoast/dash-components/dist/types/types/types'
 })
 export class HellodashConfirm implements Modal {
   //#region Own properties
+
   modal: HTMLDashModalElement;
   cancelButton: HTMLDashButtonElement;
+
   //#endregion
 
   //#region @Element
@@ -20,45 +22,29 @@ export class HellodashConfirm implements Modal {
   //#endregion
 
   //#region @Prop
-  @Prop({
-    reflect: true,
-  })
-  heading: string;
 
-  @Prop({
-    reflect: true,
-  })
-  confirmText: string;
+  @Prop({ reflect: true }) heading: string;
 
-  @Prop({
-    reflect: true,
-  })
-  cancelText: string;
+  @Prop({ reflect: true }) confirmText: string;
 
-  @Prop({
-    reflect: true,
-  })
-  confirmButtonStatus: Status = 'error';
+  @Prop({ reflect: true }) cancelText: string;
+
+  @Prop({ reflect: true }) confirmButtonStatus: Status = 'error';
+
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'dashModalBeforeClose',
-  })
-  dashModalBeforeClose: EventEmitter;
 
-  @Event({
-    eventName: 'dashModalClosed',
-  })
-  dashModalClosed: EventEmitter;
+  @Event({ eventName: 'dashModalBeforeClose' }) dashModalBeforeClose: EventEmitter;
 
-  @Event({
-    eventName: 'hellodashConfirmConfirmed',
-  })
-  modalConfirmed: EventEmitter;
+  @Event({ eventName: 'dashModalClosed' }) dashModalClosed: EventEmitter;
+
+  @Event({ eventName: 'hellodashConfirmConfirmed' }) modalConfirmed: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
+
   componentDidLoad() {
     this.cancelButton.setFocus();
   }
@@ -69,17 +55,21 @@ export class HellodashConfirm implements Modal {
   //#endregion
 
   //#region @Method
+
   @Method()
   async close() {
     return this.modal.close();
   }
+
   //#endregion
 
   //#region Local methods
+
   confirm() {
     this.modalConfirmed.emit();
     this.close();
   }
+
   //#endregion
 
   render() {

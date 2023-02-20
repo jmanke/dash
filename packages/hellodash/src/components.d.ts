@@ -299,8 +299,8 @@ declare namespace LocalJSX {
     }
     interface HellodashLabelEdit {
         "label"?: Label;
-        "onHellodashLabelEditDeleteLabel"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
-        "onHellodashLabelEditUpdateLabel"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
+        "onHellodashLabelEditLabelDeleted"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
+        "onHellodashLabelEditLabelUpdated"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
     }
     interface HellodashLabelSelect {
         "allLabels"?: Label[];

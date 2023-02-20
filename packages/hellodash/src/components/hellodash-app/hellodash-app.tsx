@@ -23,38 +23,35 @@ enum RootUrls {
 })
 export class HellodashApp {
   //#region Own properties
+
   logoPath: string;
+
   //#endregion
 
   //#region @Element
   //#endregion
 
   //#region @State
-  @State()
-  selectedLabelId?: number;
 
-  @State()
-  pathName: string;
+  @State() selectedLabelId?: number;
+
+  @State() pathName: string;
   @Watch('pathName')
   pathNameChanged(pathName: string) {
     this.setSelectedLabel(pathName);
   }
 
-  @State()
-  isEditingLabels: boolean = false;
+  @State() isEditingLabels: boolean = false;
 
-  @State()
-  isCreatingLabel: boolean = false;
+  @State() isCreatingLabel: boolean = false;
+
   //#endregion
 
   //#region @Prop
-  @Prop()
-  rootState: RootState;
 
-  @Prop({
-    mutable: true,
-  })
-  history: RouterHistory;
+  @Prop() rootState: RootState;
+
+  @Prop({ mutable: true }) history: RouterHistory;
   @Watch('history')
   historyChanged(history: RouterHistory) {
     if (!history) {
@@ -71,12 +68,14 @@ export class HellodashApp {
       this.pathName = location.pathname;
     });
   }
+
   //#endregion
 
   //#region @Event
   //#endregion
 
   //#region Component lifecycle
+
   async componentWillLoad() {
     this.logoPath = getAssetPath('./assets/icon/pomeranian.svg');
 
@@ -87,6 +86,7 @@ export class HellodashApp {
       dispatch(setError(true));
     }
   }
+
   //#endregion
 
   //#region Listeners
@@ -96,6 +96,7 @@ export class HellodashApp {
   //#endregion
 
   //#region Local methods
+
   selectLabel(label: Label) {
     if (label.id === this.selectedLabelId) {
       return;
@@ -133,6 +134,7 @@ export class HellodashApp {
       this.isCreatingLabel = false;
     }
   }
+
   //#endregion
 
   render() {

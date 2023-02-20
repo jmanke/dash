@@ -9,63 +9,50 @@ import { Label } from '../../../models/label';
 })
 export class HellodashEditLabels implements Modal {
   //#region Own properties
+
   modal: HTMLDashModalElement;
   addLabelButton: HTMLDashIconButtonElement;
+
   //#endregion
 
   //#region @Element
-  @Element()
-  element: HTMLHellodashEditLabelsElement;
+
+  @Element() element: HTMLHellodashEditLabelsElement;
+
   //#endregion
 
   //#region @State
-  @State()
-  newLabelText?: string;
+
+  @State() newLabelText?: string;
   @Watch('newLabelText')
   newLabelTextChanged() {
     this.updateCanAddLabel();
   }
 
-  @State()
-  canAddLabel: boolean;
+  @State() canAddLabel: boolean;
 
   //#endregion
 
   //#region @Prop
 
-  @Prop()
-  labels: Label[] = [];
+  @Prop() labels: Label[] = [];
 
-  @Prop()
-  creatingLabel: boolean;
+  @Prop({ reflect: true }) creatingLabel: boolean;
 
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'dashModalBeforeClose',
-  })
-  dashModalBeforeClose: EventEmitter;
 
-  @Event({
-    eventName: 'dashModalClosed',
-  })
-  dashModalClosed: EventEmitter;
+  @Event({ eventName: 'dashModalBeforeClose' }) dashModalBeforeClose: EventEmitter;
 
-  @Event({
-    eventName: 'hellodashEditLabelsDeleteLabel',
-  })
-  deleteLabel: EventEmitter<Label>;
+  @Event({ eventName: 'dashModalClosed' }) dashModalClosed: EventEmitter;
 
-  @Event({
-    eventName: 'hellodashEditLabelsUpdateLabel',
-  })
-  updateLabel: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashEditLabelsDeleteLabel' }) deleteLabel: EventEmitter<Label>;
 
-  @Event({
-    eventName: 'hellodashEditLabelsCreateLabel',
-  })
-  createLabel: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashEditLabelsUpdateLabel' }) updateLabel: EventEmitter<Label>;
+
+  @Event({ eventName: 'hellodashEditLabelsCreateLabel' }) createLabel: EventEmitter<Label>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -89,6 +76,7 @@ export class HellodashEditLabels implements Modal {
   //#endregion
 
   //#region Local methods
+
   updateCanAddLabel() {
     this.canAddLabel = !!this.newLabelText && !!this.newLabelText.length;
   }
@@ -106,6 +94,7 @@ export class HellodashEditLabels implements Modal {
     this.newLabelText = undefined;
     this.createLabel.emit(label);
   }
+
   //#endregion
 
   render() {
@@ -142,8 +131,8 @@ export class HellodashEditLabels implements Modal {
             <hellodash-label-edit
               key={label.id}
               label={{ ...label }}
-              onHellodashLabelEditDeleteLabel={e => this.deleteLabel.emit(e.detail)}
-              onHellodashLabelEditUpdateLabel={e => this.updateLabel.emit(e.detail)}
+              onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
+              onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
             ></hellodash-label-edit>
           ))}
         </div>

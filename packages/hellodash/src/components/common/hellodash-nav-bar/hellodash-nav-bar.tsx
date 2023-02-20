@@ -7,7 +7,9 @@ import { Component, Event, EventEmitter, h, Host, Method } from '@stencil/core';
 })
 export class HellodashNavBar {
   //#region Own properties
+
   menuButton: HTMLDashIconButtonElement;
+
   //#endregion
 
   //#region @Element
@@ -20,11 +22,9 @@ export class HellodashNavBar {
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'hellodashMenuToggled',
-    composed: true,
-  })
-  menuToggled: EventEmitter;
+
+  @Event({ eventName: 'hellodashMenuToggled', composed: true }) menuToggled: EventEmitter;
+
   //#endregion
 
   //#region Component lifecycle
@@ -34,10 +34,12 @@ export class HellodashNavBar {
   //#endregion
 
   //#region @Method
+
   @Method()
   async setFocus() {
     this.menuButton.setFocus();
   }
+
   //#endregion
 
   //#region Local methods

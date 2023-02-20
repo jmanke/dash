@@ -16,93 +16,73 @@ const SAVE_DELAY = 5 * 1000;
 })
 export class HellodashModalNote implements Modal {
   //#region Own properties
+
   modal: HTMLDashModalElement;
   textEditor: HTMLHellodashTextEditorElement;
   cancelationToken = new CancelationToken();
   dropdownElement: HTMLDashDropdownElement;
   saveDefer: any;
   isNoteDirty: boolean;
+
   //#endregion
 
   //#region @Element
   //#endregion
 
   //#region @State
-  @State()
-  noteDraft: Note;
+
+  @State() noteDraft: Note;
   @Watch('noteDraft')
   noteDraftChaged(noteDraft: Note) {
     this.noteDraftLabels = noteLabels(noteDraft, this.allLabels);
   }
 
-  @State()
-  noteDraftLabels: Label[];
+  @State() noteDraftLabels: Label[];
 
-  @State()
-  isFullscreen: boolean;
+  @State() isFullscreen: boolean;
 
-  @State()
-  noteEditorLoaded: boolean;
+  @State() noteEditorLoaded: boolean;
 
-  @State()
-  disableReadonly: boolean = true;
+  @State() disableReadonly: boolean = true;
+
   //#endregion
 
   //#region @Prop
 
-  @Prop()
-  note: Note;
+  @Prop() note: Note;
   @Watch('note')
   noteChanged(note: Note) {
     this.noteDraft = { ...note };
   }
 
-  @Prop()
-  allLabels: Label[];
+  @Prop() allLabels: Label[];
   @Watch('allLabels')
   allLabelsChanged(allLabels: Label[]) {
     this.noteDraftLabels = noteLabels(this.noteDraft, allLabels);
   }
 
-  @Prop()
-  loading: boolean;
+  @Prop({ reflect: true }) loading: boolean;
 
-  @Prop()
-  theme: Theme = 'dark';
+  @Prop({ reflect: true }) theme: Theme = 'dark';
 
-  @Prop()
-  mobileView: boolean;
+  @Prop({ reflect: true }) mobileView: boolean;
 
-  @Prop()
-  createLabelDisabled: boolean;
+  @Prop({ reflect: true }) createLabelDisabled: boolean;
 
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'dashModalBeforeClose',
-  })
-  dashModalBeforeClose: EventEmitter;
 
-  @Event({
-    eventName: 'dashModalClosed',
-  })
-  dashModalClosed: EventEmitter;
+  @Event({ eventName: 'dashModalBeforeClose' }) dashModalBeforeClose: EventEmitter;
 
-  @Event({
-    eventName: 'hellodashModalNoteUpdateNote',
-  })
-  noteUpdated: EventEmitter<Note>;
+  @Event({ eventName: 'dashModalClosed' }) dashModalClosed: EventEmitter;
 
-  @Event({
-    eventName: 'hellodashModalNoteLabelCreated',
-  })
-  labelCreated: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashModalNoteUpdateNote' }) noteUpdated: EventEmitter<Note>;
 
-  @Event({
-    eventName: 'hellodashModalNoteLabelUpdated',
-  })
-  labelUpdated: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashModalNoteLabelCreated' }) labelCreated: EventEmitter<Label>;
+
+  @Event({ eventName: 'hellodashModalNoteLabelUpdated' }) labelUpdated: EventEmitter<Label>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -117,13 +97,16 @@ export class HellodashModalNote implements Modal {
   //#endregion
 
   //#region @Method
+
   @Method()
   async close() {
     return this.modal.close();
   }
+
   //#endregion
 
   //#region Local methods
+
   addLabel(id: number) {
     this.noteDraft = produce(this.noteDraft, draft => {
       draft.labels.push(id);
@@ -225,6 +208,7 @@ export class HellodashModalNote implements Modal {
     const promises = e.detail;
     promises.push(this.saveNote());
   }
+
   //#endregion
 
   render() {

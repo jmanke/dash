@@ -18,13 +18,12 @@ export class HellodashAuth0Provider {
   //#endregion
 
   //#region @State
-  @State()
-  isAuthenticated: boolean;
+  @State() isAuthenticated: boolean;
   //#endregion
 
   //#region @Prop
-  @Prop()
-  authClient: Auth0Client;
+
+  @Prop() authClient: Auth0Client;
   @Watch('authClient')
   async handleAuthentication() {
     if (!this.authClient) {
@@ -90,7 +89,7 @@ export class HellodashAuth0Provider {
 
   async refreshAuthToken() {
     await wait(REFRESH_TOKEN_TIMEOUT);
-    await refreshAuthToken();
+    await refreshAuthToken(this.authClient);
 
     this.refreshAuthToken();
   }

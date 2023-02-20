@@ -14,6 +14,7 @@ const MIN_EDITOR_HEIGHT = 230;
 })
 export class HellodashTextEditor implements Focusable {
   //#region Own properties
+
   editor: Editor;
   id: string;
   headingInput: HTMLInputElement;
@@ -22,50 +23,44 @@ export class HellodashTextEditor implements Focusable {
   get isLoading() {
     return this.isEditorLoading || this.loading;
   }
+
   //#endregion
 
   //#region @Element
-  @Element()
-  element: HTMLHellodashTextEditorElement;
+
+  @Element() element: HTMLHellodashTextEditorElement;
+
   //#endregion
 
   //#region @State
-  @State()
-  isFullscreen = false;
 
-  @State()
-  isEditorLoading = true;
+  @State() isFullscreen = false;
+
+  @State() isEditorLoading = true;
+
   //#endregion
 
   //#region @Prop
-  @Prop()
-  content: string;
 
-  @Prop()
-  theme: 'light' | 'dark';
+  @Prop() content: string;
 
-  @Prop()
-  heading: string;
+  @Prop({ reflect: true }) theme: 'light' | 'dark';
 
-  @Prop()
-  debounce: number = 3000;
+  @Prop({ reflect: true }) heading: string;
 
-  @Prop()
-  resize?: boolean = true;
+  @Prop({ reflect: true }) debounce: number = 3000;
 
-  @Prop()
-  showTitleInput?: boolean;
+  @Prop({ reflect: true }) resize?: boolean = true;
 
-  @Prop()
-  showFullscreen?: boolean;
+  @Prop({ reflect: true }) showTitleInput: boolean;
+
+  @Prop({ reflect: true }) showFullscreen: boolean;
 
   // Defer the inital loading of the editor in milliseconds. Use this value to ensure an animation can play without
   // the editor freezing the app (tinymce is extremely heavy when it loads)
-  @Prop()
-  deferLoadTime?: number;
+  @Prop({ reflect: true }) deferLoadTime?: number;
 
-  @Prop()
-  loading?: boolean;
+  @Prop({ reflect: true }) loading: boolean;
   @Watch('loading')
   loadingChanged() {
     if (this.loading || this.editor) {
@@ -75,61 +70,38 @@ export class HellodashTextEditor implements Focusable {
     this.loadTinyMce();
   }
 
-  @Prop({
-    reflect: true,
-  })
-  readonly: boolean;
+  @Prop({ reflect: true }) readonly: boolean;
   @Watch('readonly')
   readonlyChanged() {
     if (!this.loading) {
       this.loadTinyMce();
     }
   }
+
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'hellodashTextEditorContentChanged',
-  })
-  contentChanged: EventEmitter<string>;
 
-  @Event({
-    eventName: 'hellodashTextEditorHeadingChanged',
-  })
-  headingChanged: EventEmitter<string>;
+  @Event({ eventName: 'hellodashTextEditorContentChanged' }) contentChanged: EventEmitter<string>;
 
-  @Event({
-    eventName: 'hellodashTextEditorFullscreenChanged',
-  })
-  fullscreenChanged: EventEmitter<boolean>;
+  @Event({ eventName: 'hellodashTextEditorHeadingChanged' }) headingChanged: EventEmitter<string>;
 
-  @Event({
-    eventName: 'hellodashTextEditorInit',
-  })
-  editorInit: EventEmitter<HTMLHellodashTextEditorElement>;
+  @Event({ eventName: 'hellodashTextEditorFullscreenChanged' }) fullscreenChanged: EventEmitter<boolean>;
 
-  @Event({
-    eventName: 'hellodashTextEditorBeforeUnload',
-  })
-  beforeUnload: EventEmitter<Promise<unknown>[]>;
+  @Event({ eventName: 'hellodashTextEditorInit' }) editorInit: EventEmitter<HTMLHellodashTextEditorElement>;
 
-  @Event({
-    eventName: 'hellodashTextEditorUnload',
-  })
-  editorUnloaded: EventEmitter;
+  @Event({ eventName: 'hellodashTextEditorBeforeUnload' }) beforeUnload: EventEmitter<Promise<unknown>[]>;
 
-  @Event({
-    eventName: 'hellodashTextEditorIsDirty',
-  })
-  isDirtyChanged: EventEmitter;
+  @Event({ eventName: 'hellodashTextEditorUnload' }) editorUnloaded: EventEmitter;
 
-  @Event({
-    eventName: 'hellodashTextEditorNodeChanged',
-  })
-  nodeChanged: EventEmitter<object>;
+  @Event({ eventName: 'hellodashTextEditorIsDirty' }) isDirtyChanged: EventEmitter;
+
+  @Event({ eventName: 'hellodashTextEditorNodeChanged' }) nodeChanged: EventEmitter<object>;
+
   //#endregion
 
   //#region Component lifecycle
+
   componentWillLoad() {
     this.id = `dash-text-editor-${uuidv4()}`;
   }
@@ -152,12 +124,14 @@ export class HellodashTextEditor implements Focusable {
   disconnectedCallback() {
     this.editor?.remove();
   }
+
   //#endregion
 
   //#region Listeners
   //#endregion
 
   //#region @Method
+
   @Method()
   async setFocus() {
     if (this.headingInput) {
@@ -222,6 +196,7 @@ export class HellodashTextEditor implements Focusable {
   //#endregion
 
   //#region Local methods
+
   async unloadEditor() {
     if (this.editor) {
       const listeners = [];
@@ -422,6 +397,7 @@ export class HellodashTextEditor implements Focusable {
       this.fullscreenChanged.emit(this.isFullscreen);
     });
   }
+
   //#endregion
 
   render() {

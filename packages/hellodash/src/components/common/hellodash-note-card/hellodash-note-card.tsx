@@ -25,22 +25,17 @@ export class HellodashNoteCard {
   //#endregion
 
   //#region @Prop
-  @Prop()
-  note: Note;
 
-  @Prop()
-  noteLabels: Label[];
+  @Prop() note: Note;
 
-  @Prop({ mutable: true })
-  history: RouterHistory;
+  @Prop() noteLabels: Label[];
 
-  @Prop({
-    reflect: true,
-  })
-  mode: NoteCardMode = 'edit';
+  @Prop({ mutable: true }) history: RouterHistory;
 
-  @Prop()
-  selected: boolean = false;
+  @Prop({ reflect: true }) mode: NoteCardMode = 'edit';
+
+  @Prop({ reflect: true }) selected: boolean = false;
+
   //#endregion
 
   //#region @Event
@@ -56,6 +51,7 @@ export class HellodashNoteCard {
   //#endregion
 
   //#region Local methods
+
   openNoteModal() {
     if (this.mode !== 'edit') {
       return;
@@ -97,6 +93,7 @@ export class HellodashNoteCard {
       </div>
     );
   }
+
   //#endregion
 
   render() {
