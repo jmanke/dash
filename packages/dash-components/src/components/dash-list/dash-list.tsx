@@ -23,8 +23,7 @@ export class DashList {
 
   //#region @Element
 
-  @Element()
-  element: HTMLElement;
+  @Element() element: HTMLElement;
 
   //#endregion
 
@@ -33,8 +32,7 @@ export class DashList {
   /**
    * Maximum height of the list
    */
-  @State()
-  maxHeight?: number;
+  @State() maxHeight?: number;
 
   //#endregion
 
@@ -44,10 +42,7 @@ export class DashList {
    * Selection mode of the list and its items
    * @default 'single'
    */
-  @Prop({
-    reflect: true,
-  })
-  selectionMode: SelectionMode = 'single';
+  @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
   @Watch('selectionMode')
   selectionModeChanged() {
     this.updateChildProps();
@@ -57,10 +52,7 @@ export class DashList {
    * Size of the list and its items
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
   @Watch('scale')
   scaleChanged() {
     this.updateChildProps();
@@ -70,10 +62,7 @@ export class DashList {
    * Number of items to show in the list - a scrollbar appears for overflow
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  maxItems?: number;
+  @Prop({ reflect: true }) maxItems?: number;
   @Watch('maxItems')
   maxItemsChanged() {
     this.updateResizeObserver();
@@ -216,6 +205,7 @@ export class DashList {
 
     this.maxHeight = height;
   }
+
   //#endregion
 
   render() {

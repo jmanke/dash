@@ -22,29 +22,20 @@ export class DashColorPicker {
    * Colors to pick from
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  colors: Color[] = [];
+  @Prop({ reflect: true }) colors: Color[] = [];
 
   /**
    * Currently selected color
    * @optional
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  color: Color;
+  @Prop({ reflect: true, mutable: true }) color: Color;
 
   /**
    * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
    * @default colors.length
    */
-  @Prop({
-    reflect: true,
-  })
-  cols: number;
+  @Prop({ reflect: true }) cols: number;
+
   //#endregion
 
   //#region @Event
@@ -52,10 +43,7 @@ export class DashColorPicker {
   /**
    * Emitted when color has been selected
    */
-  @Event({
-    eventName: 'dashColorPickerColorChanged',
-  })
-  dashColorPickerColorChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashColorPickerColorChanged' }) dashColorPickerColorChanged: EventEmitter<void>;
 
   //#endregion
 

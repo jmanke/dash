@@ -600,7 +600,7 @@ export namespace Components {
         "placeholder": string;
         /**
           * When `true`, disables updating the text-area value
-          * @default true
+          * @default false
          */
         "readonly": boolean;
         /**
@@ -616,7 +616,7 @@ export namespace Components {
           * text-area rows
           * @optional
          */
-        "rows": number;
+        "rows"?: number;
         /**
           * Text of the text-area
           * @optional
@@ -626,14 +626,16 @@ export namespace Components {
     interface DashThemeToggle {
         /**
           * Current theme
-          * @required
+          * @required 
+          * @default 'light'
          */
         "theme": Theme;
     }
     interface DashToggleSwitch {
         /**
           * When `true`, toggle is checked
-          * @optional
+          * @optional 
+          * @default false
          */
         "checked": boolean;
         /**
@@ -1015,7 +1017,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when the chip is removed
          */
-        "onDashChipDismiss"?: (event: DashChipCustomEvent<any>) => void;
+        "onDashChipDismiss"?: (event: DashChipCustomEvent<void>) => void;
         /**
           * When `true`, the chip can be interacted with
           * @default false
@@ -1577,7 +1579,7 @@ declare namespace LocalJSX {
         "placeholder"?: string;
         /**
           * When `true`, disables updating the text-area value
-          * @default true
+          * @default false
          */
         "readonly"?: boolean;
         /**
@@ -1607,14 +1609,16 @@ declare namespace LocalJSX {
         "onDashThemeToggleChange"?: (event: DashThemeToggleCustomEvent<void>) => void;
         /**
           * Current theme
-          * @required
+          * @required 
+          * @default 'light'
          */
         "theme"?: Theme;
     }
     interface DashToggleSwitch {
         /**
           * When `true`, toggle is checked
-          * @optional
+          * @optional 
+          * @default false
          */
         "checked"?: boolean;
         /**

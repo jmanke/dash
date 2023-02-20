@@ -27,28 +27,20 @@ export class DashColorSwatch implements Focusable {
    * Color of the swatch
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  color: Color | string;
+  @Prop({ reflect: true }) color: Color | string;
 
   /**
    * Size of swatch
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, the swatch is selected and provides visual feedback
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  selected: boolean = false;
+  @Prop({ reflect: true }) selected: boolean = false;
+
   //#endregion
 
   //#region @Event

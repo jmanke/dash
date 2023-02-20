@@ -23,8 +23,7 @@ export class DashFocusTrap {
 
   //#region @Element
 
-  @Element()
-  element: HTMLElement;
+  @Element() element: HTMLElement;
 
   //#endregion
 
@@ -61,7 +60,7 @@ export class DashFocusTrap {
   focusLast() {
     focus(this.element, true);
   }
-  
+
   //#endregion
 
   render() {

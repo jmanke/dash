@@ -21,20 +21,17 @@ export class DashIcon {
   /**
    * SVG to display
    */
-  @State()
-  svg: string;
+  @State() svg: string;
 
   /**
    * When `true`, displays an error for the icon's url
    */
-  @State()
-  iconUrlError: boolean;
+  @State() iconUrlError: boolean;
 
   /**
    * Paths of the SVG
    */
-  @State()
-  paths: Array<string> = [];
+  @State() paths: Array<string> = [];
 
   //#endregion
 
@@ -44,10 +41,7 @@ export class DashIcon {
    * Icon name to display
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  icon: string;
+  @Prop({ reflect: true }) icon: string;
   @Watch('icon')
   async iconChanged() {
     this.updateSvg();
@@ -57,46 +51,31 @@ export class DashIcon {
    * URL pointing to icon
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  iconUrl: string;
+  @Prop({ reflect: true }) iconUrl: string;
 
   /**
    * Size of the icon
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale?: ScaleExtended = 'm';
+  @Prop({ reflect: true }) scale?: ScaleExtended = 'm';
 
   /**
    * Width of the icon in pixels
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  width?: number;
+  @Prop({ reflect: true }) width?: number;
 
   /**
    * Color of the icon
    * @default 'neutral'
    */
-  @Prop({
-    reflect: true,
-  })
-  color: IconColor = 'neutral';
+  @Prop({ reflect: true }) color: IconColor = 'neutral';
 
   /**
    * When `true`, icon is rounded
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  rounded: boolean;
+  @Prop({ reflect: true }) rounded: boolean;
 
   //#endregion
 

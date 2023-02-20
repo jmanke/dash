@@ -26,19 +26,13 @@ export class DashLabel {
    * Label for id https://developer.mozilla.org/en-US/docs/Web/HTML/Element/label#attr-for
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  for: string;
+  @Prop({ reflect: true }) for: string;
 
   /**
    * Determines how the label and content is laid out
    * @default 'default'
    */
-  @Prop({
-    reflect: true,
-  })
-  layout: LabelLayout = 'default';
+  @Prop({ reflect: true }) layout: LabelLayout = 'default';
 
   //#endregion
 

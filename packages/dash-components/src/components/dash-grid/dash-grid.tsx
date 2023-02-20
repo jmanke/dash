@@ -20,8 +20,7 @@ export class DashGrid {
   /**
    * Number of columns in the grid
    */
-  @State()
-  numCols: number;
+  @State() numCols: number;
 
   //#endregion
 
@@ -31,37 +30,26 @@ export class DashGrid {
    * Number of columns when the screen size is small
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  colS: number;
+  @Prop({ reflect: true }) colS: number;
 
   /**
    * Number of columns when the screen size is medium
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  colM: number;
+  @Prop({ reflect: true }) colM: number;
 
   /**
    * Number of columns when the screen size is large
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  colL: number;
+  @Prop({ reflect: true }) colL: number;
 
   /**
    * Number of columns when the screen size is extra large
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  colXl: number;
+  @Prop({ reflect: true }) colXl: number;
+
   //#endregion
 
   //#region @Event

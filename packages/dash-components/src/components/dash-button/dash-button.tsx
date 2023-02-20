@@ -30,46 +30,31 @@ export class DashButton implements Focusable {
    * Icon displayed at the start of the button
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  startIcon?: string;
+  @Prop({ reflect: true }) startIcon?: string;
 
   /**
    * Status of the button shown with various styles
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  status?: Status;
+  @Prop({ reflect: true }) status?: Status;
 
   /**
    * When `true`, disables interaction
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  disabled: boolean = false;
+  @Prop({ reflect: true }) disabled: boolean = false;
 
   /**
    * Size of button
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * Visible appearance of the button
    * @default 'clear'
    */
-  @Prop({
-    reflect: true,
-  })
-  appearance: Appearance = 'clear';
+  @Prop({ reflect: true }) appearance: Appearance = 'clear';
 
   //#endregion
 

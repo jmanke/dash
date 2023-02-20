@@ -21,12 +21,9 @@ export class ThemeToggle {
   /**
    * Current theme
    * @required
+   * @default 'light'
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  theme: Theme = 'light';
+  @Prop({ reflect: true, mutable: true }) theme: Theme = 'light';
 
   //#endregion
 
@@ -35,10 +32,7 @@ export class ThemeToggle {
   /**
    * Emitted when the theme changed
    */
-  @Event({
-    eventName: 'dashThemeToggleChange',
-  })
-  themeToggleChange: EventEmitter<void>;
+  @Event({ eventName: 'dashThemeToggleChange' }) themeToggleChange: EventEmitter<void>;
 
   //#endregion
 

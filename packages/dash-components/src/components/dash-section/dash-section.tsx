@@ -21,19 +21,13 @@ export class DashSection {
    * Section heading
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  heading: string;
+  @Prop({ reflect: true }) heading: string;
 
   /**
    * When `true`, header sticks to the top
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  stickyHeader: boolean;
+  @Prop({ reflect: true }) stickyHeader: boolean;
 
   //#endregion
 

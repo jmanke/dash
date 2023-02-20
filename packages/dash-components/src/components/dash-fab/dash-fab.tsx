@@ -22,19 +22,13 @@ export class DashFab {
    * Icon to display
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  icon: string;
+  @Prop({ reflect: true }) icon: string;
 
   /**
    * Size of the fab
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: ScaleExtended = 'm';
+  @Prop({ reflect: true }) scale: ScaleExtended = 'm';
 
   //#endregion
 
