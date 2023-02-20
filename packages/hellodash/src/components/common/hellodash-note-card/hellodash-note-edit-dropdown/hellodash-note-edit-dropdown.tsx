@@ -13,36 +13,35 @@ type MENU_PANEL = 'default' | 'addLabel';
 })
 export class HellodashNoteEditDropdown {
   //#region Own properties
+
   dropdown: HTMLDashDropdownElement;
+
   //#endregion
 
   //#region @Element
   //#endregion
 
   //#region @State
-  @State()
-  dropdownVisible: boolean = false;
 
-  @State()
-  dropdownMenuPanel: MENU_PANEL = 'default';
+  @State() dropdownVisible: boolean = false;
 
-  @State()
-  creatingLabel = false;
+  @State() dropdownMenuPanel: MENU_PANEL = 'default';
 
-  @State()
-  noteLabels: Label[];
+  @State() creatingLabel = false;
+
+  @State() noteLabels: Label[];
+
   //#endregion
 
   //#region @Prop
-  @Prop()
-  note: Note;
+
+  @Prop() note: Note;
   @Watch('note')
   noteChanged(note: Note) {
     this.noteLabels = noteLabels(note, this.allLabels);
   }
 
-  @Prop()
-  allLabels: Label[];
+  @Prop() allLabels: Label[];
   @Watch('allLabels')
   allLabelsChanged(allLabels: Label[]) {
     this.noteLabels = noteLabels(this.note, allLabels);
@@ -51,40 +50,19 @@ export class HellodashNoteEditDropdown {
   //#endregion
 
   //#region @Event
-  @Event({
-    eventName: 'hellodashNoteEditDropdownVisibleChanged',
-  })
-  dropdownVisibleChanged: EventEmitter<boolean>;
+  @Event({ eventName: 'hellodashNoteEditDropdownVisibleChanged' }) dropdownVisibleChanged: EventEmitter<boolean>;
 
-  @Event({
-    eventName: 'hellodashNoteEditDuplicateNote',
-  })
-  noteDuplicated: EventEmitter<Note>;
+  @Event({ eventName: 'hellodashNoteEditDuplicateNote' }) noteDuplicated: EventEmitter<Note>;
 
-  @Event({
-    eventName: 'hellodashNoteEditDeleteNote',
-  })
-  noteDeleted: EventEmitter<Note>;
+  @Event({ eventName: 'hellodashNoteEditDeleteNote' }) noteDeleted: EventEmitter<Note>;
 
-  @Event({
-    eventName: 'hellodashNoteEditLabelAdded',
-  })
-  labelAdded: EventEmitter<number>;
+  @Event({ eventName: 'hellodashNoteEditLabelAdded' }) labelAdded: EventEmitter<number>;
 
-  @Event({
-    eventName: 'hellodashNoteEditLabelRemoved',
-  })
-  labelRemoved: EventEmitter<number>;
+  @Event({ eventName: 'hellodashNoteEditLabelRemoved' }) labelRemoved: EventEmitter<number>;
 
-  @Event({
-    eventName: 'hellodashNoteEditLabelCreated',
-  })
-  labelCreated: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashNoteEditLabelCreated' }) labelCreated: EventEmitter<Label>;
 
-  @Event({
-    eventName: 'hellodashNoteEditLabelUpdated',
-  })
-  labelUpdated: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashNoteEditLabelUpdated' }) labelUpdated: EventEmitter<Label>;
 
   //#endregion
 
@@ -97,6 +75,13 @@ export class HellodashNoteEditDropdown {
   //#endregion
 
   //#region Listeners
+  //#endregion
+
+  //#region @Method
+  //#endregion
+
+  //#region Local methods
+
   handleDropdownVisibleChanged(e: DashDropdownCustomEvent<void>) {
     const open = e.target.open;
     this.dropdownVisible = open;
@@ -107,12 +92,7 @@ export class HellodashNoteEditDropdown {
 
     this.dropdownVisibleChanged.emit(open);
   }
-  //#endregion
 
-  //#region @Method
-  //#endregion
-
-  //#region Local methods
   addLabel(id: number) {
     this.labelAdded.emit(id);
   }
@@ -137,6 +117,7 @@ export class HellodashNoteEditDropdown {
   deleteNote() {
     this.noteDeleted.emit(this.note);
   }
+
   //#endregion
 
   render() {

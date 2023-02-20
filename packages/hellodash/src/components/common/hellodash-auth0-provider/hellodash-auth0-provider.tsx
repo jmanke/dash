@@ -18,7 +18,9 @@ export class HellodashAuth0Provider {
   //#endregion
 
   //#region @State
+
   @State() isAuthenticated: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -65,9 +67,11 @@ export class HellodashAuth0Provider {
   //#endregion
 
   //#region Component lifecycle
+
   componentWillLoad() {
     this.handleAuthentication();
   }
+
   //#endregion
 
   //#region Listeners
@@ -77,6 +81,7 @@ export class HellodashAuth0Provider {
   //#endregion
 
   //#region Local methods
+
   async login() {
     if (this.isAuthenticated) {
       return;
@@ -98,6 +103,7 @@ export class HellodashAuth0Provider {
     this.signedIn.emit();
     this.refreshAuthToken();
   }
+
   //#endregion
 
   render() {
