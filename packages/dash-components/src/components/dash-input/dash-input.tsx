@@ -43,65 +43,44 @@ export class DashInput implements Focusable {
    * Placeholder text for input
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  placeholder?: string;
+  @Prop({ reflect: true }) placeholder?: string;
 
   /**
    * Value of input
    * @optional
    */
-  @Prop({
-    mutable: true,
-  })
-  value?: string;
+  @Prop({ mutable: true }) value?: string;
 
   /**
    * Size of the input
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * Icon displayed at the end of the input
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  icon?: string;
+  @Prop({ reflect: true }) icon?: string;
 
   /**
    * When `true`, a clear button will be displayed at the end of the input
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  clearable: boolean;
+  @Prop({ reflect: true }) clearable: boolean;
 
   /**
    * Debounces input changes in milliseconds
    * Note: debounce is only initialized on component load. Modifying debounce after initialization will not do anything.
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  debounce?: number;
+  @Prop({ reflect: true }) debounce?: number;
 
   /**
    * Input type
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  type: string;
+  @Prop({ reflect: true }) type: string;
 
   //#endregion
 
@@ -110,18 +89,12 @@ export class DashInput implements Focusable {
   /**
    * Emitted when input changes
    */
-  @Event({
-    eventName: 'dashInputInput',
-  })
-  dashInputInput: EventEmitter<void>;
+  @Event({ eventName: 'dashInputInput' }) dashInputInput: EventEmitter<void>;
 
   /**
    * Emitted only when input is submitted
    */
-  @Event({
-    eventName: 'dashInputSubmit',
-  })
-  dashInputSubmit: EventEmitter<void>;
+  @Event({ eventName: 'dashInputSubmit' }) dashInputSubmit: EventEmitter<void>;
 
   //#endregion
 

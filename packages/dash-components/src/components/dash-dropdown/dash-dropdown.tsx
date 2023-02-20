@@ -16,8 +16,7 @@ export class DashDropdown {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashDropdownElement;
+  @Element() element: HTMLDashDropdownElement;
 
   //#endregion
 
@@ -26,8 +25,7 @@ export class DashDropdown {
   /**
    * Popover target
    */
-  @State()
-  target: HTMLElement;
+  @State() target: HTMLElement;
 
   //#endregion
 
@@ -37,38 +35,25 @@ export class DashDropdown {
    * When `true`, dropdown is open
    * @default false
    */
-  @Prop({
-    mutable: true,
-    reflect: true,
-  })
-  open: boolean = false;
+  @Prop({ mutable: true, reflect: true }) open: boolean = false;
 
   /**
    * Placement strategy for dropdown
    * @default 'absolute'
    */
-  @Prop({
-    reflect: true,
-  })
-  placementStrategy: PlacementStrategy = 'absolute';
+  @Prop({ reflect: true }) placementStrategy: PlacementStrategy = 'absolute';
 
   /**
    * Placement of the dropdown relative to its target
    * @default 'bottom'
    */
-  @Prop({
-    reflect: true,
-  })
-  placement: Placement = 'bottom';
+  @Prop({ reflect: true }) placement: Placement = 'bottom';
 
   /**
    * When `true`, dropdown will close when focus is lost
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  autoClose: boolean;
+  @Prop({ reflect: true }) autoClose: boolean;
 
   //#endregion
 
@@ -77,12 +62,7 @@ export class DashDropdown {
   /**
    * Emitted when dropdown is either opened or closed
    */
-  @Event({
-    eventName: 'dashDropdownOpenChange',
-    composed: true,
-    bubbles: true,
-  })
-  dropdownOpenChange: EventEmitter<void>;
+  @Event({ eventName: 'dashDropdownOpenChange', composed: true, bubbles: true }) openChanged: EventEmitter<void>;
 
   //#endregion
 
@@ -126,6 +106,7 @@ export class DashDropdown {
   async popoverClosed(e: CustomEvent<PopoverCloseEvent>) {
     this.close(e.detail.escapeInitiated);
   }
+
   //#endregion
 
   //#region @Method
@@ -161,7 +142,7 @@ export class DashDropdown {
    */
   updateOpen(open: boolean) {
     this.open = open;
-    this.dropdownOpenChange.emit();
+    this.openChanged.emit();
   }
 
   /**
@@ -211,6 +192,7 @@ export class DashDropdown {
       this.close();
     }
   }
+
   //#endregion
 
   render() {

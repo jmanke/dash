@@ -22,10 +22,7 @@ export class DashLoader {
    * Size of the loader
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   //#endregion
 

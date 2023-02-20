@@ -22,8 +22,7 @@ export class DashModal implements Modal {
 
   //#region @Element
 
-  @Element()
-  element: HTMLElement;
+  @Element() element: HTMLElement;
 
   //#endregion
 
@@ -32,8 +31,7 @@ export class DashModal implements Modal {
   /**
    * When `true`, the modal is closing and playing its animation
    */
-  @State()
-  closing = false;
+  @State() closing = false;
 
   //#endregion
 
@@ -43,65 +41,43 @@ export class DashModal implements Modal {
    * When `true`, the modal is open
    * @default false
    */
-  @Prop({
-    mutable: true,
-    reflect: true,
-  })
-  open: boolean;
+  @Prop({ mutable: true, reflect: true }) open: boolean;
 
   /**
    * Modal heading
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  heading?: string;
+  @Prop({ reflect: true }) heading?: string;
 
   /**
    * When `true`, modal is in fullscreen mode
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  fullscreen: boolean;
+  @Prop({ reflect: true }) fullscreen: boolean;
 
   /**
    * Size of the modal
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, the close button is not displayed
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  hideCloseButton: boolean;
+  @Prop({ reflect: true }) hideCloseButton: boolean;
 
   /**
    * When `true`, sets focus on the close button if it's available
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  autoFocus: boolean;
+  @Prop({ reflect: true }) autoFocus: boolean;
 
   /**
    * When `true`, the modal will not automatically go into fullscreen mode when the screen size is mobile.
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  disableFullscreenMobileView: boolean;
+  @Prop({ reflect: true }) disableFullscreenMobileView: boolean;
 
   //#endregion
 
@@ -110,20 +86,12 @@ export class DashModal implements Modal {
   /**
    * Emitted when the modal is about to close (before the animation starts playing)
    */
-  @Event({
-    eventName: 'dashModalBeforeClose',
-    bubbles: true,
-  })
-  dashModalBeforeClose: EventEmitter;
+  @Event({ eventName: 'dashModalBeforeClose', bubbles: true }) dashModalBeforeClose: EventEmitter;
 
   /**
    * Emitted after the modal's close animation completes and the modal is actually closed
    */
-  @Event({
-    eventName: 'dashModalClosed',
-    bubbles: true,
-  })
-  dashModalClosed: EventEmitter;
+  @Event({ eventName: 'dashModalClosed', bubbles: true }) dashModalClosed: EventEmitter;
 
   //#endregion
 

@@ -21,8 +21,7 @@ export class DashScrim {
    * When `true`, the scrim is visible
    * @default false
    */
-  @Prop()
-  active: boolean;
+  @Prop({ reflect: true }) active: boolean;
 
   //#endregion
 

@@ -18,8 +18,7 @@ export class DashListItem implements Focusable {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashListItemElement;
+  @Element() element: HTMLDashListItemElement;
 
   //#endregion
 
@@ -28,8 +27,7 @@ export class DashListItem implements Focusable {
   /**
    * When `true`, list item visually indicates it's active
    */
-  @State()
-  isActive: boolean;
+  @State() isActive: boolean;
 
   //#endregion
 
@@ -40,38 +38,25 @@ export class DashListItem implements Focusable {
    * @internal
    * @default 'single'
    */
-  @Prop({
-    reflect: true,
-  })
-  selectionMode: SelectionMode = 'single';
+  @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
 
   /**
    * Size of the list-item
    * @internal
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, list-item is selected
    * @default false
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  selected: boolean = false;
+  @Prop({ reflect: true, mutable: true }) selected: boolean = false;
 
   /**
    * When `true`, interaction is disabled
    */
-  @Prop({
-    reflect: true,
-  })
-  disabled: boolean;
+  @Prop({ reflect: true }) disabled: boolean;
 
   //#endregion
 
@@ -80,29 +65,19 @@ export class DashListItem implements Focusable {
   /**
    * Emitted when selected has changed
    */
-  @Event({
-    eventName: 'dashListItemSelectedChanged',
-    composed: true,
-  })
-  dashListItemSelectedChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashListItemSelectedChanged', composed: true }) selectedChanged: EventEmitter<void>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the next list-item
    * @internal
    */
-  @Event({
-    eventName: 'dashInternalListItemMoveNext',
-  })
-  internalListItemMoveNext: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemMoveNext' }) internalMoveNext: EventEmitter<void>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the previous list-item
    * @internal
    */
-  @Event({
-    eventName: 'dashInternalListItemMovePrevious',
-  })
-  internalListItemMovePrevious: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<void>;
 
   //#endregion
 
@@ -133,7 +108,7 @@ export class DashListItem implements Focusable {
   click(e: MouseEvent) {
     if (isClick(e) && !this.disabled) {
       this.selected = !this.selected;
-      this.dashListItemSelectedChanged.emit();
+      this.selectedChanged.emit();
     }
   }
 
@@ -150,7 +125,7 @@ export class DashListItem implements Focusable {
     if (isClick(e) && !this.disabled) {
       this.updateIsActive(true);
       this.selected = !this.selected;
-      this.dashListItemSelectedChanged.emit();
+      this.selectedChanged.emit();
     }
 
     if (e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Space') {
@@ -159,9 +134,9 @@ export class DashListItem implements Focusable {
     }
 
     if (e.code === 'ArrowUp') {
-      this.internalListItemMovePrevious.emit();
+      this.internalMovePrevious.emit();
     } else if (e.code === 'ArrowDown') {
-      this.internalListItemMoveNext.emit();
+      this.internalMoveNext.emit();
     }
   }
 

@@ -13,8 +13,7 @@ export class DashChip {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashChipElement;
+  @Element() element: HTMLDashChipElement;
 
   //#endregion
 
@@ -23,8 +22,7 @@ export class DashChip {
   /**
    * Reference target of the popover
    */
-  @State()
-  popoverTarget: HTMLElement;
+  @State() popoverTarget: HTMLElement;
 
   //#endregion
 
@@ -34,46 +32,31 @@ export class DashChip {
    * Displayed heading on the chip
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  heading: string;
+  @Prop({ reflect: true }) heading: string;
 
   /**
    * When `true`, the chip can be interacted with
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  selectable: boolean;
+  @Prop({ reflect: true }) selectable: boolean;
 
   /**
    * Text to display when user focuses or hovers over dismiss button
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  dismissTooltipText?: string;
+  @Prop({ reflect: true }) dismissTooltipText?: string;
 
   /**
    * When `true`, chip can be removed
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  dismissible: boolean = false;
+  @Prop({ reflect: true }) dismissible: boolean = false;
 
   /**
    * Background color of the chip
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  color: Color | string;
+  @Prop({ reflect: true }) color: Color | string;
 
   //#endregion
 
@@ -82,10 +65,7 @@ export class DashChip {
   /**
    * Emitted when the chip is removed
    */
-  @Event({
-    eventName: 'dashChipDismiss',
-  })
-  dashChipDismiss: EventEmitter;
+  @Event({ eventName: 'dashChipDismiss' }) dashChipDismiss: EventEmitter<void>;
 
   //#endregion
 
