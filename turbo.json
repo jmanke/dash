@@ -19,6 +19,9 @@
     "start:hellodash": {
       "dependsOn": ["^build:components"]
     },
+    "start:hellodash-vue": {
+      "dependsOn": ["^build:components"]
+    },
     "start:components": {
       "dependsOn": ["^build:utils"]
     },
