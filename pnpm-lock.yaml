@@ -15,7 +15,6 @@ importers:
 
   packages/dash-components:
     specifiers:
-      '@a11y/focus-trap': ^1.0.5
       '@babel/core': ^7.19.3
       '@didyoumeantoast/component-forge': ^0.4.1
       '@didyoumeantoast/dash-utils': ^1.1.4
@@ -41,7 +40,6 @@ importers:
       rollup-plugin-dotenv: ^0.3.0
       webpack: ^5.75.0
     dependencies:
-      '@a11y/focus-trap': 1.0.5
       '@didyoumeantoast/dash-utils': link:../dash-utils
       '@popperjs/core': 2.11.6
       '@stencil/core': 3.0.0

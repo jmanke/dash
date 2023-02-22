@@ -36,7 +36,6 @@
     "generate-icons": "cd ./bootstrap-icons && node extract-paths.js"
   },
   "dependencies": {
-    "@a11y/focus-trap": "^1.0.5",
     "@didyoumeantoast/dash-utils": "^1.1.4",
     "@popperjs/core": "^2.11.5",
     "@stencil/core": "^3.0.0",
