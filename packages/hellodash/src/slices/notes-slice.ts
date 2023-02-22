@@ -1,9 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Note } from '../models/note';
+import { Note, Label, Status } from '@didyoumeantoast/hellodash-models';
 import { fetchNote, fetchNotePreviews, updateNote as updateNoteApi, deleteNote as deleteNoteApi, createNote as createNoteApi, updateNotePreview } from '../api/note-api';
-import { Status } from '../enums/status';
-import { Label } from '../models/label';
 
 async function _updateNote(note: Note) {
   return note.content === null ? await updateNotePreview(note) : await updateNoteApi(note);
@@ -113,7 +111,7 @@ export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async (
   return _updateNote(newNote);
 });
 
-const initialState: Note[] | null = null;
+const initialState: Note[] = [];
 
 export const notesSlice = createSlice({
   name: 'notes',

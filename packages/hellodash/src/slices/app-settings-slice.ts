@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { AppSettings } from '../models/app-settings';
-import { Theme } from '../types/types';
+import { AppSettings, Theme } from '@didyoumeantoast/hellodash-models';
 import { getLocalStorage, setLocalStorage } from '../utils/local-storage';
 
 const LOCAL_STORAGE_KEY = 'hellodash-app-settings';

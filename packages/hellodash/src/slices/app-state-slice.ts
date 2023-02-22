@@ -1,7 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { AppState } from '../models/app-state';
-import { User } from '../models/user';
+import { AppState, User } from '@didyoumeantoast/hellodash-models';
 
 const initialState: AppState = {
   loaded: false,

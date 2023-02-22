@@ -2,58 +2,34 @@
   "name": "@didyoumeantoast/hellodash",
   "private": true,
   "version": "1.0.0",
-  "description": "Hellodash is a modern note taking web-app built with StencilJS",
-  "module": "esm",
+  "type": "module",
   "scripts": {
-    "build": "stencil build",
-    "start": "stencil build --dev --watch --serve",
-    "start:hellodash": "pnpm start",
-    "test": "stencil test --spec --e2e",
-    "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate",
-    "generate-icons": "cd ./bootstrap-icons && node extract-paths.js"
-  },
-  "devDependencies": {
-    "@stencil/core": "^3.0.0",
-    "@stencil/postcss": "^2.1.0",
-    "@stencil/store": "^1.4.1",
-    "@types/jest": "^26.0.24",
-    "@types/lodash": "^4.14.177",
-    "@types/luxon": "^2.3.2",
-    "@types/node": "^17.0.9",
-    "@types/uuid": "^8.3.3",
-    "autoprefixer": "^10.3.5",
-    "jest": "^27.2.5",
-    "jest-cli": "^27.2.5",
-    "postcss": "8.4.6",
-    "postcss-extend-rule": "^4.0.0",
-    "postcss-nested": "^5.0.6",
-    "puppeteer": "^10.4.0",
-    "rollup": "1.20.0"
+    "start": "vite",
+    "start:hellodash": "vite",
+    "build": "vue-tsc && vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
     "@didyoumeantoast/dash-components": "^1.2.0",
     "@didyoumeantoast/dash-utils": "^1.1.4",
-    "@didyoumeantoast/tinymce-plugins": "^1.1.4",
-    "@popperjs/core": "^2.11.0",
+    "@didyoumeantoast/hellodash-components": "^1.0.0",
+    "@didyoumeantoast/hellodash-models": "^1.0.0",
     "@reduxjs/toolkit": "^1.9.2",
-    "@stencil-community/router": "^1.0.2",
-    "@types/qs": "^6.9.7",
     "axios": "^0.24.0",
-    "immer": "^9.0.19",
     "lodash": "^4.17.21",
-    "luxon": "^2.4.0",
     "qs": "^6.10.3",
-    "serve": "^13.0.4",
-    "tinymce": "^5.10.2",
-    "uuid": "^8.3.2"
+    "vue": "^3.2.45",
+    "vue-router": "4"
   },
-  "engines": {
-    "node": "18.x"
-  },
-  "volta": {
-    "node": "18.12.1"
+  "devDependencies": {
+    "@babel/core": "^7.21.0",
+    "@types/lodash": "^4.14.177",
+    "@types/qs": "^6.9.7",
+    "@vitejs/plugin-vue": "^4.0.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0",
+    "vite-plugin-static-copy": "^0.13.0",
+    "vue-tsc": "^1.0.24"
   }
 }

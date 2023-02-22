@@ -1,0 +1,31 @@
+{
+  "name": "@didyoumeantoast/hellodash-models",
+  "publishConfig": {
+    "access": "public"
+  },
+  "version": "1.0.0",
+  "description": "Models used by Hellodash",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "node build.js",
+    "build:dev": "pnpm build",
+    "build:hellodash-models": "pnpm build"
+  },
+  "files": [
+    "lib/"
+  ],
+  "type": "module",
+  "devDependencies": {
+    "esbuild": "^0.15.17",
+    "esbuild-plugin-d.ts": "^1.1.0",
+    "typescript": "^4.7.4"
+  },
+  "dependencies": {},
+  "license": "MIT",
+  "engines": {
+    "node": "18.x"
+  },
+  "volta": {
+    "node": "18.12.1"
+  }
+}

@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { Label } from '../models/label';
+import { Label } from '@didyoumeantoast/hellodash-models';
 import { fetchLabel, fetchLabels, createLabel as createLabelApi, updateLabel as updateLabelApi, deleteLabel as deleteLabelApi } from '../api/labels-api';
 import { sortBy } from 'lodash';
 import { syncLabels } from './notes-slice';
@@ -45,7 +45,7 @@ export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: L
   return deleteLabelApi(label);
 });
 
-const initialState: Label[] | null = null;
+const initialState: Label[] = [];
 
 export const labelsSlice = createSlice({
   name: 'labels',

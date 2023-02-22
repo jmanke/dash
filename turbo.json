@@ -9,18 +9,23 @@
       "dependsOn": ["^build:utils"],
       "outputs": ["dist/**", "www/**"]
     },
+    "build:hellodash-components": {
+      "dependsOn": ["^build:components", "^build:hellodash-models"],
+      "outputs": ["dist/**", "www/**"]
+    },
     "build:dev": {
       "dependsOn": ["^build:dev"],
       "outputs": ["dist/**", "www/**"]
+    },
+    "build:hellodash-models": {
+      "outputs": ["dist/**"]
     },
     "build:utils": {
       "outputs": ["dist/**", "www/**"]
     },
     "start:hellodash": {
-      "dependsOn": ["^build:components"]
-    },
-    "start:hellodash-vue": {
-      "dependsOn": ["^build:components"]
+      "dependsOn": ["^build:hellodash-components"],
+      "outputs": ["dist/**"]
     },
     "start:components": {
       "dependsOn": ["^build:utils"]

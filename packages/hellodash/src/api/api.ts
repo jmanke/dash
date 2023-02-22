@@ -1,8 +1,8 @@
-import axios, { AxiosError } from 'axios';
-import qs from 'qs';
-import CancelationToken from './cancellation-token';
-import { CONSTANTS } from '../constants';
-import { dashRootService } from '../components/dash-root/dash-root-service';
+import axios, { AxiosError } from "axios";
+import qs from "qs";
+import CancelationToken from "./cancellation-token";
+import { CONSTANTS } from "../constants";
+import { hellodashService } from "../services/hellodash-service";
 
 //#region interfaces
 
@@ -23,16 +23,27 @@ export interface PagedResponse<T> {
 
 //#region constants
 
-export const baseApiUrl = (): string => (CONSTANTS.LIVE_SERVER ? 'https://hellodash-server-2x.herokuapp.com/api' : 'http://localhost:5000/api');
+export const baseApiUrl = (): string =>
+  CONSTANTS.LIVE_SERVER
+    ? "https://hellodash-server-2x.herokuapp.com/api"
+    : "http://localhost:5000/api";
 
 //#endregion
 
 //#region REST functions
 
-export async function get<T>({ url, config, cancelationToken }: { url: string; config?: any; cancelationToken?: CancelationToken }): Promise<T | null> {
+export async function get<T>({
+  url,
+  config,
+  cancelationToken,
+}: {
+  url: string;
+  config?: any;
+  cancelationToken?: CancelationToken;
+}): Promise<T | null> {
   return axios
     .get<T>(createUrl(url), await configWithAuthAndParams(config))
-    .then(response => {
+    .then((response) => {
       if (cancelationToken?.cancelled) {
         return null;
       }
@@ -50,10 +61,14 @@ export async function get<T>({ url, config, cancelationToken }: { url: string; c
     });
 }
 
-export async function post<T, U>(url: string, data: T, config?: any): Promise<U> {
+export async function post<T, U>(
+  url: string,
+  data: T,
+  config?: any
+): Promise<U> {
   return axios
     .post<U>(createUrl(url), data, await configWithAuth(config))
-    .then(response => response.data)
+    .then((response) => response.data)
     .catch((error: AxiosError) => {
       handleError(error);
 
@@ -61,10 +76,14 @@ export async function post<T, U>(url: string, data: T, config?: any): Promise<U>
     });
 }
 
-export async function put<T, U>(url: string, data: T, config?: any): Promise<U> {
+export async function put<T, U>(
+  url: string,
+  data: T,
+  config?: any
+): Promise<U> {
   return axios
     .put<U>(createUrl(url), data, await configWithAuth(config))
-    .then(response => response.data)
+    .then((response) => response.data)
     .catch((error: AxiosError) => {
       handleError(error);
 
@@ -72,10 +91,14 @@ export async function put<T, U>(url: string, data: T, config?: any): Promise<U> 
     });
 }
 
-export async function patch<T, U>(url: string, data?: T, config?: any): Promise<U> {
+export async function patch<T, U>(
+  url: string,
+  data?: T,
+  config?: any
+): Promise<U> {
   return axios
     .patch<U>(createUrl(url), data, await configWithAuth(config))
-    .then(response => response.data)
+    .then((response) => response.data)
     .catch((error: AxiosError) => {
       handleError(error);
 
@@ -86,7 +109,7 @@ export async function patch<T, U>(url: string, data?: T, config?: any): Promise<
 export async function remove<T>(url: string, config?: any): Promise<T> {
   return axios
     .delete<T>(createUrl(url), await configWithAuth(config))
-    .then(response => response.data)
+    .then((response) => response.data)
     .catch((error: AxiosError) => {
       handleError(error);
 
@@ -106,10 +129,10 @@ async function configWithAuthAndParams(config: Record<string, any>) {
   return {
     ...config,
     headers: {
-      Authorization: `Bearer ${await dashRootService.authClient.getTokenSilently()}`,
+      Authorization: `Bearer ${await hellodashService.authClient.getTokenSilently()}`,
     },
     paramsSerializer: (params: string) => {
-      return qs.stringify(params, { arrayFormat: 'repeat' });
+      return qs.stringify(params, { arrayFormat: "repeat" });
     },
   };
 }
@@ -118,7 +141,7 @@ async function configWithAuth(config: Record<string, any>) {
   return {
     ...config,
     headers: {
-      Authorization: `Bearer ${await dashRootService.authClient.getTokenSilently()}`,
+      Authorization: `Bearer ${await hellodashService.authClient.getTokenSilently()}`,
     },
   };
 }

@@ -10,8 +10,10 @@
   "scripts": {
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
+    "build:hellodash-components": "turbo run build:hellodash-components",
+    "build:hellodash-models": "turbo run build:hellodash-models",
     "start:hellodash": "turbo run start:hellodash",
-    "start:hellodash-vue": "turbo run start:hellodash-vue",
+    "start:hellodash-components": "turbo run start:hellodash-components",
     "start:components": "turbo run start:components",
     "start:components:forge": "turbo run start:components:forge"
   },
