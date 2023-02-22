@@ -1,7 +1,7 @@
 import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
 import { Focusable } from '../../interfaces/focusable';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 
 @Component({
   tag: 'dash-filter',

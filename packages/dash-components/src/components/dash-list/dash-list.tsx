@@ -1,6 +1,6 @@
 import { Component, Host, h, Prop, Element, Watch, State } from '@stencil/core';
 import { isDefined } from '@didyoumeantoast/dash-utils';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none';
 

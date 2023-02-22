@@ -68,7 +68,7 @@ function deselectAll() {
     <div v-if="archivedNotes.length" class="header" slot="header">
       <span class="notes-selected">{{ selectedNotes.size ? `Selected: ${selectedNotes.size}` : '' }}</span>
       <div class="content-end">
-        <template v-if="!">
+        <template v-if="!mobileView">
           <dash-button @click="() => (selectedNotes.size === archivedNotes.length ? deselectAll() : selectAll())">
             {{ selectedNotes.size === archivedNotes.length ? 'Deselect all' : 'Select all' }}
           </dash-button>

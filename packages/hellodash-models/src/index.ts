@@ -1,11 +1,9 @@
-import { AppSettings } from './app-settings';
-import { AppState } from './app-state';
-import { Label } from './label';
-import { Model } from './model';
-import { Note } from './note';
-import { User } from './user';
+export type { AppSettings } from './app-settings';
+export type { AppState } from './app-state';
+export type { Label } from './label';
+export type { Model } from './model';
+export type { Note } from './note';
+export type { User } from './user';
+export type { Theme } from './types/theme';
 
-export { AppSettings, AppState, Label, Model, Note, User };
-
-export * from './types';
-export * from './enums';
+export { Status } from './enums/status';

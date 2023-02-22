@@ -5,12 +5,12 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "www/**"]
     },
-    "build:components": {
-      "dependsOn": ["^build:utils"],
+    "build:dash-components": {
+      "dependsOn": ["^build:dash-utils"],
       "outputs": ["dist/**", "www/**"]
     },
     "build:hellodash-components": {
-      "dependsOn": ["^build:components", "^build:hellodash-models"],
+      "dependsOn": ["^build:dash-components", "^build:hellodash-models"],
       "outputs": ["dist/**", "www/**"]
     },
     "build:dev": {
@@ -20,15 +20,19 @@
     "build:hellodash-models": {
       "outputs": ["dist/**"]
     },
-    "build:utils": {
-      "outputs": ["dist/**", "www/**"]
+    "build:dash-utils": {
+      "outputs": ["dist/**"]
     },
     "start:hellodash": {
       "dependsOn": ["^build:hellodash-components"],
       "outputs": ["dist/**"]
     },
-    "start:components": {
+    "start:dash-components": {
       "dependsOn": ["^build:utils"]
+    },
+    "start:hellodash-components": {
+      "dependsOn": ["^build:hellodash-components"],
+      "outputs": ["dist/**"]
     },
     "start:components:forge": {}
   }

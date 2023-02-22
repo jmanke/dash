@@ -1,5 +1,5 @@
 import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
-import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
+import { Modal } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
 
 @Component({

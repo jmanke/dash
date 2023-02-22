@@ -1,7 +1,7 @@
 import { Component, h, Prop, Listen, Event, EventEmitter } from '@stencil/core';
-import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
+import { Color } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
-import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
+import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components';
 
 @Component({
   tag: 'hellodash-label-edit',

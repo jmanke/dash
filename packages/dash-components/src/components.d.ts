@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
+import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
@@ -13,7 +13,7 @@ import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 import { Resize } from "./components/dash-textarea/dash-textarea";
-export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
+export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
 export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 export { IconColor } from "./components/dash-icon/dash-icon";
 export { LabelLayout } from "./components/dash-label/dash-label";

@@ -14,7 +14,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader',
+      esmLoaderPath: './loader',
       copy: [{ src: 'assets' }],
     },
     {
@@ -34,7 +34,7 @@ export const config: Config = {
       ],
     },
   ],
-  //add postcss as a plugin
+  // add postcss as a plugin
   plugins: [
     postcss({
       // add postcss plugins

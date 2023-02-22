@@ -1,5 +1,5 @@
 import { Component, h, Prop, Method } from '@stencil/core';
-import { Color, Scale } from '../../types/types';
+import { Color, Scale } from '../../types';
 import { isHex } from '@didyoumeantoast/dash-utils';
 import { Focusable } from '../../interfaces/focusable';
 

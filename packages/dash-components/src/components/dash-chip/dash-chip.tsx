@@ -1,5 +1,5 @@
 import { Component, Host, h, Prop, Event, EventEmitter, Element, State } from '@stencil/core';
-import { Color } from '../../types/types';
+import { Color } from '../../types';
 import { isHex } from '@didyoumeantoast/dash-utils';
 
 @Component({

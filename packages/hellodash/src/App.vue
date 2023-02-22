@@ -71,6 +71,9 @@ async function userSignedIn() {
 </script>
 
 <template>
+  Heyo
+  <dash-button>Hello</dash-button>
+
   <hellodash-auth0-provider v-if="isAppStateLoaded" :authClient="hellodashService.authClient" @hellodashAuth0ProviderSignedIn="userSignedIn">
     <hellodash-app v-if="!rootState.appState.error && rootState.appState.currentUser" :rootState="rootState"></hellodash-app>
     <div v-if="rootState.appState.error" class="root-error-message">Oops! Something went wrong...</div>

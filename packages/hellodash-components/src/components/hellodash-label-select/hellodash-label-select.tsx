@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Event, h, State, Prop, Watch, Element, Listen } from '@stencil/core';
 import { isEmpty } from 'lodash';
 import { Label } from '@didyoumeantoast/hellodash-models';
-import { Color } from '@didyoumeantoast/dash-components/dist/types/types/types';
+import { Color } from '@didyoumeantoast/dash-components';
 
 @Component({
   tag: 'hellodash-label-select',

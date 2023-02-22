@@ -36,7 +36,6 @@ importers:
       postcss: 8.4.6
       postcss-extend-rule: ^4.0.0
       postcss-nested: ^5.0.6
-      postcss-replace: ^2.0.0
       puppeteer: ^10.4.0
       rollup: 1.20.0
       rollup-plugin-dotenv: ^0.3.0
@@ -64,13 +63,12 @@ importers:
       postcss: 8.4.6
       postcss-extend-rule: 4.0.0_postcss@8.4.6
       postcss-nested: 5.0.6_postcss@8.4.6
-      postcss-replace: 2.0.0_postcss@8.4.6
       puppeteer: 10.4.0
       rollup: 1.20.0
       rollup-plugin-dotenv: 0.3.0_rollup@1.20.0
       webpack: 5.75.0
 
-  packages/dash-components/loader:
+  packages/dash-components/dist/loader:
     specifiers: {}
 
   packages/dash-utils:
@@ -131,7 +129,6 @@ importers:
 
   packages/hellodash-components:
     specifiers:
-      '@a11y/focus-trap': ^1.0.5
       '@auth0/auth0-spa-js': ^1.19.4
       '@didyoumeantoast/dash-components': ^1.2.0
       '@didyoumeantoast/dash-utils': ^1.1.4
@@ -163,7 +160,6 @@ importers:
       tinymce: ^5.10.2
       uuid: ^8.3.2
     dependencies:
-      '@a11y/focus-trap': 1.0.5
       '@auth0/auth0-spa-js': 1.22.5
       '@didyoumeantoast/dash-components': link:../dash-components
       '@didyoumeantoast/dash-utils': link:../dash-utils
@@ -195,6 +191,9 @@ importers:
       postcss-nested: 5.0.6_postcss@8.4.6
       puppeteer: 10.4.0
       rollup: 1.20.0
+
+  packages/hellodash-components/dist/loader:
+    specifiers: {}
 
   packages/hellodash-models:
     specifiers:
@@ -2578,10 +2577,6 @@ packages:
     engines: {node: '>=4.0.0'}
     dev: false
 
-  /deep-get-set/1.1.1:
-    resolution: {integrity: sha512-dBrY4GeR55KfyF9Ipswif/Et4muInKpXkf3ro9hFT/8OdPMVsEGNSfuGzfBv/dJKKwKSqInoZGKV5f40bA7TJA==}
-    dev: true
-
   /deep-is/0.1.4:
     resolution: {integrity: sha512-oIPzksmTg4/MriiaYGO+okXDT7ztn/w3Eptv/+gSIdMdKsJo0u4CfYNFJPy+4SKMuCqGw2wxnA+URMg3t8a/bQ==}
     dev: true
@@ -4443,11 +4438,6 @@ packages:
       graceful-fs: 4.2.10
     dev: true
 
-  /kind-of/6.0.3:
-    resolution: {integrity: sha512-dcS1ul+9tmeD95T+x28/ehLgd9mENa3LsvDTtzm3vyBEO7RPptvAD+t44WVXaUjTBRcrpFeFlC8WCruUR456hw==}
-    engines: {node: '>=0.10.0'}
-    dev: true
-
   /kleur/3.0.3:
     resolution: {integrity: sha512-eTIzlVOSUR+JxdDFepEYcBMtZ9Qqdef+rnzWdRZuMbOywu5tO2w2N7rqjoANZ5k9vywhL6Br1VRjUIgTQx4E8w==}
     engines: {node: '>=6'}
@@ -4934,17 +4924,6 @@ packages:
       '@csstools/selector-specificity': 2.0.2_xgtvoiev5jn4v5pqs3czwfhwti
       postcss: 8.4.6
       postcss-selector-parser: 6.0.11
-    dev: true
-
-  /postcss-replace/2.0.0_postcss@8.4.6:
-    resolution: {integrity: sha512-8d64/c/dJL2/zjnQvCD1/eH04xMreXFHdC9F0APl/M7Cg0KyLvN+f/HCb87jbyG1dyIbR4zD7sxl/W4JIp9ppQ==}
-    engines: {node: ^12 || ^14 || >=16}
-    peerDependencies:
-      postcss: ^8.4
-    dependencies:
-      deep-get-set: 1.1.1
-      kind-of: 6.0.3
-      postcss: 8.4.6
     dev: true
 
   /postcss-selector-parser/6.0.11:

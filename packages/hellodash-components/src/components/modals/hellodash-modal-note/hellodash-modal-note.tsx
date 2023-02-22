@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
-import { Modal } from '@didyoumeantoast/dash-components/dist/types/interfaces/modal';
+import { Modal } from '@didyoumeantoast/dash-components';
 import { Note, Label, Theme } from '@didyoumeantoast/hellodash-models';
 import produce from 'immer';
 import { noteLabels } from '../../../utils/note-labels';

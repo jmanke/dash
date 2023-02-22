@@ -1,5 +1,5 @@
 import { Component, Element, h, Method, Prop } from '@stencil/core';
-import { Scale, Status, Appearance } from '../../types/types';
+import { Scale, Status, Appearance } from '../../types';
 import { Focusable } from '../../interfaces/focusable';
 
 @Component({

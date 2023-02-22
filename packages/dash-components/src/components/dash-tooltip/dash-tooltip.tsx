@@ -1,5 +1,5 @@
 import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 import { queryElementById, isNone } from '@didyoumeantoast/dash-utils';
 import { Placement, PlacementStrategy } from '../dash-popover/dash-popover';
 

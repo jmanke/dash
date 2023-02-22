@@ -9,9 +9,7 @@ const entryPoints = [
   'src/model.ts',
   'src/note.ts',
   'src/user.ts',
-  'src/types/index.ts',
   'src/types/theme.ts',
-  'src/enums/index.ts',
   'src/enums/status.ts',
 ];
 

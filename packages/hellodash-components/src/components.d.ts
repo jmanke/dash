@@ -6,11 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
+import { Color, Status } from "@didyoumeantoast/dash-components";
 import { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 import { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export { Auth0Client } from "@auth0/auth0-spa-js";
-export { Color, Status } from "@didyoumeantoast/dash-components/dist/types/types/types";
+export { Color, Status } from "@didyoumeantoast/dash-components";
 export { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 export { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export namespace Components {

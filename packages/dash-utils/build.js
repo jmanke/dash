@@ -23,7 +23,7 @@ build({
   entryPoints,
   bundle: false,
   minify: true,
-  outdir: 'lib',
+  outdir: 'dist',
   platform: 'node',
   format: 'esm',
   plugins: [dtsPlugin()],

@@ -1,4 +1,4 @@
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 import { classExists, contains, focus, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@stencil/core';
 

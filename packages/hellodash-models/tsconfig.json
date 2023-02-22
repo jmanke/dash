@@ -1,16 +1,14 @@
 {
   "compilerOptions": {
-    "incremental": true,            /* Enable incremental compilation */
-    "target": "es6",                /* Specify ECMAScript target version: */
-    "module": "ES6",           /* 'none', 'commonjs', 'amd', 'system', etc */
-    "declaration": true,            /* Concatenate & emit output to single file.*/
-    "outDir": "lib",                /* Redirect output to the directory. */
-    "esModuleInterop": false,        /* Enables intero between CommonJS and ES */
-    "skipLibCheck": true,           /* Skip type checking of declaration files. */
-    "forceConsistentCasingInFileNames": true, /* Disallow inconsistently */
+    "incremental": true /* Enable incremental compilation */,
+    "target": "esnext" /* Specify ECMAScript target version: */,
+    "module": "ESNext" /* 'none', 'commonjs', 'amd', 'system', etc */,
+    "declaration": true /* Concatenate & emit output to single file.*/,
+    "outDir": "dist" /* Redirect output to the directory. */,
+    "esModuleInterop": false /* Enables intero between CommonJS and ES */,
+    "skipLibCheck": false /* Skip type checking of declaration files. */,
+    "forceConsistentCasingInFileNames": true /* Disallow inconsistently */,
     "moduleResolution": "node"
   },
-  "include": [
-    "src"
-  ]
+  "include": ["src"]
 }

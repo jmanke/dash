@@ -7,18 +7,17 @@
   "module": "dist/index.js",
   "es2015": "dist/esm/index.mjs",
   "es2017": "dist/esm/index.mjs",
-  "types": "dist/types/index.d.ts",
+  "types": "dist/types/components.d.ts",
   "collection": "dist/collection/collection-manifest.json",
   "collection:main": "dist/collection/index.js",
   "files": [
-    "dist/",
-    "loader/"
+    "dist/"
   ],
   "scripts": {
     "build": "stencil build",
     "build:hellodash-components": "stencil build",
     "start": "stencil build --dev --watch --serve",
-    "start:hellodash": "pnpm start",
+    "start:hellodash-components": "pnpm start",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
@@ -43,7 +42,6 @@
     "rollup": "1.20.0"
   },
   "dependencies": {
-    "@a11y/focus-trap": "^1.0.5",
     "@auth0/auth0-spa-js": "^1.19.4",
     "@didyoumeantoast/dash-components": "^1.2.0",
     "@didyoumeantoast/dash-utils": "^1.1.4",

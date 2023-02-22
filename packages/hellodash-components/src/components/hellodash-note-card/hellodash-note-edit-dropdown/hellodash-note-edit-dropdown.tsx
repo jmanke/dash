@@ -1,4 +1,4 @@
-import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components/dist/types/components';
+import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components';
 import { Component, Event, EventEmitter, h, Prop, State, Watch } from '@stencil/core';
 import { Note, Label } from '@didyoumeantoast/hellodash-models';
 import { noteLabels } from '../../../utils/note-labels';
