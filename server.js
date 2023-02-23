@@ -14,7 +14,7 @@ if (process.env.NODE_ENV === "production") {
 
 app.use((request, response) => {
   return handler(request, response, {
-    public: "packages/hellodash/www/",
+    public: "packages/hellodash/dist/",
   });
 });
 
