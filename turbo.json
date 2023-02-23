@@ -38,6 +38,6 @@
     "start:hellodash-components": {
       "dependsOn": ["^build:dependency"]
     },
-    "start:components:forge": {}
+    "start:dash-components:forge": {}
   }
 }
