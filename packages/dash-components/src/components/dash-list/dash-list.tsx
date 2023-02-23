@@ -1,6 +1,6 @@
-import { Component, Host, h, Prop, Element, Watch, State } from '@stencil/core';
-import { isDefined } from '@didyoumeantoast/dash-utils';
-import { Scale } from '../../types/types';
+import { isNone } from '@didyoumeantoast/dash-utils';
+import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none';
 
@@ -142,7 +142,7 @@ export class DashList {
   focusNextListItem(element: HTMLDashListItemElement) {
     element.tabIndex = -1;
     let nextSibling = this.nextSibling(element);
-    while (!isDefined(nextSibling.getAttribute) || isDefined(nextSibling.getAttribute('disabled'))) {
+    while (isNone(nextSibling.getAttribute) || !isNone(nextSibling.getAttribute('disabled'))) {
       nextSibling = this.nextSibling(nextSibling);
 
       if (nextSibling === element) {
@@ -161,7 +161,7 @@ export class DashList {
   focusPreviousListItem(e: HTMLDashListItemElement) {
     e.tabIndex = -1;
     let prevSibling = this.prevSibling(e);
-    while (!isDefined(prevSibling.getAttribute) || isDefined(prevSibling.getAttribute('disabled'))) {
+    while (isNone(prevSibling.getAttribute) || !isNone(prevSibling.getAttribute('disabled'))) {
       prevSibling = this.prevSibling(prevSibling);
 
       if (prevSibling === e) {

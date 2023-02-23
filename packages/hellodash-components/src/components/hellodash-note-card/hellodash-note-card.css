@@ -1,0 +1,105 @@
+@import '../../assets/styles/_app.css';
+@import '../../assets/styles/_focus-outline.css';
+
+:host {
+  display: block;
+}
+
+:host([mode='selectable']) {
+  .note-card button {
+    border: var(--dash-border-style-transparent);
+
+    &.selected {
+      border: var(--dash-border-style-brand);
+    }
+  }
+}
+
+.note-card {
+  position: relative;
+  display: flex;
+  height: 100%;
+  width: 100%;
+
+  button {
+    position: relative;
+    padding-top: var(--dash-spacing-4);
+    padding-bottom: var(--dash-spacing-4);
+    padding-left: var(--dash-spacing-6);
+    padding-right: var(--dash-spacing-20);
+    background-color: var(--dash-background-2);
+    border-radius: var(--dash-border-radius);
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex: auto;
+
+    &:focus-visible {
+      @extend .focus-outline;
+    }
+
+    &:active {
+      background-color: var(--dash-background-3);
+    }
+
+    .card-selected-icon {
+      color: var(--dash-brand);
+      position: absolute;
+      top: var(--dash-spacing-3);
+      right: var(--dash-spacing-3);
+    }
+  }
+
+  .date-label {
+    margin-top: var(--dash-spacing-1);
+    margin-bottom: 0;
+    font-size: var(--dash-font-size-0);
+  }
+
+  .title {
+    font-size: var(--dash-font-size-3);
+    margin-top: var(--dash-spacing-1);
+    margin-bottom: var(--dash-spacing-3);
+  }
+
+  .preview {
+    margin-bottom: var(--dash-spacing-3);
+    font-size: var(--dash-font-size-1);
+    color: var(--dash-text-color-3);
+    overflow-wrap: anywhere;
+    word-break: normal;
+  }
+
+  .preview-container {
+    flex: auto;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    align-self: start;
+    align-items: flex-start;
+    font-size: var(--dash-font-size-1);
+  }
+
+  .labels-container {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+
+    dash-chip {
+      padding-right: var(--dash-spacing-2);
+      padding-top: var(--dash-spacing-1);
+    }
+  }
+
+  .no-labels {
+    margin-bottom: var(--dash-spacing-4);
+  }
+
+  .actions-end-wrapper {
+    right: 0;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+  }
+}

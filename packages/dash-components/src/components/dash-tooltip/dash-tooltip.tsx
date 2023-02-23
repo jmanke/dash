@@ -1,6 +1,6 @@
+import { isNone } from '@didyoumeantoast/dash-utils';
 import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
-import { Scale } from '../../types/types';
-import { queryElementById, isNone } from '@didyoumeantoast/dash-utils';
+import { Scale } from '../../types';
 import { Placement, PlacementStrategy } from '../dash-popover/dash-popover';
 
 @Component({
@@ -143,7 +143,7 @@ export class DashTooltip {
       return;
     }
 
-    return typeof target === 'string' ? queryElementById(document.body, target) : target;
+    return typeof target === 'string' ? document.body.querySelector(`#${target}`) : target;
   }
 
   /**

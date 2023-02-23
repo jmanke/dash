@@ -1,6 +1,6 @@
 import { Component, Element, h, Method, Prop } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
-import { ScaleExtended } from '../../types/types';
+import { ScaleExtended } from '../../types';
 import { Placement } from '../dash-popover/dash-popover';
 
 @Component({

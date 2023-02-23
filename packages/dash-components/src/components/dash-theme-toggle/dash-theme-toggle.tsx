@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { Theme } from '../../types/types';
+import { Theme } from '../../types';
 
 @Component({
   tag: 'dash-theme-toggle',

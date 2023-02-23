@@ -5,22 +5,38 @@
       "dependsOn": ["^build"],
       "outputs": ["dist/**", "www/**"]
     },
-    "build:components": {
-      "dependsOn": ["^build:utils"],
+    "build:dash-components": {
+      "dependsOn": ["^build:dependency"],
+      "outputs": ["dist/**", "www/**"]
+    },
+    "build:dependency": {
+      "dependsOn": ["^build:dependency"],
+      "outputs": ["dist/**", "www/**"]
+    },
+    "build:hellodash-components": {
+      "dependsOn": ["^build:dependency"],
       "outputs": ["dist/**", "www/**"]
     },
     "build:dev": {
       "dependsOn": ["^build:dev"],
       "outputs": ["dist/**", "www/**"]
     },
-    "build:utils": {
-      "outputs": ["dist/**", "www/**"]
+    "build:hellodash-models": {
+      "dependsOn": ["^build:dependency"],
+      "outputs": ["dist/**"]
+    },
+    "build:dash-utils": {
+      "dependsOn": ["^build:dependency"],
+      "outputs": ["dist/**"]
     },
     "start:hellodash": {
-      "dependsOn": ["^build:components"]
+      "dependsOn": ["^build:dependency"]
     },
-    "start:components": {
-      "dependsOn": ["^build:utils"]
+    "start:dash-components": {
+      "dependsOn": ["^build:dependency"]
+    },
+    "start:hellodash-components": {
+      "dependsOn": ["^build:dependency"]
     },
     "start:components:forge": {}
   }

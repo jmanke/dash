@@ -1,13 +1,18 @@
-import { queryShadowRoot } from '@a11y/focus-trap';
+import { queryShadowRoot } from '@a11y/focus-trap/shadow';
 
-// Similar to Node.contains but works with the shadow root
-export function contains(parent: HTMLElement, child: HTMLElement) {
-  if (parent === child) {
+/**
+ * Check if an element is contained within another element. Works with shadow DOM.
+ * @param root root element
+ * @param child child element
+ * @returns true if child is contained within root
+ */
+export function contains(root: HTMLElement, child: HTMLElement) {
+  if (root === child) {
     return true;
   }
 
   const skipNode = () => false;
   const isMatch = (element: HTMLElement) => element === child;
 
-  return !!queryShadowRoot(parent, skipNode, isMatch).length;
+  return !!queryShadowRoot(root, skipNode, isMatch).length;
 }

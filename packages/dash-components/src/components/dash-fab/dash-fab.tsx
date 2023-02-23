@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop } from '@stencil/core';
-import { ScaleExtended } from '../../types/types';
+import { Component, h, Host, Prop } from '@stencil/core';
+import { ScaleExtended } from '../../types';
 
 @Component({
   tag: 'dash-fab',

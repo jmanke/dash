@@ -1,7 +1,7 @@
 import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
 import { Focusable } from '../../interfaces/focusable';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 
 @Component({
   tag: 'dash-filter',
@@ -26,29 +26,7 @@ export class DashFilter implements Focusable {
   /**
    * Items that match the current filter value
    */
-  @State() filteredItems: {}[] | string[] = [];
-  @Watch('filteredItems')
-  filteredItemsChanged(filteredItems: {}[], previousFilteredItems: {}[]) {
-    // make sure filtered items changed before emitting event
-    const itemsDifferent = () => {
-      if (filteredItems.length !== previousFilteredItems.length) {
-        return true;
-      }
-
-      for (let i = 0; i < filteredItems.length; i++) {
-        if (filteredItems[i] !== previousFilteredItems[i]) {
-          return true;
-        }
-      }
-
-      return false;
-    };
-
-    if (itemsDifferent()) {
-      this.itemsFiltered.emit(filteredItems);
-    }
-  }
-
+  @State() filteredItems: Record<any, any>[] = [];
   //#endregion
 
   //#region @Prop
@@ -82,7 +60,7 @@ export class DashFilter implements Focusable {
   @Prop() items: {}[] | string[];
   @Watch('items')
   itemsChanged() {
-    this.filterItems();
+    this.filterItems(false);
   }
 
   /**
@@ -171,11 +149,17 @@ export class DashFilter implements Focusable {
   /**
    * Filters items based on the filter value
    */
-  filterItems() {
+  filterItems(emitEvent: boolean = true) {
     const value = this.filterValue;
+    const emitFilteredItemsEvent = () => {
+      if (emitEvent) {
+        this.itemsFiltered.emit(this.filteredItems);
+      }
+    };
 
     if (isEmpty(this.items) || isEmpty(value)) {
       this.filteredItems = this.items || [];
+      emitFilteredItemsEvent();
       return;
     }
 
@@ -199,6 +183,7 @@ export class DashFilter implements Focusable {
 
       return value?.match(regex);
     });
+    emitFilteredItemsEvent();
   }
 
   //#endregion

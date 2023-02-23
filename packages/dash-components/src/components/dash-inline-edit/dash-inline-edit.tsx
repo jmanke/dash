@@ -1,7 +1,7 @@
 import { classExists } from '@didyoumeantoast/dash-utils';
-import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 
 type EditMode = 'button' | 'input';
 

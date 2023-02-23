@@ -1,11 +1,16 @@
-import appState from '../stores/app-state';
+import { Auth0Client } from '@auth0/auth0-spa-js';
 import { logout } from '../utils/logout';
 
-export async function refreshAuthToken() {
+/**
+ * Refreshes the auth token
+ * @param authClient The auth client
+ * @returns The auth token
+ */
+export async function refreshAuthToken(authClient: Auth0Client) {
   try {
-    await appState.authClient?.getTokenSilently({ ignoreCache: true });
+    return authClient?.getTokenSilently({ ignoreCache: true });
   } catch (err) {
     console.error(err);
-    logout(appState.authClient);
+    logout(authClient);
   }
 }

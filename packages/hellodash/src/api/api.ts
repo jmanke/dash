@@ -1,16 +1,22 @@
 import axios, { AxiosError } from 'axios';
 import qs from 'qs';
-import appState from '../stores/app-state';
-import CancelationToken from './cancellation-token';
 import { CONSTANTS } from '../constants';
+import { hellodashService } from '../services/hellodash-service';
+import CancelationToken from './cancellation-token';
 
 //#region interfaces
 
+/**
+ * Pagination query parameters
+ */
 export interface PaginationQuery {
   pageNumber: number;
   pageSize: number;
 }
 
+/**
+ * Pagination response
+ */
 export interface PagedResponse<T> {
   data: T;
   pageNumber: number;
@@ -21,11 +27,7 @@ export interface PagedResponse<T> {
 
 //#endregion
 
-//#region constants
-
 export const baseApiUrl = (): string => (CONSTANTS.LIVE_SERVER ? 'https://hellodash-server-2x.herokuapp.com/api' : 'http://localhost:5000/api');
-
-//#endregion
 
 //#region REST functions
 
@@ -98,15 +100,25 @@ export async function remove<T>(url: string, config?: any): Promise<T> {
 
 //#region api helper functions
 
+/**
+ * Create url with base url
+ * @param url The url to add to the base url
+ * @returns The url with base url
+ */
 function createUrl(url: string): string {
   return `${baseApiUrl()}/${url}`;
 }
 
+/**
+ * Add auth and params to config
+ * @param config The config
+ * @returns The config with auth and params
+ */
 async function configWithAuthAndParams(config: Record<string, any>) {
   return {
     ...config,
     headers: {
-      Authorization: `Bearer ${await appState.authClient.getTokenSilently()}`,
+      Authorization: `Bearer ${await hellodashService.authClient.getTokenSilently()}`,
     },
     paramsSerializer: (params: string) => {
       return qs.stringify(params, { arrayFormat: 'repeat' });
@@ -114,36 +126,29 @@ async function configWithAuthAndParams(config: Record<string, any>) {
   };
 }
 
+/**
+ * Add auth to config
+ * @param config The config
+ * @returns The config with auth
+ */
 async function configWithAuth(config: Record<string, any>) {
   return {
     ...config,
     headers: {
-      Authorization: `Bearer ${await appState.authClient.getTokenSilently()}`,
+      Authorization: `Bearer ${await hellodashService.authClient.getTokenSilently()}`,
     },
   };
 }
 
-// function triggerErrorNotification(err: Error): void {
-//   notificationStore.addNotification({
-//     title: err.name,
-//     message: err.message,
-//     type: 'danger',
-//     insert: 'top',
-//     container: 'top-right',
-//     animationIn: ['animate__animated', 'animate__fadeIn'],
-//     animationOut: ['animate__animated', 'animate__fadeOut'],
-//     dismiss: {
-//       duration: 5000,
-//       onScreen: true,
-//     },
-//   });
-// }
-
+/**
+ * Handle errors
+ * @param error The error
+ */
 function handleError(error: AxiosError) {
   if (error.response?.status === 401) {
     window.location.reload();
   } else if (!axios.isCancel(error)) {
-    // triggerErrorNotification(error);
+    console.error(error);
   }
 }
 

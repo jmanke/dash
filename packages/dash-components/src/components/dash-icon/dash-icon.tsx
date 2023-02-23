@@ -1,6 +1,6 @@
 import { Component, h, Prop, State, Watch } from '@stencil/core';
 import iconService from '../../services/icon-service';
-import { ScaleExtended } from '../../types/types';
+import { ScaleExtended } from '../../types';
 
 export type IconColor = 'primary' | 'secondary' | 'neutral';
 

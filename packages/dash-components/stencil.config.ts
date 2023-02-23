@@ -3,7 +3,6 @@ import { postcss } from '@stencil/postcss';
 import autoprefixer from 'autoprefixer';
 import postcssNested from 'postcss-nested';
 import postcssExtendRule from 'postcss-extend-rule';
-import replace from 'postcss-replace';
 
 export const config: Config = {
   namespace: 'dash-components',
@@ -12,7 +11,7 @@ export const config: Config = {
   outputTargets: [
     {
       type: 'dist',
-      esmLoaderPath: '../loader',
+      esmLoaderPath: './loader',
       copy: [{ src: 'assets' }],
     },
     {
@@ -27,18 +26,11 @@ export const config: Config = {
       copy: [{ src: 'assets', dest: 'build/assets' }],
     },
   ],
-  //add postcss as a plugin
+  // add postcss as a plugin
   plugins: [
     postcss({
       // add postcss plugins
-      plugins: [
-        postcssNested(),
-        postcssExtendRule(),
-        autoprefixer(),
-        // shadow dom does not respect 'html' and 'body' styling, so we replace it with ':host' instead
-        // @ts-ignore
-        replace({ pattern: 'html', data: { replaceAll: ':host' } }),
-      ],
+      plugins: [postcssNested(), postcssExtendRule(), autoprefixer()],
     }),
   ],
   extras: {

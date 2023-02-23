@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop, Event, EventEmitter, Method } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Method, Prop } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
 
 @Component({
