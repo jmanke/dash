@@ -1,6 +1,6 @@
 // @ts-nocheck
-import { queryShadowRoot } from '@a11y/focus-trap/shadow';
 import { isFocusable, isHidden } from '@a11y/focus-trap/focusable';
+import { queryShadowRoot } from '@a11y/focus-trap/shadow';
 
 /** class to skip when traversing DOM */
 export const SKIP_NODE_CLASS = '__skip-node__';
