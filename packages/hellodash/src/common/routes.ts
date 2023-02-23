@@ -1,3 +1,6 @@
+/**
+ * Hellodash routes
+ */
 export const Routes = {
   home: '/home',
   bin: '/bin',

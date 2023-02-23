@@ -1,11 +1,13 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { fetchLabel, fetchLabels, createLabel as createLabelApi, updateLabel as updateLabelApi, deleteLabel as deleteLabelApi } from '../api/labels-api';
-import { sortBy } from 'lodash';
-import { syncLabels } from './notes-slice';
 import { Label } from '@didyoumeantoast/hellodash-models';
-import { PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { sortBy } from 'lodash';
+import { createLabel as createLabelApi, deleteLabel as deleteLabelApi, fetchLabel, fetchLabels, updateLabel as updateLabelApi } from '../api/labels-api';
 import { RootState } from '../store';
+import { syncLabels } from './notes-slice';
 
+/**
+ * Fetches all labels from the API and stores them in the store.
+ */
 export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { dispatch }) => {
   const labels = (await fetchLabels()) ?? [];
   dispatch(setLabels(sortBy(labels, 'id')));
@@ -13,15 +15,24 @@ export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { disp
   return labels;
 });
 
+/**
+ * Fetches a single label from the API and stores it in the store.
+ */
 export const getLabelById = createAsyncThunk('labels/fetchLabel', async (id: number, { dispatch }) => {
   const label = await fetchLabel(id);
-  dispatch(replaceLabel(label));
+
+  if (label) {
+    dispatch(replaceLabel(label));
+  }
 
   return label;
 });
 
+/**
+ * Creates a new label and stores it in the store.
+ */
 export const createLabel = createAsyncThunk('labels/createLabel', async (label: Pick<Label, 'color' | 'text'>, { dispatch }) => {
-  const id = await createLabelApi(label);
+  const id = await createLabelApi(label as Label);
   const newLabel = (await fetchLabel(id)) as Label;
 
   if (newLabel) {
@@ -31,6 +42,9 @@ export const createLabel = createAsyncThunk('labels/createLabel', async (label: 
   return newLabel;
 });
 
+/**
+ * Updates a label and stores it in the store.
+ */
 export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: Label, { dispatch }) => {
   dispatch(replaceLabel(label));
   await updateLabelApi(label);
@@ -38,8 +52,13 @@ export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: 
   return label;
 });
 
+/**
+ * Deletes a label and removes it from the store.
+ */
 export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: Label, { dispatch, getState }) => {
   dispatch(removeLabel(label));
+
+  // after a label is deleted, we need to update the notes that had that label
   dispatch(syncLabels((getState() as RootState).labels));
 
   return deleteLabelApi(label);

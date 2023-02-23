@@ -1,5 +1,5 @@
 import { Component, h, Prop, Event, EventEmitter, Element, Host, Method, State } from '@stencil/core';
-import { contains, isClick, spaceConcat } from '@didyoumeantoast/dash-utils';
+import { contains, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { SelectionMode } from '../dash-list/dash-list';
 import { Scale } from '../../types';
 import { Focusable } from '../../interfaces/focusable';
@@ -102,11 +102,20 @@ export class DashListItem implements Focusable {
   //#region Local methods
 
   /**
+   * Checks if the event is considered a click
+   * @param e - keyboard or mouse event
+   * @returns `true` if event is considered a click
+   */
+  isClick(e: KeyboardEvent | MouseEvent) {
+    return e instanceof MouseEvent || e.code === 'Space' || e.code === 'Enter';
+  }
+
+  /**
    * Handles mouse click
    * @param e - mouse click event
    */
   click(e: MouseEvent) {
-    if (isClick(e) && !this.disabled) {
+    if (this.isClick(e) && !this.disabled) {
       this.selected = !this.selected;
       this.selectedChanged.emit();
     }
@@ -122,7 +131,7 @@ export class DashListItem implements Focusable {
       return;
     }
 
-    if (isClick(e) && !this.disabled) {
+    if (this.isClick(e) && !this.disabled) {
       this.updateIsActive(true);
       this.selected = !this.selected;
       this.selectedChanged.emit();
@@ -145,7 +154,7 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyUp(e: KeyboardEvent) {
-    if (isClick(e)) {
+    if (this.isClick(e)) {
       this.updateIsActive(false);
     }
   }

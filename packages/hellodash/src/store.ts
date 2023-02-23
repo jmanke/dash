@@ -1,9 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { appSettingsSlice } from './slices/app-settings-slice';
 import { appStateSlice } from './slices/app-state-slice';
-import { notesSlice } from './slices/notes-slice';
 import { labelsSlice } from './slices/labels-slice';
+import { notesSlice } from './slices/notes-slice';
 
+/**
+ * The store is the object that brings actions and reducers together.
+ */
 export const store = configureStore({
   reducer: {
     [notesSlice.name]: notesSlice.reducer,

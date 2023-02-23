@@ -1,8 +1,10 @@
 <script setup lang="ts">
+import { DashFilterCustomEvent } from '@didyoumeantoast/dash-components';
 import { stringSearch } from '@didyoumeantoast/dash-utils';
 import { Label, Note, Status } from '@didyoumeantoast/hellodash-models';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { isEmpty, isNumber } from 'lodash';
+import { DateTime } from 'luxon';
 import { onMounted, onUnmounted, ref, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Routes } from '../../common/routes';
@@ -10,27 +12,64 @@ import { createLabel, updateLabel } from '../../slices/labels-slice';
 import { addLabelToNote, archiveNote, createNote, duplicateNote, getNoteById, removeLabelFromNote, updateNote } from '../../slices/notes-slice';
 import { dispatch, store } from '../../store';
 import { noteLabels } from '../../utils/note-labels';
-import { DateTime } from 'luxon';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
+//#region Local properties
+
+/** Unsubscribe function for the store subscription */
 let unsubscribeStore: Unsubscribe;
 
-const notes = ref<Note[]>([]);
-const labels = ref<Label[]>([]);
-const mobileView = ref(false);
-const filteredNotes = ref<Note[]>([]);
-const notesFilter = ref('');
-const sortBy = ref<SortOption>('last-modified');
-const selectedLabelId = ref<number | undefined>();
-const selectedNote = ref<Note | undefined>();
-const focusedNote = ref<Note | undefined>();
-const isLoadingNote = ref(false);
+/** The route object from vue-router */
 const route = useRoute();
+
+/** The router object from vue-router */
 const router = useRouter();
+
+//#endregion
+
+//#region Refs
+
+/** The notes from the store */
+const notes = ref<Note[]>([]);
+
+/** The labels from the store */
+const labels = ref<Label[]>([]);
+
+/** Whether the app is in mobile view */
+const mobileView = ref(false);
+
+/** Notes that have been filtered by various properties */
+const filteredNotes = ref<Note[]>([]);
+
+/** String filter value to filter notes by */
+const notesFilter = ref('');
+
+/** Sort by notes options (applies to filteredNotes) */
+const sortBy = ref<SortOption>('last-modified');
+
+/** The label that is currently selected */
+const selectedLabelId = ref<number>();
+
+/** The note that is currently selected */
+const selectedNote = ref<Note>();
+
+/** The note that is currently focused */
+const focusedNote = ref<Note>();
+
+/** Whether a note is currently being loaded */
+const isLoadingNote = ref(false);
+
+//#endregion
+
+//#region Watchers
 
 watch([notesFilter, notes, selectedLabelId, sortBy], filterNotes);
 watch(route, matchRoute);
+
+//#endregion
+
+//#region Lifecycle methods
 
 onMounted(() => {
   const storeUpdated = () => {
@@ -49,6 +88,13 @@ onUnmounted(() => {
   unsubscribeStore();
 });
 
+//#endregion
+
+//#region Methods
+
+/**
+ * Updates the selected note and label based on the route
+ */
 async function matchRoute() {
   const noteId = route.params.noteId ? parseInt(route.params.noteId as string) : undefined;
   let note = notes.value.find(note => note.id === noteId);
@@ -69,6 +115,9 @@ async function matchRoute() {
   }
 }
 
+/**
+ * Filters the notes based on the current filter values
+ */
 function filterNotes() {
   const filterFns: ((note: Note) => boolean)[] = [];
 
@@ -104,6 +153,9 @@ function filterNotes() {
   filteredNotes.value = filtered;
 }
 
+/**
+ * Adds a new note
+ */
 async function addNote() {
   const note = {
     title: 'New note',
@@ -125,18 +177,29 @@ async function addNote() {
   }
 }
 
+/**
+ * Creates a new label and adds it to the selected note
+ * @param label label to create
+ * @param note note to add the label to
+ */
 async function createLabelForNote(label: Label, note: Note) {
   const newLabel = await dispatch(createLabel(label)).unwrap();
   return dispatch(addLabelToNote({ note, label: newLabel.id }));
 }
 
-function updateNotesFilterValue(e: any) {
-  notesFilter.value = e.target.filterValue;
+/**
+ * Updates the notes filter value
+ * @param e
+ */
+function updateNotesFilterValue(e: DashFilterCustomEvent<string>) {
+  notesFilter.value = e.target.filterValue ?? '';
 }
 
 function updateSortBy(v: SortOption) {
   sortBy.value = v;
 }
+
+//#endregion
 </script>
 
 <template>

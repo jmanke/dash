@@ -1,8 +1,8 @@
-import { createApp } from "vue";
-import "./style.css";
-import App from "./App.vue";
-import initializeRouter from "./initializers/router";
-import { initializeWebComponents } from "./initializers/web-components";
+import { createApp } from 'vue';
+import App from './App.vue';
+import initializeRouter from './initializers/router';
+import { initializeWebComponents } from './initializers/web-components';
+import './style.css';
 
 //#region initializers
 
@@ -14,4 +14,4 @@ const router = initializeRouter();
 const app = createApp(App);
 
 app.use(router);
-app.mount("#app");
+app.mount('#app');

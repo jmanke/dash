@@ -1,32 +1,62 @@
 <script setup lang="ts">
+import { isNone } from '@didyoumeantoast/dash-utils';
 import { Label } from '@didyoumeantoast/hellodash-models';
 import { onMounted, ref, watch } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { Routes } from '../common/routes';
 import { hellodashService } from '../services/hellodash-service';
 import { setSidebarCollapsed, setTheme, toggleSidebarCollapsed } from '../slices/app-settings-slice';
 import { setError } from '../slices/app-state-slice';
-import { getLabels, createLabel as createLabelAction, deleteLabel, updateLabel } from '../slices/labels-slice';
+import { createLabel as createLabelAction, deleteLabel, getLabels, updateLabel } from '../slices/labels-slice';
 import { getNotePreviews } from '../slices/notes-slice';
 import { dispatch, RootState } from '../store';
-import { isNone } from '@didyoumeantoast/dash-utils';
-import { Routes } from '../common/routes';
-import { useRoute, useRouter } from 'vue-router';
 import { logout } from '../utils/logout';
 
+//#region Local properties
+
+/** path to site logo */
 const LogoPath: string = './icon/pomeranian.svg';
+
+/** vue-router route instance */
+const route = useRoute();
+
+/** vue-router router instance */
+const router = useRouter();
+
+//#endregion
 
 const { rootState } = defineProps<{ rootState: RootState }>();
 
-const selectedLabelId = ref<number | null>(null);
-const isEditingLabels = ref(false);
-const isCreatingLabel = ref(false);
-const isInitialized = ref(false);
-const route = useRoute();
-const router = useRouter();
+//#endregion
 
+//#region Refs
+
+/** Currently selected label Id */
+const selectedLabelId = ref<number>();
+
+/** Whether the user is editing labels */
+const isEditingLabels = ref(false);
+
+/** Whether the user is creating a label */
+const isCreatingLabel = ref(false);
+
+/** Whether the app has been initialized */
+const isInitialized = ref(false);
+
+//#endregion
+
+//#region Watchers
+
+/** watch for route changes */
 watch(route, () => {
+  // want to close the label edit modal whenever the route changes
   isEditingLabels.value = false;
   setSelectedLabel();
 });
+
+//#endregion
+
+//#region Lifecycle methods
 
 onMounted(async () => {
   try {
@@ -38,7 +68,16 @@ onMounted(async () => {
   }
 });
 
+//#endregion
+
+//#region Methods
+
+/**
+ * Navigates to the specified url
+ * @param url the url to navigate to
+ */
 function navigateTo(url: string) {
+  // if we're on mobile and the sidebar is open, close it
   if (rootState.appState.mobileView && !rootState.appSettings.sidebarCollapsed) {
     dispatch(setSidebarCollapsed(true));
   }
@@ -46,6 +85,10 @@ function navigateTo(url: string) {
   router.push(url);
 }
 
+/**
+ * Selects the specified label
+ * @param label the label to select
+ */
 function selectLabel(label: Label) {
   if (label.id === selectedLabelId.value) {
     return;
@@ -54,18 +97,24 @@ function selectLabel(label: Label) {
   navigateTo(`${Routes.label}/${label.id}`);
 }
 
+/**
+ * Sets the selected label based on the current route
+ */
 function setSelectedLabel() {
   const path = route.path;
   if (isNone(path)) {
-    selectedLabelId.value = null;
+    selectedLabelId.value = undefined;
     return;
   }
 
   const pattern = /(\/label\/)([0-9]+)/gm;
   const labelId = pattern.exec(path as string)?.[2];
-  selectedLabelId.value = !!labelId ? parseInt(labelId) : null;
+  selectedLabelId.value = !!labelId ? parseInt(labelId) : undefined;
 }
 
+/**
+ * Opens the label edit modal
+ */
 function editLabels() {
   if (rootState.appState.mobileView && !rootState.appSettings.sidebarCollapsed) {
     dispatch(setSidebarCollapsed(true));
@@ -73,6 +122,10 @@ function editLabels() {
   isEditingLabels.value = true;
 }
 
+/**
+ * Creates the specified label
+ * @param label the label to create
+ */
 async function createLabel(label: Label) {
   isCreatingLabel.value = true;
 

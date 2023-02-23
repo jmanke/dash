@@ -4,6 +4,6 @@ import { defineCustomElements as defineDashComponents } from '@didyoumeantoast/h
  * Initializes all web component packages
  */
 export function initializeWebComponents() {
-  // define dash-components as web components
+  // define hellodash-components as web components
   defineDashComponents(window, { resourcesUrl: 'hellodash-components/' });
 }
