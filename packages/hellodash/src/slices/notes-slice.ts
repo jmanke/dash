@@ -1,6 +1,6 @@
 import { Label, Note, Status } from '@didyoumeantoast/hellodash-models';
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { createNote as createNoteApi, deleteNote as deleteNoteApi, fetchNote, fetchNotePreviews, updateNote as updateNoteApi } from '../api/note-api';
+import { createNote as createNoteApi, deleteNote as deleteNoteApi, fetchNote, fetchNotePreviews, updateNote as updateNoteApi } from '../api/notes-api';
 
 /**
  * Fetches all notes (without content) from the API and stores them in the store.
