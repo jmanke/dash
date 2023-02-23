@@ -1,5 +1,6 @@
 import { Focusable } from '@didyoumeantoast/dash-components';
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
+import { Theme } from '@didyoumeantoast/hellodash-models';
 import { checklist } from '@didyoumeantoast/tinymce-plugins';
 import { Component, Element, Event, EventEmitter, getAssetPath, h, Host, Method, Prop, State, Watch } from '@stencil/core';
 import { debounce, DebouncedFunc } from 'lodash';
@@ -44,7 +45,7 @@ export class HellodashTextEditor implements Focusable {
 
   @Prop() content: string;
 
-  @Prop({ reflect: true }) theme: 'light' | 'dark';
+  @Prop({ reflect: true }) theme: Theme;
 
   @Prop({ reflect: true }) heading: string;
 

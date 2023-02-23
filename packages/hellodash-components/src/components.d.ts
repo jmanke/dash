@@ -82,7 +82,7 @@ export namespace Components {
         "setFocus": () => Promise<void>;
         "showFullscreen": boolean;
         "showTitleInput": boolean;
-        "theme": 'light' | 'dark';
+        "theme": Theme;
     }
 }
 export interface HellodashAuth0ProviderCustomEvent<T> extends CustomEvent<T> {
@@ -320,7 +320,7 @@ declare namespace LocalJSX {
         "resize"?: boolean;
         "showFullscreen"?: boolean;
         "showTitleInput"?: boolean;
-        "theme"?: 'light' | 'dark';
+        "theme"?: Theme;
     }
     interface IntrinsicElements {
         "hellodash-auth0-provider": HellodashAuth0Provider;

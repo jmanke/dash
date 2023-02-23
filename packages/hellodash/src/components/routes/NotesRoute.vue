@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { DashFilterCustomEvent } from '@didyoumeantoast/dash-components';
 import { stringSearch } from '@didyoumeantoast/dash-utils';
-import { Label, Note, Status } from '@didyoumeantoast/hellodash-models';
+import { Label, Note, Status, Theme } from '@didyoumeantoast/hellodash-models';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { isEmpty, isNumber } from 'lodash';
 import { DateTime } from 'luxon';
@@ -38,6 +38,9 @@ const labels = ref<Label[]>([]);
 
 /** Whether the app is in mobile view */
 const mobileView = ref(false);
+
+/** The current theme */
+const theme = ref<Theme>('dark');
 
 /** Notes that have been filtered by various properties */
 const filteredNotes = ref<Note[]>([]);
@@ -76,6 +79,7 @@ onMounted(() => {
     const state = store.getState();
     notes.value = state.notes.filter(note => note.status === Status.Active);
     labels.value = state.labels;
+    theme.value = state.appSettings.theme;
     mobileView.value = state.appState.mobileView;
   };
 
@@ -195,6 +199,10 @@ function updateNotesFilterValue(e: DashFilterCustomEvent<string>) {
   notesFilter.value = e.target.filterValue ?? '';
 }
 
+/**
+ * Updates the sort by value
+ * @param v sort option
+ */
 function updateSortBy(v: SortOption) {
   sortBy.value = v;
 }
@@ -259,6 +267,7 @@ function updateSortBy(v: SortOption) {
     :loading="isLoadingNote"
     :allLabels="labels"
     :mobileView="mobileView"
+    :theme="theme"
     @hellodashModalNoteLabelCreated="
       async (e: any) => {
         createLabelForNote(e.detail, selectedNote as Note);
