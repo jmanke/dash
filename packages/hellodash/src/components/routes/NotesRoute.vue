@@ -28,7 +28,7 @@ const isLoadingNote = ref(false);
 const route = useRoute();
 const router = useRouter();
 
-watch([notesFilter, notes], filterNotes);
+watch([notesFilter, notes, selectedLabelId], filterNotes);
 watch(route, matchRoute);
 
 onMounted(() => {
@@ -156,7 +156,7 @@ function updateSortBy(v: SortOption) {
           :class="focusedNote?.id === note?.id ? 'note-overlay hydrated' : 'hydrated'"
           :note="note"
           :noteLabels="noteLabels(note, labels)"
-          @hellodashNoteCardNoteSelected="() => router.push(`${Routes.notes}/${note.id}`)"
+          @hellodashNoteCardNoteSelected="() => router.push(`${Routes.note}/${note.id}`)"
         >
           <hellodash-note-edit-dropdown
             slot="actions-end"

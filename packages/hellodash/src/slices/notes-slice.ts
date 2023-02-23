@@ -59,7 +59,7 @@ export const deleteNote = createAsyncThunk('notes/deleteNote', async (note: Note
 export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note: Note, { dispatch }) => {
   // content isn't fetched, note is a preview
   if (note.content === null) {
-    note = await fetchNote(note.id);
+    note = (await fetchNote(note.id)) as Note;
   }
 
   const noteCopy = {
@@ -82,7 +82,7 @@ export const archiveNote = createAsyncThunk('notes/archiveNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return _updateNote(archivedNote);
+  // return _updateNote(archivedNote);
 });
 
 export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: Note, { dispatch }) => {
@@ -92,7 +92,7 @@ export const restoreNote = createAsyncThunk('notes/restoreNote', async (note: No
   };
   dispatch(replaceNote(archivedNote));
 
-  return _updateNote(archivedNote);
+  // return _updateNote(archivedNote);
 });
 
 export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -102,7 +102,7 @@ export const addLabelToNote = createAsyncThunk('notes/addLabel', async ({ note, 
   };
   dispatch(replaceNote(newNote));
 
-  return _updateNote(newNote);
+  // return _updateNote(newNote);
 });
 
 export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async ({ note, label }: { note: Note; label: number }, { dispatch }) => {
@@ -112,7 +112,7 @@ export const removeLabelFromNote = createAsyncThunk('notes/removeLabel', async (
   };
   dispatch(replaceNote(newNote));
 
-  return _updateNote(newNote);
+  // return _updateNote(newNote);
 });
 
 const initialState: Note[] = [];

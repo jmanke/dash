@@ -46,11 +46,7 @@ function updateMobileView() {
   }
 }
 
-// listen for refresh token
-
-// change route when note card is selected
-
-// listen for logout event
+// TODO: listen for refresh token
 
 async function userSignedIn() {
   const auth0User = await hellodashService.authClient.getUser();

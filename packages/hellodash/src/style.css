@@ -1,5 +1,9 @@
-@import "@didyoumeantoast/dash-components/dist/dash-components/dash-components.css";
+@import '@didyoumeantoast/dash-components/dist/dash-components/dash-components.css';
 
 :root {
   --dash-dropdown-padding: var(--dash-spacing-3);
+}
+
+body > img {
+  display: none;
 }

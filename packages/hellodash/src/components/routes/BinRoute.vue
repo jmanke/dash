@@ -90,7 +90,7 @@ function deselectAll() {
       </div>
     </div>
 
-    <dash-grid v-if="archivedNotes.length" col-s="{1}" col-m="{2}" col-l="{3}" col-xl="{4}">
+    <dash-grid v-if="archivedNotes.length" col-s="1" col-m="2" col-l="3" col-xl="4">
       <hellodash-note-card
         v-for="note in archivedNotes"
         :key="note.id"
@@ -101,7 +101,6 @@ function deselectAll() {
         mode="selectable"
         @click="() => noteClicked(note)"
       ></hellodash-note-card>
-      ))}
     </dash-grid>
 
     <div v-if="!archivedNotes?.length" class="bin-empty-message">Bin is empty</div>

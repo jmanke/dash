@@ -10,24 +10,23 @@ import { dispatch, RootState } from '../store';
 import { isNone } from '@didyoumeantoast/dash-utils';
 import { Routes } from '../common/routes';
 import { useRoute, useRouter } from 'vue-router';
+import { logout } from '../utils/logout';
 
 const LogoPath: string = './icon/pomeranian.svg';
 
 const { rootState } = defineProps<{ rootState: RootState }>();
 
 const selectedLabelId = ref<number | null>(null);
-const pathName = ref<string>();
 const isEditingLabels = ref(false);
 const isCreatingLabel = ref(false);
 const isInitialized = ref(false);
 const route = useRoute();
 const router = useRouter();
 
-watch(pathName, pathName => {
-  setSelectedLabel(pathName);
+watch(route, () => {
+  isEditingLabels.value = false;
+  setSelectedLabel();
 });
-
-watch(route, () => (isEditingLabels.value = false));
 
 onMounted(async () => {
   try {
@@ -44,7 +43,6 @@ function navigateTo(url: string) {
     dispatch(setSidebarCollapsed(true));
   }
 
-  // TODO: nagivate using router
   router.push(url);
 }
 
@@ -53,10 +51,11 @@ function selectLabel(label: Label) {
     return;
   }
 
-  navigateTo(`${Routes.labels}/${label.id}`);
+  navigateTo(`${Routes.label}/${label.id}`);
 }
 
-function setSelectedLabel(path?: string) {
+function setSelectedLabel() {
+  const path = route.path;
   if (isNone(path)) {
     selectedLabelId.value = null;
     return;
@@ -97,14 +96,19 @@ async function createLabel(label: Label) {
         :theme="rootState.appSettings.theme"
         @dashThemeToggleChange="(e: any) => dispatch(setTheme(e.target.theme))"
       ></dash-theme-toggle>
-      <hellodash-profile-settings slot="content-end" :user="rootState.appState.currentUser" :authClient="hellodashService.authClient"></hellodash-profile-settings>
+      <hellodash-profile-settings
+        slot="content-end"
+        :user="rootState.appState.currentUser"
+        :authClient="hellodashService.authClient"
+        @hellodashProfileSettingsLogout="logout(hellodashService.authClient)"
+      ></hellodash-profile-settings>
     </hellodash-nav-bar>
 
     <dash-side-bar slot="left-panel" :collapsed="rootState.appSettings.sidebarCollapsed" @dashSideBarClose="() => dispatch(setSidebarCollapsed(true))">
       <dash-sidebar-button
         icon="journal-text"
         text="Notes"
-        :active="pathName === '/' || pathName === Routes.home"
+        :active="route.path === '/' || route.path === Routes.home"
         :collapsed="rootState.appSettings.sidebarCollapsed"
         @click="() => navigateTo(Routes.home)"
       ></dash-sidebar-button>
@@ -122,7 +126,7 @@ async function createLabel(label: Label) {
       <dash-sidebar-button
         icon="trash3"
         text="Bin"
-        :active="pathName === Routes.bin"
+        :active="route.path === Routes.bin"
         :collapsed="rootState.appSettings.sidebarCollapsed"
         @click="() => navigateTo(Routes.bin)"
       ></dash-sidebar-button>
