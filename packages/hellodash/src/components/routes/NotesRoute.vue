@@ -279,10 +279,6 @@ dash-card-icon {
   width: 100%;
 }
 
-dash-grid {
-  overflow-x: hidden;
-}
-
 .notes-filter {
   flex: auto;
   max-width: var(--dash-spacing-72);

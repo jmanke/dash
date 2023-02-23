@@ -125,10 +125,6 @@ function deselectAll() {
 </template>
 
 <style scoped>
-dash-grid {
-  overflow-x: hidden;
-}
-
 .note-overlay {
   z-index: 10;
 }

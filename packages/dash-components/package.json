@@ -22,6 +22,7 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
+    "build:dependency": "stencil build",
     "build:dash-components": "stencil build",
     "build:dev": "stencil build",
     "publish:npm": "npm publish",

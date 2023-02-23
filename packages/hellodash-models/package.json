@@ -10,7 +10,8 @@
   "scripts": {
     "build": "node build.js",
     "build:dev": "pnpm build",
-    "build:hellodash-models": "pnpm build"
+    "build:hellodash-models": "pnpm build",
+    "build:dependency": "pnpm build"
   },
   "files": [
     "lib/"
