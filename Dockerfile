@@ -46,6 +46,7 @@ FROM node:18-alpine AS PROD
     COPY ./packages/hellodash/manifest.json /app/packages/hellodash/
     COPY ./packages/hellodash/package.json /app/packages/hellodash/
     COPY ./packages/hellodash/tsconfig.json /app/packages/hellodash/
+    COPY ./packages/hellodash/tsconfig.node.json /app/packages/hellodash/
     COPY ./packages/hellodash/vite.config.ts /app/packages/hellodash/
     COPY ./packages/hellodash/src /app/packages/hellodash/src
 
