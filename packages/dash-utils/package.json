@@ -9,8 +9,7 @@
   "scripts": {
     "build": "node build.js",
     "build:dev": "pnpm build",
-    "build:dash-utils": "pnpm build",
-    "build:dependency": "pnpm build"
+    "build:dash-utils": "pnpm build"
   },
   "files": [
     "dist/"

@@ -22,7 +22,6 @@
   ],
   "scripts": {
     "build": "stencil build --docs",
-    "build:dependency": "stencil build",
     "build:dash-components": "stencil build",
     "build:dev": "stencil build",
     "publish:npm": "npm publish",
@@ -30,7 +29,7 @@
     "start:dev": "stencil build --dev --watch",
     "start:dash-components": "pnpm start:dev",
     "start:forge": "component-forge",
-    "start:components:forge": "pnpm start:forge",
+    "start:dash-components:forge": "pnpm start:forge",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate",
