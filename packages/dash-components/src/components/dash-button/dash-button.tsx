@@ -1,6 +1,6 @@
 import { Component, Element, h, Method, Prop } from '@stencil/core';
-import { Scale, Status, Appearance } from '../../types';
 import { Focusable } from '../../interfaces/focusable';
+import { Appearance, Scale, Status } from '../../types';
 
 @Component({
   tag: 'dash-button',

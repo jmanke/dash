@@ -1,4 +1,4 @@
-import { Component, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { Color } from '../../types';
 
 @Component({

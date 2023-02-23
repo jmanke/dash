@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop, Element, Watch, State } from '@stencil/core';
 import { isNone } from '@didyoumeantoast/dash-utils';
+import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
 import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none';

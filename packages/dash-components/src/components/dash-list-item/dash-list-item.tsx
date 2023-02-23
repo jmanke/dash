@@ -1,8 +1,8 @@
-import { Component, h, Prop, Event, EventEmitter, Element, Host, Method, State } from '@stencil/core';
 import { contains, spaceConcat } from '@didyoumeantoast/dash-utils';
-import { SelectionMode } from '../dash-list/dash-list';
-import { Scale } from '../../types';
+import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
+import { Scale } from '../../types';
+import { SelectionMode } from '../dash-list/dash-list';
 
 @Component({
   tag: 'dash-list-item',

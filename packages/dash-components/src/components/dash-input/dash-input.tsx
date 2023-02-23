@@ -1,9 +1,8 @@
-import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
-import { isEmpty } from 'lodash';
-import { Focusable } from '../../interfaces/focusable';
-import { debounce, DebouncedFunc } from 'lodash';
-import { Scale } from '../../types';
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
+import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
+import { debounce, DebouncedFunc, isEmpty } from 'lodash';
+import { Focusable } from '../../interfaces/focusable';
+import { Scale } from '../../types';
 
 /**
  * Maps scale of icon based on scale of input. For example, a 'm' input will have a 's' icon.

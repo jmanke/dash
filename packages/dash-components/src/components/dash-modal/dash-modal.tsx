@@ -1,7 +1,7 @@
-import { Component, Host, h, Prop, Element, State, Method, Event, EventEmitter } from '@stencil/core';
+import { wait } from '@didyoumeantoast/dash-utils';
+import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State } from '@stencil/core';
 import { Modal } from '../../interfaces/modal';
 import { Scale } from '../../types';
-import { wait } from '@didyoumeantoast/dash-utils';
 
 @Component({
   tag: 'dash-modal',

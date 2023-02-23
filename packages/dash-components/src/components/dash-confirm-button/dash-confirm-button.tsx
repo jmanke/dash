@@ -1,6 +1,6 @@
-import { Scale } from '../../types';
 import { classExists, contains, focus, spaceConcat } from '@didyoumeantoast/dash-utils';
-import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Scale } from '../../types';
 
 @Component({
   tag: 'dash-confirm-button',
