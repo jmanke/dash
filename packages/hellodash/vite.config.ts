@@ -15,10 +15,6 @@ export default defineConfig({
           src: 'node_modules/@didyoumeantoast/hellodash-components/dist/hellodash-components/assets',
           dest: 'hellodash-components',
         },
-        {
-          src: ['public/icon', 'public/tinymce'],
-          dest: './',
-        },
       ],
     }),
     vue({
