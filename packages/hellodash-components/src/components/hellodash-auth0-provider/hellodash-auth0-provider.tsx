@@ -1,6 +1,6 @@
 import { Auth0Client } from '@auth0/auth0-spa-js';
-import { Component, Host, h, State, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 import { wait } from '@didyoumeantoast/dash-utils';
+import { Component, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 
 const REFRESH_TOKEN_TIMEOUT = 60 * 60 * 1000;
 

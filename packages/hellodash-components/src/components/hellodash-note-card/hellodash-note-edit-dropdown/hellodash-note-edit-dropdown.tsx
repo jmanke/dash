@@ -1,6 +1,6 @@
 import { DashDropdownCustomEvent } from '@didyoumeantoast/dash-components';
+import { Label, Note } from '@didyoumeantoast/hellodash-models';
 import { Component, Event, EventEmitter, h, Prop, State, Watch } from '@stencil/core';
-import { Note, Label } from '@didyoumeantoast/hellodash-models';
 import { noteLabels } from '../../../utils/note-labels';
 
 type MENU_PANEL = 'default' | 'addLabel';

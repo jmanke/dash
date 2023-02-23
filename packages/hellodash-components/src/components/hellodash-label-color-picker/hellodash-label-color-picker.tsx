@@ -1,5 +1,5 @@
-import { Component, h, Event, EventEmitter, Prop } from '@stencil/core';
-import { DashColorPickerCustomEvent, Color } from '@didyoumeantoast/dash-components';
+import { Color, DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components';
+import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 
 const Colors: Color[] = ['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink'];
 

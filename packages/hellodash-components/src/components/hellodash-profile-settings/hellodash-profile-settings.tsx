@@ -1,5 +1,5 @@
-import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 import { User } from '@didyoumeantoast/hellodash-models';
+import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'hellodash-profile-settings',

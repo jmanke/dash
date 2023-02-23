@@ -1,10 +1,10 @@
-import { Component, Host, h, Prop, Event, EventEmitter, Element, State, Watch, Method, getAssetPath } from '@stencil/core';
-import tinymce, { Editor, RawEditorSettings } from 'tinymce';
-import { debounce, DebouncedFunc } from 'lodash';
-import { v4 as uuidv4 } from 'uuid';
-import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Focusable } from '@didyoumeantoast/dash-components';
+import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { checklist } from '@didyoumeantoast/tinymce-plugins';
+import { Component, Element, Event, EventEmitter, getAssetPath, h, Host, Method, Prop, State, Watch } from '@stencil/core';
+import { debounce, DebouncedFunc } from 'lodash';
+import tinymce, { Editor, RawEditorSettings } from 'tinymce';
+import { v4 as uuidv4 } from 'uuid';
 
 const MIN_EDITOR_HEIGHT = 230;
 

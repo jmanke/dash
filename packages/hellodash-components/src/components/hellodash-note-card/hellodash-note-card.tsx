@@ -1,6 +1,6 @@
+import { Label, Note } from '@didyoumeantoast/hellodash-models';
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
 import { DateTime } from 'luxon';
-import { Note, Label } from '@didyoumeantoast/hellodash-models';
 
 // max labels to display in the card
 const MAX_LABELS = 3;

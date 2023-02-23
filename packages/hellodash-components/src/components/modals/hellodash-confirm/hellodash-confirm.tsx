@@ -1,5 +1,5 @@
-import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
 import { Modal, Status } from '@didyoumeantoast/dash-components';
+import { Component, Event, EventEmitter, h, Method, Prop } from '@stencil/core';
 
 @Component({
   tag: 'hellodash-confirm',
