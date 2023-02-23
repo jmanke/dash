@@ -1,6 +1,6 @@
 import { Component, Element, h, Method, Prop } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
-import { ScaleExtended } from '../../types/types';
+import { ScaleExtended } from '../../types';
 import { Placement } from '../dash-popover/dash-popover';
 
 @Component({
@@ -17,8 +17,7 @@ export class DashIconButton implements Focusable {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashIconButtonElement;
+  @Element() element: HTMLDashIconButtonElement;
 
   //#endregion
 
@@ -31,82 +30,57 @@ export class DashIconButton implements Focusable {
    * Icon to display
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  icon: string;
+  @Prop({ reflect: true }) icon: string;
 
   /**
    * Icon to display from URL
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  iconUrl: string;
+  @Prop({ reflect: true }) iconUrl: string;
 
   /**
    * Size of the icon button
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: ScaleExtended = 'm';
+  @Prop({ reflect: true }) scale: ScaleExtended = 'm';
 
   /**
    * When `true`, indicates the button is loading and cannot be interacted with
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  loading: boolean;
+  @Prop({ reflect: true }) loading: boolean;
 
   /**
    * When `true`, the icon button cannot be interacted with
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  disabled: boolean;
+  @Prop({ reflect: true }) disabled: boolean;
 
   /**
    * HTML button type https://developer.mozilla.org/en-US/docs/Web/HTML/Element/button#attr-type
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  type?: string;
+  @Prop({ reflect: true }) type?: string;
 
   /**
    * When `true`, the icon button will be round
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  rounded: boolean;
+  @Prop({ reflect: true }) rounded: boolean;
 
   /**
    * When provided, a tooltip will display when interacted with
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  tooltipText?: string;
+  @Prop({ reflect: true }) tooltipText?: string;
 
   /**
    * Indicates where the tooltip should be placed relative to the icon button
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
+  @Prop({ reflect: true })
   tooltipPlacement?: Placement;
+
   //#endregion
 
   //#region @Event

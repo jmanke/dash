@@ -18,9 +18,9 @@
 
 ## Events
 
-| Event             | Description                      | Type               |
-| ----------------- | -------------------------------- | ------------------ |
-| `dashChipDismiss` | Emitted when the chip is removed | `CustomEvent<any>` |
+| Event             | Description                      | Type                |
+| ----------------- | -------------------------------- | ------------------- |
+| `dashChipDismiss` | Emitted when the chip is removed | `CustomEvent<void>` |
 
 
 ## Dependencies

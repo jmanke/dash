@@ -1,6 +1,6 @@
-import { Scale } from '../../types/types';
 import { classExists, contains, focus, spaceConcat } from '@didyoumeantoast/dash-utils';
-import { Component, Host, h, Prop, State, Watch, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Scale } from '../../types';
 
 @Component({
   tag: 'dash-confirm-button',
@@ -24,8 +24,7 @@ export class DashConfirmButton {
   /**
    * True when in the confirming state
    */
-  @State()
-  isConfirming: boolean;
+  @State() isConfirming: boolean;
   @Watch('isConfirming')
   async isConfirmingChanged(isConfirming: boolean) {
     if (isConfirming) {
@@ -42,18 +41,12 @@ export class DashConfirmButton {
    * Icon used in button that triggers confirm state
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  icon: string;
+  @Prop({ reflect: true }) icon: string;
 
   /**
    * Size of the confirm button
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale;
+  @Prop({ reflect: true }) scale: Scale;
 
   //#endregion
 
@@ -62,10 +55,7 @@ export class DashConfirmButton {
   /**
    * Emitted when user confirms
    */
-  @Event({
-    eventName: 'dashConfirmButtonConfirmed',
-  })
-  dashConfirmButtonConfirmed: EventEmitter;
+  @Event({ eventName: 'dashConfirmButtonConfirmed' }) confirmed: EventEmitter;
 
   //#endregion
 
@@ -110,7 +100,7 @@ export class DashConfirmButton {
    */
   async confirm() {
     this.isConfirming = false;
-    this.dashConfirmButtonConfirmed.emit();
+    this.confirmed.emit();
     await classExists(this.confirmWrapper, 'hidden');
     focus(this.defaultButton);
   }

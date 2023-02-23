@@ -1,6 +1,6 @@
-import { AutoPlacement, BasePlacement, createPopper, Instance, VariationPlacement } from '@popperjs/core';
-import { Component, Host, h, Element, Prop, Watch, Event, EventEmitter } from '@stencil/core';
 import { contains } from '@didyoumeantoast/dash-utils';
+import { AutoPlacement, BasePlacement, createPopper, Instance, VariationPlacement } from '@popperjs/core';
+import { Component, Element, Event, EventEmitter, h, Host, Prop, Watch } from '@stencil/core';
 
 export type PlacementStrategy = 'absolute' | 'fixed';
 export type Placement = AutoPlacement | BasePlacement | VariationPlacement;
@@ -39,8 +39,7 @@ export class DashPopover {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashPopoverElement;
+  @Element() element: HTMLDashPopoverElement;
 
   //#endregion
 
@@ -53,8 +52,7 @@ export class DashPopover {
    * Popover target reference, can either be an element or element id
    * @required
    */
-  @Prop()
-  target: HTMLElement | string;
+  @Prop() target: HTMLElement | string;
   @Watch('target')
   targetChanged() {
     this.updatePopover(true);
@@ -64,37 +62,25 @@ export class DashPopover {
    * Strategy of placing the popover
    * @default 'absolute'
    */
-  @Prop({
-    reflect: true,
-  })
-  placementStrategy: PlacementStrategy = 'absolute';
+  @Prop({ reflect: true }) placementStrategy: PlacementStrategy = 'absolute';
 
   /**
    * Offset the popover in the x direction in pixels
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  offsetX?: number;
+  @Prop({ reflect: true }) offsetX?: number;
 
   /**
    * Offset the popover in the y direction in pixels
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  offsetY?: number;
+  @Prop({ reflect: true }) offsetY?: number;
 
   /**
    * Position of the popover relative to its target
    * @default 'bottom'
    */
-  @Prop({
-    reflect: true,
-  })
-  placement: Placement = 'bottom';
+  @Prop({ reflect: true }) placement: Placement = 'bottom';
 
   /**
    * Keeps the popover in view if it's positioned outside the window's view
@@ -109,11 +95,7 @@ export class DashPopover {
    * When true, the popover will be open
    * @default false
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  active: boolean;
+  @Prop({ reflect: true, mutable: true }) active: boolean;
   @Watch('active')
   activeChanged(active: boolean) {
     this.updatePopover();
@@ -137,10 +119,7 @@ export class DashPopover {
    * When `true`, popover will autoclose when it loses focus
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  autoClose: boolean;
+  @Prop({ reflect: true }) autoClose: boolean;
 
   //#endregion
 
@@ -149,18 +128,12 @@ export class DashPopover {
   /**
    * Emitted when the popover is opened
    */
-  @Event({
-    eventName: 'dashPopoverOpen',
-  })
-  dashPopoverOpen: EventEmitter;
+  @Event({ eventName: 'dashPopoverOpen' }) dashPopoverOpen: EventEmitter;
 
   /**
    * Emitted when the popover is closed
    */
-  @Event({
-    eventName: 'dashPopoverClose',
-  })
-  dashPopoverClose: EventEmitter<PopoverCloseEvent>;
+  @Event({ eventName: 'dashPopoverClose' }) dashPopoverClose: EventEmitter<PopoverCloseEvent>;
 
   //#endregion
 
@@ -299,6 +272,7 @@ export class DashPopover {
       modifiers,
     });
   }
+
   //#endregion
 
   render() {

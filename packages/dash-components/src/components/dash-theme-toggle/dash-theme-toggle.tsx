@@ -1,5 +1,5 @@
 import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-import { Theme } from '../../types/types';
+import { Theme } from '../../types';
 
 @Component({
   tag: 'dash-theme-toggle',
@@ -21,11 +21,9 @@ export class ThemeToggle {
   /**
    * Current theme
    * @required
+   * @default 'light'
    */
-  @Prop({
-    reflect: true,
-  })
-  theme: Theme = 'light';
+  @Prop({ reflect: true, mutable: true }) theme: Theme = 'light';
 
   //#endregion
 
@@ -34,10 +32,7 @@ export class ThemeToggle {
   /**
    * Emitted when the theme changed
    */
-  @Event({
-    eventName: 'dashThemeToggleChange',
-  })
-  themeToggleChange: EventEmitter<void>;
+  @Event({ eventName: 'dashThemeToggleChange' }) themeToggleChange: EventEmitter<void>;
 
   //#endregion
 

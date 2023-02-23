@@ -1,8 +1,8 @@
-import { Component, h, Prop, Event, EventEmitter, Element, Host, Method, State } from '@stencil/core';
-import { contains, isClick, spaceConcat } from '@didyoumeantoast/dash-utils';
-import { SelectionMode } from '../dash-list/dash-list';
-import { Scale } from '../../types/types';
+import { contains, spaceConcat } from '@didyoumeantoast/dash-utils';
+import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
+import { Scale } from '../../types';
+import { SelectionMode } from '../dash-list/dash-list';
 
 @Component({
   tag: 'dash-list-item',
@@ -18,8 +18,7 @@ export class DashListItem implements Focusable {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashListItemElement;
+  @Element() element: HTMLDashListItemElement;
 
   //#endregion
 
@@ -28,8 +27,7 @@ export class DashListItem implements Focusable {
   /**
    * When `true`, list item visually indicates it's active
    */
-  @State()
-  isActive: boolean;
+  @State() isActive: boolean;
 
   //#endregion
 
@@ -40,38 +38,25 @@ export class DashListItem implements Focusable {
    * @internal
    * @default 'single'
    */
-  @Prop({
-    reflect: true,
-  })
-  selectionMode: SelectionMode = 'single';
+  @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
 
   /**
    * Size of the list-item
    * @internal
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, list-item is selected
    * @default false
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  selected: boolean = false;
+  @Prop({ reflect: true, mutable: true }) selected: boolean = false;
 
   /**
    * When `true`, interaction is disabled
    */
-  @Prop({
-    reflect: true,
-  })
-  disabled: boolean;
+  @Prop({ reflect: true }) disabled: boolean;
 
   //#endregion
 
@@ -80,29 +65,19 @@ export class DashListItem implements Focusable {
   /**
    * Emitted when selected has changed
    */
-  @Event({
-    eventName: 'dashListItemSelectedChanged',
-    composed: true,
-  })
-  dashListItemSelectedChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashListItemSelectedChanged', composed: true }) selectedChanged: EventEmitter<void>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the next list-item
    * @internal
    */
-  @Event({
-    eventName: 'dashInternalListItemMoveNext',
-  })
-  internalListItemMoveNext: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemMoveNext' }) internalMoveNext: EventEmitter<void>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the previous list-item
    * @internal
    */
-  @Event({
-    eventName: 'dashInternalListItemMovePrevious',
-  })
-  internalListItemMovePrevious: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<void>;
 
   //#endregion
 
@@ -127,13 +102,22 @@ export class DashListItem implements Focusable {
   //#region Local methods
 
   /**
+   * Checks if the event is considered a click
+   * @param e - keyboard or mouse event
+   * @returns `true` if event is considered a click
+   */
+  isClick(e: KeyboardEvent | MouseEvent) {
+    return e instanceof MouseEvent || e.code === 'Space' || e.code === 'Enter';
+  }
+
+  /**
    * Handles mouse click
    * @param e - mouse click event
    */
   click(e: MouseEvent) {
-    if (isClick(e) && !this.disabled) {
+    if (this.isClick(e) && !this.disabled) {
       this.selected = !this.selected;
-      this.dashListItemSelectedChanged.emit();
+      this.selectedChanged.emit();
     }
   }
 
@@ -147,10 +131,10 @@ export class DashListItem implements Focusable {
       return;
     }
 
-    if (isClick(e) && !this.disabled) {
+    if (this.isClick(e) && !this.disabled) {
       this.updateIsActive(true);
       this.selected = !this.selected;
-      this.dashListItemSelectedChanged.emit();
+      this.selectedChanged.emit();
     }
 
     if (e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Space') {
@@ -159,9 +143,9 @@ export class DashListItem implements Focusable {
     }
 
     if (e.code === 'ArrowUp') {
-      this.internalListItemMovePrevious.emit();
+      this.internalMovePrevious.emit();
     } else if (e.code === 'ArrowDown') {
-      this.internalListItemMoveNext.emit();
+      this.internalMoveNext.emit();
     }
   }
 
@@ -170,7 +154,7 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyUp(e: KeyboardEvent) {
-    if (isClick(e)) {
+    if (this.isClick(e)) {
       this.updateIsActive(false);
     }
   }
@@ -186,6 +170,14 @@ export class DashListItem implements Focusable {
     }
 
     this.isActive = active;
+  }
+
+  /**
+   * Stops event propagation
+   * @param e - Event to top propagating
+   */
+  stopPropagation(e: Event) {
+    e.stopPropagation();
   }
 
   /**
@@ -207,23 +199,32 @@ export class DashListItem implements Focusable {
   render() {
     return (
       <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
-        <div class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}>
+        <div
+          class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}
+          onClick={e => this.click(e)}
+          onPointerDown={this.updateIsActive.bind(this, true)}
+          onPointerUp={this.updateIsActive.bind(this, false)}
+          onPointerLeave={this.updateIsActive.bind(this, false)}
+          onFocusout={this.updateIsActive.bind(this, false)}
+        >
           <slot name='actions-start'></slot>
 
-          <div
-            class='list-item'
-            ref={e => (this.listItem = e)}
-            onClick={e => this.click(e)}
-            onPointerDown={this.updateIsActive.bind(this, true)}
-            onPointerUp={this.updateIsActive.bind(this, false)}
-            onPointerLeave={this.updateIsActive.bind(this, false)}
-            onFocusout={this.updateIsActive.bind(this, false)}
-          >
+          <div class='list-item' ref={e => (this.listItem = e)}>
             {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
             <slot></slot>
           </div>
 
-          <slot name='actions-end'></slot>
+          <div
+            class='actions-end-wrapper'
+            onKeyDown={this.stopPropagation.bind(this)}
+            onKeyUp={this.stopPropagation.bind(this)}
+            onClick={this.stopPropagation.bind(this)}
+            onPointerDown={this.stopPropagation.bind(this)}
+            onPointerUp={this.stopPropagation.bind(this)}
+            onPointerLeave={this.stopPropagation.bind(this)}
+          >
+            <slot name='actions-end'></slot>
+          </div>
         </div>
       </Host>
     );

@@ -1,5 +1,5 @@
-import { Component, Host, h, Element } from '@stencil/core';
 import { focus, SKIP_NODE_CLASS } from '@didyoumeantoast/dash-utils';
+import { Component, Element, h, Host } from '@stencil/core';
 
 @Component({
   tag: 'dash-focus-trap',
@@ -23,8 +23,7 @@ export class DashFocusTrap {
 
   //#region @Element
 
-  @Element()
-  element: HTMLElement;
+  @Element() element: HTMLElement;
 
   //#endregion
 
@@ -61,7 +60,7 @@ export class DashFocusTrap {
   focusLast() {
     focus(this.element, true);
   }
-  
+
   //#endregion
 
   render() {

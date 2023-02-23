@@ -1,6 +1,6 @@
+import { isNone } from '@didyoumeantoast/dash-utils';
 import { Component, h, Listen, Prop, State, Watch } from '@stencil/core';
-import { Scale } from '../../types/types';
-import { queryElementById, isNone } from '@didyoumeantoast/dash-utils';
+import { Scale } from '../../types';
 import { Placement, PlacementStrategy } from '../dash-popover/dash-popover';
 
 @Component({
@@ -24,8 +24,7 @@ export class DashTooltip {
   /**
    * When `true`, the tooltip is visible
    */
-  @State()
-  active: boolean;
+  @State() active: boolean;
 
   //#endregion
 
@@ -35,8 +34,7 @@ export class DashTooltip {
    * Target reference element where the tooltip will be positioned next to
    * @required
    */
-  @Prop()
-  target: HTMLElement | string;
+  @Prop() target: HTMLElement | string;
   @Watch('target')
   targetChanged(newTarget: HTMLElement | string, oldTarget: HTMLElement | string) {
     this.disconnectEvents(oldTarget);
@@ -47,73 +45,49 @@ export class DashTooltip {
    * Text value to be displayed in tooltip
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  text: string;
+  @Prop({ reflect: true }) text: string;
 
   /**
    * Strategy the tooltip is placed
    * @default 'absolute'
    */
-  @Prop({
-    reflect: true,
-  })
-  placementStrategy: PlacementStrategy = 'absolute';
+  @Prop({ reflect: true }) placementStrategy: PlacementStrategy = 'absolute';
 
   /**
    * Offset the tooltip in the x direction in pixels
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  offsetX?: number;
+  @Prop({ reflect: true }) offsetX?: number;
 
   /**
    * Offset the tooltip in the y direction in pixels
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  offsetY?: number;
+  @Prop({ reflect: true }) offsetY?: number;
 
   /**
    * Position of the tooltip relative to its target
    * @default 'bottom'
    */
-  @Prop({
-    reflect: true,
-  })
-  placement: Placement = 'bottom';
+  @Prop({ reflect: true }) placement: Placement = 'bottom';
 
   /**
    * Size of the tooltip
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, an arrow is displayed on the tooltip
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  arrow: boolean;
+  @Prop({ reflect: true }) arrow: boolean;
 
   /**
    * When `true`, tooltip is visible
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  enabled: boolean;
+  @Prop({ reflect: true }) enabled: boolean;
   @Watch('enabled')
   enabledChanged(enabled: boolean) {
     if (!enabled) {
@@ -169,7 +143,7 @@ export class DashTooltip {
       return;
     }
 
-    return typeof target === 'string' ? queryElementById(document.body, target) : target;
+    return typeof target === 'string' ? document.body.querySelector(`#${target}`) : target;
   }
 
   /**

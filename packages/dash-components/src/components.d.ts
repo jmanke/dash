@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
+import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { CalendarEvent, CalendarEventInternal } from "./interfaces/calendar-event";
 import { IconColor } from "./components/dash-icon/dash-icon";
@@ -14,7 +14,7 @@ import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 import { Resize } from "./components/dash-textarea/dash-textarea";
-export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types/types";
+export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
 export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 export { CalendarEvent, CalendarEventInternal } from "./interfaces/calendar-event";
 export { IconColor } from "./components/dash-icon/dash-icon";
@@ -638,7 +638,7 @@ export namespace Components {
         "placeholder": string;
         /**
           * When `true`, disables updating the text-area value
-          * @default true
+          * @default false
          */
         "readonly": boolean;
         /**
@@ -654,7 +654,7 @@ export namespace Components {
           * text-area rows
           * @optional
          */
-        "rows": number;
+        "rows"?: number;
         /**
           * Text of the text-area
           * @optional
@@ -664,7 +664,8 @@ export namespace Components {
     interface DashThemeToggle {
         /**
           * Current theme
-          * @required
+          * @required 
+          * @default 'light'
          */
         "theme": Theme;
     }
@@ -674,7 +675,8 @@ export namespace Components {
     interface DashToggleSwitch {
         /**
           * When `true`, toggle is checked
-          * @optional
+          * @optional 
+          * @default false
          */
         "checked": boolean;
         /**
@@ -1122,7 +1124,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when the chip is removed
          */
-        "onDashChipDismiss"?: (event: DashChipCustomEvent<any>) => void;
+        "onDashChipDismiss"?: (event: DashChipCustomEvent<void>) => void;
         /**
           * When `true`, the chip can be interacted with
           * @default false
@@ -1739,7 +1741,7 @@ declare namespace LocalJSX {
         "placeholder"?: string;
         /**
           * When `true`, disables updating the text-area value
-          * @default true
+          * @default false
          */
         "readonly"?: boolean;
         /**
@@ -1769,7 +1771,8 @@ declare namespace LocalJSX {
         "onDashThemeToggleChange"?: (event: DashThemeToggleCustomEvent<void>) => void;
         /**
           * Current theme
-          * @required
+          * @required 
+          * @default 'light'
          */
         "theme"?: Theme;
     }
@@ -1780,7 +1783,8 @@ declare namespace LocalJSX {
     interface DashToggleSwitch {
         /**
           * When `true`, toggle is checked
-          * @optional
+          * @optional 
+          * @default false
          */
         "checked"?: boolean;
         /**

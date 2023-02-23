@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 @Component({
   tag: 'dash-drill-menu',
@@ -21,19 +21,14 @@ export class DashDrillMenu {
    * When `true`, drill menu is activated
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  active: boolean;
+  @Prop({ reflect: true }) active: boolean;
 
   /**
    * Heading for the drill menu
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  drillHeading: string;
+  @Prop({ reflect: true }) drillHeading: string;
+
   //#endregion
 
   //#region @Event
@@ -41,10 +36,7 @@ export class DashDrillMenu {
   /**
    * Emitted when drill menu is closed
    */
-  @Event({
-    eventName: 'dashDrillMenuClosed',
-  })
-  dashDrillMenuClosed: EventEmitter;
+  @Event({ eventName: 'dashDrillMenuClosed' }) menuClosed: EventEmitter;
 
   //#endregion
 
@@ -69,7 +61,7 @@ export class DashDrillMenu {
         {this.active && (
           <div class='drill-content-wrapper'>
             <div class='header'>
-              <dash-icon-button ref={element => element?.setFocus()} class='back-button' icon='arrow-left' onClick={() => this.dashDrillMenuClosed.emit()}></dash-icon-button>
+              <dash-icon-button ref={element => element?.setFocus()} class='back-button' icon='arrow-left' onClick={() => this.menuClosed.emit()}></dash-icon-button>
               {this.drillHeading && [<span class='heading'>{this.drillHeading}</span>, <span class='heading-end'></span>]}
             </div>
 

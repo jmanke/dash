@@ -1,6 +1,6 @@
-import { Component, Host, h, Prop, Element, Watch, State } from '@stencil/core';
-import { isDefined } from '@didyoumeantoast/dash-utils';
-import { Scale } from '../../types/types';
+import { isNone } from '@didyoumeantoast/dash-utils';
+import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none';
 
@@ -23,8 +23,7 @@ export class DashList {
 
   //#region @Element
 
-  @Element()
-  element: HTMLElement;
+  @Element() element: HTMLElement;
 
   //#endregion
 
@@ -33,8 +32,7 @@ export class DashList {
   /**
    * Maximum height of the list
    */
-  @State()
-  maxHeight?: number;
+  @State() maxHeight?: number;
 
   //#endregion
 
@@ -44,10 +42,7 @@ export class DashList {
    * Selection mode of the list and its items
    * @default 'single'
    */
-  @Prop({
-    reflect: true,
-  })
-  selectionMode: SelectionMode = 'single';
+  @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
   @Watch('selectionMode')
   selectionModeChanged() {
     this.updateChildProps();
@@ -57,10 +52,7 @@ export class DashList {
    * Size of the list and its items
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
   @Watch('scale')
   scaleChanged() {
     this.updateChildProps();
@@ -70,10 +62,7 @@ export class DashList {
    * Number of items to show in the list - a scrollbar appears for overflow
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  maxItems?: number;
+  @Prop({ reflect: true }) maxItems?: number;
   @Watch('maxItems')
   maxItemsChanged() {
     this.updateResizeObserver();
@@ -88,6 +77,7 @@ export class DashList {
   async componentWillLoad() {
     const mutationObserver = new MutationObserver(() => {
       this.updateChildProps();
+      this.updateMaxHeight();
     });
 
     mutationObserver.observe(this.element, { childList: true });
@@ -152,7 +142,7 @@ export class DashList {
   focusNextListItem(element: HTMLDashListItemElement) {
     element.tabIndex = -1;
     let nextSibling = this.nextSibling(element);
-    while (!isDefined(nextSibling.getAttribute) || isDefined(nextSibling.getAttribute('disabled'))) {
+    while (isNone(nextSibling.getAttribute) || !isNone(nextSibling.getAttribute('disabled'))) {
       nextSibling = this.nextSibling(nextSibling);
 
       if (nextSibling === element) {
@@ -171,7 +161,7 @@ export class DashList {
   focusPreviousListItem(e: HTMLDashListItemElement) {
     e.tabIndex = -1;
     let prevSibling = this.prevSibling(e);
-    while (!isDefined(prevSibling.getAttribute) || isDefined(prevSibling.getAttribute('disabled'))) {
+    while (isNone(prevSibling.getAttribute) || !isNone(prevSibling.getAttribute('disabled'))) {
       prevSibling = this.prevSibling(prevSibling);
 
       if (prevSibling === e) {
@@ -199,6 +189,10 @@ export class DashList {
    * Updates maxHeight based on the maxItems property
    */
   updateMaxHeight() {
+    if (!this.maxItems || this.maxItems < 1) {
+      return;
+    }
+
     let height = 0;
     const itemsLength = Math.min(this.maxItems ?? 0, this.listItems?.length ?? 0);
     for (let i = 0; i < itemsLength; i++) {
@@ -211,6 +205,7 @@ export class DashList {
 
     this.maxHeight = height;
   }
+
   //#endregion
 
   render() {

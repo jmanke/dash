@@ -1,7 +1,7 @@
 import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
 import { Focusable } from '../../interfaces/focusable';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 
 @Component({
   tag: 'dash-filter',
@@ -17,8 +17,7 @@ export class DashFilter implements Focusable {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashFilterElement;
+  @Element() element: HTMLDashFilterElement;
 
   //#endregion
 
@@ -27,29 +26,7 @@ export class DashFilter implements Focusable {
   /**
    * Items that match the current filter value
    */
-  @State()
-  filteredItems: {}[] | string[] = [];
-  @Watch('filteredItems')
-  filteredItemsChanged(filteredItems: {}[], previousFilteredItems: {}[]) {
-    // make sure filtered items changed before emitting event
-    const itemsDifferent = () => {
-      if (filteredItems.length !== previousFilteredItems.length) {
-        return true;
-      }
-
-      for (let i = 0; i < filteredItems.length; i++) {
-        if (filteredItems[i] !== previousFilteredItems[i]) {
-          return true;
-        }
-      }
-
-      return false;
-    };
-
-    if (itemsDifferent()) {
-      this.dashFilterFilteredItems.emit(filteredItems);
-    }
-  }
+  @State() filteredItems: Record<any, any>[] = [];
   //#endregion
 
   //#region @Prop
@@ -58,11 +35,7 @@ export class DashFilter implements Focusable {
    * Value to filter items by
    * @optional
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  filterValue?: string;
+  @Prop({ reflect: true, mutable: true }) filterValue?: string;
   @Watch('filterValue')
   filterValueChanged() {
     this.filterItems();
@@ -72,44 +45,35 @@ export class DashFilter implements Focusable {
    * Placeholder text for input
    * @default 'Filter''
    */
-  @Prop({
-    reflect: true,
-  })
-  placeholder?: string = 'Filter';
+  @Prop({ reflect: true }) placeholder?: string = 'Filter';
 
   /**
    * Size of the filter input
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * Items to filter
    * @required
    */
-  @Prop()
-  items: {}[] | string[];
+  @Prop() items: {}[] | string[];
   @Watch('items')
   itemsChanged() {
-    this.filterItems();
+    this.filterItems(false);
   }
 
   /**
    * Key to filter items by. Supports up two two levels of nesting. For example, 'state.title' is valid
    * @optional
    */
-  @Prop()
-  objKey: string;
+  @Prop({ reflect: true }) objKey: string;
 
   /**
    * Debounces input in milliseconds
    * @default 250
    */
-  @Prop()
-  debounce: number = 250;
+  @Prop({ reflect: true }) debounce: number = 250;
 
   //#endregion
 
@@ -118,26 +82,17 @@ export class DashFilter implements Focusable {
   /**
    * Emitted when filtered items change
    */
-  @Event({
-    eventName: 'dashFilterFilteredItems',
-  })
-  dashFilterFilteredItems: EventEmitter<object[]>;
+  @Event({ eventName: 'dashFilterFilteredItems' }) itemsFiltered: EventEmitter<object[]>;
 
   /**
    * Emitted when filtered value changes
    */
-  @Event({
-    eventName: 'dashFilterValueChanged',
-  })
-  dashFilterValueChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashFilterValueChanged' }) dashFilterValueChanged: EventEmitter<void>;
 
   /**
    * Emitted when user submits filter input
    */
-  @Event({
-    eventName: 'dashFilterSubmit',
-  })
-  dashFilterSubmit: EventEmitter<void>;
+  @Event({ eventName: 'dashFilterSubmit' }) dashFilterSubmit: EventEmitter<void>;
 
   //#endregion
 
@@ -194,11 +149,17 @@ export class DashFilter implements Focusable {
   /**
    * Filters items based on the filter value
    */
-  filterItems() {
+  filterItems(emitEvent: boolean = true) {
     const value = this.filterValue;
+    const emitFilteredItemsEvent = () => {
+      if (emitEvent) {
+        this.itemsFiltered.emit(this.filteredItems);
+      }
+    };
 
     if (isEmpty(this.items) || isEmpty(value)) {
       this.filteredItems = this.items || [];
+      emitFilteredItemsEvent();
       return;
     }
 
@@ -222,6 +183,7 @@ export class DashFilter implements Focusable {
 
       return value?.match(regex);
     });
+    emitFilteredItemsEvent();
   }
 
   //#endregion

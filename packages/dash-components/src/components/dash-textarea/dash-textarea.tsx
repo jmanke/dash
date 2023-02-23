@@ -1,4 +1,4 @@
-import { Component, Host, h, Prop, Event, EventEmitter } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
 export type Resize = 'vertical' | 'horizontal' | 'both' | 'none';
 
@@ -23,63 +23,42 @@ export class DashTextarea {
    * Text of the text-area
    * @optional
    */
-  @Prop({
-    mutable: true,
-  })
-  value: string;
+  @Prop({ mutable: true }) value: string;
 
   /**
    * Determines how the text area can be resized, if at all
    */
-  @Prop({
-    reflect: true,
-  })
-  resize: Resize = 'both';
+  @Prop({ reflect: true }) resize: Resize = 'both';
 
   /**
    * text-area cols
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  cols: number;
+  @Prop({ reflect: true }) cols: number;
 
   /**
    * text-area rows
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  rows: number;
+  @Prop({ reflect: true }) rows?: number;
 
   /**
    * Placeholder text when there is no current value
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  placeholder: string;
+  @Prop({ reflect: true }) placeholder: string;
 
   /**
    * When `true`, disables updating the text-area value
-   * @default true
+   * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  readonly: boolean;
+  @Prop({ reflect: true }) readonly: boolean;
 
   /**
    * When `true`, a value is required for forms
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  required: boolean;
+  @Prop({ reflect: true }) required: boolean;
 
   //#endregion
 
@@ -88,8 +67,7 @@ export class DashTextarea {
   /**
    * Emitted when text area value changes
    */
-  @Event({ eventName: 'dashTextareaInput' })
-  textAreaInput: EventEmitter;
+  @Event({ eventName: 'dashTextareaInput' }) textAreaInput: EventEmitter;
 
   //#endregion
 

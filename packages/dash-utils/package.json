@@ -3,16 +3,17 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.1.4",
+  "version": "2.0.0",
   "description": "Utils library by Jeff Manke",
-  "main": "lib/index.js",
+  "main": "dist/index.js",
   "scripts": {
     "build": "node build.js",
     "build:dev": "pnpm build",
-    "build:utils": "pnpm build"
+    "build:dash-utils": "pnpm build",
+    "build:dependency": "pnpm build"
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "type": "module",
   "devDependencies": {

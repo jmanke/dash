@@ -1,4 +1,4 @@
-import { Component, h, Host, Prop, Event, EventEmitter, Method } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Host, Method, Prop } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
 
 @Component({
@@ -8,7 +8,9 @@ import { Focusable } from '../../interfaces/focusable';
 })
 export class DashToggleSwitch implements Focusable {
   //#region Own properties
+
   slider: HTMLElement;
+
   //#endregion
 
   //#region @Element
@@ -22,13 +24,9 @@ export class DashToggleSwitch implements Focusable {
   /**
    * When `true`, toggle is checked
    * @optional
+   * @default false
    */
-  @Prop({
-    attribute: 'checked',
-    reflect: true,
-    mutable: true,
-  })
-  checked: boolean = false;
+  @Prop({ reflect: true, mutable: true }) checked: boolean = false;
 
   //#endregion
 
@@ -37,11 +35,7 @@ export class DashToggleSwitch implements Focusable {
   /**
    * Emitted when checked value has changed
    */
-  @Event({
-    eventName: 'dashToggleSwitchCheckChanged',
-    composed: true,
-  })
-  dashToggleSwitchCheckChanged: EventEmitter;
+  @Event({ eventName: 'dashToggleSwitchCheckChanged', composed: true }) checkChanged: EventEmitter;
 
   //#endregion
 
@@ -70,7 +64,7 @@ export class DashToggleSwitch implements Focusable {
    */
   toggleChecked() {
     this.checked = !this.checked;
-    this.dashToggleSwitchCheckChanged.emit(this.checked);
+    this.checkChanged.emit(this.checked);
   }
 
   /**

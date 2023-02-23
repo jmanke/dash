@@ -1,7 +1,7 @@
 import { classExists } from '@didyoumeantoast/dash-utils';
-import { Component, Host, h, Prop, EventEmitter, Event, State, Watch, Element } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 import { DashInputCustomEvent } from '../../components';
-import { Scale } from '../../types/types';
+import { Scale } from '../../types';
 
 type EditMode = 'button' | 'input';
 
@@ -25,8 +25,7 @@ export class DashInlineEdit {
 
   //#region @Element
 
-  @Element()
-  element: HTMLDashInlineEditElement;
+  @Element() element: HTMLDashInlineEditElement;
 
   //#endregion
 
@@ -35,8 +34,7 @@ export class DashInlineEdit {
   /**
    * Current mode/state
    */
-  @State()
-  mode: EditMode = 'button';
+  @State() mode: EditMode = 'button';
   @Watch('mode')
   modeChanged(mode: EditMode) {
     if (mode === 'input') {
@@ -54,10 +52,7 @@ export class DashInlineEdit {
    * Value to be used for editing
    * @required
    */
-  @Prop({
-    mutable: true,
-  })
-  value: string;
+  @Prop({ mutable: true }) value: string;
   @Watch('value')
   valueChanged() {
     this.currentValue = this.value;
@@ -70,19 +65,13 @@ export class DashInlineEdit {
    * Size of the inline edit
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, disabled interaction
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  disabled: boolean;
+  @Prop({ reflect: true }) disabled: boolean;
 
   //#endregion
 
@@ -91,10 +80,7 @@ export class DashInlineEdit {
   /**
    * Emitted when the value has been changed and confirmed
    */
-  @Event({
-    eventName: 'dashInlineEditValueChanged',
-  })
-  dashInlineEditValueChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashInlineEditValueChanged' }) dashInlineEditValueChanged: EventEmitter<void>;
 
   //#endregion
 

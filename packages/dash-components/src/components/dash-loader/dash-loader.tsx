@@ -1,5 +1,5 @@
-import { Component, Host, h, Prop } from '@stencil/core';
-import { Scale } from '../../types/types';
+import { Component, h, Host, Prop } from '@stencil/core';
+import { Scale } from '../../types';
 
 @Component({
   tag: 'dash-loader',
@@ -22,10 +22,7 @@ export class DashLoader {
    * Size of the loader
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   //#endregion
 

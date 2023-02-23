@@ -1,5 +1,5 @@
-import { Component, h, Host, Prop, State } from '@stencil/core';
 import { isHex } from '@didyoumeantoast/dash-utils';
+import { Component, h, Host, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'dash-sidebar-button',
@@ -15,8 +15,7 @@ export class DashSidebarButton {
 
   //#region @State
 
-  @State()
-  button: HTMLElement;
+  @State() button: HTMLElement;
 
   //#endregion
 
@@ -26,46 +25,31 @@ export class DashSidebarButton {
    * Icon displayed at the start of the button
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  icon: string;
+  @Prop({ reflect: true }) icon: string;
 
   /**
    * When `true`, the button is in collapsed mode
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  collapsed: boolean;
+  @Prop({ reflect: true }) collapsed: boolean;
 
   /**
    * Button text to display
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  text: string;
+  @Prop({ reflect: true }) text: string;
 
   /**
    * Sets the color of the icon
    * @optional
    */
-  @Prop({
-    reflect: true,
-  })
-  iconColor: string;
+  @Prop({ reflect: true }) iconColor: string;
 
   /**
    * When `true`, the button is visibly active
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  active: boolean;
+  @Prop({ reflect: true }) active: boolean;
 
   //#endregion
 

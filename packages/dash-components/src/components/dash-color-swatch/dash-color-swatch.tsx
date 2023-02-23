@@ -1,7 +1,7 @@
-import { Component, h, Prop, Method } from '@stencil/core';
-import { Color, Scale } from '../../types/types';
 import { isHex } from '@didyoumeantoast/dash-utils';
+import { Component, h, Method, Prop } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
+import { Color, Scale } from '../../types';
 
 @Component({
   tag: 'dash-color-swatch',
@@ -27,28 +27,20 @@ export class DashColorSwatch implements Focusable {
    * Color of the swatch
    * @required
    */
-  @Prop({
-    reflect: true,
-  })
-  color: Color | string;
+  @Prop({ reflect: true }) color: Color | string;
 
   /**
    * Size of swatch
    * @default 'm'
    */
-  @Prop({
-    reflect: true,
-  })
-  scale: Scale = 'm';
+  @Prop({ reflect: true }) scale: Scale = 'm';
 
   /**
    * When `true`, the swatch is selected and provides visual feedback
    * @default false
    */
-  @Prop({
-    reflect: true,
-  })
-  selected: boolean = false;
+  @Prop({ reflect: true }) selected: boolean = false;
+
   //#endregion
 
   //#region @Event

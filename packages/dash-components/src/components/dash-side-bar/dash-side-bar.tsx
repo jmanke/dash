@@ -21,11 +21,7 @@ export class DashSideBar {
    * When `true`, the sidebar is collapsed
    * @default false
    */
-  @Prop({
-    reflect: true,
-    mutable: true,
-  })
-  collapsed: boolean;
+  @Prop({ reflect: true, mutable: true }) collapsed: boolean;
 
   //#endregion
 
@@ -34,10 +30,7 @@ export class DashSideBar {
   /**
    * Emitted when the sidebar is closed
    */
-  @Event({
-    eventName: 'dashSideBarClose',
-  })
-  dashSideBarClose: EventEmitter;
+  @Event({ eventName: 'dashSideBarClose' }) sidebarClosed: EventEmitter;
 
   //#endregion
 
@@ -57,7 +50,7 @@ export class DashSideBar {
    */
   close() {
     this.collapsed = true;
-    this.dashSideBarClose.emit();
+    this.sidebarClosed.emit();
   }
 
   //#endregion

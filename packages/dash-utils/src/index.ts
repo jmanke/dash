@@ -1,33 +1,13 @@
+import { classExists } from './class-exists';
 import { contains } from './contains';
 import { deepCopy } from './deep-copy';
+import EventEmitter from './event-emitter';
 import { focus, getFocusableElements, SKIP_NODE_CLASS } from './focus';
-import { isClick } from './is-click';
-import { isDefined } from './is-defined';
 import { isHex } from './is-hex';
 import { isNone } from './is-none';
-import { queryElementById } from './query-element';
 import { replaceAt } from './replace-at';
 import { spaceConcat } from './space-concat';
 import { stringSearch } from './string-search';
 import { wait } from './wait';
-import { classExists } from './class-exists';
-import EventEmitter from './event-emitter';
 
-export {
-  contains,
-  deepCopy,
-  focus,
-  getFocusableElements,
-  SKIP_NODE_CLASS,
-  isClick,
-  isDefined,
-  isHex,
-  isNone,
-  queryElementById,
-  replaceAt,
-  spaceConcat,
-  stringSearch,
-  wait,
-  classExists,
-  EventEmitter,
-};
+export { contains, deepCopy, focus, getFocusableElements, SKIP_NODE_CLASS, isHex, isNone, replaceAt, spaceConcat, stringSearch, wait, classExists, EventEmitter };
