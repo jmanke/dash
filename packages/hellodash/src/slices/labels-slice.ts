@@ -1,10 +1,10 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import type { PayloadAction } from '@reduxjs/toolkit';
-import { Label } from '@didyoumeantoast/hellodash-models';
 import { fetchLabel, fetchLabels, createLabel as createLabelApi, updateLabel as updateLabelApi, deleteLabel as deleteLabelApi } from '../api/labels-api';
 import { sortBy } from 'lodash';
 import { syncLabels } from './notes-slice';
-import { store } from '../store';
+import { Label } from '@didyoumeantoast/hellodash-models';
+import { PayloadAction } from '@reduxjs/toolkit';
+import { RootState } from '../store';
 
 export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { dispatch }) => {
   const labels = (await fetchLabels()) ?? [];
@@ -33,16 +33,16 @@ export const createLabel = createAsyncThunk('labels/createLabel', async (label: 
 
 export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: Label, { dispatch }) => {
   dispatch(replaceLabel(label));
-  await updateLabelApi(label);
+  // await updateLabelApi(label);
 
   return label;
 });
 
-export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: Label, { dispatch }) => {
+export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: Label, { dispatch, getState }) => {
   dispatch(removeLabel(label));
-  dispatch(syncLabels(store.getState().labels));
+  dispatch(syncLabels((getState() as RootState).labels));
 
-  return deleteLabelApi(label);
+  // return deleteLabelApi(label);
 });
 
 const initialState: Label[] = [];

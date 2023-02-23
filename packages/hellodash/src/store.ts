@@ -1,8 +1,8 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { labelsSlice } from "./slices/labels-slice";
-import { appSettingsSlice } from "./slices/app-settings-slice";
-import { appStateSlice } from "./slices/app-state-slice";
-import { notesSlice } from "./slices/notes-slice";
+import { configureStore } from '@reduxjs/toolkit';
+import { appSettingsSlice } from './slices/app-settings-slice';
+import { appStateSlice } from './slices/app-state-slice';
+import { notesSlice } from './slices/notes-slice';
+import { labelsSlice } from './slices/labels-slice';
 
 export const store = configureStore({
   reducer: {

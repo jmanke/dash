@@ -1,5 +1,4 @@
-import { Note } from '../models/note';
-import { NotePreview } from '../models/note-preview';
+import { Note } from '@didyoumeantoast/hellodash-models';
 import { patch, get, post, put, remove } from './api';
 import CancelationToken from './cancellation-token';
 
@@ -13,11 +12,11 @@ export async function fetchNote(id: number, cancelationToken?: CancelationToken)
   return get({ url: `${noteBaseUrl}/${id}`, cancelationToken });
 }
 
-export async function createNote(note: Note | NotePreview) {
+export async function createNote(note: Note) {
   return post<Note, number>(`${noteBaseUrl}`, note as Note);
 }
 
-export async function updateNotePreview(note: NotePreview): Promise<{ lastModified: string }> {
+export async function updateNotePreview(note: Note): Promise<{ lastModified: string }> {
   return put(`${noteBaseUrl}/Preview/${note.id}`, note);
 }
 
@@ -25,10 +24,10 @@ export async function updateNote(note: Note): Promise<{ lastModified: string }> 
   return put(`${noteBaseUrl}/${note.id}`, note);
 }
 
-export async function removeNote(note: Note | NotePreview) {
+export async function removeNote(note: Note) {
   return patch(`${noteBaseUrl}/${note.id}`);
 }
 
-export async function deleteNote(note: Note | NotePreview) {
+export async function deleteNote(note: Note) {
   return remove(`${noteBaseUrl}/${note.id}`);
 }

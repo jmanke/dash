@@ -17,13 +17,17 @@ export const getNotePreviews = createAsyncThunk('notes/fetchNotePreviews', async
 export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id: number, { dispatch }) => {
   const note = await fetchNote(id);
 
-  dispatch(replaceNote(note));
+  if (note) {
+    dispatch(replaceNote(note));
+  }
+
+  console.log(note);
 
   return note;
 });
 
 export const createNote = createAsyncThunk('labels/createNote', async (note: Note, { dispatch }) => {
-  const id = await createNoteApi(note);
+  const id = Math.random(); //await createNoteApi(note);
   const newNote: Note = {
     ...note,
     id,
@@ -36,7 +40,7 @@ export const createNote = createAsyncThunk('labels/createNote', async (note: Not
 export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note, { dispatch }) => {
   dispatch(replaceNote(note));
 
-  const { lastModified } = await _updateNote(note);
+  const { lastModified } = { lastModified: new Date().toISOString() }; // await _updateNote(note);
   const updatedNote = {
     ...note,
     lastModified,
@@ -49,7 +53,7 @@ export const updateNote = createAsyncThunk('notes/updateNote', async (note: Note
 export const deleteNote = createAsyncThunk('notes/deleteNote', async (note: Note, { dispatch }) => {
   dispatch(removeNote(note));
 
-  return deleteNoteApi(note);
+  // return deleteNoteApi(note);
 });
 
 export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note: Note, { dispatch }) => {
@@ -63,12 +67,12 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
     title: note.title + ' (copy)',
   };
 
-  const noteCopyId = await createNoteApi(noteCopy);
-  const newNote = await fetchNote(noteCopyId);
+  // const noteCopyId = await createNoteApi(noteCopy);
+  // const newNote = await fetchNote(noteCopyId);
 
-  dispatch(addNote(newNote));
+  // dispatch(addNote(newNote));
 
-  return newNote;
+  // return newNote;
 });
 
 export const archiveNote = createAsyncThunk('notes/archiveNote', async (note: Note, { dispatch }) => {

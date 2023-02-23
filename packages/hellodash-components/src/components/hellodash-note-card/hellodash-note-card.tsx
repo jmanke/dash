@@ -55,6 +55,8 @@ export class HellodashNoteCard {
     if (this.mode !== 'edit') {
       return;
     }
+
+    this.noteSelected.emit();
   }
 
   toLocaleDate(dateTime: DateTime) {

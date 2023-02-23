@@ -2,6 +2,7 @@
 import createAuth0Client from '@auth0/auth0-spa-js';
 import { User } from '@didyoumeantoast/hellodash-models';
 import { onMounted, onUnmounted, ref } from 'vue';
+import Hellodash from './components/Hellodash.vue';
 import { CONSTANTS } from './constants';
 import { hellodashService } from './services/hellodash-service';
 import { setCurrentUser, setMobileView } from './slices/app-state-slice';
@@ -71,18 +72,15 @@ async function userSignedIn() {
 </script>
 
 <template>
-  Heyo
-  <dash-button>Hello</dash-button>
-
   <hellodash-auth0-provider v-if="isAppStateLoaded" :authClient="hellodashService.authClient" @hellodashAuth0ProviderSignedIn="userSignedIn">
-    <hellodash-app v-if="!rootState.appState.error && rootState.appState.currentUser" :rootState="rootState"></hellodash-app>
+    <Hellodash v-if="!rootState.appState.error && rootState.appState.currentUser" :rootState="rootState"></Hellodash>
     <div v-if="rootState.appState.error" class="root-error-message">Oops! Something went wrong...</div>
   </hellodash-auth0-provider>
 
   <dash-loader v-if="!isAppStateLoaded"></dash-loader>
 </template>
 
-<style scoped>
+<style>
 .root-error-message {
   margin-top: var(--dash-spacing-48);
   text-align: center;

@@ -9,8 +9,9 @@ import { getNotePreviews } from '../slices/notes-slice';
 import { dispatch, RootState } from '../store';
 import { isNone } from '@didyoumeantoast/dash-utils';
 import { Routes } from '../common/routes';
+import { useRoute, useRouter } from 'vue-router';
 
-const LogoPath: string = './assets/icon/pomeranian.svg';
+const LogoPath: string = './icon/pomeranian.svg';
 
 const { rootState } = defineProps<{ rootState: RootState }>();
 
@@ -19,10 +20,14 @@ const pathName = ref<string>();
 const isEditingLabels = ref(false);
 const isCreatingLabel = ref(false);
 const isInitialized = ref(false);
+const route = useRoute();
+const router = useRouter();
 
 watch(pathName, pathName => {
   setSelectedLabel(pathName);
 });
+
+watch(route, () => (isEditingLabels.value = false));
 
 onMounted(async () => {
   try {
@@ -40,6 +45,7 @@ function navigateTo(url: string) {
   }
 
   // TODO: nagivate using router
+  router.push(url);
 }
 
 function selectLabel(label: Label) {

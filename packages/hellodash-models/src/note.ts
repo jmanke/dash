@@ -3,7 +3,7 @@ import { Model } from './model';
 
 export interface Note extends Model {
   title: string;
-  content: string;
+  content?: string;
   previewContent: string;
   labels: number[];
   status: Status;

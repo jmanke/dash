@@ -15,7 +15,11 @@ export const config: Config = {
     {
       type: 'dist',
       esmLoaderPath: './loader',
-      copy: [{ src: 'assets' }],
+      copy: [
+        { src: 'assets' },
+        // need to copy over component assets into this project
+        { src: '../../dash-components/dist/dash-components/assets', dest: 'assets' },
+      ],
     },
     {
       type: 'dist-custom-elements',

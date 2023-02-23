@@ -10,8 +10,8 @@ import { Routes } from '../common/routes';
 export default function initializeRouter() {
   const routes = [
     { path: '/', alias: [Routes.home], component: NotesRouteVue },
-    { path: `${Routes.notes}/:noteId`, component: NotesRouteVue, props: true },
-    { path: `${Routes.labels}/:labelId`, component: NotesRouteVue, props: true },
+    { path: `${Routes.notes}/:noteId`, component: NotesRouteVue },
+    { path: `${Routes.labels}/:labelId`, component: NotesRouteVue },
     { path: Routes.bin, component: BinRouteVue },
   ];
 
