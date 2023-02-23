@@ -66,6 +66,8 @@ onMounted(async () => {
     console.error(error);
     dispatch(setError(true));
   }
+
+  setSelectedLabel();
 });
 
 //#endregion
