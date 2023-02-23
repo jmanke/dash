@@ -14,7 +14,7 @@
     "build:dependency": "pnpm build"
   },
   "files": [
-    "lib/"
+    "dist/"
   ],
   "devDependencies": {
     "esbuild": "^0.15.17",
