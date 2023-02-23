@@ -1,6 +1,6 @@
 import { FunctionalComponent, h } from '@stencil/core';
 import { EventLayout } from '../../../interfaces/event-layout';
-import { Scale } from '../../../types/types';
+import { Scale } from '../../../types';
 import { toLocaleString } from '../../../utils/date-time';
 
 interface EventButtonProps {
