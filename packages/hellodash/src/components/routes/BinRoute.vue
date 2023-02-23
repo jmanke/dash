@@ -8,16 +8,39 @@ import { deleteNote, restoreNote } from '../../slices/notes-slice';
 import { dispatch, store } from '../../store';
 import { noteLabels } from '../../utils/note-labels';
 
+//#region Local properties
+
+/** Callback when the store is updated. Need to keep a reference to it so we can remove it later. */
 let unsubscribeStore: Unsubscribe;
 
+//#endregion
+
+//#region Refs
+
+/** Notes from store */
 const notes = ref<Note[]>();
+
+/** Archived notes from store */
 const archivedNotes = ref<Note[]>([]);
+
+/** Labels from store */
 const labels = ref<Label[]>();
+
+/** Whether the app is in mobile view */
 const mobileView = ref(false);
-const noteWithDropdownActive = ref<Note | null>(null);
+
+/** The note that has the dropdown active */
+const noteWithDropdownActive = ref<Note>();
+
+/** The notes that are currently selected */
 const selectedNotes = ref<Map<number, Note>>(new Map());
+
+/** Whether to show the delete confirmation dialog */
 const showDeleteConfirmation = ref(false);
 
+//#endregion
+
+//#region Lifecycle methods
 onMounted(() => {
   const storeUpdated = () => {
     const state = store.getState();
@@ -36,6 +59,14 @@ onUnmounted(() => {
   unsubscribeStore();
 });
 
+//#endregion
+
+//#region Methods
+
+/**
+ * Handles when a note is clicked.
+ * @param note The note that was clicked.
+ */
 function noteClicked(note: Note) {
   if (selectedNotes.value.has(note.id)) {
     selectedNotes.value.delete(note.id);
@@ -47,6 +78,9 @@ function noteClicked(note: Note) {
   selectedNotes.value = new Map(selectedNotes.value);
 }
 
+/**
+ * Restores the selected notes.
+ */
 function restoreNotes() {
   selectedNotes.value.forEach(note => {
     dispatch(restoreNote(note));
@@ -55,13 +89,21 @@ function restoreNotes() {
   selectedNotes.value = new Map();
 }
 
+/**
+ * Selects all notes.
+ */
 function selectAll() {
   selectedNotes.value = new Map(archivedNotes.value.map(n => [n.id, n]));
 }
 
+/**
+ * Deselects all notes.
+ */
 function deselectAll() {
   selectedNotes.value = new Map();
 }
+
+//#endregion
 </script>
 
 <template>
