@@ -15,7 +15,6 @@
   ],
   "scripts": {
     "build": "stencil build",
-    "build:dependency": "stencil build",
     "build:hellodash-components": "stencil build",
     "start": "stencil build --dev --watch --serve",
     "start:hellodash-components": "pnpm start",
