@@ -2,6 +2,7 @@
 import { Label, Note, Status } from '@didyoumeantoast/hellodash-models';
 import { Unsubscribe } from '@reduxjs/toolkit';
 import { orderBy } from 'lodash';
+import { DateTime } from 'luxon';
 import { onMounted, onUnmounted, ref } from 'vue';
 import { deleteNote, restoreNote } from '../../slices/notes-slice';
 import { dispatch, store } from '../../store';
@@ -22,7 +23,7 @@ onMounted(() => {
     const state = store.getState();
     notes.value = state.notes;
     const archived = notes.value.filter(note => note.status === Status.Archived);
-    archivedNotes.value = orderBy(archived, [a => new Date(a.lastModified ?? a.created).getMilliseconds()], ['desc']);
+    archivedNotes.value = orderBy(archived, [a => DateTime.fromISO(a.lastModified ?? a.created).toMillis()], ['desc']);
     labels.value = state.labels;
     mobileView.value = state.appState.mobileView;
   };
@@ -124,6 +125,10 @@ function deselectAll() {
 </template>
 
 <style scoped>
+dash-grid {
+  overflow-x: hidden;
+}
+
 .note-overlay {
   z-index: 10;
 }

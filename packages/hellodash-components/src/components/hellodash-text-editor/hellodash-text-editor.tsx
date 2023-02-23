@@ -3,7 +3,7 @@ import tinymce, { Editor, RawEditorSettings } from 'tinymce';
 import { debounce, DebouncedFunc } from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
 import { spaceConcat } from '@didyoumeantoast/dash-utils';
-import { Focusable } from '@didyoumeantoast/dash-components/dist/types/interfaces/focusable';
+import { Focusable } from '@didyoumeantoast/dash-components';
 import { checklist } from '@didyoumeantoast/tinymce-plugins';
 
 const MIN_EDITOR_HEIGHT = 230;

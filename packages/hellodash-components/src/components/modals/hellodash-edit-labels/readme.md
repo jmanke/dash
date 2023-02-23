@@ -15,13 +15,13 @@
 
 ## Events
 
-| Event                            | Description | Type                 |
-| -------------------------------- | ----------- | -------------------- |
-| `dashModalBeforeClose`           |             | `CustomEvent<any>`   |
-| `dashModalClosed`                |             | `CustomEvent<any>`   |
-| `hellodashEditLabelsCreateLabel` |             | `CustomEvent<Label>` |
-| `hellodashEditLabelsDeleteLabel` |             | `CustomEvent<Label>` |
-| `hellodashEditLabelsUpdateLabel` |             | `CustomEvent<Label>` |
+| Event                            | Description | Type                                            |
+| -------------------------------- | ----------- | ----------------------------------------------- |
+| `dashModalBeforeClose`           |             | `CustomEvent<any>`                              |
+| `dashModalClosed`                |             | `CustomEvent<any>`                              |
+| `hellodashEditLabelsCreateLabel` |             | `CustomEvent<{ color: string; text: string; }>` |
+| `hellodashEditLabelsDeleteLabel` |             | `CustomEvent<Label>`                            |
+| `hellodashEditLabelsUpdateLabel` |             | `CustomEvent<Label>`                            |
 
 
 ## Methods

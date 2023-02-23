@@ -241,7 +241,7 @@ declare namespace LocalJSX {
         "labels"?: Label[];
         "onDashModalBeforeClose"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
-        "onHellodashEditLabelsCreateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
+        "onHellodashEditLabelsCreateLabel"?: (event: HellodashEditLabelsCustomEvent<Pick<Label, 'color' | 'text'>>) => void;
         "onHellodashEditLabelsDeleteLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
         "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }

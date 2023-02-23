@@ -21,6 +21,10 @@ export async function updateNotePreview(note: Note): Promise<{ lastModified: str
 }
 
 export async function updateNote(note: Note): Promise<{ lastModified: string }> {
+  if (note.content === null || note.content === undefined) {
+    return updateNotePreview(note);
+  }
+
   return put(`${noteBaseUrl}/${note.id}`, note);
 }
 

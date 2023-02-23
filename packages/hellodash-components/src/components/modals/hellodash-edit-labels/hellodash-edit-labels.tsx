@@ -51,7 +51,7 @@ export class HellodashEditLabels implements Modal {
 
   @Event({ eventName: 'hellodashEditLabelsUpdateLabel' }) updateLabel: EventEmitter<Label>;
 
-  @Event({ eventName: 'hellodashEditLabelsCreateLabel' }) createLabel: EventEmitter<Label>;
+  @Event({ eventName: 'hellodashEditLabelsCreateLabel' }) createLabel: EventEmitter<Pick<Label, 'color' | 'text'>>;
 
   //#endregion
 
@@ -86,11 +86,9 @@ export class HellodashEditLabels implements Modal {
       return;
     }
 
-    const label: Label = {
-      id: -1,
+    const label = {
       color: 'red',
       text: this.newLabelText,
-      created: new Date().toISOString(),
     };
     this.newLabelText = undefined;
     this.createLabel.emit(label);

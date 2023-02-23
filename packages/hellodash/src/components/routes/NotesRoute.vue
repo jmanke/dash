@@ -10,6 +10,7 @@ import { createLabel, updateLabel } from '../../slices/labels-slice';
 import { addLabelToNote, archiveNote, createNote, duplicateNote, getNoteById, removeLabelFromNote, updateNote } from '../../slices/notes-slice';
 import { dispatch, store } from '../../store';
 import { noteLabels } from '../../utils/note-labels';
+import { DateTime } from 'luxon';
 
 type SortOption = 'date' | 'title' | 'last-modified';
 
@@ -28,7 +29,7 @@ const isLoadingNote = ref(false);
 const route = useRoute();
 const router = useRouter();
 
-watch([notesFilter, notes, selectedLabelId], filterNotes);
+watch([notesFilter, notes, selectedLabelId, sortBy], filterNotes);
 watch(route, matchRoute);
 
 onMounted(() => {
@@ -90,13 +91,13 @@ function filterNotes() {
   // sort logic
   switch (sortBy.value) {
     case 'last-modified':
-      filtered.sort((a, b) => new Date(b.lastModified ?? b.created).getMilliseconds() - new Date(a.lastModified ?? a.created).getMilliseconds());
+      filtered.sort((a, b) => DateTime.fromISO(b.lastModified ?? b.created).toMillis() - DateTime.fromISO(a.lastModified ?? a.created).toMillis());
       break;
     case 'title':
       filtered.sort((a, b) => a.title.localeCompare(b.title));
       break;
     case 'date':
-      filtered.sort((a, b) => new Date(b.created).getMilliseconds() - new Date(a.created).getMilliseconds());
+      filtered.sort((a, b) => DateTime.fromISO(b.created).toMillis() - DateTime.fromISO(a.created).toMillis());
       break;
   }
 
@@ -104,17 +105,24 @@ function filterNotes() {
 }
 
 async function addNote() {
-  const note: Note = {
-    id: -1,
+  const note = {
     title: 'New note',
-    status: Status.Active,
+    content: '',
     previewContent: '',
+    status: Status.Active,
     labels: selectedLabelId.value ? [selectedLabelId.value] : [],
-    created: new Date().toISOString(),
   };
-  selectedNote.value = note;
-  const newNote = await dispatch(createNote(note)).unwrap();
-  //   this.history.push(`/note/${newNote.id}`);
+  isLoadingNote.value = true;
+  try {
+    const newNote = await dispatch(createNote(note)).unwrap();
+    if (newNote) {
+      router.push(`${Routes.note}/${newNote.id}`);
+    }
+  } finally {
+    setTimeout(() => {
+      isLoadingNote.value = false;
+    }, 0);
+  }
 }
 
 async function createLabelForNote(label: Label, note: Note) {
@@ -183,11 +191,11 @@ function updateSortBy(v: SortOption) {
   </dash-section>
 
   <hellodash-modal-note
-    v-if="selectedNote"
+    v-if="selectedNote || isLoadingNote"
     :note="selectedNote"
     :loading="isLoadingNote"
-    :all-labels="labels"
-    :mobile-view="mobileView"
+    :allLabels="labels"
+    :mobileView="mobileView"
     @hellodashModalNoteLabelCreated="
       async (e: any) => {
         createLabelForNote(e.detail, selectedNote as Note);
@@ -195,7 +203,7 @@ function updateSortBy(v: SortOption) {
     "
     @hellodashModalNoteLabelUpdated="(e: any) => dispatch(updateLabel(e.detail))"
     @hellodashModalNoteUpdateNote="(e: any) => dispatch(updateNote(e.detail))"
-    @dashModalClosed="router.push('/')"
+    @dashModalClosed="router.back()"
   ></hellodash-modal-note>
 </template>
 
@@ -206,6 +214,10 @@ hellodash-nav-bar .theme-toggle {
 
 dash-card-icon {
   width: 100%;
+}
+
+dash-grid {
+  overflow-x: hidden;
 }
 
 .notes-filter {

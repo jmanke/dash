@@ -20,20 +20,20 @@ export const getLabelById = createAsyncThunk('labels/fetchLabel', async (id: num
   return label;
 });
 
-export const createLabel = createAsyncThunk('labels/createLabel', async (label: Label, { dispatch }) => {
+export const createLabel = createAsyncThunk('labels/createLabel', async (label: Pick<Label, 'color' | 'text'>, { dispatch }) => {
   const id = await createLabelApi(label);
-  const newLabel = {
-    ...label,
-    id,
-  };
-  dispatch(addLabel(newLabel));
+  const newLabel = (await fetchLabel(id)) as Label;
+
+  if (newLabel) {
+    dispatch(addLabel(newLabel));
+  }
 
   return newLabel;
 });
 
 export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: Label, { dispatch }) => {
   dispatch(replaceLabel(label));
-  // await updateLabelApi(label);
+  await updateLabelApi(label);
 
   return label;
 });
@@ -42,7 +42,7 @@ export const deleteLabel = createAsyncThunk('notes/deleteLabel', async (label: L
   dispatch(removeLabel(label));
   dispatch(syncLabels((getState() as RootState).labels));
 
-  // return deleteLabelApi(label);
+  return deleteLabelApi(label);
 });
 
 const initialState: Label[] = [];
