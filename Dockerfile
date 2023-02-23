@@ -42,7 +42,7 @@ FROM node:18-alpine AS PROD
     COPY ./packages/hellodash-components/src /app/packages/hellodash-components/src
 
     # packages/hellodash
-    COPY ./packages/hellodash/public /app/packages/hellodash/
+    COPY ./packages/hellodash/public /app/packages/hellodash/public
     COPY ./packages/hellodash/index.html /app/packages/hellodash/
     COPY ./packages/hellodash/manifest.json /app/packages/hellodash/
     COPY ./packages/hellodash/package.json /app/packages/hellodash/
