@@ -120,7 +120,7 @@ export class DashModal implements Modal {
     this.closing = true;
     this.dashModalBeforeClose.emit();
     const transitionTimeStr = getComputedStyle(this.element).getPropertyValue('--dash-transition-time-default');
-    const transitionTime = parseInt(transitionTimeStr) - 50;
+    const transitionTime = this.convertToMilliseconds(transitionTimeStr) - 50;
 
     await wait(transitionTime);
 
@@ -132,6 +132,32 @@ export class DashModal implements Modal {
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Converts a time string to milliseconds. Accepts seconds and milliseconds.
+   * @param str Time string
+   * @returns Time in milliseconds
+   */
+  convertToMilliseconds(str: string) {
+    const regex = /^(\d*\.?\d+)(ms|s)$/; // regex pattern for the time string
+    const match = str.match(regex); // match the input string with the regex pattern
+
+    if (!match) {
+      throw new Error('Invalid time string specified.');
+    }
+
+    const time = parseFloat(match[1]); // extract the numerical value of the time string
+    const unit = match[2]; // extract the unit of time
+
+    if (unit === 'ms') {
+      return time;
+    } else if (unit === 's') {
+      return time * 1000;
+    } else {
+      throw new Error('Invalid time unit specified.');
+    }
+  }
+
   //#endregion
 
   render() {
