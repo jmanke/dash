@@ -16,7 +16,7 @@ importers:
   packages/dash-components:
     specifiers:
       '@babel/core': ^7.19.3
-      '@didyoumeantoast/component-forge': ^0.4.1
+      '@didyoumeantoast/component-forge': ^0.6.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@popperjs/core': ^2.11.5
       '@stencil/core': ^3.0.0
@@ -47,7 +47,7 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@babel/core': 7.20.5
-      '@didyoumeantoast/component-forge': 0.4.1
+      '@didyoumeantoast/component-forge': 0.6.0
       '@stencil/postcss': 2.1.0_@stencil+core@3.0.0
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.191
@@ -65,6 +65,9 @@ importers:
       rollup: 1.20.0
       rollup-plugin-dotenv: 0.3.0_rollup@1.20.0
       webpack: 5.75.0
+
+  packages/dash-components/dist/loader:
+    specifiers: {}
 
   packages/dash-components/loader:
     specifiers: {}
@@ -193,6 +196,9 @@ importers:
       postcss-nested: 5.0.6_postcss@8.4.6
       puppeteer: 10.4.0
       rollup: 1.20.0
+
+  packages/hellodash-components/dist/loader:
+    specifiers: {}
 
   packages/hellodash-models:
     specifiers:
@@ -701,8 +707,8 @@ packages:
       esbuild: 0.15.17
     dev: true
 
-  /@didyoumeantoast/component-forge/0.4.1:
-    resolution: {integrity: sha512-FB6oPF09lY7k87eFpJmn8Y6fbN8GBt8h8xz9uQv31iW3E8xFiH+O3VG6MQZBjrRmBjnWhTlDpYmZwvWsUGGbGA==}
+  /@didyoumeantoast/component-forge/0.6.0:
+    resolution: {integrity: sha512-IOR+9Wla9axAP+EgxXWL6xFeNM3z1kqAV/FPVodVg+Ed59QXY6VUoUngh6z1NBf5FWs+0SB7BDOi/8cwb2srtA==}
     engines: {node: 18.x, pnpm: 7.x}
     hasBin: true
     dependencies:
@@ -712,8 +718,9 @@ packages:
       concurrently: 7.6.0
       glob: 8.0.3
       lit-html: 2.4.0
-      vanilla-jsoneditor: 0.10.2
+      monaco-editor: 0.34.1
       vite: 3.2.4
+      vite-plugin-monaco-editor: 1.1.0_monaco-editor@0.34.1
       vite-plugin-static-copy: 0.11.1_vite@3.2.4
       vue: 3.2.45
     transitivePeerDependencies:
@@ -4638,6 +4645,10 @@ packages:
       minimist: 1.2.7
     dev: true
 
+  /monaco-editor/0.34.1:
+    resolution: {integrity: sha512-FKc80TyiMaruhJKKPz5SpJPIjL+dflGvz4CpuThaPMc94AyN7SeC9HQ8hrvaxX7EyHdJcUY5i4D0gNyJj1vSZQ==}
+    dev: true
+
   /ms/2.0.0:
     resolution: {integrity: sha512-Tpp60P6IUJDTuOq/5Z8cdskzJujfwqfOTkrwIwj7IRISpnkJnT6SyJ4PCPnGMoFjC9ddhal5KVIYtAt97ix05A==}
     dev: false
@@ -5986,14 +5997,18 @@ packages:
       source-map: 0.7.4
     dev: true
 
-  /vanilla-jsoneditor/0.10.2:
-    resolution: {integrity: sha512-9/9kBA2DKbVh6zUwxOUkcJs65tz04OVlgAQetU62lbL9ZJwdCSS9YquQ3dkz/60apHEfu8yQj7savFj5zTh2Yw==}
-    dev: true
-
   /vary/1.1.2:
     resolution: {integrity: sha512-BNGbWLfd0eUPabhkXUVm0j8uuvREyTh5ovRa/dyow/BqAbZJyC+5fU+IzQOzmAKzYqYRAISoRhdQr3eIZ/PXqg==}
     engines: {node: '>= 0.8'}
     dev: false
+
+  /vite-plugin-monaco-editor/1.1.0_monaco-editor@0.34.1:
+    resolution: {integrity: sha512-IvtUqZotrRoVqwT0PBBDIZPNraya3BxN/bfcNfnxZ5rkJiGcNtO5eAOWWSgT7zullIAEqQwxMU83yL9J5k7gww==}
+    peerDependencies:
+      monaco-editor: '>=0.33.0'
+    dependencies:
+      monaco-editor: 0.34.1
+    dev: true
 
   /vite-plugin-static-copy/0.11.1_vite@3.2.4:
     resolution: {integrity: sha512-SPNxP/6Sj4rdPSZnuacIdJr1nHaF8YDnu2RWWVurQSv8I+tXrdoOU5r3Xsw/5mVrOtK84LhD4HsZ8tAG1epJ7Q==}
