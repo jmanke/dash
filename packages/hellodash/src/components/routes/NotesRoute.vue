@@ -296,6 +296,10 @@ dash-card-icon {
   width: 100%;
 }
 
+hellodash-note-card {
+  height: 100%;
+}
+
 .notes-filter {
   flex: auto;
   max-width: var(--dash-spacing-72);

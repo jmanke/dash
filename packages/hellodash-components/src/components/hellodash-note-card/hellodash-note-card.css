@@ -18,11 +18,10 @@
 .note-card {
   position: relative;
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: inherit;
+  width: inherit;
 
   button {
-    position: relative;
     padding-top: var(--dash-spacing-4);
     padding-bottom: var(--dash-spacing-4);
     padding-left: var(--dash-spacing-6);
@@ -33,6 +32,7 @@
     display: flex;
     flex-direction: column;
     flex: auto;
+    min-width: 0;
     transition: box-shadow 75ms ease-in-out;
 
     &:hover {
@@ -62,6 +62,8 @@
   }
 
   .title {
+    word-break: normal;
+    overflow-wrap: anywhere;
     font-size: var(--dash-font-size-3);
     margin-top: var(--dash-spacing-1);
     margin-bottom: var(--dash-spacing-3);
