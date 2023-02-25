@@ -11,7 +11,6 @@
 | ---------------- | ------------------ | ----------- | ------------------- | ----------- |
 | `content`        | `content`          |             | `string`            | `undefined` |
 | `debounce`       | `debounce`         |             | `number`            | `3000`      |
-| `deferLoadTime`  | `defer-load-time`  |             | `number`            | `undefined` |
 | `heading`        | `heading`          |             | `string`            | `undefined` |
 | `loading`        | `loading`          |             | `boolean`           | `undefined` |
 | `readonly`       | `readonly`         |             | `boolean`           | `undefined` |
@@ -87,7 +86,27 @@ Type: `Promise<void>`
 
 
 
+### `setContent(content: string) => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
 ### `setFocus() => Promise<void>`
+
+
+
+#### Returns
+
+Type: `Promise<void>`
+
+
+
+### `setHeading(heading: string) => Promise<void>`
 
 
 

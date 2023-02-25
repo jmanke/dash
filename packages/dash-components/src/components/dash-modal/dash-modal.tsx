@@ -1,5 +1,5 @@
 import { wait } from '@didyoumeantoast/dash-utils';
-import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State, Watch } from '@stencil/core';
 import { Modal } from '../../interfaces/modal';
 import { Scale } from '../../types';
 
@@ -42,6 +42,16 @@ export class DashModal implements Modal {
    * @default false
    */
   @Prop({ mutable: true, reflect: true }) open: boolean;
+  @Watch('open')
+  openChanged(open: boolean, prevOpen: boolean) {
+    if (open === prevOpen) {
+      return;
+    }
+
+    if (!open) {
+      this.dashModalClosed.emit();
+    }
+  }
 
   /**
    * Modal heading
@@ -126,7 +136,6 @@ export class DashModal implements Modal {
 
     this.open = false;
     this.closing = false;
-    this.dashModalClosed.emit();
   }
 
   //#endregion

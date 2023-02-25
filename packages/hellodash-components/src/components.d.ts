@@ -18,11 +18,36 @@ export namespace Components {
         "authClient": Auth0Client;
     }
     interface HellodashConfirm {
+        /**
+          * Modal content
+          * @required
+         */
         "cancelText": string;
+        /**
+          * Closes the modal
+          * @returns Promise for closing the modal
+         */
         "close": () => Promise<void>;
+        /**
+          * Status of confirm button
+          * @default 'error'
+         */
         "confirmButtonStatus": Status;
+        /**
+          * Confirm button text
+          * @required
+         */
         "confirmText": string;
+        /**
+          * Modal heading
+          * @required
+         */
         "heading": string;
+        /**
+          * When `true`, the modal is open
+          * @default false
+         */
+        "open": boolean;
     }
     interface HellodashEditLabels {
         "close": () => Promise<void>;
@@ -48,6 +73,10 @@ export namespace Components {
         "loading": boolean;
         "mobileView": boolean;
         "note": Note;
+        /**
+          * When `true`, the modal is open
+         */
+        "open": boolean;
         "theme": Theme;
     }
     interface HellodashNavBar {
@@ -69,7 +98,6 @@ export namespace Components {
     interface HellodashTextEditor {
         "content": string;
         "debounce": number;
-        "deferLoadTime"?: number;
         "getContent": () => Promise<string>;
         "getTextContent": () => Promise<string>;
         "heading": string;
@@ -79,7 +107,9 @@ export namespace Components {
         "resize"?: boolean;
         "save": (emitEvent?: boolean) => Promise<void>;
         "selectTitle": () => Promise<void>;
+        "setContent": (content: string) => Promise<void>;
         "setFocus": () => Promise<void>;
+        "setHeading": (heading: string) => Promise<void>;
         "showFullscreen": boolean;
         "showTitleInput": boolean;
         "theme": Theme;
@@ -228,13 +258,34 @@ declare namespace LocalJSX {
         "onHellodashAuth0ProviderSignedIn"?: (event: HellodashAuth0ProviderCustomEvent<void>) => void;
     }
     interface HellodashConfirm {
+        /**
+          * Modal content
+          * @required
+         */
         "cancelText"?: string;
+        /**
+          * Status of confirm button
+          * @default 'error'
+         */
         "confirmButtonStatus"?: Status;
+        /**
+          * Confirm button text
+          * @required
+         */
         "confirmText"?: string;
+        /**
+          * Modal heading
+          * @required
+         */
         "heading"?: string;
         "onDashModalBeforeClose"?: (event: HellodashConfirmCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashConfirmCustomEvent<any>) => void;
         "onHellodashConfirmConfirmed"?: (event: HellodashConfirmCustomEvent<any>) => void;
+        /**
+          * When `true`, the modal is open
+          * @default false
+         */
+        "open"?: boolean;
     }
     interface HellodashEditLabels {
         "creatingLabel"?: boolean;
@@ -275,6 +326,10 @@ declare namespace LocalJSX {
         "onHellodashModalNoteLabelCreated"?: (event: HellodashModalNoteCustomEvent<Label>) => void;
         "onHellodashModalNoteLabelUpdated"?: (event: HellodashModalNoteCustomEvent<Label>) => void;
         "onHellodashModalNoteUpdateNote"?: (event: HellodashModalNoteCustomEvent<Note>) => void;
+        /**
+          * When `true`, the modal is open
+         */
+        "open"?: boolean;
         "theme"?: Theme;
     }
     interface HellodashNavBar {
@@ -305,7 +360,6 @@ declare namespace LocalJSX {
     interface HellodashTextEditor {
         "content"?: string;
         "debounce"?: number;
-        "deferLoadTime"?: number;
         "heading"?: string;
         "loading"?: boolean;
         "onHellodashTextEditorBeforeUnload"?: (event: HellodashTextEditorCustomEvent<Promise<unknown>[]>) => void;

@@ -207,6 +207,14 @@ function updateSortBy(v: SortOption) {
   sortBy.value = v;
 }
 
+function notesModalClosed() {
+  if (isEmpty(router.options.history.state.back)) {
+    return;
+  }
+
+  router.back();
+}
+
 //#endregion
 </script>
 
@@ -262,7 +270,7 @@ function updateSortBy(v: SortOption) {
   </dash-section>
 
   <hellodash-modal-note
-    v-if="selectedNote || isLoadingNote"
+    :open="!!selectedNote || isLoadingNote"
     :note="selectedNote"
     :loading="isLoadingNote"
     :allLabels="labels"
@@ -275,7 +283,7 @@ function updateSortBy(v: SortOption) {
     "
     @hellodashModalNoteLabelUpdated="(e: any) => dispatch(updateLabel(e.detail))"
     @hellodashModalNoteUpdateNote="(e: any) => dispatch(updateNote(e.detail))"
-    @dashModalClosed="router.back()"
+    @dashModalClosed="notesModalClosed"
   ></hellodash-modal-note>
 </template>
 

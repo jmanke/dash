@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property              | Attribute               | Description | Type                | Default     |
-| --------------------- | ----------------------- | ----------- | ------------------- | ----------- |
-| `allLabels`           | --                      |             | `Label[]`           | `undefined` |
-| `createLabelDisabled` | `create-label-disabled` |             | `boolean`           | `undefined` |
-| `loading`             | `loading`               |             | `boolean`           | `undefined` |
-| `mobileView`          | `mobile-view`           |             | `boolean`           | `undefined` |
-| `note`                | --                      |             | `Note`              | `undefined` |
-| `theme`               | `theme`                 |             | `"dark" \| "light"` | `'dark'`    |
+| Property              | Attribute               | Description                    | Type                | Default     |
+| --------------------- | ----------------------- | ------------------------------ | ------------------- | ----------- |
+| `allLabels`           | --                      |                                | `Label[]`           | `undefined` |
+| `createLabelDisabled` | `create-label-disabled` |                                | `boolean`           | `undefined` |
+| `loading`             | `loading`               |                                | `boolean`           | `undefined` |
+| `mobileView`          | `mobile-view`           |                                | `boolean`           | `undefined` |
+| `note`                | --                      |                                | `Note`              | `undefined` |
+| `open`                | `open`                  | When `true`, the modal is open | `boolean`           | `undefined` |
+| `theme`               | `theme`                 |                                | `"dark" \| "light"` | `'dark'`    |
 
 
 ## Events
