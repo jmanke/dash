@@ -96,22 +96,84 @@ export namespace Components {
         "user": User;
     }
     interface HellodashTextEditor {
+        /**
+          * The content of the editor
+         */
         "content": string;
+        /**
+          * The debounce time in milliseconds for content changes
+          * @default 3000
+         */
         "debounce": number;
+        /**
+          * Returns the editor content
+          * @returns the editor content
+         */
         "getContent": () => Promise<string>;
+        /**
+          * Returns the editor content as text
+          * @returns the editor content as text
+         */
         "getTextContent": () => Promise<string>;
+        /**
+          * The heading of the editor
+         */
         "heading": string;
+        /**
+          * Returns true if the editor is dirty
+          * @returns true if the editor is dirty
+         */
         "isEditorDirty": () => Promise<boolean>;
+        /**
+          * When `true`, the editor is loading and will show a loading indicator
+         */
         "loading": boolean;
+        /**
+          * When `true`, the editor will be readonly
+         */
         "readonly": boolean;
+        /**
+          * When `true`, the editor will resize to fit the content
+          * @default true
+         */
         "resize"?: boolean;
+        /**
+          * Saves the editor content
+          * @param emitEvent whether to emit the contentChanged event
+         */
         "save": (emitEvent?: boolean) => Promise<void>;
+        /**
+          * Selects the title input
+         */
         "selectTitle": () => Promise<void>;
+        /**
+          * Sets the editor content
+          * @param content the content to set
+         */
         "setContent": (content: string) => Promise<void>;
+        /**
+          * Focuses the editor
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the editor heading
+          * @param heading the heading to set
+         */
         "setHeading": (heading: string) => Promise<void>;
+        /**
+          * When `true`, the editor will show the fullscreen button
+          * @default false
+         */
         "showFullscreen": boolean;
+        /**
+          * When `true`, the editor will show the title input
+          * @default false
+         */
         "showTitleInput": boolean;
+        /**
+          * The theme of the editor
+          * @default 'dark'
+         */
         "theme": Theme;
     }
 }
@@ -358,9 +420,22 @@ declare namespace LocalJSX {
         "user"?: User;
     }
     interface HellodashTextEditor {
+        /**
+          * The content of the editor
+         */
         "content"?: string;
+        /**
+          * The debounce time in milliseconds for content changes
+          * @default 3000
+         */
         "debounce"?: number;
+        /**
+          * The heading of the editor
+         */
         "heading"?: string;
+        /**
+          * When `true`, the editor is loading and will show a loading indicator
+         */
         "loading"?: boolean;
         "onHellodashTextEditorBeforeUnload"?: (event: HellodashTextEditorCustomEvent<Promise<unknown>[]>) => void;
         "onHellodashTextEditorContentChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
@@ -370,10 +445,29 @@ declare namespace LocalJSX {
         "onHellodashTextEditorIsDirty"?: (event: HellodashTextEditorCustomEvent<any>) => void;
         "onHellodashTextEditorNodeChanged"?: (event: HellodashTextEditorCustomEvent<object>) => void;
         "onHellodashTextEditorUnload"?: (event: HellodashTextEditorCustomEvent<any>) => void;
+        /**
+          * When `true`, the editor will be readonly
+         */
         "readonly"?: boolean;
+        /**
+          * When `true`, the editor will resize to fit the content
+          * @default true
+         */
         "resize"?: boolean;
+        /**
+          * When `true`, the editor will show the fullscreen button
+          * @default false
+         */
         "showFullscreen"?: boolean;
+        /**
+          * When `true`, the editor will show the title input
+          * @default false
+         */
         "showTitleInput"?: boolean;
+        /**
+          * The theme of the editor
+          * @default 'dark'
+         */
         "theme"?: Theme;
     }
     interface IntrinsicElements {
