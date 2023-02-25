@@ -65,6 +65,14 @@ export class HellodashTextEditor implements Focusable {
    * @default 'dark'
    */
   @Prop({ reflect: true }) theme: Theme = 'dark';
+  @Watch('theme')
+  themeChanged(theme: Theme, prevTheme: Theme) {
+    if (theme === prevTheme) {
+      return;
+    }
+
+    this.loadTinyMce();
+  }
 
   /**
    * The heading of the editor
