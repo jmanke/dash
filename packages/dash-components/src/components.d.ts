@@ -407,6 +407,11 @@ export namespace Components {
     }
     interface DashList {
         /**
+          * Whether the list items can be deselected
+          * @default false
+         */
+        "disableDeselect": boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
@@ -423,6 +428,11 @@ export namespace Components {
         "selectionMode": SelectionMode;
     }
     interface DashListItem {
+        /**
+          * Whether the list item can be deselected
+          * @default false
+         */
+        "disableDeselect": boolean;
         /**
           * When `true`, interaction is disabled
          */
@@ -1358,6 +1368,11 @@ declare namespace LocalJSX {
     }
     interface DashList {
         /**
+          * Whether the list items can be deselected
+          * @default false
+         */
+        "disableDeselect"?: boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
@@ -1374,6 +1389,11 @@ declare namespace LocalJSX {
         "selectionMode"?: SelectionMode;
     }
     interface DashListItem {
+        /**
+          * Whether the list item can be deselected
+          * @default false
+         */
+        "disableDeselect"?: boolean;
         /**
           * When `true`, interaction is disabled
          */

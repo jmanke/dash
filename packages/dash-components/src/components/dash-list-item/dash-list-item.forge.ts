@@ -3,6 +3,7 @@ import { html } from 'lit-html';
 const template = (args, updateArg) =>
   html`<dash-list-item
     selection-mode=${args.selectionMode}
+    disable-deselect=${args.disableDeselect}
     ?selected=${args.selected}
     ?disabled=${args.disabled}
     @dashListItemSelectedChanged=${() => updateArg('selected', !args.selected)}
@@ -15,11 +16,13 @@ export const listItemDefinition = {
     disabled: { type: 'boolean' },
     selected: { type: 'boolean' },
     selectionMode: { type: 'select', options: ['single', 'multiple', 'none'] },
+    disableDeselect: { type: 'boolean' },
   },
   template,
   args: {
     disabled: false,
     selected: false,
+    disableDeselect: false,
     selectionMode: 'single',
   },
 };

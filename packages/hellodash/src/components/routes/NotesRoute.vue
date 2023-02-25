@@ -218,7 +218,7 @@ function updateSortBy(v: SortOption) {
         <dash-dropdown class="sort-dropdown" placement="bottom-end" auto-close>
           <dash-icon-button slot="dropdown-trigger" icon="filter" scale="l" tooltip-text="Filter notes" tooltip-placement="right"></dash-icon-button>
 
-          <dash-list selection-mode="single">
+          <dash-list selection-mode="single" disable-deselect>
             <dash-list-item :selected="sortBy === 'last-modified'" @dashListItemSelectedChanged="() => updateSortBy('last-modified')"> Sort by last modified </dash-list-item>
             <dash-list-item :selected="sortBy === 'date'" @dashListItemSelectedChanged="() => updateSortBy('date')"> Sort by date created </dash-list-item>
             <dash-list-item :selected="sortBy === 'title'" @dashListItemSelectedChanged="updateSortBy('title')"> Sort by title </dash-list-item>

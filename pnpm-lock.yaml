@@ -66,9 +66,6 @@ importers:
       rollup-plugin-dotenv: 0.3.0_rollup@1.20.0
       webpack: 5.75.0
 
-  packages/dash-components/dist/loader:
-    specifiers: {}
-
   packages/dash-components/loader:
     specifiers: {}
 

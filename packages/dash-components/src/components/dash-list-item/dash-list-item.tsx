@@ -41,6 +41,12 @@ export class DashListItem implements Focusable {
   @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
 
   /**
+   * Whether the list item can be deselected
+   * @default false
+   */
+  @Prop({ reflect: true }) disableDeselect: boolean;
+
+  /**
    * Size of the list-item
    * @internal
    * @default 'm'
@@ -114,8 +120,8 @@ export class DashListItem implements Focusable {
    * Handles mouse click
    * @param e - mouse click event
    */
-  click(e: MouseEvent) {
-    if (this.isClick(e) && !this.disabled) {
+  click(e: MouseEvent | KeyboardEvent) {
+    if (this.isClick(e) && !this.disabled && !(this.disableDeselect && this.selected)) {
       this.selected = !this.selected;
       this.selectedChanged.emit();
     }
@@ -131,11 +137,7 @@ export class DashListItem implements Focusable {
       return;
     }
 
-    if (this.isClick(e) && !this.disabled) {
-      this.updateIsActive(true);
-      this.selected = !this.selected;
-      this.selectedChanged.emit();
-    }
+    this.click(e);
 
     if (e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Space') {
       e.preventDefault();

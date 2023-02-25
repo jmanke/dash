@@ -49,6 +49,16 @@ export class DashList {
   }
 
   /**
+   * Whether the list items can be deselected
+   * @default false
+   */
+  @Prop({ reflect: true }) disableDeselect: boolean;
+  @Watch('disableDeselect')
+  disableDeselectChanged() {
+    this.updateChildProps();
+  }
+
+  /**
    * Size of the list and its items
    * @default 'm'
    */
@@ -180,6 +190,7 @@ export class DashList {
     this.listItems = Array.from(this.element.childNodes).filter(child => child.nodeName === 'DASH-LIST-ITEM') as HTMLDashListItemElement[];
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
       element.selectionMode = this.selectionMode;
+      element.disableDeselect = this.disableDeselect;
       element.scale = this.scale;
       element.tabIndex = index === 0 ? 0 : -1;
     });

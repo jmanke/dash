@@ -7,10 +7,11 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                          | Type      | Default     |
-| ---------- | ---------- | ------------------------------------ | --------- | ----------- |
-| `disabled` | `disabled` | When `true`, interaction is disabled | `boolean` | `undefined` |
-| `selected` | `selected` | When `true`, list-item is selected   | `boolean` | `false`     |
+| Property          | Attribute          | Description                             | Type      | Default     |
+| ----------------- | ------------------ | --------------------------------------- | --------- | ----------- |
+| `disableDeselect` | `disable-deselect` | Whether the list item can be deselected | `boolean` | `undefined` |
+| `disabled`        | `disabled`         | When `true`, interaction is disabled    | `boolean` | `undefined` |
+| `selected`        | `selected`         | When `true`, list-item is selected      | `boolean` | `false`     |
 
 
 ## Events
