@@ -255,7 +255,7 @@ function notesModalClosed() {
             @hellodashNoteEditLabelRemoved="(e: any) => dispatch(removeLabelFromNote({ note, label: e.detail }))"
             @hellodashNoteEditLabelUpdated="(e: any) => dispatch(updateLabel(e.detail))"
             @hellodashNoteEditLabelCreated="(e: any) => createLabelForNote(e.detail, note)"
-            @focusin="() => (focusedNote = note)"
+            @hellodashNoteEditDropdownVisibleChanged="(e: any) => focusedNote = e.detail ? note : undefined"
           ></hellodash-note-edit-dropdown>
         </hellodash-note-card>
       </dash-grid>
