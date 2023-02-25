@@ -35,8 +35,10 @@
     min-width: 0;
     transition: box-shadow 75ms ease-in-out;
 
-    &:hover {
-      box-shadow: rgba(var(--dash-rgb-brand)) 0px 0px 5px;
+    @media (hover: hover) {
+      &:hover {
+        box-shadow: rgba(var(--dash-rgb-brand)) 0px 0px 5px;
+      }
     }
 
     &:focus-visible {
