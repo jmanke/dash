@@ -37,7 +37,7 @@
 
     @media only screen and (min-width: 600px) {
       &:hover {
-        box-shadow: rgba(var(--dash-rgb-brand)) 0px 0px 5px;
+        box-shadow: rgba(var(--dash-rgb-brand)) 0px 0px 3px;
       }
     }
 
