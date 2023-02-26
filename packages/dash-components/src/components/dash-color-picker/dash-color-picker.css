@@ -13,3 +13,24 @@ dash-color-swatch {
   align-self: center;
   justify-self: center;
 }
+
+.color-gradient {
+  position: relative;
+  height: 16px;
+
+  canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: -4px;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--dash-spacing-full);
+    border: 2px solid var(--dash-background-2);
+  }
+}

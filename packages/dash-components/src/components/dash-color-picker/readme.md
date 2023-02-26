@@ -7,11 +7,12 @@
 
 ## Properties
 
-| Property | Attribute | Description                                                                                     | Type                                                                                                                  | Default     |
-| -------- | --------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `color`  | `color`   | Currently selected color                                                                        | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
-| `colors` | --        | Colors to pick from                                                                             | `Color[]`                                                                                                             | `[]`        |
-| `cols`   | `cols`    | Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns | `number`                                                                                                              | `undefined` |
+| Property        | Attribute        | Description                                                                                     | Type                                                                                                                  | Default     |
+| --------------- | ---------------- | ----------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
+| `color`         | `color`          | Currently selected color                                                                        | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
+| `colors`        | --               | Colors to pick from                                                                             | `Color[]`                                                                                                             | `[]`        |
+| `cols`          | `cols`           | Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns | `number`                                                                                                              | `undefined` |
+| `selectedColor` | `selected-color` | Currently selected color                                                                        | `string`                                                                                                              | `undefined` |
 
 
 ## Events
@@ -20,25 +21,6 @@
 | ----------------------------- | ------------------------------------ | ------------------- |
 | `dashColorPickerColorChanged` | Emitted when color has been selected | `CustomEvent<void>` |
 
-
-## Dependencies
-
-### Depends on
-
-- [dash-color-swatch](../dash-color-swatch)
-
-### Graph
-```mermaid
-graph TD;
-  dash-color-picker --> dash-color-swatch
-  dash-color-swatch --> dash-icon-button
-  dash-color-swatch --> dash-icon
-  dash-icon-button --> dash-icon
-  dash-icon-button --> dash-loader
-  dash-icon-button --> dash-tooltip
-  dash-tooltip --> dash-popover
-  style dash-color-picker fill:#f9f,stroke:#333,stroke-width:4px
-```
 
 ----------------------------------------------
 

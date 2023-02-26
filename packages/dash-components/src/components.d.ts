@@ -96,6 +96,11 @@ export namespace Components {
           * @default colors.length
          */
         "cols": number;
+        /**
+          * Currently selected color
+          * @optional
+         */
+        "selectedColor": string;
     }
     interface DashColorSwatch {
         /**
@@ -1054,6 +1059,11 @@ declare namespace LocalJSX {
           * Emitted when color has been selected
          */
         "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<void>) => void;
+        /**
+          * Currently selected color
+          * @optional
+         */
+        "selectedColor"?: string;
     }
     interface DashColorSwatch {
         /**

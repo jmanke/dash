@@ -92,7 +92,6 @@ graph TD;
   dash-input --> dash-icon
   dash-input --> dash-icon-button
   hellodash-label-color-picker --> dash-color-picker
-  dash-color-picker --> dash-color-swatch
   style hellodash-modal-note fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
