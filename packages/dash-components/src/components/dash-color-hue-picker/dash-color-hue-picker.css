@@ -1,0 +1,35 @@
+@import '../../assets/styles/_focus-outline.css';
+
+:host {
+  display: block;
+}
+
+.color-hue-picker {
+  position: relative;
+  height: 25px;
+
+  &:focus-visible {
+    @extend .focus-outline;
+  }
+
+  canvas {
+    position: absolute;
+    top: 7.5px;
+    left: 0;
+    border-radius: var(--dash-spacing-full);
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0px;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--dash-spacing-full);
+    border: 2px solid var(--dash-background-2-light);
+
+    &:not(.dragging) {
+      transition: left 100ms ease-in-out;
+    }
+  }
+}

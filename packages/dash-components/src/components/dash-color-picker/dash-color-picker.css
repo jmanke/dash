@@ -2,35 +2,27 @@
   display: block;
 }
 
-.color-swatch-container {
-  display: grid;
-  flex: auto;
-  background-color: var(--dash-background-2);
-  padding: var(--dash-spacing-1);
-}
+.color-picker {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--dash-background-1);
+  align-items: center;
+  grid-gap: var(--dash-spacing-2);
+  box-shadow: var(--dash-box-shadow);
 
-dash-color-swatch {
-  align-self: center;
-  justify-self: center;
-}
+  .gradient-container {
+    position: relative;
+    width: 250px;
+    height: 125px;
 
-.color-gradient {
-  position: relative;
-  height: 16px;
-
-  canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-  }
-
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    top: -4px;
-    width: 20px;
-    height: 20px;
-    border-radius: var(--dash-spacing-full);
-    border: 2px solid var(--dash-background-2);
+    .color-selector {
+      box-sizing: border-box;
+      position: absolute;
+      pointer-events: none;
+      width: 20px;
+      height: 20px;
+      border-radius: var(--dash-spacing-full);
+      border: 2px solid var(--dash-text-color-1);
+    }
   }
 }

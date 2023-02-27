@@ -1,17 +1,18 @@
-import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 import { Color } from '../../types';
 
-type Rgb = [number, number, number];
+type HSV = [number, number, number];
+type RGB = [number, number, number];
 
-const ColorRampStops = [
-  { color: [255, 0, 0], stop: 0 },
-  { color: [255, 0, 255], stop: 0.15 },
-  { color: [0, 0, 255], stop: 0.33 },
-  { color: [0, 255, 255], stop: 0.49 },
-  { color: [0, 255, 0], stop: 0.67 },
-  { color: [255, 255, 0], stop: 0.84 },
-  { color: [255, 0, 0], stop: 1 },
-];
+const CanvasSize = {
+  width: 250,
+  height: 125,
+};
+
+const ColorSelector = {
+  width: 20,
+  height: 20,
+};
 
 @Component({
   tag: 'dash-color-picker',
@@ -20,6 +21,9 @@ const ColorRampStops = [
 })
 export class DashColorPicker {
   //#region Own properties
+
+  canvas: HTMLCanvasElement;
+
   //#endregion
 
   //#region @Element
@@ -30,7 +34,18 @@ export class DashColorPicker {
 
   //#region @State
 
-  @State() rampColor: Rgb = [0, 255, 0];
+  @State() hsv: HSV = [360, 100, 100];
+  @Watch('hsv')
+  hsvChanged(hsv: HSV, prevHsv: HSV) {
+    if (hsv[0] !== prevHsv[0]) {
+      this.createColorGradient(hsv[0]);
+    }
+
+    this.rgb = this.hsvToRgb(hsv);
+  }
+
+  @State()
+  rgb: RGB = [360, 100, 50];
 
   //#endregion
 
@@ -75,15 +90,11 @@ export class DashColorPicker {
   //#region Component lifecycle
 
   componentDidLoad() {
-    const rgbaGradient = this.element.shadowRoot.querySelector('canvas.rgba-gradient') as HTMLCanvasElement;
-    rgbaGradient.width = 250;
-    rgbaGradient.height = 150;
-    this.createRgbaColorGradient(rgbaGradient, this.rampColor);
-
-    const rgbGradient = this.element.shadowRoot.querySelector('canvas.rgb-gradient') as HTMLCanvasElement;
-    rgbGradient.width = 250;
-    rgbGradient.height = 16;
-    this.createRgbColorRamp(rgbGradient);
+    this.canvas = this.element.shadowRoot.querySelector('canvas.rgba-gradient') as HTMLCanvasElement;
+    this.canvas.width = CanvasSize.width;
+    this.canvas.height = CanvasSize.height;
+    this.createColorGradient(this.hsv[0]);
+    this.rgb = this.hsvToRgb(this.hsv);
   }
 
   //#endregion
@@ -96,28 +107,21 @@ export class DashColorPicker {
 
   //#region Local methods
 
-  interpolateColors(color1: Rgb, color2: Rgb, factor: number) {
-    const result = [...color1];
-    for (let i = 0; i < 3; i++) {
-      result[i] = Math.round(result[i] + factor * (color2[i] - color1[i]));
-    }
-    return result;
-  }
-
   /**
-   * Creates a gradient color based on the rgba values
+   * Creates a gradient color
    * @param canvas Canvas to draw on
    * @param color rgb color values
    */
-  createRgbaColorGradient(canvas: HTMLCanvasElement, color: Rgb) {
+  createColorGradient(hue: number) {
     // Clear the canvas
+    const canvas = this.canvas;
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     // Create a Gradient Color (colors change on the width)
     let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-    gradient.addColorStop(0, `rgba(${color[0]}, ${color[1]}, ${color[2]}, 0)`);
-    gradient.addColorStop(1, `rgba(${color[0]}, ${color[1]}, ${color[2]}, 1)`);
+    gradient.addColorStop(0, `hsla(${hue}, 100%, 50%, 0)`);
+    gradient.addColorStop(1, `hsla(${hue}, 100%, 50%, 1)`);
 
     // Fill the canvas with the gradient color
     ctx.fillStyle = gradient;
@@ -125,28 +129,12 @@ export class DashColorPicker {
 
     // Create another gradient color, but this time change the color on the height
     gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
-    gradient.addColorStop(0, 'rgba(255, 255, 255, 0)');
-    gradient.addColorStop(1, 'rgba(0, 0, 0, 1)');
+    gradient.addColorStop(0, 'hsla(0, 0%, 100%, 0)');
+    gradient.addColorStop(1, 'hsla(0, 0%, 0%, 1)');
 
     // Fill the canvas with the second gradient color
     ctx.fillStyle = gradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    let pixel = ctx.getImageData(canvas.width - 1, 0, 1, 1).data;
-    console.log(pixel);
-  }
-
-  createRgbColorRamp(canvas: HTMLCanvasElement) {
-    const ctx = canvas.getContext('2d');
-    let gradient = ctx.createLinearGradient(0, 0, canvas.width, 0);
-
-    //Color Stops
-    ColorRampStops.forEach(colorStop => gradient.addColorStop(colorStop.stop, `rgb(${colorStop.color[0]}, ${colorStop.color[1]}, ${colorStop.color[2]})`));
-    //Fill it
-    ctx.fillStyle = gradient;
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    console.log(this.interpolateColors([255, 0, 255], [0, 0, 255], 0 / (0.33 - 0.15)));
   }
 
   /**
@@ -158,26 +146,86 @@ export class DashColorPicker {
     this.dashColorPickerColorChanged.emit();
   }
 
+  setHsv({ hue, saturation, value }: { hue?: number; saturation?: number; value?: number }) {
+    this.hsv = [hue ?? this.hsv[0], saturation ?? this.hsv[1], value ?? this.hsv[2]];
+  }
+
+  hsvToRgb([h, s, v]: HSV): RGB {
+    const c = (v / 100) * (s / 100);
+    const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
+    const m = v / 100 - c;
+
+    let r = 0;
+    let g = 0;
+    let b = 0;
+
+    if (h >= 0 && h < 60) {
+      r = c;
+      g = x;
+    } else if (h >= 60 && h < 120) {
+      r = x;
+      g = c;
+    } else if (h >= 120 && h < 180) {
+      g = c;
+      b = x;
+    } else if (h >= 180 && h < 240) {
+      g = x;
+      b = c;
+    } else if (h >= 240 && h < 300) {
+      r = x;
+      b = c;
+    } else if (h >= 300 && h < 360) {
+      r = c;
+      b = x;
+    }
+
+    r = Math.round((r + m) * 255);
+    g = Math.round((g + m) * 255);
+    b = Math.round((b + m) * 255);
+
+    return [r, g, b];
+  }
+
+  canvasPointerInput(e: PointerEvent) {
+    const rect = this.canvas.getBoundingClientRect();
+    const s = Math.round(Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1) * 100);
+    const v = Math.round(Math.min(Math.max(1 - (e.clientY - rect.top) / rect.height, 0), 1) * 100);
+
+    this.setHsv({ saturation: s, value: v });
+  }
+
+  canvasPointerDown(e: PointerEvent) {
+    this.canvasPointerInput(e);
+    const canvasPointerInput = this.canvasPointerInput.bind(this);
+    window.addEventListener('pointermove', canvasPointerInput);
+    window.addEventListener('pointerup', () => window.removeEventListener('pointermove', canvasPointerInput));
+  }
+
   //#endregion
 
   render() {
+    const colorSelectorLeft = (this.hsv[1] / 100) * CanvasSize.width - ColorSelector.width / 2;
+    const colorSelectorTop = (1 - this.hsv[2] / 100) * CanvasSize.height - ColorSelector.height / 2;
+
     return (
       <Host>
-        <div>
-          <canvas class='rgba-gradient'></canvas>
-        </div>
+        <div class='color-picker'>
+          <div class='gradient-container'>
+            <canvas class='rgba-gradient' onPointerDown={this.canvasPointerDown.bind(this)}></canvas>
+            <div
+              class='color-selector'
+              style={{ left: `${colorSelectorLeft}px`, top: `${colorSelectorTop}px`, backgroundColor: `rgb(${this.rgb[0]}, ${this.rgb[1]}, ${this.rgb[2]})` }}
+            ></div>
+          </div>
+          <dash-color-hue-picker hue={this.hsv[0]} width={225} onDashColorHuePickerHueChanged={e => this.setHsv({ hue: e.target.hue })}></dash-color-hue-picker>
 
-        <div class='color-gradient'>
-          <canvas class='rgb-gradient'></canvas>
-          <div class='slider' style={{ backgroundColor: `rgb(${this.rampColor[0]}, ${this.rampColor[1]}, ${this.rampColor[2]}` }}></div>
+          <div>
+            <span>H: {this.hsv[0]}, </span>
+            <span>S: {this.hsv[1]}%, </span>
+            <span>V: {this.hsv[2]}%, </span>
+          </div>
         </div>
       </Host>
-
-      // <div class='color-swatch-container' style={{ 'grid-template-columns': `repeat(${this.cols ?? this.colors.length}, 1fr)` }}>
-      //   {this.colors.map(color => (
-      //     <dash-color-swatch color={color} onClick={this.setColor.bind(this, color)} scale='l' selected={this.color === color}></dash-color-swatch>
-      //   ))}
-      // </div>
     );
   }
 }

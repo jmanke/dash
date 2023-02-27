@@ -22,6 +22,19 @@
 | `dashColorPickerColorChanged` | Emitted when color has been selected | `CustomEvent<void>` |
 
 
+## Dependencies
+
+### Depends on
+
+- [dash-color-hue-picker](../dash-color-hue-picker)
+
+### Graph
+```mermaid
+graph TD;
+  dash-color-picker --> dash-color-hue-picker
+  style dash-color-picker fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*
