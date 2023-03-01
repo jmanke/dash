@@ -109,6 +109,21 @@ export namespace Components {
          */
         "cols": number;
         /**
+          * Hex color value
+          * @default #FFFFFF
+         */
+        "hex": string;
+        /**
+          * HSV color values
+          * @default [0, 0, 100]
+         */
+        "hsv": HSV;
+        /**
+          * RGB color values
+          * @default [255, 255, 255]
+         */
+        "rgb": RGB;
+        /**
           * Currently selected color
           * @optional
          */
@@ -1095,9 +1110,24 @@ declare namespace LocalJSX {
          */
         "cols"?: number;
         /**
+          * Hex color value
+          * @default #FFFFFF
+         */
+        "hex"?: string;
+        /**
+          * HSV color values
+          * @default [0, 0, 100]
+         */
+        "hsv"?: HSV;
+        /**
           * Emitted when color has been selected
          */
         "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<void>) => void;
+        /**
+          * RGB color values
+          * @default [255, 255, 255]
+         */
+        "rgb"?: RGB;
         /**
           * Currently selected color
           * @optional

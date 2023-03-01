@@ -36,9 +36,18 @@ export class DashColorPicker {
 
   //#region @State
 
+  /** Color mode */
   @State() colorMode: ColorMode = 'rgb';
 
-  @State() hsv: HSV;
+  //#endregion
+
+  //#region @Prop
+
+  /**
+   * HSV color values
+   * @default [0, 0, 100]
+   */
+  @Prop({ mutable: true }) hsv: HSV = [0, 0, 100];
   @Watch('hsv')
   hsvChanged(hsv: HSV, prevHsv: HSV) {
     if (hsv[0] !== prevHsv?.[0]) {
@@ -46,15 +55,17 @@ export class DashColorPicker {
     }
   }
 
-  @State()
-  rgb: RGB = [0, 0, 0];
+  /**
+   * RGB color values
+   * @default [255, 255, 255]
+   */
+  @Prop({ mutable: true }) rgb: RGB = [255, 255, 255];
 
-  @State()
-  hex: string = '#FFFFFF';
-
-  //#endregion
-
-  //#region @Prop
+  /**
+   *  Hex color value
+   * @default #FFFFFF
+   */
+  @Prop({ mutable: true }) hex: string = '#FFFFFF';
 
   /**
    * Colors to pick from
@@ -95,7 +106,7 @@ export class DashColorPicker {
   //#region Component lifecycle
 
   componentWillLoad() {
-    this.setHsv([360, 100, 100]);
+    this.createColorGradient(this.hsv[0]);
   }
 
   componentDidLoad() {
@@ -115,18 +126,30 @@ export class DashColorPicker {
 
   //#region Local methods
 
+  /**
+   * Sets hsv color values
+   * @param hsv hsv color values
+   */
   setHsv(hsv: HSV) {
     this.hsv = hsv;
     this.rgb = colorConvert.hsv.rgb(hsv);
     this.hex = '#' + colorConvert.hsv.hex(hsv);
   }
 
+  /**
+   * Sets hex color value
+   * @param hex Hex color value
+   */
   setHex(hex: string) {
     this.hex = hex;
     this.hsv = colorConvert.hex.hsv(hex);
     this.rgb = colorConvert.hex.rgb(hex);
   }
 
+  /**
+   * Sets rgb color values
+   * @param rgb rgb color values
+   */
   setRgb(rgb: RGB) {
     this.rgb = rgb;
     this.hsv = colorConvert.rgb.hsv(rgb);
@@ -183,6 +206,7 @@ export class DashColorPicker {
     const v = Math.min(Math.max(1 - (e.clientY - rect.top) / rect.height, 0), 1) * 100;
 
     this.setHsv([this.hsv[0], s, v]);
+    this.dashColorPickerColorChanged.emit();
   }
 
   canvasPointerDown(e: PointerEvent) {
@@ -208,6 +232,7 @@ export class DashColorPicker {
     }
 
     this.setHex(hex);
+    this.dashColorPickerColorChanged.emit();
   }
 
   rgbInputChange(index: number, e: Event) {
@@ -219,6 +244,7 @@ export class DashColorPicker {
     const rgb: RGB = [...this.rgb];
     rgb[index] = value;
     this.setRgb(rgb);
+    this.dashColorPickerColorChanged.emit();
   }
 
   rgbInputBlur(index: number, e: Event) {
@@ -263,25 +289,37 @@ export class DashColorPicker {
               style={{ left: `${colorSelectorLeft}px`, top: `${colorSelectorTop}px`, backgroundColor: `rgb(${this.rgb[0]}, ${this.rgb[1]}, ${this.rgb[2]})` }}
             ></div>
           </div>
-          <dash-color-hue-picker hue={this.hsv[0]} width={225} onDashColorHuePickerHueChanged={e => this.setHsv([e.target.hue, this.hsv[1], this.hsv[2]])}></dash-color-hue-picker>
 
-          <div class='input-container'>
-            <dash-button scale='s' onClick={this.cycleColorMode.bind(this)}>
-              {this.colorMode.toUpperCase()}
-            </dash-button>
-            {this.colorMode === 'rgb' && [
-              <dash-input scale='s' value={this.rgb[0].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 0)} onBlur={this.rgbInputBlur.bind(this, 0)}></dash-input>,
-              <dash-input scale='s' value={this.rgb[1].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 1)} onBlur={this.rgbInputBlur.bind(this, 1)}></dash-input>,
-              <dash-input scale='s' value={this.rgb[2].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 2)} onBlur={this.rgbInputBlur.bind(this, 2)}></dash-input>,
-            ]}
-            {this.colorMode === 'hsv' && [
-              <dash-input scale='s' value={this.hsv[0].toString()} onDashInputInput={this.hsvInputChange.bind(this, 0)} onBlur={this.hsvInputBlur.bind(this, 0)}></dash-input>,
-              <dash-input scale='s' value={this.hsv[1].toFixed()} onDashInputInput={this.hsvInputChange.bind(this, 1)} onBlur={this.hsvInputBlur.bind(this, 1)}></dash-input>,
-              <dash-input scale='s' value={this.hsv[2].toFixed()} onDashInputInput={this.hsvInputChange.bind(this, 2)} onBlur={this.hsvInputBlur.bind(this, 2)}></dash-input>,
-            ]}
-            {this.colorMode === 'hex' && [
-              <dash-input scale='s' value={this.hex} onDashInputSubmit={this.hexInputSubmit.bind(this)} onBlur={this.hexInputSubmit.bind(this)}></dash-input>,
-            ]}
+          <div class='row'>
+            <div class='hue-container'>
+              <div class='selected-color' style={{ backgroundColor: `${this.hex}` }}></div>
+              <dash-color-hue-picker
+                hue={this.hsv[0]}
+                width={170}
+                onDashColorHuePickerHueChanged={e => this.setHsv([e.target.hue, this.hsv[1], this.hsv[2]])}
+              ></dash-color-hue-picker>
+            </div>
+          </div>
+
+          <div class='row'>
+            <div class='input-container'>
+              <dash-button scale='s' onClick={this.cycleColorMode.bind(this)}>
+                {this.colorMode.toUpperCase()}
+              </dash-button>
+              {this.colorMode === 'rgb' && [
+                <dash-input scale='s' value={this.rgb[0].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 0)} onBlur={this.rgbInputBlur.bind(this, 0)}></dash-input>,
+                <dash-input scale='s' value={this.rgb[1].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 1)} onBlur={this.rgbInputBlur.bind(this, 1)}></dash-input>,
+                <dash-input scale='s' value={this.rgb[2].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 2)} onBlur={this.rgbInputBlur.bind(this, 2)}></dash-input>,
+              ]}
+              {this.colorMode === 'hsv' && [
+                <dash-input scale='s' value={this.hsv[0].toString()} onDashInputInput={this.hsvInputChange.bind(this, 0)} onBlur={this.hsvInputBlur.bind(this, 0)}></dash-input>,
+                <dash-input scale='s' value={this.hsv[1].toFixed()} onDashInputInput={this.hsvInputChange.bind(this, 1)} onBlur={this.hsvInputBlur.bind(this, 1)}></dash-input>,
+                <dash-input scale='s' value={this.hsv[2].toFixed()} onDashInputInput={this.hsvInputChange.bind(this, 2)} onBlur={this.hsvInputBlur.bind(this, 2)}></dash-input>,
+              ]}
+              {this.colorMode === 'hex' && [
+                <dash-input scale='s' value={this.hex} onDashInputSubmit={this.hexInputSubmit.bind(this)} onBlur={this.hexInputSubmit.bind(this)}></dash-input>,
+              ]}
+            </div>
           </div>
         </div>
       </Host>

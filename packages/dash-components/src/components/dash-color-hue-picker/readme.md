@@ -10,7 +10,14 @@
 | Property | Attribute | Description                     | Type     | Default |
 | -------- | --------- | ------------------------------- | -------- | ------- |
 | `hue`    | `hue`     | Hue value from [0, 360]         | `number` | `0`     |
-| `width`  | `width`   | Width of hue picker (in pixels) | `number` | `250`   |
+| `width`  | `width`   | Width of hue picker (in pixels) | `number` | `200`   |
+
+
+## Events
+
+| Event                          | Description                       | Type                |
+| ------------------------------ | --------------------------------- | ------------------- |
+| `dashColorHuePickerHueChanged` | Emitted when hue has been changed | `CustomEvent<void>` |
 
 
 ## Dependencies

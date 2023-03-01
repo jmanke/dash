@@ -75,6 +75,9 @@ graph TD;
   dash-color-swatch --> dash-icon-button
   dash-color-swatch --> dash-icon
   hellodash-label-color-picker --> dash-color-picker
+  dash-color-picker --> dash-color-hue-picker
+  dash-color-picker --> dash-button
+  dash-color-picker --> dash-input
   dash-inline-edit --> dash-button
   dash-inline-edit --> dash-input
   dash-confirm-button --> dash-icon-button

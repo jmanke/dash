@@ -1,6 +1,5 @@
 :host {
   display: block;
-  --dash-color-picker-hue-width: 225px;
 }
 
 .color-picker {
@@ -25,13 +24,34 @@
       width: 20px;
       height: 20px;
       border-radius: var(--dash-spacing-full);
-      border: 2px solid var(--dash-background-1-light);
-      box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.65);
+      border: 2px solid #fff;
+      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.65);
+    }
+  }
+
+  .row {
+    width: 100%;
+    display: flex;
+  }
+
+  .hue-container {
+    flex: 1 1 auto;
+    padding-left: var(--dash-spacing-2);
+    padding-right: var(--dash-spacing-6);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .selected-color {
+      width: 30px;
+      height: 30px;
+      border-radius: var(--dash-spacing-full);
+      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.65);
     }
   }
 
   .input-container {
-    width: var(--dash-color-picker-hue-width);
+    flex: 1 1 auto;
     display: flex;
     flex-direction: row;
     gap: var(--dash-spacing-2);

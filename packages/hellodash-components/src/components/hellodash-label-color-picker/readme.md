@@ -34,6 +34,16 @@
 ```mermaid
 graph TD;
   hellodash-label-color-picker --> dash-color-picker
+  dash-color-picker --> dash-color-hue-picker
+  dash-color-picker --> dash-button
+  dash-color-picker --> dash-input
+  dash-button --> dash-icon
+  dash-input --> dash-icon
+  dash-input --> dash-icon-button
+  dash-icon-button --> dash-icon
+  dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   hellodash-label-edit --> hellodash-label-color-picker
   hellodash-label-select --> hellodash-label-color-picker
   style hellodash-label-color-picker fill:#f9f,stroke:#333,stroke-width:4px
