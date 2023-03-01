@@ -20,6 +20,9 @@ export class HelloDashLabelColorPicker {
 
   //#region @Prop
 
+  /**
+   * Color
+   */
   @Prop({ reflect: true }) color: Color;
 
   //#endregion
@@ -38,6 +41,10 @@ export class HelloDashLabelColorPicker {
 
   //#region Local methods
 
+  /**
+   * Handles color picker color changed event
+   * @param event
+   */
   colorPicked(event: DashColorPickerCustomEvent<void>) {
     this.colorChanged.emit(event.target.color);
   }

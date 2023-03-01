@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property     | Attribute  | Description | Type                     | Default     |
-| ------------ | ---------- | ----------- | ------------------------ | ----------- |
-| `mode`       | `mode`     |             | `"edit" \| "selectable"` | `'edit'`    |
-| `note`       | --         |             | `Note`                   | `undefined` |
-| `noteLabels` | --         |             | `Label[]`                | `undefined` |
-| `selected`   | `selected` |             | `boolean`                | `false`     |
+| Property     | Attribute  | Description                       | Type                     | Default     |
+| ------------ | ---------- | --------------------------------- | ------------------------ | ----------- |
+| `mode`       | `mode`     | Mode of the note card             | `"edit" \| "selectable"` | `'edit'`    |
+| `note`       | --         | Note                              | `Note`                   | `undefined` |
+| `noteLabels` | --         | Labels for note                   | `Label[]`                | `undefined` |
+| `selected`   | `selected` | Whether the note card is selected | `boolean`                | `false`     |
 
 
 ## Events

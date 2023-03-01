@@ -48,7 +48,7 @@ export class HellodashModalNote implements Modal {
 
   @State() isFullscreen: boolean;
 
-  @State() disableReadonly: boolean = true;
+  @State() mode: 'edit' | 'preview' = 'edit';
 
   //#endregion
 
@@ -60,6 +60,7 @@ export class HellodashModalNote implements Modal {
   @Prop({ reflect: true }) open: boolean;
   @Watch('open')
   openChanged(open: boolean) {
+    this.mode = open && this.mobileView ? 'preview' : 'edit';
     if (open) {
       this.textEditor?.setFocus();
     }
@@ -82,6 +83,10 @@ export class HellodashModalNote implements Modal {
   @Prop({ reflect: true }) theme: Theme = 'dark';
 
   @Prop({ reflect: true }) mobileView: boolean;
+  @Watch('mobileView')
+  mobileViewChanged(mobileView: boolean) {
+    this.mode = mobileView && !this.open ? 'preview' : 'edit';
+  }
 
   @Prop({ reflect: true }) createLabelDisabled: boolean;
 
@@ -150,8 +155,6 @@ export class HellodashModalNote implements Modal {
   }
 
   textEditorContentChanged(content: string) {
-    console.log('content changed');
-
     this.noteDraft = produce(this.noteDraft, draft => {
       draft.content = content;
     });
@@ -159,8 +162,6 @@ export class HellodashModalNote implements Modal {
   }
 
   textEditorHeadingChanged(heading: string) {
-    console.log('heading changed');
-
     this.noteDraft = produce(this.noteDraft, draft => {
       draft.title = heading;
     });
@@ -218,12 +219,16 @@ export class HellodashModalNote implements Modal {
   }
 
   beforeTextEditorUnload(e: CustomEvent<Promise<unknown>[]>) {
-    if (!this.mobileView || this.disableReadonly) {
+    if (this.mode === 'edit') {
       return;
     }
 
     const promises = e.detail;
     promises.push(this.saveNote());
+  }
+
+  toggleMode() {
+    this.mode = this.mode === 'edit' ? 'preview' : 'edit';
   }
 
   //#endregion
@@ -240,7 +245,7 @@ export class HellodashModalNote implements Modal {
           resize={false}
           showTitleInput={true}
           loading={this.loading}
-          readonly={!this.disableReadonly ?? false}
+          readonly={this.mode === 'preview'}
           onHellodashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
           onHellodashTextEditorHeadingChanged={e => this.textEditorHeadingChanged(e.detail)}
           onHellodashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
@@ -282,8 +287,8 @@ export class HellodashModalNote implements Modal {
         </dash-dropdown>
 
         {this.mobileView && (
-          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={() => (this.disableReadonly = !this.disableReadonly)}>
-            {this.disableReadonly ? 'View' : 'Edit'}
+          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={this.toggleMode.bind(this)}>
+            {this.mode === 'edit' ? 'View' : 'Edit'}
           </dash-button>
         )}
       </dash-modal>

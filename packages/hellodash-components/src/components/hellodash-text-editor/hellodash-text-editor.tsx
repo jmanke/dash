@@ -122,9 +122,7 @@ export class HellodashTextEditor implements Focusable {
   @Prop({ reflect: true }) readonly: boolean;
   @Watch('readonly')
   readonlyChanged() {
-    if (!this.loading) {
-      this.loadTinyMce();
-    }
+    this.loadTinyMce();
   }
 
   //#endregion

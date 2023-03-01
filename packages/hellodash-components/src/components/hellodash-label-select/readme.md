@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property         | Attribute          | Description | Type      | Default     |
-| ---------------- | ------------------ | ----------- | --------- | ----------- |
-| `allLabels`      | --                 |             | `Label[]` | `[]`        |
-| `autoFocus`      | `auto-focus`       |             | `boolean` | `undefined` |
-| `canCreateLabel` | `can-create-label` |             | `boolean` | `undefined` |
-| `labels`         | --                 |             | `Label[]` | `[]`        |
+| Property         | Attribute          | Description                                     | Type      | Default     |
+| ---------------- | ------------------ | ----------------------------------------------- | --------- | ----------- |
+| `allLabels`      | --                 | All labels to choose from                       | `Label[]` | `[]`        |
+| `autoFocus`      | `auto-focus`       | When true, the dropdown will be focused on open | `boolean` | `undefined` |
+| `canCreateLabel` | `can-create-label` | When true, the user can create new labels       | `boolean` | `undefined` |
+| `labels`         | --                 | Labels to display                               | `Label[]` | `[]`        |
 
 
 ## Events

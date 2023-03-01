@@ -68,6 +68,9 @@ importers:
       rollup-plugin-dotenv: 0.3.0_rollup@1.20.0
       webpack: 5.75.0
 
+  packages/dash-components/dist/loader:
+    specifiers: {}
+
   packages/dash-components/loader:
     specifiers: {}
 
@@ -137,7 +140,7 @@ importers:
       '@didyoumeantoast/dash-components': ^1.3.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
-      '@didyoumeantoast/tinymce-plugins': ^1.1.4
+      '@didyoumeantoast/tinymce-plugins': ^1.1.5
       '@popperjs/core': ^2.11.0
       '@reduxjs/toolkit': ^1.9.2
       '@stencil/core': ^3.0.0
@@ -168,7 +171,7 @@ importers:
       '@didyoumeantoast/dash-components': link:../dash-components
       '@didyoumeantoast/dash-utils': link:../dash-utils
       '@didyoumeantoast/hellodash-models': link:../hellodash-models
-      '@didyoumeantoast/tinymce-plugins': 1.1.4
+      '@didyoumeantoast/tinymce-plugins': 1.1.5
       '@popperjs/core': 2.11.6
       '@reduxjs/toolkit': 1.9.2
       '@types/qs': 6.9.7
@@ -731,8 +734,8 @@ packages:
       - terser
     dev: true
 
-  /@didyoumeantoast/tinymce-plugins/1.1.4:
-    resolution: {integrity: sha512-NDFhP96MhOLivnblGiNnzNRV6lG7whPqjaqkMoPoZnjxsUiS93Ar4V6NfATrG1E7ib5ezUfo02Pqd7I+7VEOuA==}
+  /@didyoumeantoast/tinymce-plugins/1.1.5:
+    resolution: {integrity: sha512-SIyVAXi5T3UNhhHv1LwvT7X3v0W5rgiyBVkkWyDJnHmfnMbHJAyXFODx1PXyqEd3PfzxKnUYt2Hkl++5HgpnuQ==}
     dev: false
 
   /@esbuild/android-arm/0.15.17:

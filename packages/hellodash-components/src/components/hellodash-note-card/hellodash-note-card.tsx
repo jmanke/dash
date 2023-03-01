@@ -24,12 +24,25 @@ export class HellodashNoteCard {
 
   //#region @Prop
 
+  /**
+   * Note
+   */
   @Prop() note: Note;
 
+  /**
+   * Labels for note
+   */
   @Prop() noteLabels: Label[];
 
+  /**
+   * Mode of the note card
+   * @default 'edit'
+   */
   @Prop({ reflect: true }) mode: NoteCardMode = 'edit';
 
+  /**
+   * Whether the note card is selected
+   */
   @Prop({ reflect: true }) selected: boolean = false;
 
   //#endregion
@@ -51,6 +64,9 @@ export class HellodashNoteCard {
 
   //#region Local methods
 
+  /**
+   * Opens the note modal
+   */
   openNoteModal() {
     if (this.mode !== 'edit') {
       return;
@@ -59,6 +75,11 @@ export class HellodashNoteCard {
     this.noteSelected.emit();
   }
 
+  /**
+   * Converts a date time to a locale date to be displayed in the card
+   * @param dateTime Date time to convert
+   * @returns Locale date
+   */
   toLocaleDate(dateTime: DateTime) {
     const dayDiff = DateTime.now().day - dateTime.day;
     if (dayDiff === 0) {
@@ -70,6 +91,10 @@ export class HellodashNoteCard {
     return dateTime.toLocaleString(DateTime.DATE_MED);
   }
 
+  /**
+   * Returns the note preview fragment
+   * @returns
+   */
   notePreviewFragment() {
     const { title, previewContent, lastModified, created } = this.note;
     const labels = this.noteLabels ?? [];

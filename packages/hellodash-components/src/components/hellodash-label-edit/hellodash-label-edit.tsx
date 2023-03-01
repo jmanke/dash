@@ -40,6 +40,10 @@ export class HellodashLabelEdit {
 
   //#region Listeners
 
+  /**
+   * Handles color picker color changed event
+   * @param e Color picker color changed event
+   */
   @Listen('hellodashLabelColorPickerColorChanged')
   colorPicked(e: CustomEvent<Color>) {
     this.labelUpdated.emit({
@@ -56,12 +60,20 @@ export class HellodashLabelEdit {
 
   //#region Local methods
 
+  /**
+   * Handles dropdown visible changed event
+   * @param e Dropdown visible changed event
+   */
   dropdownVisibleChanged(e: DashDropdownCustomEvent<void>) {
     if (e.target.open) {
       this.confirmDeleteButton?.setFocus();
     }
   }
 
+  /**
+   * Handles label text changed event
+   * @param e Label text changed event
+   */
   updateLabelText(e: DashInlineEditCustomEvent<void>) {
     const value = e.target.value;
     if (!value || !value.length) {
