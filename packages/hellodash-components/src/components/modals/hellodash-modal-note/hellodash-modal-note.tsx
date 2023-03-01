@@ -150,8 +150,6 @@ export class HellodashModalNote implements Modal {
   }
 
   textEditorContentChanged(content: string) {
-    console.log('content changed');
-
     this.noteDraft = produce(this.noteDraft, draft => {
       draft.content = content;
     });
@@ -159,8 +157,6 @@ export class HellodashModalNote implements Modal {
   }
 
   textEditorHeadingChanged(heading: string) {
-    console.log('heading changed');
-
     this.noteDraft = produce(this.noteDraft, draft => {
       draft.title = heading;
     });
