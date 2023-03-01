@@ -9,7 +9,7 @@
 
 | Property | Attribute | Description | Type                                                                                                                  | Default     |
 | -------- | --------- | ----------- | --------------------------------------------------------------------------------------------------------------------- | ----------- |
-| `color`  | `color`   |             | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
+| `color`  | `color`   | Color       | `"baby-blue" \| "dark-blue" \| "green-apple" \| "green-grass" \| "orange" \| "pink" \| "purple" \| "red" \| "yellow"` | `undefined` |
 
 
 ## Events

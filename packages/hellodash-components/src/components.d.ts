@@ -15,6 +15,9 @@ export { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 export { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export namespace Components {
     interface HellodashAuth0Provider {
+        /**
+          * Auth0 client
+         */
         "authClient": Auth0Client;
     }
     interface HellodashConfirm {
@@ -55,15 +58,30 @@ export namespace Components {
         "labels": Label[];
     }
     interface HellodashLabelColorPicker {
+        /**
+          * Color
+         */
         "color": Color;
     }
     interface HellodashLabelEdit {
         "label": Label;
     }
     interface HellodashLabelSelect {
+        /**
+          * All labels to choose from
+         */
         "allLabels": Label[];
+        /**
+          * When true, the dropdown will be focused on open
+         */
         "autoFocus": boolean;
+        /**
+          * When true, the user can create new labels
+         */
         "canCreateLabel": boolean;
+        /**
+          * Labels to display
+         */
         "labels": Label[];
     }
     interface HellodashModalNote {
@@ -80,12 +98,28 @@ export namespace Components {
         "theme": Theme;
     }
     interface HellodashNavBar {
+        /**
+          * Sets focus on the menu button
+         */
         "setFocus": () => Promise<void>;
     }
     interface HellodashNoteCard {
+        /**
+          * Mode of the note card
+          * @default 'edit'
+         */
         "mode": NoteCardMode;
+        /**
+          * Note
+         */
         "note": Note;
+        /**
+          * Labels for note
+         */
         "noteLabels": Label[];
+        /**
+          * Whether the note card is selected
+         */
         "selected": boolean;
     }
     interface HellodashNoteEditDropdown {
@@ -315,6 +349,9 @@ declare global {
 }
 declare namespace LocalJSX {
     interface HellodashAuth0Provider {
+        /**
+          * Auth0 client
+         */
         "authClient"?: Auth0Client;
         "onHellodashAuth0ProviderRefreshToken"?: (event: HellodashAuth0ProviderCustomEvent<void>) => void;
         "onHellodashAuth0ProviderSignedIn"?: (event: HellodashAuth0ProviderCustomEvent<void>) => void;
@@ -359,6 +396,9 @@ declare namespace LocalJSX {
         "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }
     interface HellodashLabelColorPicker {
+        /**
+          * Color
+         */
         "color"?: Color;
         "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
     }
@@ -368,9 +408,21 @@ declare namespace LocalJSX {
         "onHellodashLabelEditLabelUpdated"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
     }
     interface HellodashLabelSelect {
+        /**
+          * All labels to choose from
+         */
         "allLabels"?: Label[];
+        /**
+          * When true, the dropdown will be focused on open
+         */
         "autoFocus"?: boolean;
+        /**
+          * When true, the user can create new labels
+         */
         "canCreateLabel"?: boolean;
+        /**
+          * Labels to display
+         */
         "labels"?: Label[];
         "onHellodashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
         "onHellodashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
@@ -398,10 +450,23 @@ declare namespace LocalJSX {
         "onHellodashMenuToggled"?: (event: HellodashNavBarCustomEvent<any>) => void;
     }
     interface HellodashNoteCard {
+        /**
+          * Mode of the note card
+          * @default 'edit'
+         */
         "mode"?: NoteCardMode;
+        /**
+          * Note
+         */
         "note"?: Note;
+        /**
+          * Labels for note
+         */
         "noteLabels"?: Label[];
         "onHellodashNoteCardNoteSelected"?: (event: HellodashNoteCardCustomEvent<void>) => void;
+        /**
+          * Whether the note card is selected
+         */
         "selected"?: boolean;
     }
     interface HellodashNoteEditDropdown {
