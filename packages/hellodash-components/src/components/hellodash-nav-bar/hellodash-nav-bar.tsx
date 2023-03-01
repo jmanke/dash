@@ -35,6 +35,9 @@ export class HellodashNavBar {
 
   //#region @Method
 
+  /**
+   * Sets focus on the menu button 
+   */
   @Method()
   async setFocus() {
     this.menuButton.setFocus();
