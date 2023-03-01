@@ -1,8 +1,10 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
+import colorConvert from 'color-convert';
 import { Color } from '../../types';
 
 type HSV = [number, number, number];
 type RGB = [number, number, number];
+type ColorMode = 'rgb' | 'hsv' | 'hex';
 
 const CanvasSize = {
   width: 250,
@@ -34,18 +36,21 @@ export class DashColorPicker {
 
   //#region @State
 
-  @State() hsv: HSV = [360, 100, 100];
+  @State() colorMode: ColorMode = 'rgb';
+
+  @State() hsv: HSV;
   @Watch('hsv')
   hsvChanged(hsv: HSV, prevHsv: HSV) {
-    if (hsv[0] !== prevHsv[0]) {
+    if (hsv[0] !== prevHsv?.[0]) {
       this.createColorGradient(hsv[0]);
     }
-
-    this.rgb = this.hsvToRgb(hsv);
   }
 
   @State()
-  rgb: RGB = [360, 100, 50];
+  rgb: RGB = [0, 0, 0];
+
+  @State()
+  hex: string = '#FFFFFF';
 
   //#endregion
 
@@ -89,12 +94,15 @@ export class DashColorPicker {
 
   //#region Component lifecycle
 
+  componentWillLoad() {
+    this.setHsv([360, 100, 100]);
+  }
+
   componentDidLoad() {
     this.canvas = this.element.shadowRoot.querySelector('canvas.rgba-gradient') as HTMLCanvasElement;
     this.canvas.width = CanvasSize.width;
     this.canvas.height = CanvasSize.height;
     this.createColorGradient(this.hsv[0]);
-    this.rgb = this.hsvToRgb(this.hsv);
   }
 
   //#endregion
@@ -107,6 +115,24 @@ export class DashColorPicker {
 
   //#region Local methods
 
+  setHsv(hsv: HSV) {
+    this.hsv = hsv;
+    this.rgb = colorConvert.hsv.rgb(hsv);
+    this.hex = '#' + colorConvert.hsv.hex(hsv);
+  }
+
+  setHex(hex: string) {
+    this.hex = hex;
+    this.hsv = colorConvert.hex.hsv(hex);
+    this.rgb = colorConvert.hex.rgb(hex);
+  }
+
+  setRgb(rgb: RGB) {
+    this.rgb = rgb;
+    this.hsv = colorConvert.rgb.hsv(rgb);
+    this.hex = '#' + colorConvert.rgb.hex(rgb);
+  }
+
   /**
    * Creates a gradient color
    * @param canvas Canvas to draw on
@@ -115,6 +141,11 @@ export class DashColorPicker {
   createColorGradient(hue: number) {
     // Clear the canvas
     const canvas = this.canvas;
+
+    if (!canvas) {
+      return;
+    }
+
     const ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -146,52 +177,12 @@ export class DashColorPicker {
     this.dashColorPickerColorChanged.emit();
   }
 
-  setHsv({ hue, saturation, value }: { hue?: number; saturation?: number; value?: number }) {
-    this.hsv = [hue ?? this.hsv[0], saturation ?? this.hsv[1], value ?? this.hsv[2]];
-  }
-
-  hsvToRgb([h, s, v]: HSV): RGB {
-    const c = (v / 100) * (s / 100);
-    const x = c * (1 - Math.abs(((h / 60) % 2) - 1));
-    const m = v / 100 - c;
-
-    let r = 0;
-    let g = 0;
-    let b = 0;
-
-    if (h >= 0 && h < 60) {
-      r = c;
-      g = x;
-    } else if (h >= 60 && h < 120) {
-      r = x;
-      g = c;
-    } else if (h >= 120 && h < 180) {
-      g = c;
-      b = x;
-    } else if (h >= 180 && h < 240) {
-      g = x;
-      b = c;
-    } else if (h >= 240 && h < 300) {
-      r = x;
-      b = c;
-    } else if (h >= 300 && h < 360) {
-      r = c;
-      b = x;
-    }
-
-    r = Math.round((r + m) * 255);
-    g = Math.round((g + m) * 255);
-    b = Math.round((b + m) * 255);
-
-    return [r, g, b];
-  }
-
   canvasPointerInput(e: PointerEvent) {
     const rect = this.canvas.getBoundingClientRect();
-    const s = Math.round(Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1) * 100);
-    const v = Math.round(Math.min(Math.max(1 - (e.clientY - rect.top) / rect.height, 0), 1) * 100);
+    const s = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1) * 100;
+    const v = Math.min(Math.max(1 - (e.clientY - rect.top) / rect.height, 0), 1) * 100;
 
-    this.setHsv({ saturation: s, value: v });
+    this.setHsv([this.hsv[0], s, v]);
   }
 
   canvasPointerDown(e: PointerEvent) {
@@ -199,6 +190,61 @@ export class DashColorPicker {
     const canvasPointerInput = this.canvasPointerInput.bind(this);
     window.addEventListener('pointermove', canvasPointerInput);
     window.addEventListener('pointerup', () => window.removeEventListener('pointermove', canvasPointerInput));
+  }
+
+  cycleColorMode() {
+    const modes: ColorMode[] = ['rgb', 'hsv', 'hex'];
+    const index = modes.indexOf(this.colorMode);
+    this.colorMode = modes[(index + 1) % modes.length];
+  }
+
+  hexInputSubmit(e: Event) {
+    const hex = (e.target as HTMLDashInputElement).value;
+    const isValidHex = /^#([0-9A-F]{3}){1,2}$/i.test(hex);
+
+    if (!isValidHex) {
+      (e.target as HTMLDashInputElement).value = this.hex;
+      return;
+    }
+
+    this.setHex(hex);
+  }
+
+  rgbInputChange(index: number, e: Event) {
+    const value = Number((e.target as HTMLDashInputElement).value);
+    if (isNaN(value) || value < 0 || value > 255) {
+      return;
+    }
+
+    const rgb: RGB = [...this.rgb];
+    rgb[index] = value;
+    this.setRgb(rgb);
+  }
+
+  rgbInputBlur(index: number, e: Event) {
+    const value = Number((e.target as HTMLDashInputElement).value);
+    if (value !== this.rgb[index]) {
+      (e.target as HTMLDashInputElement).value = this.rgb[index].toString();
+    }
+  }
+
+  hsvInputChange(index: number, e: Event) {
+    const value = Number((e.target as HTMLDashInputElement).value);
+    if (isNaN(value) || value < 0 || value > (index === 0 ? 360 : 100)) {
+      return;
+    }
+
+    const hsv: HSV = [...this.hsv];
+    hsv[index] = value;
+    this.setHsv(hsv);
+    console.log(hsv);
+  }
+
+  hsvInputBlur(index: number, e: Event) {
+    const value = Number((e.target as HTMLDashInputElement).value);
+    if (value !== this.rgb[index]) {
+      (e.target as HTMLDashInputElement).value = this.hsv[index].toString();
+    }
   }
 
   //#endregion
@@ -217,12 +263,25 @@ export class DashColorPicker {
               style={{ left: `${colorSelectorLeft}px`, top: `${colorSelectorTop}px`, backgroundColor: `rgb(${this.rgb[0]}, ${this.rgb[1]}, ${this.rgb[2]})` }}
             ></div>
           </div>
-          <dash-color-hue-picker hue={this.hsv[0]} width={225} onDashColorHuePickerHueChanged={e => this.setHsv({ hue: e.target.hue })}></dash-color-hue-picker>
+          <dash-color-hue-picker hue={this.hsv[0]} width={225} onDashColorHuePickerHueChanged={e => this.setHsv([e.target.hue, this.hsv[1], this.hsv[2]])}></dash-color-hue-picker>
 
-          <div>
-            <span>H: {this.hsv[0]}, </span>
-            <span>S: {this.hsv[1]}%, </span>
-            <span>V: {this.hsv[2]}%, </span>
+          <div class='input-container'>
+            <dash-button scale='s' onClick={this.cycleColorMode.bind(this)}>
+              {this.colorMode.toUpperCase()}
+            </dash-button>
+            {this.colorMode === 'rgb' && [
+              <dash-input scale='s' value={this.rgb[0].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 0)} onBlur={this.rgbInputBlur.bind(this, 0)}></dash-input>,
+              <dash-input scale='s' value={this.rgb[1].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 1)} onBlur={this.rgbInputBlur.bind(this, 1)}></dash-input>,
+              <dash-input scale='s' value={this.rgb[2].toFixed()} onDashInputInput={this.rgbInputChange.bind(this, 2)} onBlur={this.rgbInputBlur.bind(this, 2)}></dash-input>,
+            ]}
+            {this.colorMode === 'hsv' && [
+              <dash-input scale='s' value={this.hsv[0].toString()} onDashInputInput={this.hsvInputChange.bind(this, 0)} onBlur={this.hsvInputBlur.bind(this, 0)}></dash-input>,
+              <dash-input scale='s' value={this.hsv[1].toFixed()} onDashInputInput={this.hsvInputChange.bind(this, 1)} onBlur={this.hsvInputBlur.bind(this, 1)}></dash-input>,
+              <dash-input scale='s' value={this.hsv[2].toFixed()} onDashInputInput={this.hsvInputChange.bind(this, 2)} onBlur={this.hsvInputBlur.bind(this, 2)}></dash-input>,
+            ]}
+            {this.colorMode === 'hex' && [
+              <dash-input scale='s' value={this.hex} onDashInputSubmit={this.hexInputSubmit.bind(this)} onBlur={this.hexInputSubmit.bind(this)}></dash-input>,
+            ]}
           </div>
         </div>
       </Host>

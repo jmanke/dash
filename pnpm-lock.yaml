@@ -26,6 +26,7 @@ importers:
       '@types/luxon': ^2.3.2
       autoprefixer: ^10.4.7
       babel-loader: ^8.2.5
+      color-convert: ^2.0.1
       concurrently: ^7.4.0
       cross-env: ^7.0.3
       jest: ^27.4.5
@@ -44,6 +45,7 @@ importers:
       '@popperjs/core': 2.11.6
       '@stencil/core': 3.0.0
       '@types/luxon': 2.4.0
+      color-convert: 2.0.1
       lodash: 4.17.21
     devDependencies:
       '@babel/core': 7.20.5

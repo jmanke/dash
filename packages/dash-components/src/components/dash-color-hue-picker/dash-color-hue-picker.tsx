@@ -36,6 +36,11 @@ export class DashColorHuePicker {
    */
   @State() sliderDragHandler: (event: MouseEvent) => void;
 
+  /**
+   * Whether the slider is currently being dragged
+   */
+  @State() isDragging: boolean = false;
+
   //#endregion
 
   //#region @Prop
@@ -109,14 +114,21 @@ export class DashColorHuePicker {
   /**
    * Starts the drag the slider
    */
-  startSliderDrag() {
-    this.sliderDragHandler = this.pointerInput.bind(this);
+  startSliderDrag(event: PointerEvent) {
+    this.pointerInput(event);
+    this.sliderDragHandler = (e: PointerEvent) => {
+      this.pointerInput(e);
+      if (!this.isDragging) {
+        this.isDragging = true;
+      }
+    };
     window.addEventListener('pointermove', this.sliderDragHandler);
     window.addEventListener(
       'pointerup',
       () => {
         window.removeEventListener('pointermove', this.sliderDragHandler);
         this.sliderDragHandler = null;
+        this.isDragging = false;
       },
       { once: true },
     );
@@ -155,13 +167,9 @@ export class DashColorHuePicker {
   render() {
     return (
       <Host>
-        <div class='color-hue-picker' style={{ width: `${this.width}px` }} tabindex='0' onKeyDown={this.keydown.bind(this)}>
-          <canvas class='gradient' onPointerDown={this.pointerInput.bind(this)}></canvas>
-          <div
-            class={spaceConcat('slider', this.sliderDragHandler ? 'dragging' : null)}
-            style={{ backgroundColor: `hsl(${this.hue}, 100%, 50%`, left: `${this.sliderPosition}px` }}
-            onPointerDown={this.startSliderDrag.bind(this)}
-          ></div>
+        <div class='color-hue-picker' style={{ width: `${this.width}px` }} tabindex='0' onKeyDown={this.keydown.bind(this)} onPointerDown={this.startSliderDrag.bind(this)}>
+          <canvas class='gradient'></canvas>
+          <div class={spaceConcat('slider', this.isDragging ? 'dragging' : null)} style={{ backgroundColor: `hsl(${this.hue}, 100%, 50%`, left: `${this.sliderPosition}px` }}></div>
         </div>
       </Host>
     );
