@@ -29,6 +29,10 @@ Type: `Promise<void>`
 
 ## Dependencies
 
+### Used by
+
+ - [dash-color-picker](../dash-color-picker)
+
 ### Depends on
 
 - [dash-icon-button](../dash-icon-button)
@@ -43,6 +47,7 @@ graph TD;
   dash-icon-button --> dash-loader
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
+  dash-color-picker --> dash-color-swatch
   style dash-color-swatch fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

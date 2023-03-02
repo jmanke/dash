@@ -6,3 +6,9 @@ dash-color-picker {
   display: flex;
   flex: auto;
 }
+
+.footer {
+  margin-block-start: var(--dash-spacing-3);
+  display: flex;
+  justify-items: flex-end;
+}

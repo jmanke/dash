@@ -130,6 +130,7 @@ export class HellodashEditLabels implements Modal {
             <hellodash-label-edit
               key={label.id}
               label={{ ...label }}
+              allLabels={this.labels}
               onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
               onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
             ></hellodash-label-edit>

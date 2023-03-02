@@ -7,9 +7,10 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type    | Default     |
-| -------- | --------- | ----------- | ------- | ----------- |
-| `label`  | --        |             | `Label` | `undefined` |
+| Property    | Attribute | Description | Type      | Default     |
+| ----------- | --------- | ----------- | --------- | ----------- |
+| `allLabels` | --        |             | `Label[]` | `undefined` |
+| `label`     | --        |             | `Label`   | `undefined` |
 
 
 ## Events
@@ -50,9 +51,11 @@ graph TD;
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
   hellodash-label-color-picker --> dash-color-picker
+  hellodash-label-color-picker --> dash-button
   dash-color-picker --> dash-color-hue-picker
   dash-color-picker --> dash-button
   dash-color-picker --> dash-input
+  dash-color-picker --> dash-color-swatch
   dash-button --> dash-icon
   dash-input --> dash-icon
   dash-input --> dash-icon-button

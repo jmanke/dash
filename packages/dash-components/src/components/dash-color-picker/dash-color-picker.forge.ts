@@ -1,30 +1,27 @@
 import { html } from 'lit-html';
-import { colorControl, colors } from '../../../.forge/common/controls';
+
+const DefaultColors = ['#af6566', '#af815a', '#a7954e', '#50a559', '#7379b1', '#906098'];
 
 const template = (args, updateArg) =>
   html`<dash-color-picker
     style="width: fit-content;"
-    .colors=${colors}
-    color=${args.selectedColor}
-    cols=${args.cols}
+    hex=${args.hex}
+    .defaultColors=${DefaultColors}
     @dashColorPickerColorChanged=${e => {
-      updateArg('selectedColor', e.target.color);
+      updateArg('hex', e.target.hex);
     }}
   ></dash-color-picker>`;
 
 export const chipDefinition = {
   name: '<dash-color-picker>',
   controls: {
-    selectedColor: colorControl,
-    cols: {
-      type: 'number',
-      step: 1,
+    hex: {
+      type: 'text',
     },
   },
   template,
   args: {
-    selectedColor: 'red',
-    cols: 3,
+    hex: '#FF0000',
   },
 };
 

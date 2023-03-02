@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
+import { Appearance, Scale, ScaleExtended, Status, Theme } from "./types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
@@ -13,7 +13,7 @@ import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 import { Resize } from "./components/dash-textarea/dash-textarea";
-export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
+export { Appearance, Scale, ScaleExtended, Status, Theme } from "./types";
 export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 export { IconColor } from "./components/dash-icon/dash-icon";
 export { LabelLayout } from "./components/dash-label/dash-label";
@@ -58,7 +58,7 @@ export namespace Components {
           * Background color of the chip
           * @required
          */
-        "color": Color | string;
+        "color": string;
         /**
           * Text to display when user focuses or hovers over dismiss button
           * @optional
@@ -93,21 +93,7 @@ export namespace Components {
         "width": number;
     }
     interface DashColorPicker {
-        /**
-          * Currently selected color
-          * @optional
-         */
-        "color": Color;
-        /**
-          * Colors to pick from
-          * @required
-         */
-        "colors": Color[];
-        /**
-          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-          * @default colors.length
-         */
-        "cols": number;
+        "defaultColors": string[];
         /**
           * Hex color value
           * @default #FFFFFF
@@ -123,18 +109,13 @@ export namespace Components {
           * @default [255, 255, 255]
          */
         "rgb": RGB;
-        /**
-          * Currently selected color
-          * @optional
-         */
-        "selectedColor": string;
     }
     interface DashColorSwatch {
         /**
           * Color of the swatch
           * @required
          */
-        "color": Color | string;
+        "color": string;
         /**
           * Size of swatch
           * @default 'm'
@@ -1051,7 +1032,7 @@ declare namespace LocalJSX {
           * Background color of the chip
           * @required
          */
-        "color"?: Color | string;
+        "color"?: string;
         /**
           * Text to display when user focuses or hovers over dismiss button
           * @optional
@@ -1094,21 +1075,7 @@ declare namespace LocalJSX {
         "width"?: number;
     }
     interface DashColorPicker {
-        /**
-          * Currently selected color
-          * @optional
-         */
-        "color"?: Color;
-        /**
-          * Colors to pick from
-          * @required
-         */
-        "colors"?: Color[];
-        /**
-          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-          * @default colors.length
-         */
-        "cols"?: number;
+        "defaultColors"?: string[];
         /**
           * Hex color value
           * @default #FFFFFF
@@ -1128,18 +1095,13 @@ declare namespace LocalJSX {
           * @default [255, 255, 255]
          */
         "rgb"?: RGB;
-        /**
-          * Currently selected color
-          * @optional
-         */
-        "selectedColor"?: string;
     }
     interface DashColorSwatch {
         /**
           * Color of the swatch
           * @required
          */
-        "color"?: Color | string;
+        "color"?: string;
         /**
           * Size of swatch
           * @default 'm'

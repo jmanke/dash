@@ -1,7 +1,9 @@
-import { Color, DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components';
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
+import { DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components';
+import { State, Watch } from '@didyoumeantoast/dash-components/dist/types/stencil-public-runtime';
+import { Label } from '@didyoumeantoast/hellodash-models';
+import { Component, Event, EventEmitter, h, Host, Prop } from '@stencil/core';
 
-const Colors: Color[] = ['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink'];
+const DefaultColors = ['#af6566', '#af815a', '#a7954e', '#50a559', '#7379b1', '#906098'];
 
 @Component({
   tag: 'hellodash-label-color-picker',
@@ -16,24 +18,41 @@ export class HelloDashLabelColorPicker {
   //#endregion
 
   //#region @State
+
+  @State() currentColor: string;
+
+  @State() defaultColors: Set<string> = new Set(DefaultColors);
+
   //#endregion
 
   //#region @Prop
 
   /**
-   * Color
+   * Color as hex value
    */
-  @Prop({ reflect: true }) color: Color;
+  @Prop({ reflect: true }) color: string;
+
+  @Prop() allLabels: Label[] = [];
+  @Watch('allLabels')
+  allLabelsChanged(allLabels: Label[] = []) {
+    this.defaultColors = new Set([...DefaultColors, ...allLabels.map(l => l.color)]);
+  }
 
   //#endregion
 
   //#region @Event
 
-  @Event({ eventName: 'hellodashLabelColorPickerColorChanged' }) colorChanged: EventEmitter<Color>;
+  @Event({ eventName: 'hellodashLabelColorPickerColorChanged' }) colorChanged: EventEmitter<string>;
 
   //#endregion
 
   //#region Component lifecycle
+
+  componentWillLoad() {
+    this.allLabelsChanged(this.allLabels);
+    this.currentColor = this.color;
+  }
+
   //#endregion
 
   //#region @Method
@@ -46,12 +65,29 @@ export class HelloDashLabelColorPicker {
    * @param event
    */
   colorPicked(event: DashColorPickerCustomEvent<void>) {
-    this.colorChanged.emit(event.target.color);
+    this.currentColor = event.target.hex;
+  }
+
+  confirmColor() {
+    this.colorChanged.emit(this.currentColor);
+  }
+
+  cancel() {
+    this.colorChanged.emit(this.color);
   }
 
   //#endregion
 
   render() {
-    return <dash-color-picker colors={Colors} cols={3} color={this.color} onDashColorPickerColorChanged={this.colorPicked.bind(this)}></dash-color-picker>;
+    return (
+      <Host>
+        <dash-color-picker defaultColors={Array.from(this.defaultColors)} color={this.currentColor} onDashColorPickerColorChanged={this.colorPicked.bind(this)}></dash-color-picker>
+
+        <div class='footer'>
+          <dash-button onClick={this.confirmColor.bind(this)}>Confirm</dash-button>
+          <dash-button onClick={this.cancel.bind(this)}>Cancel</dash-button>
+        </div>
+      </Host>
+    );
   }
 }

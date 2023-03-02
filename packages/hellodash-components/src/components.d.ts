@@ -6,11 +6,11 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import { Color, Status } from "@didyoumeantoast/dash-components";
+import { Status } from "@didyoumeantoast/dash-components";
 import { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 import { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export { Auth0Client } from "@auth0/auth0-spa-js";
-export { Color, Status } from "@didyoumeantoast/dash-components";
+export { Status } from "@didyoumeantoast/dash-components";
 export { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 export { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export namespace Components {
@@ -58,12 +58,14 @@ export namespace Components {
         "labels": Label[];
     }
     interface HellodashLabelColorPicker {
+        "allLabels": Label[];
         /**
-          * Color
+          * Color as hex value
          */
-        "color": Color;
+        "color": string;
     }
     interface HellodashLabelEdit {
+        "allLabels": Label[];
         "label": Label;
     }
     interface HellodashLabelSelect {
@@ -396,13 +398,15 @@ declare namespace LocalJSX {
         "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }
     interface HellodashLabelColorPicker {
+        "allLabels"?: Label[];
         /**
-          * Color
+          * Color as hex value
          */
-        "color"?: Color;
-        "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
+        "color"?: string;
+        "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<string>) => void;
     }
     interface HellodashLabelEdit {
+        "allLabels"?: Label[];
         "label"?: Label;
         "onHellodashLabelEditLabelDeleted"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
         "onHellodashLabelEditLabelUpdated"?: (event: HellodashLabelEditCustomEvent<Label>) => void;

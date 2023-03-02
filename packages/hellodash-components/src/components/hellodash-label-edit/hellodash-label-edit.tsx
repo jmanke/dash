@@ -1,4 +1,4 @@
-import { Color, DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components';
+import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
 import { Component, Event, EventEmitter, h, Listen, Prop } from '@stencil/core';
 
@@ -25,6 +25,8 @@ export class HellodashLabelEdit {
 
   @Prop() label: Label;
 
+  @Prop() allLabels: Label[];
+
   //#endregion
 
   //#region @Event
@@ -45,7 +47,7 @@ export class HellodashLabelEdit {
    * @param e Color picker color changed event
    */
   @Listen('hellodashLabelColorPickerColorChanged')
-  colorPicked(e: CustomEvent<Color>) {
+  colorPicked(e: CustomEvent<string>) {
     this.labelUpdated.emit({
       ...this.label,
       color: e.detail,
@@ -98,7 +100,7 @@ export class HellodashLabelEdit {
         >
           <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
 
-          <hellodash-label-color-picker color={this.label.color as Color}></hellodash-label-color-picker>
+          <hellodash-label-color-picker color={this.label.color} allLabels={this.allLabels}></hellodash-label-color-picker>
         </dash-dropdown>
         <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 

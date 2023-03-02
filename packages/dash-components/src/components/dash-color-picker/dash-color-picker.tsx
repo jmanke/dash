@@ -1,6 +1,5 @@
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 import colorConvert from 'color-convert';
-import { Color } from '../../types';
 
 type HSV = [number, number, number];
 type RGB = [number, number, number];
@@ -67,29 +66,7 @@ export class DashColorPicker {
    */
   @Prop({ mutable: true }) hex: string = '#FFFFFF';
 
-  /**
-   * Colors to pick from
-   * @required
-   */
-  @Prop({ reflect: true }) colors: Color[] = [];
-
-  /**
-   * Currently selected color
-   * @optional
-   */
-  @Prop({ reflect: true, mutable: true }) color: Color;
-
-  /**
-   * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-   * @default colors.length
-   */
-  @Prop({ reflect: true }) cols: number;
-
-  /**
-   * Currently selected color
-   * @optional
-   */
-  @Prop({ mutable: true, reflect: true }) selectedColor: string;
+  @Prop({ reflect: true }) defaultColors: string[] = [];
 
   //#endregion
 
@@ -99,7 +76,7 @@ export class DashColorPicker {
    * Emitted when color has been selected
    */
   @Event({ eventName: 'dashColorPickerColorChanged' })
-  dashColorPickerColorChanged: EventEmitter<void>;
+  colorChanged: EventEmitter<void>;
 
   //#endregion
 
@@ -191,22 +168,13 @@ export class DashColorPicker {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 
-  /**
-   * Selects a new color
-   * @param color Color to set
-   */
-  setColor(color: Color) {
-    this.color = color;
-    this.dashColorPickerColorChanged.emit();
-  }
-
   canvasPointerInput(e: PointerEvent) {
     const rect = this.canvas.getBoundingClientRect();
     const s = Math.min(Math.max((e.clientX - rect.left) / rect.width, 0), 1) * 100;
     const v = Math.min(Math.max(1 - (e.clientY - rect.top) / rect.height, 0), 1) * 100;
 
     this.setHsv([this.hsv[0], s, v]);
-    this.dashColorPickerColorChanged.emit();
+    this.colorChanged.emit();
   }
 
   canvasPointerDown(e: PointerEvent) {
@@ -232,7 +200,7 @@ export class DashColorPicker {
     }
 
     this.setHex(hex);
-    this.dashColorPickerColorChanged.emit();
+    this.colorChanged.emit();
   }
 
   rgbInputChange(index: number, e: Event) {
@@ -244,7 +212,7 @@ export class DashColorPicker {
     const rgb: RGB = [...this.rgb];
     rgb[index] = value;
     this.setRgb(rgb);
-    this.dashColorPickerColorChanged.emit();
+    this.colorChanged.emit();
   }
 
   rgbInputBlur(index: number, e: Event) {
@@ -263,7 +231,6 @@ export class DashColorPicker {
     const hsv: HSV = [...this.hsv];
     hsv[index] = value;
     this.setHsv(hsv);
-    console.log(hsv);
   }
 
   hsvInputBlur(index: number, e: Event) {
@@ -271,6 +238,11 @@ export class DashColorPicker {
     if (value !== this.rgb[index]) {
       (e.target as HTMLDashInputElement).value = this.hsv[index].toString();
     }
+  }
+
+  defaultColorSelected(hex: string) {
+    this.setHex(hex);
+    this.colorChanged.emit();
   }
 
   //#endregion
@@ -321,6 +293,18 @@ export class DashColorPicker {
               ]}
             </div>
           </div>
+
+          {!!this.defaultColors?.length && (
+            <div class='row'>
+              <div class='separator'></div>
+
+              <div class='storage-color-container'>
+                {this.defaultColors.map(color => (
+                  <dash-color-swatch color={color} scale='m' selected={this.hex === color} onClick={() => this.defaultColorSelected(color)}></dash-color-swatch>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
       </Host>
     );
