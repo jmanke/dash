@@ -75,6 +75,10 @@ export class HellodashModalNote implements Modal {
   @Prop() allLabels: Label[];
   @Watch('allLabels')
   allLabelsChanged(allLabels: Label[]) {
+    if (!this.noteDraft) {
+      return;
+    }
+
     this.noteDraftLabels = noteLabels(this.noteDraft, allLabels);
   }
 
