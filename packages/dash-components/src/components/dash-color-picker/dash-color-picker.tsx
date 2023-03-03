@@ -38,15 +38,11 @@ export class DashColorPicker {
   /** Color mode */
   @State() colorMode: ColorMode = 'rgb';
 
-  //#endregion
-
-  //#region @Prop
-
   /**
    * HSV color values
    * @default [0, 0, 100]
    */
-  @Prop({ mutable: true }) hsv: HSV = [0, 0, 100];
+  @State() hsv: HSV = [0, 0, 100];
   @Watch('hsv')
   hsvChanged(hsv: HSV, prevHsv: HSV) {
     if (hsv[0] !== prevHsv?.[0]) {
@@ -58,15 +54,45 @@ export class DashColorPicker {
    * RGB color values
    * @default [255, 255, 255]
    */
-  @Prop({ mutable: true }) rgb: RGB = [255, 255, 255];
+  @State() rgb: RGB = [255, 255, 255];
 
   /**
    *  Hex color value
    * @default #FFFFFF
    */
-  @Prop({ mutable: true }) hex: string = '#FFFFFF';
+  @State() hex: string = '#FFFFFF';
+  @Watch('hex')
+  hexChanged(hex: string) {
+    if (hex !== this.color) {
+      this.color = hex;
+    }
+  }
 
-  @Prop({ reflect: true }) defaultColors: string[] = [];
+  //#endregion
+
+  //#region @Prop
+
+  /**
+   * Color as hex value
+   */
+  @Prop({ mutable: true }) color: string;
+  @Watch('color')
+  colorChanged(color: string, prevColor: string) {
+    const currentColor = color?.toUpperCase();
+    if (currentColor === prevColor?.toUpperCase() || currentColor === this.hex?.toUpperCase()) {
+      return;
+    }
+
+    if (color) {
+      this.setHex(color);
+    }
+  }
+
+  /**
+   * Default colors
+   */
+  @Prop({ reflect: true })
+  defaultColors: string[] = [];
 
   //#endregion
 
@@ -75,8 +101,7 @@ export class DashColorPicker {
   /**
    * Emitted when color has been selected
    */
-  @Event({ eventName: 'dashColorPickerColorChanged' })
-  colorChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashColorPickerColorChanged' }) pickerColorChanged: EventEmitter<void>;
 
   //#endregion
 
@@ -90,6 +115,7 @@ export class DashColorPicker {
     this.canvas = this.element.shadowRoot.querySelector('canvas.rgba-gradient') as HTMLCanvasElement;
     this.canvas.width = CanvasSize.width;
     this.canvas.height = CanvasSize.height;
+    this.colorChanged(this.color, '#FFFFFF');
     this.createColorGradient(this.hsv[0]);
   }
 
@@ -174,7 +200,7 @@ export class DashColorPicker {
     const v = Math.min(Math.max(1 - (e.clientY - rect.top) / rect.height, 0), 1) * 100;
 
     this.setHsv([this.hsv[0], s, v]);
-    this.colorChanged.emit();
+    this.pickerColorChanged.emit();
   }
 
   canvasPointerDown(e: PointerEvent) {
@@ -200,7 +226,7 @@ export class DashColorPicker {
     }
 
     this.setHex(hex);
-    this.colorChanged.emit();
+    this.pickerColorChanged.emit();
   }
 
   rgbInputChange(index: number, e: Event) {
@@ -212,7 +238,7 @@ export class DashColorPicker {
     const rgb: RGB = [...this.rgb];
     rgb[index] = value;
     this.setRgb(rgb);
-    this.colorChanged.emit();
+    this.pickerColorChanged.emit();
   }
 
   rgbInputBlur(index: number, e: Event) {
@@ -231,6 +257,7 @@ export class DashColorPicker {
     const hsv: HSV = [...this.hsv];
     hsv[index] = value;
     this.setHsv(hsv);
+    this.pickerColorChanged.emit();
   }
 
   hsvInputBlur(index: number, e: Event) {
@@ -242,7 +269,7 @@ export class DashColorPicker {
 
   defaultColorSelected(hex: string) {
     this.setHex(hex);
-    this.colorChanged.emit();
+    this.pickerColorChanged.emit();
   }
 
   //#endregion
@@ -267,8 +294,11 @@ export class DashColorPicker {
               <div class='selected-color' style={{ backgroundColor: `${this.hex}` }}></div>
               <dash-color-hue-picker
                 hue={this.hsv[0]}
-                width={170}
-                onDashColorHuePickerHueChanged={e => this.setHsv([e.target.hue, this.hsv[1], this.hsv[2]])}
+                width={168}
+                onDashColorHuePickerHueChanged={e => {
+                  this.setHsv([e.target.hue, this.hsv[1], this.hsv[2]]);
+                  this.pickerColorChanged.emit();
+                }}
               ></dash-color-hue-picker>
             </div>
           </div>

@@ -58,7 +58,6 @@ export namespace Components {
         "labels": Label[];
     }
     interface HellodashLabelColorPicker {
-        "allLabels": Label[];
         /**
           * Color as hex value
          */
@@ -398,7 +397,6 @@ declare namespace LocalJSX {
         "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }
     interface HellodashLabelColorPicker {
-        "allLabels"?: Label[];
         /**
           * Color as hex value
          */

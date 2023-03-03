@@ -5,23 +5,28 @@ const DefaultColors = ['#af6566', '#af815a', '#a7954e', '#50a559', '#7379b1', '#
 const template = (args, updateArg) =>
   html`<dash-color-picker
     style="width: fit-content;"
-    hex=${args.hex}
-    .defaultColors=${DefaultColors}
+    color=${args.color}
+    .defaultColors=${args.defaultColors}
     @dashColorPickerColorChanged=${e => {
-      updateArg('hex', e.target.hex);
+      updateArg('color', e.target.color);
     }}
   ></dash-color-picker>`;
 
 export const chipDefinition = {
   name: '<dash-color-picker>',
   controls: {
-    hex: {
+    color: {
       type: 'text',
+    },
+    defaultColors: {
+      type: 'multi-checkbox',
+      options: DefaultColors,
     },
   },
   template,
   args: {
-    hex: '#FF0000',
+    color: '#FF0000',
+    defaultColors: DefaultColors,
   },
 };
 

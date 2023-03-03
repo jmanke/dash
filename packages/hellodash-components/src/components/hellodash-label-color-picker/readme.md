@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property    | Attribute | Description        | Type      | Default     |
-| ----------- | --------- | ------------------ | --------- | ----------- |
-| `allLabels` | --        |                    | `Label[]` | `[]`        |
-| `color`     | `color`   | Color as hex value | `string`  | `undefined` |
+| Property | Attribute | Description        | Type     | Default     |
+| -------- | --------- | ------------------ | -------- | ----------- |
+| `color`  | `color`   | Color as hex value | `string` | `undefined` |
 
 
 ## Events

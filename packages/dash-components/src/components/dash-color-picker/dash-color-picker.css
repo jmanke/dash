@@ -1,5 +1,6 @@
 :host {
   display: block;
+  --dash-color-picker-border: 1px solid var(--dash-border-1);
 }
 
 .color-picker {
@@ -8,8 +9,8 @@
   background-color: var(--dash-background-1);
   align-items: center;
   grid-gap: var(--dash-spacing-2);
-  box-shadow: var(--dash-box-shadow);
   padding-block-end: var(--dash-spacing-3);
+  border: var(--dash-color-picker-border);
 
   .gradient-container {
     position: relative;
@@ -37,8 +38,7 @@
 
   .hue-container {
     flex: 1 1 auto;
-    padding-left: var(--dash-spacing-2);
-    padding-right: var(--dash-spacing-6);
+    padding: 0 var(--dash-spacing-4);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -47,22 +47,22 @@
       width: 30px;
       height: 30px;
       border-radius: var(--dash-spacing-full);
-      box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.65);
+      box-shadow: 0px 0px 3px rgba(var(--dash-rgb-box-shadow-primary), 0.3);
     }
   }
 
   .separator {
     flex: 1 1 auto;
-    margin: var(--dash-spacing-2);
+    margin: var(--dash-spacing-2) var(--dash-spacing-4);
     height: 1px;
     border-top: 1px solid var(--dash-border-1);
   }
 
   .storage-color-container {
+    padding: 0 var(--dash-spacing-3);
     max-width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(30px, 1fr));
-    padding: 0 var(--dash-spacing-2);
     gap: var(--dash-spacing-2);
   }
 
@@ -71,7 +71,7 @@
     display: flex;
     flex-direction: row;
     gap: var(--dash-spacing-2);
-    padding: 0 var(--dash-spacing-2);
+    padding: 0 var(--dash-spacing-4);
 
     dash-input {
       flex: 1;

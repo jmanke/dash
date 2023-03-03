@@ -226,7 +226,6 @@ export class HellodashLabelEdit {
         <hellodash-label-color-picker
           slot='drill-content'
           color={this.editingLabel?.color}
-          allLabels={this.labels}
           onHellodashLabelColorPickerColorChanged={(e: CustomEvent<string>) => {
             this.labelColorChanged(this.editingLabel, e.detail);
             this.drillMenuActive = false;

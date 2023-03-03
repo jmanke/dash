@@ -93,22 +93,14 @@ export namespace Components {
         "width": number;
     }
     interface DashColorPicker {
+        /**
+          * Color as hex value
+         */
+        "color": string;
+        /**
+          * Default colors
+         */
         "defaultColors": string[];
-        /**
-          * Hex color value
-          * @default #FFFFFF
-         */
-        "hex": string;
-        /**
-          * HSV color values
-          * @default [0, 0, 100]
-         */
-        "hsv": HSV;
-        /**
-          * RGB color values
-          * @default [255, 255, 255]
-         */
-        "rgb": RGB;
     }
     interface DashColorSwatch {
         /**
@@ -1075,26 +1067,18 @@ declare namespace LocalJSX {
         "width"?: number;
     }
     interface DashColorPicker {
+        /**
+          * Color as hex value
+         */
+        "color"?: string;
+        /**
+          * Default colors
+         */
         "defaultColors"?: string[];
-        /**
-          * Hex color value
-          * @default #FFFFFF
-         */
-        "hex"?: string;
-        /**
-          * HSV color values
-          * @default [0, 0, 100]
-         */
-        "hsv"?: HSV;
         /**
           * Emitted when color has been selected
          */
         "onDashColorPickerColorChanged"?: (event: DashColorPickerCustomEvent<void>) => void;
-        /**
-          * RGB color values
-          * @default [255, 255, 255]
-         */
-        "rgb"?: RGB;
     }
     interface DashColorSwatch {
         /**

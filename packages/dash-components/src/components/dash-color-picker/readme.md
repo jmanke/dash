@@ -7,12 +7,10 @@
 
 ## Properties
 
-| Property        | Attribute | Description      | Type                       | Default           |
-| --------------- | --------- | ---------------- | -------------------------- | ----------------- |
-| `defaultColors` | --        |                  | `string[]`                 | `[]`              |
-| `hex`           | `hex`     | Hex color value  | `string`                   | `'#FFFFFF'`       |
-| `hsv`           | --        | HSV color values | `[number, number, number]` | `[0, 0, 100]`     |
-| `rgb`           | --        | RGB color values | `[number, number, number]` | `[255, 255, 255]` |
+| Property        | Attribute | Description        | Type       | Default     |
+| --------------- | --------- | ------------------ | ---------- | ----------- |
+| `color`         | `color`   | Color as hex value | `string`   | `undefined` |
+| `defaultColors` | --        | Default colors     | `string[]` | `[]`        |
 
 
 ## Events

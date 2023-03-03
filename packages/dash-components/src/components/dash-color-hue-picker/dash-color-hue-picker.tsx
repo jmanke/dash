@@ -1,4 +1,3 @@
-import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
 
 const Slider = {
@@ -35,11 +34,6 @@ export class DashColorHuePicker {
    * Handler for slider drag event
    */
   @State() sliderDragHandler: (event: MouseEvent) => void;
-
-  /**
-   * Whether the slider is currently being dragged
-   */
-  @State() isDragging: boolean = false;
 
   //#endregion
 
@@ -118,9 +112,6 @@ export class DashColorHuePicker {
     this.pointerInput(event);
     this.sliderDragHandler = (e: PointerEvent) => {
       this.pointerInput(e);
-      if (!this.isDragging) {
-        this.isDragging = true;
-      }
     };
     window.addEventListener('pointermove', this.sliderDragHandler);
     window.addEventListener(
@@ -128,7 +119,6 @@ export class DashColorHuePicker {
       () => {
         window.removeEventListener('pointermove', this.sliderDragHandler);
         this.sliderDragHandler = null;
-        this.isDragging = false;
       },
       { once: true },
     );
@@ -169,7 +159,7 @@ export class DashColorHuePicker {
       <Host>
         <div class='color-hue-picker' style={{ width: `${this.width}px` }} tabindex='0' onKeyDown={this.keydown.bind(this)} onPointerDown={this.startSliderDrag.bind(this)}>
           <canvas class='gradient'></canvas>
-          <div class={spaceConcat('slider', this.isDragging ? 'dragging' : null)} style={{ backgroundColor: `hsl(${this.hue}, 100%, 50%`, left: `${this.sliderPosition}px` }}></div>
+          <div class='slider' style={{ backgroundColor: `hsl(${this.hue}, 100%, 50%`, left: `${this.sliderPosition}px` }}></div>
         </div>
       </Host>
     );

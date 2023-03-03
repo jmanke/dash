@@ -9,7 +9,7 @@
 }
 
 .main-content-wrapper {
-  overflow: hidden;
+  overflow: visible;
   display: flex;
   flex-direction: column;
   flex: auto;
@@ -27,7 +27,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: var(--dash-spacing-2);
+  padding-bottom: var(--dash-spacing-2);
 
   @media only screen and (max-width: 600px) {
     padding: var(--dash-spacing-2) 0;

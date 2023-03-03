@@ -1,6 +1,6 @@
 import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
-import { Component, Event, EventEmitter, h, Listen, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Listen, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'hellodash-label-edit',
@@ -19,6 +19,9 @@ export class HellodashLabelEdit {
   //#endregion
 
   //#region @State
+
+  @State() dropdownOpen: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -70,6 +73,8 @@ export class HellodashLabelEdit {
     if (e.target.open) {
       this.confirmDeleteButton?.setFocus();
     }
+
+    this.dropdownOpen = e.target.open;
   }
 
   /**
@@ -94,13 +99,14 @@ export class HellodashLabelEdit {
         <dash-dropdown
           ref={element => (this.labelColorPickerDropdown = element)}
           placement='bottom'
+          open={this.dropdownOpen}
           placementStrategy='fixed'
           onDashDropdownOpenChange={this.dropdownVisibleChanged.bind(this)}
           autoClose
         >
           <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
 
-          <hellodash-label-color-picker color={this.label.color} allLabels={this.allLabels}></hellodash-label-color-picker>
+          {this.dropdownOpen && <hellodash-label-color-picker color={this.label.color}></hellodash-label-color-picker>}
         </dash-dropdown>
         <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 

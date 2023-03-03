@@ -9,6 +9,17 @@ dash-color-picker {
 
 .footer {
   margin-block-start: var(--dash-spacing-3);
+  flex: 1 1 auto;
   display: flex;
   justify-items: flex-end;
+
+  dash-button {
+    flex-grow: 1;
+    margin-inline-start: auto;
+
+    div {
+      width: 100%;
+      text-align: center;
+    }
+  }
 }
