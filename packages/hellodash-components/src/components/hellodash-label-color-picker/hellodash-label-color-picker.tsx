@@ -1,7 +1,6 @@
-import { Color, DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components';
-import { Component, Event, EventEmitter, h, Prop } from '@stencil/core';
-
-const Colors: Color[] = ['red', 'orange', 'yellow', 'green-apple', 'green-grass', 'baby-blue', 'dark-blue', 'purple', 'pink'];
+import { DashColorPickerCustomEvent } from '@didyoumeantoast/dash-components';
+import { State } from '@didyoumeantoast/dash-components/dist/types/stencil-public-runtime';
+import { Component, Event, EventEmitter, h, Host, Prop, Watch } from '@stencil/core';
 
 @Component({
   tag: 'hellodash-label-color-picker',
@@ -16,24 +15,36 @@ export class HelloDashLabelColorPicker {
   //#endregion
 
   //#region @State
+
+  @State() currentColor: string;
+
   //#endregion
 
   //#region @Prop
 
   /**
-   * Color
+   * Color as hex value
    */
-  @Prop({ reflect: true }) color: Color;
+  @Prop({ reflect: true }) color: string;
+  @Watch('color')
+  colorChanged(color: string) {
+    this.currentColor = color;
+  }
 
   //#endregion
 
   //#region @Event
 
-  @Event({ eventName: 'hellodashLabelColorPickerColorChanged' }) colorChanged: EventEmitter<Color>;
+  @Event({ eventName: 'hellodashLabelColorPickerColorChanged' }) pickerColorChanged: EventEmitter<string>;
 
   //#endregion
 
   //#region Component lifecycle
+
+  componentWillLoad() {
+    this.currentColor = this.color;
+  }
+
   //#endregion
 
   //#region @Method
@@ -46,12 +57,30 @@ export class HelloDashLabelColorPicker {
    * @param event
    */
   colorPicked(event: DashColorPickerCustomEvent<void>) {
-    this.colorChanged.emit(event.target.color);
+    this.currentColor = event.target.color;
+  }
+
+  confirmColor() {
+    this.pickerColorChanged.emit(this.currentColor);
+  }
+
+  cancel() {
+    this.pickerColorChanged.emit(this.color);
   }
 
   //#endregion
 
   render() {
-    return <dash-color-picker colors={Colors} cols={3} color={this.color} onDashColorPickerColorChanged={this.colorPicked.bind(this)}></dash-color-picker>;
+    return (
+      <Host>
+        <dash-color-picker color={this.currentColor} onDashColorPickerColorChanged={this.colorPicked.bind(this)}></dash-color-picker>
+
+        <div class='footer'>
+          <dash-button appearance='outline' onClick={this.confirmColor.bind(this)}>
+            <div>Done</div>
+          </dash-button>
+        </div>
+      </Host>
+    );
   }
 }

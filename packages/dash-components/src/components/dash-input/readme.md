@@ -53,6 +53,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [dash-color-picker](../dash-color-picker)
  - [dash-filter](../dash-filter)
  - [dash-inline-edit](../dash-inline-edit)
 
@@ -70,6 +71,7 @@ graph TD;
   dash-icon-button --> dash-loader
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
+  dash-color-picker --> dash-input
   dash-filter --> dash-input
   dash-inline-edit --> dash-input
   style dash-input fill:#f9f,stroke:#333,stroke-width:4px

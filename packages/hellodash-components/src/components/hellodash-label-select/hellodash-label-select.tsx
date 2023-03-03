@@ -1,4 +1,3 @@
-import { Color } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
 import { Component, Element, Event, EventEmitter, h, Listen, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
@@ -150,7 +149,7 @@ export class HellodashLabelEdit {
    * @param label Label that was changed
    * @param color New color
    */
-  labelColorChanged(label: Label, color: Color) {
+  labelColorChanged(label: Label, color: string) {
     this.labelUpdated.emit({
       ...label,
       color,
@@ -226,8 +225,8 @@ export class HellodashLabelEdit {
         {listContent}
         <hellodash-label-color-picker
           slot='drill-content'
-          color={this.editingLabel?.color as Color}
-          onHellodashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
+          color={this.editingLabel?.color}
+          onHellodashLabelColorPickerColorChanged={(e: CustomEvent<string>) => {
             this.labelColorChanged(this.editingLabel, e.detail);
             this.drillMenuActive = false;
           }}
