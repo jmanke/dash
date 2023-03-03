@@ -21,6 +21,10 @@
   height: inherit;
   width: inherit;
 
+  dash-chip {
+    --dash-text-color-2: var(--dash-text-color-2-dark);
+  }
+
   button {
     padding-top: var(--dash-spacing-4);
     padding-bottom: var(--dash-spacing-4);

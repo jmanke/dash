@@ -5,11 +5,31 @@ import { createLabel as createLabelApi, deleteLabel as deleteLabelApi, fetchLabe
 import { RootState } from '../store';
 import { syncLabels } from './notes-slice';
 
+/** Legacy label colors */
+const Colors = {
+  'red': '#af6566',
+  'orange': '#af815a',
+  'yellow': '#a7954e',
+  'green-apple': ' #73a647',
+  'green-grass': '#50a559',
+  'baby-blue': '#6c91b2',
+  'dark-blue': '#7379b1',
+  'purple': '#906098',
+  'pink': '#b0739b',
+};
+
 /**
  * Fetches all labels from the API and stores them in the store.
  */
 export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { dispatch }) => {
   const labels = (await fetchLabels()) ?? [];
+  labels.forEach(label => {
+    if (label.color in Colors) {
+      // @ts-ignore
+      label.color = Colors[label.color];
+    }
+  });
+
   dispatch(setLabels(sortBy(labels, 'id')));
 
   return labels;
@@ -22,6 +42,11 @@ export const getLabelById = createAsyncThunk('labels/fetchLabel', async (id: num
   const label = await fetchLabel(id);
 
   if (label) {
+    if (label.color in Colors) {
+      // @ts-ignore
+      label.color = Colors[label.color];
+    }
+
     dispatch(replaceLabel(label));
   }
 

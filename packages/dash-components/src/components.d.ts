@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
+import { Appearance, Scale, ScaleExtended, Status, Theme } from "./types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { IconColor } from "./components/dash-icon/dash-icon";
 import { LabelLayout } from "./components/dash-label/dash-label";
@@ -13,7 +13,7 @@ import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 import { Resize } from "./components/dash-textarea/dash-textarea";
-export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
+export { Appearance, Scale, ScaleExtended, Status, Theme } from "./types";
 export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 export { IconColor } from "./components/dash-icon/dash-icon";
 export { LabelLayout } from "./components/dash-label/dash-label";
@@ -58,7 +58,7 @@ export namespace Components {
           * Background color of the chip
           * @required
          */
-        "color": Color | string;
+        "color": string;
         /**
           * Text to display when user focuses or hovers over dismiss button
           * @optional
@@ -80,29 +80,34 @@ export namespace Components {
          */
         "selectable": boolean;
     }
+    interface DashColorHuePicker {
+        /**
+          * Hue value from [0, 360]
+          * @default 0
+         */
+        "hue": number;
+        /**
+          * Width of hue picker (in pixels)
+          * @default 200
+         */
+        "width": number;
+    }
     interface DashColorPicker {
         /**
-          * Currently selected color
-          * @optional
+          * Color as hex value
          */
-        "color": Color;
+        "color": string;
         /**
-          * Colors to pick from
-          * @required
+          * Default colors
          */
-        "colors": Color[];
-        /**
-          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-          * @default colors.length
-         */
-        "cols": number;
+        "defaultColors": string[];
     }
     interface DashColorSwatch {
         /**
           * Color of the swatch
           * @required
          */
-        "color": Color | string;
+        "color": string;
         /**
           * Size of swatch
           * @default 'm'
@@ -705,6 +710,10 @@ export interface DashChipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashChipElement;
 }
+export interface DashColorHuePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashColorHuePickerElement;
+}
 export interface DashColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashColorPickerElement;
@@ -773,6 +782,12 @@ declare global {
     var HTMLDashChipElement: {
         prototype: HTMLDashChipElement;
         new (): HTMLDashChipElement;
+    };
+    interface HTMLDashColorHuePickerElement extends Components.DashColorHuePicker, HTMLStencilElement {
+    }
+    var HTMLDashColorHuePickerElement: {
+        prototype: HTMLDashColorHuePickerElement;
+        new (): HTMLDashColorHuePickerElement;
     };
     interface HTMLDashColorPickerElement extends Components.DashColorPicker, HTMLStencilElement {
     }
@@ -945,6 +960,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "dash-button": HTMLDashButtonElement;
         "dash-chip": HTMLDashChipElement;
+        "dash-color-hue-picker": HTMLDashColorHuePickerElement;
         "dash-color-picker": HTMLDashColorPickerElement;
         "dash-color-swatch": HTMLDashColorSwatchElement;
         "dash-confirm-button": HTMLDashConfirmButtonElement;
@@ -1008,7 +1024,7 @@ declare namespace LocalJSX {
           * Background color of the chip
           * @required
          */
-        "color"?: Color | string;
+        "color"?: string;
         /**
           * Text to display when user focuses or hovers over dismiss button
           * @optional
@@ -1034,22 +1050,31 @@ declare namespace LocalJSX {
          */
         "selectable"?: boolean;
     }
+    interface DashColorHuePicker {
+        /**
+          * Hue value from [0, 360]
+          * @default 0
+         */
+        "hue"?: number;
+        /**
+          * Emitted when hue has been changed
+         */
+        "onDashColorHuePickerHueChanged"?: (event: DashColorHuePickerCustomEvent<void>) => void;
+        /**
+          * Width of hue picker (in pixels)
+          * @default 200
+         */
+        "width"?: number;
+    }
     interface DashColorPicker {
         /**
-          * Currently selected color
-          * @optional
+          * Color as hex value
          */
-        "color"?: Color;
+        "color"?: string;
         /**
-          * Colors to pick from
-          * @required
+          * Default colors
          */
-        "colors"?: Color[];
-        /**
-          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-          * @default colors.length
-         */
-        "cols"?: number;
+        "defaultColors"?: string[];
         /**
           * Emitted when color has been selected
          */
@@ -1060,7 +1085,7 @@ declare namespace LocalJSX {
           * Color of the swatch
           * @required
          */
-        "color"?: Color | string;
+        "color"?: string;
         /**
           * Size of swatch
           * @default 'm'
@@ -1696,6 +1721,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "dash-button": DashButton;
         "dash-chip": DashChip;
+        "dash-color-hue-picker": DashColorHuePicker;
         "dash-color-picker": DashColorPicker;
         "dash-color-swatch": DashColorSwatch;
         "dash-confirm-button": DashConfirmButton;
@@ -1732,6 +1758,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "dash-button": LocalJSX.DashButton & JSXBase.HTMLAttributes<HTMLDashButtonElement>;
             "dash-chip": LocalJSX.DashChip & JSXBase.HTMLAttributes<HTMLDashChipElement>;
+            "dash-color-hue-picker": LocalJSX.DashColorHuePicker & JSXBase.HTMLAttributes<HTMLDashColorHuePickerElement>;
             "dash-color-picker": LocalJSX.DashColorPicker & JSXBase.HTMLAttributes<HTMLDashColorPickerElement>;
             "dash-color-swatch": LocalJSX.DashColorSwatch & JSXBase.HTMLAttributes<HTMLDashColorSwatchElement>;
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;

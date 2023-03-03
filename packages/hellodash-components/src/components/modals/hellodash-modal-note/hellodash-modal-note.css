@@ -3,6 +3,10 @@ hellodash-modal-note {
     --dash-modal-content-padding-x: 0;
   }
 
+  dash-chip {
+    --dash-text-color-2: var(--dash-text-color-2-dark);
+  }
+
   .labels-container {
     display: flex;
     flex-wrap: wrap;

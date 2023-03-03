@@ -38,10 +38,11 @@ dash-icon {
   margin: var(--dash-spacing-1);
   border-radius: var(--dash-spacing-full);
   border: none;
-  width: var(--dash-spacing-4);
-  height: var(--dash-spacing-4);
+  width: var(--dash-spacing-5);
+  height: var(--dash-spacing-5);
   background: var(--dash-color-swatch-background);
   display: flex;
+  justify-content: center;
   align-items: center;
   margin: auto;
 }
