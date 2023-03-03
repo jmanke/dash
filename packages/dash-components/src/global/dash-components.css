@@ -194,7 +194,7 @@ body {
   --dash-color-dark-blue: #7379b1;
   --dash-color-purple: #906098;
   --dash-color-pink: #b0739b;
-  --dash-color-gray: rgba(176, 176, 176, 0.6);
+  --dash-color-gray: #808182;
 }
 
 :root,
