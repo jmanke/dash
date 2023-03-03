@@ -14,7 +14,7 @@ export const colorSwatchDefinition = {
   template,
   args: {
     scale: 'm',
-    color: 'red',
+    color: '#af6566',
     selected: false,
   },
 };

@@ -138,7 +138,7 @@ export class HellodashLabelEdit {
       return;
     }
 
-    const createdLabel = { id: -1, text: this.filterValue, color: 'red' } as Label;
+    const createdLabel = { id: -1, text: this.filterValue, color: '#af6566' } as Label;
     this.labelCreated.emit(createdLabel);
     this.filterElement?.clear();
     this.filterElement?.select();

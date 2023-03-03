@@ -87,7 +87,7 @@ export class HellodashEditLabels implements Modal {
     }
 
     const label = {
-      color: 'red',
+      color: '#af6566',
       text: this.newLabelText,
     };
     this.newLabelText = undefined;
