@@ -140,7 +140,7 @@ importers:
       '@didyoumeantoast/dash-components': ^1.3.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
-      '@didyoumeantoast/tinymce-plugins': ^1.1.5
+      '@didyoumeantoast/tinymce-plugins': ^1.1.6
       '@popperjs/core': ^2.11.0
       '@reduxjs/toolkit': ^1.9.2
       '@stencil/core': ^3.0.0
@@ -171,7 +171,7 @@ importers:
       '@didyoumeantoast/dash-components': link:../dash-components
       '@didyoumeantoast/dash-utils': link:../dash-utils
       '@didyoumeantoast/hellodash-models': link:../hellodash-models
-      '@didyoumeantoast/tinymce-plugins': 1.1.5
+      '@didyoumeantoast/tinymce-plugins': 1.1.6
       '@popperjs/core': 2.11.6
       '@reduxjs/toolkit': 1.9.2
       '@types/qs': 6.9.7
@@ -734,8 +734,8 @@ packages:
       - terser
     dev: true
 
-  /@didyoumeantoast/tinymce-plugins/1.1.5:
-    resolution: {integrity: sha512-SIyVAXi5T3UNhhHv1LwvT7X3v0W5rgiyBVkkWyDJnHmfnMbHJAyXFODx1PXyqEd3PfzxKnUYt2Hkl++5HgpnuQ==}
+  /@didyoumeantoast/tinymce-plugins/1.1.6:
+    resolution: {integrity: sha512-gIp4ql00JgzFgJNYB6D3Y/YH/mErdFbPwIaiH7MOQ/Bi8wEQUSroiEp1YUbw8JbwX8TFNqK8cwTS7sNnetuRdQ==}
     dev: false
 
   /@esbuild/android-arm/0.15.17:
