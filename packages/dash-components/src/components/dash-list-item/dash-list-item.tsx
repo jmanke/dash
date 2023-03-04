@@ -47,6 +47,12 @@ export class DashListItem implements Focusable {
   @Prop({ reflect: true }) disableDeselect: boolean;
 
   /**
+   * Whether the list item can be dragged
+   * @default false
+   */
+  @Prop() dragEnabled: boolean;
+
+  /**
    * Size of the list-item
    * @internal
    * @default 'm'
@@ -121,6 +127,10 @@ export class DashListItem implements Focusable {
    * @param e - mouse click event
    */
   click(e: MouseEvent | KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     if (this.isClick(e) && !this.disabled && !(this.disableDeselect && this.selected)) {
       this.selected = !this.selected;
       this.selectedChanged.emit();
@@ -132,6 +142,10 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyDown(e: KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     const sourceNode = e.composedPath()[0];
     if (sourceNode !== this.element && !contains(this.listItem, sourceNode as HTMLElement)) {
       return;
@@ -156,6 +170,10 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyUp(e: KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     if (this.isClick(e)) {
       this.updateIsActive(false);
     }
@@ -209,10 +227,35 @@ export class DashListItem implements Focusable {
           onPointerLeave={this.updateIsActive.bind(this, false)}
           onFocusout={this.updateIsActive.bind(this, false)}
         >
-          <slot name='actions-start'></slot>
+          {this.dragEnabled && (
+            <div
+              class='grip'
+              onKeyDown={this.stopPropagation.bind(this)}
+              onKeyUp={this.stopPropagation.bind(this)}
+              onClick={this.stopPropagation.bind(this)}
+              onPointerDown={this.stopPropagation.bind(this)}
+              onPointerUp={this.stopPropagation.bind(this)}
+              onPointerLeave={this.stopPropagation.bind(this)}
+            >
+              <dash-icon icon='grip-vertical' scale='s'></dash-icon>
+            </div>
+          )}
 
           <div class='list-item' ref={e => (this.listItem = e)}>
-            {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+            {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+
+            <div
+              class='actions-start-wrapper'
+              onKeyDown={this.stopPropagation.bind(this)}
+              onKeyUp={this.stopPropagation.bind(this)}
+              onClick={this.stopPropagation.bind(this)}
+              onPointerDown={this.stopPropagation.bind(this)}
+              onPointerUp={this.stopPropagation.bind(this)}
+              onPointerLeave={this.stopPropagation.bind(this)}
+            >
+              <slot name='actions-start'></slot>
+            </div>
+
             <slot></slot>
           </div>
 

@@ -19,7 +19,7 @@
   }
 }
 
-:host(:not([disabled])) {
+:host(:not([disabled]):not([selection-mode='no-selection'])) {
   .list-item-wrapper {
     cursor: pointer;
 
@@ -32,6 +32,10 @@
       background-color: var(--dash-bg-darken-2);
     }
   }
+}
+
+::slotted([slot='actions-start']) {
+  padding-inline-end: var(--dash-spacing-2);
 }
 
 .list-item-wrapper {
@@ -75,4 +79,25 @@
 
 .check-invisible {
   visibility: hidden;
+}
+
+.grip {
+  cursor: grab;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 8px;
+
+  :hover {
+    background-color: var(--dash-bg-darken-1);
+  }
+
+  dash-icon {
+    height: calc(100% + 4px);
+    border-radius: var(--dash-border-radius) 0 0 var(--dash-border-radius);
+    position: absolute;
+    left: -2px;
+  }
 }

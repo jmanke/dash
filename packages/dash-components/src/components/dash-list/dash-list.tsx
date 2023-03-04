@@ -2,7 +2,7 @@ import { isNone } from '@didyoumeantoast/dash-utils';
 import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
 import { Scale } from '../../types';
 
-export type SelectionMode = 'single' | 'multiple' | 'none';
+export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
 
 @Component({
   tag: 'dash-list',
@@ -77,6 +77,17 @@ export class DashList {
   maxItemsChanged() {
     this.updateResizeObserver();
   }
+
+  /**
+   * Whether the list item can be dragged
+   * @default false
+   */
+  @Prop() dragEnabled: boolean;
+  @Watch('dragEnabled')
+  dragEnabledChanged() {
+    this.updateChildProps();
+  }
+
   //#endregion
 
   //#region @Event
@@ -191,6 +202,7 @@ export class DashList {
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
       element.selectionMode = this.selectionMode;
       element.disableDeselect = this.disableDeselect;
+      element.dragEnabled = this.dragEnabled;
       element.scale = this.scale;
       element.tabIndex = index === 0 ? 0 : -1;
     });

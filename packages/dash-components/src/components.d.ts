@@ -417,6 +417,11 @@ export namespace Components {
          */
         "disableDeselect": boolean;
         /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled": boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
@@ -442,6 +447,11 @@ export namespace Components {
           * When `true`, interaction is disabled
          */
         "disabled": boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled": boolean;
         /**
           * Size of the list-item
           * @default 'm'
@@ -1398,6 +1408,11 @@ declare namespace LocalJSX {
          */
         "disableDeselect"?: boolean;
         /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled"?: boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
@@ -1423,6 +1438,11 @@ declare namespace LocalJSX {
           * When `true`, interaction is disabled
          */
         "disabled"?: boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled"?: boolean;
         /**
           * Emitted when list-item indicates focus should be moved to the next list-item
          */

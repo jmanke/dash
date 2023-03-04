@@ -24,8 +24,20 @@ const template = (args, updateArg) => {
     }
   };
 
-  return html`<dash-list style="width: 10rem;" max-items=${args.maxItems} selection-mode=${args.selectionMode} disable-deselect=${args.disableDeselect} scale=${args.scale}>
-    ${items.map(item => html` <dash-list-item selected=${args.selected.includes(item)} @dashListItemSelectedChanged=${() => itemSelected(item)}>${item}</dash-list-item>`)}
+  return html`<dash-list
+    style="width: 10rem;"
+    max-items=${args.maxItems}
+    selection-mode=${args.selectionMode}
+    disable-deselect=${args.disableDeselect}
+    scale=${args.scale}
+    drag-enabled=${args.dragEnabled}
+  >
+    ${items.map(
+      item =>
+        html` <dash-list-item selected=${args.selected.includes(item)} @dashListItemSelectedChanged=${() => itemSelected(item)}>
+          ${item} <dash-icon-button slot="actions-end" icon="pencil" scale="s"></dash-icon-button
+        ></dash-list-item>`,
+    )}
   </dash-list>`;
 };
 
@@ -34,9 +46,12 @@ export const listDefinition = {
   controls: {
     selectionMode: {
       type: 'radio',
-      options: ['single', 'multiple', 'none'],
+      options: ['single', 'multiple', 'none', 'no-selection'],
     },
     disableDeselect: {
+      type: 'boolean',
+    },
+    dragEnabled: {
       type: 'boolean',
     },
     maxItems: {
@@ -54,6 +69,7 @@ export const listDefinition = {
     maxItems: null,
     selectionMode: 'single',
     disableDeselect: false,
+    dragEnabled: false,
     selected: ['Item 0'],
     scale: 'm',
   },
