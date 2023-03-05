@@ -1,5 +1,5 @@
 import { isNone } from '@didyoumeantoast/dash-utils';
-import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
@@ -109,6 +109,13 @@ export class DashList {
   //#endregion
 
   //#region Listeners
+
+  @Listen('dashInternalListItemStartDrag')
+  listItemStartedDrag(e: CustomEvent) {
+    const item = e.target as HTMLDashListItemElement;
+    console.log(item);
+  }
+
   //#endregion
 
   //#region @Method

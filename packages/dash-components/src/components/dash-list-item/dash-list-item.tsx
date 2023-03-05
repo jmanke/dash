@@ -50,7 +50,7 @@ export class DashListItem implements Focusable {
    * Whether the list item can be dragged
    * @default false
    */
-  @Prop() dragEnabled: boolean;
+  @Prop({ reflect: true }) dragEnabled: boolean;
 
   /**
    * Size of the list-item
@@ -90,6 +90,18 @@ export class DashListItem implements Focusable {
    * @internal
    */
   @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<void>;
+
+  /**
+   * Emitted when list-item is starting to be dragged
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<void>;
+
+  /**
+   * Emitted when list-itemhas stopped being dragged
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemEndedDrag' }) endedDrag: EventEmitter<void>;
 
   //#endregion
 
@@ -201,6 +213,17 @@ export class DashListItem implements Focusable {
   }
 
   /**
+   * Starts drag, emits internal event
+   */
+  startDrag() {
+    if (!this.dragEnabled) {
+      return;
+    }
+
+    this.startedDrag.emit();
+  }
+
+  /**
    * JSX checkmark element
    */
   get checkElement() {
@@ -228,17 +251,19 @@ export class DashListItem implements Focusable {
           onFocusout={this.updateIsActive.bind(this, false)}
         >
           {this.dragEnabled && (
-            <div
+            <dash-icon
               class='grip'
+              icon='grip-vertical'
+              scale='s'
               onKeyDown={this.stopPropagation.bind(this)}
               onKeyUp={this.stopPropagation.bind(this)}
               onClick={this.stopPropagation.bind(this)}
-              onPointerDown={this.stopPropagation.bind(this)}
               onPointerUp={this.stopPropagation.bind(this)}
               onPointerLeave={this.stopPropagation.bind(this)}
-            >
-              <dash-icon icon='grip-vertical' scale='s'></dash-icon>
-            </div>
+              onPointerDown={() => {
+                this.startDrag();
+              }}
+            ></dash-icon>
           )}
 
           <div class='list-item' ref={e => (this.listItem = e)}>
