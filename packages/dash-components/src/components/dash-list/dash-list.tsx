@@ -1,4 +1,4 @@
-import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
+import { isNone, spaceConcat, wait } from '@didyoumeantoast/dash-utils';
 import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { Scale } from '../../types';
 
@@ -131,10 +131,11 @@ export class DashList {
     item.parentElement.insertBefore(tempItem, item);
 
     // ensure item size if preserved during drag
-    item.classList.add('dash-list-item--dragging');
     item.style.width = `${item.offsetWidth}px`;
     item.style.height = `${item.offsetHeight}px`;
+    
     item.style.position = 'fixed';
+    item.isDragging = true;
 
     const pointerMove = (e: PointerEvent) => {
       item.style.left = `${e.clientX - offsetX}px`;
@@ -142,18 +143,46 @@ export class DashList {
     };
     pointerMove(e.detail);
 
+    // move the item to the end of the bodyso it is on top of all other items
+    document.body.appendChild(item);
+
     window.addEventListener('pointermove', pointerMove);
-    window.addEventListener('pointerup', () => {
-      window.removeEventListener('pointermove', pointerMove);
-      item.style.position = 'relative';
-      item.style.removeProperty('left');
-      item.style.removeProperty('top');
-      item.style.removeProperty('width');
-      item.style.removeProperty('height');
-      tempItem.remove();
-      this.dragging = false;
-      item.classList.remove('dash-list-item--dragging');
-    });
+    window.addEventListener(
+      'pointerup',
+      async () => {
+        window.removeEventListener('pointermove', pointerMove);
+
+        // move the item back to its original position with a transition
+        const transitionTime = 0.25;
+        item.style.transition = `all ${transitionTime}s ease-out`;
+
+        // allow the transition to apply
+        await wait(0);
+
+        // set the item's original position
+        item.style.left = `${left}px`;
+        item.style.top = `${top}px`;
+        item.isDragging = false;
+
+        // wait for the transition to finish
+        await wait(transitionTime * 1000);
+
+        // remove any properties used for dragging
+        item.style.removeProperty('transition');
+        item.style.position = 'relative';
+        item.style.removeProperty('left');
+        item.style.removeProperty('top');
+        item.style.removeProperty('width');
+        item.style.removeProperty('height');
+
+        // remove the temporary item
+        tempItem.parentElement.insertBefore(item, tempItem);
+        tempItem.remove();
+
+        this.dragging = false;
+      },
+      { once: true },
+    );
   }
 
   //#endregion

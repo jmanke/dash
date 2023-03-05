@@ -47,12 +47,6 @@ export class DashListItem implements Focusable {
   @Prop({ reflect: true }) disableDeselect: boolean;
 
   /**
-   * Whether the list item can be dragged
-   * @default false
-   */
-  @Prop({ reflect: true }) dragEnabled: boolean;
-
-  /**
    * Size of the list-item
    * @internal
    * @default 'm'
@@ -70,6 +64,17 @@ export class DashListItem implements Focusable {
    */
   @Prop({ reflect: true }) disabled: boolean;
 
+  /**
+   * Whether the list item can be dragged
+   * @default false
+   */
+  @Prop({ reflect: true }) dragEnabled: boolean;
+
+  /**
+   * When `true`, list-item is being dragged. Used for styling purposes
+   */
+  @Prop({ reflect: true }) isDragging: boolean;
+
   //#endregion
 
   //#region @Event
@@ -77,7 +82,8 @@ export class DashListItem implements Focusable {
   /**
    * Emitted when selected has changed
    */
-  @Event({ eventName: 'dashListItemSelectedChanged', composed: true }) selectedChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashListItemSelectedChanged', composed: true })
+  selectedChanged: EventEmitter<void>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the next list-item

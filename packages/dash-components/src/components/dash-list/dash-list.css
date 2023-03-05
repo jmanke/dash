@@ -6,9 +6,10 @@
 
 .container {
   overflow: auto;
+  --dash-list-drag-drop-transition-time: 1s;
 
   &.dragging {
-    ::slotted(dash-list-item:not(.dash-list-item--dragging)) {
+    ::slotted(dash-list-item) {
       pointer-events: none;
     }
   }
