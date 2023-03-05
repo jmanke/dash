@@ -119,7 +119,7 @@ export class DashList {
   listItemStartedDrag(e: CustomEvent<PointerEvent>) {
     this.dragging = true;
     const item = e.target as HTMLDashListItemElement;
-    const { left, top } = item.getBoundingClientRect();
+    const { left, top, bottom } = item.getBoundingClientRect();
     const offsetX = e.detail.clientX - left;
     const offsetY = e.detail.clientY - top;
 
@@ -133,18 +133,98 @@ export class DashList {
     // ensure item size if preserved during drag
     item.style.width = `${item.offsetWidth}px`;
     item.style.height = `${item.offsetHeight}px`;
-    
+
+    // move the item to the end of the body so it is on top of all other items
+    document.body.appendChild(item);
     item.style.position = 'fixed';
+    item.style.top = `${0}px`;
+    item.style.left = `${0}px`;
     item.isDragging = true;
 
+    // get a reference to all other items to move them when dragging
+    const itemIndex = this.listItems.indexOf(item);
+    const aboveItems = this.listItems
+      .slice(0, itemIndex)
+      .map(i => {
+        const { top, bottom, left } = i.getBoundingClientRect();
+        return {
+          item: i,
+          top,
+          bottom,
+          left,
+          isAbove: true,
+        };
+      })
+      .reverse();
+    const belowItems = this.listItems.slice(itemIndex + 1, this.listItems.length).map(i => {
+      const { top, bottom, left } = i.getBoundingClientRect();
+      return {
+        item: i,
+        top,
+        bottom,
+        left,
+        isAbove: false,
+      };
+    });
+
+    let currentItem: {
+      item: HTMLElement;
+      top: number;
+      bottom: number;
+      left: number;
+      isAbove: boolean;
+    } = { item: tempItem, top, bottom, left, isAbove: true };
+
+    const resetPositions = items => {
+      items.forEach(i => {
+        i.item.style.transform = 'translate(0, 0)';
+      });
+    };
+
     const pointerMove = (e: PointerEvent) => {
-      item.style.left = `${e.clientX - offsetX}px`;
-      item.style.top = `${e.clientY - offsetY}px`;
+      item.style.transform = `translate(${e.clientX - offsetX}px, ${e.clientY - offsetY}px)`;
+
+      if (e.clientY < currentItem.top || e.clientY > currentItem.bottom) {
+        // move items
+        if (e.clientY < top) {
+          aboveItems.forEach((itemData, i) => {
+            if (e.clientY < itemData.bottom) {
+              itemData.item.style.transform = `translate(0, ${item.offsetHeight}px)`;
+              currentItem = itemData;
+            } else {
+              itemData.item.style.transform = 'translate(0, 0)';
+            }
+
+            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === aboveItems.length - 1 && e.clientY < itemData.top)) {
+              tempItem.style.transform = `translate(0, ${top - itemData.top}px)`;
+            }
+          });
+
+          resetPositions(belowItems);
+        } else if (e.clientY > bottom) {
+          belowItems.forEach((itemData, i) => {
+            if (e.clientY > itemData.top) {
+              itemData.item.style.transform = `translate(0, -${item.offsetHeight}px)`;
+              currentItem = itemData;
+            } else {
+              itemData.item.style.transform = 'translate(0, 0)';
+            }
+
+            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === aboveItems.length - 1 && e.clientY > itemData.bottom)) {
+              tempItem.style.transform = `translate(0, -${top - itemData.top}px)`;
+            }
+          });
+
+          resetPositions(aboveItems);
+        } else {
+          currentItem = { item: tempItem, top, bottom, left, isAbove: true };
+          // reset all positions
+          resetPositions(aboveItems);
+          resetPositions(belowItems);
+        }
+      }
     };
     pointerMove(e.detail);
-
-    // move the item to the end of the bodyso it is on top of all other items
-    document.body.appendChild(item);
 
     window.addEventListener('pointermove', pointerMove);
     window.addEventListener(
@@ -152,16 +232,10 @@ export class DashList {
       async () => {
         window.removeEventListener('pointermove', pointerMove);
 
-        // move the item back to its original position with a transition
+        // move the item back to its new position with a transition
         const transitionTime = 0.25;
-        item.style.transition = `all ${transitionTime}s ease-out`;
-
-        // allow the transition to apply
-        await wait(0);
-
-        // set the item's original position
-        item.style.left = `${left}px`;
-        item.style.top = `${top}px`;
+        item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
+        item.style.transform = `translate(${currentItem.left}px, ${currentItem.top}px)`;
         item.isDragging = false;
 
         // wait for the transition to finish
@@ -170,14 +244,27 @@ export class DashList {
         // remove any properties used for dragging
         item.style.removeProperty('transition');
         item.style.position = 'relative';
-        item.style.removeProperty('left');
-        item.style.removeProperty('top');
+        item.style.removeProperty('transform');
         item.style.removeProperty('width');
         item.style.removeProperty('height');
 
         // remove the temporary item
-        tempItem.parentElement.insertBefore(item, tempItem);
+        if (currentItem.isAbove) {
+          tempItem.parentElement.insertBefore(item, currentItem.item);
+        } else {
+          // get next sibling
+          const nextSibling = currentItem.item.nextElementSibling;
+          if (nextSibling) {
+            tempItem.parentElement.insertBefore(item, nextSibling);
+          } else {
+            tempItem.parentElement.appendChild(item);
+          }
+        }
         tempItem.remove();
+
+        // remove any properties used for dragging from other items
+        aboveItems.forEach(i => i.item.style.removeProperty('transform'));
+        belowItems.forEach(i => i.item.style.removeProperty('transform'));
 
         this.dragging = false;
       },
