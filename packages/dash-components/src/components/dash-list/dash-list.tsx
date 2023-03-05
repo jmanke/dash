@@ -143,84 +143,80 @@ export class DashList {
 
     // get a reference to all other items to move them when dragging
     const itemIndex = this.listItems.indexOf(item);
-    const aboveItems = this.listItems
-      .slice(0, itemIndex)
-      .map(i => {
-        const { top, bottom, left } = i.getBoundingClientRect();
-        return {
-          item: i,
-          top,
-          bottom,
-          left,
-          isAbove: true,
-        };
-      })
-      .reverse();
-    const belowItems = this.listItems.slice(itemIndex + 1, this.listItems.length).map(i => {
-      const { top, bottom, left } = i.getBoundingClientRect();
+    const tempListItemData = {
+      item: tempItem as HTMLElement,
+      top,
+      bottom,
+      left,
+      index: itemIndex,
+    };
+    const listItemDatas = this.listItems.map((listItem, i) => {
+      if (listItem === item) {
+        return tempListItemData;
+      }
+
+      const { top, bottom, left } = listItem.getBoundingClientRect();
       return {
-        item: i,
+        item: listItem,
         top,
         bottom,
         left,
-        isAbove: false,
+        index: i,
       };
     });
 
-    let currentItem: {
-      item: HTMLElement;
-      top: number;
-      bottom: number;
-      left: number;
-      isAbove: boolean;
-    } = { item: tempItem, top, bottom, left, isAbove: true };
-
-    const resetPositions = items => {
-      items.forEach(i => {
-        i.item.style.transform = 'translate(0, 0)';
-      });
-    };
+    let currentItem = tempListItemData;
 
     const pointerMove = (e: PointerEvent) => {
       item.style.transform = `translate(${e.clientX - offsetX}px, ${e.clientY - offsetY}px)`;
 
-      if (e.clientY < currentItem.top || e.clientY > currentItem.bottom) {
-        // move items
+      const outsideBoundary = e.clientY < currentItem.top || e.clientY > currentItem.bottom;
+      if (outsideBoundary) {
+        // know the dragged item is above its original position
         if (e.clientY < top) {
-          aboveItems.forEach((itemData, i) => {
-            if (e.clientY < itemData.bottom) {
+          let nextItem = currentItem;
+          listItemDatas.forEach((itemData, i) => {
+            if (itemData.index < itemIndex && e.clientY < itemData.bottom) {
               itemData.item.style.transform = `translate(0, ${item.offsetHeight}px)`;
-              currentItem = itemData;
+
+              // since we're going top to bottom, the first item we need to translate will be the next item
+              // when nextItem === currentItem, we know th next item has not been found yet, so we set it
+              if (nextItem === currentItem) {
+                nextItem = itemData;
+              }
             } else {
               itemData.item.style.transform = 'translate(0, 0)';
             }
 
-            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === aboveItems.length - 1 && e.clientY < itemData.top)) {
+            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === 0 && e.clientY < itemData.top)) {
               tempItem.style.transform = `translate(0, ${top - itemData.top}px)`;
             }
           });
 
-          resetPositions(belowItems);
-        } else if (e.clientY > bottom) {
-          belowItems.forEach((itemData, i) => {
-            if (e.clientY > itemData.top) {
+          currentItem = nextItem;
+        }
+        // know the dragged item is below its original position
+        else if (e.clientY > bottom) {
+          listItemDatas.forEach((itemData, i) => {
+            if (itemData.index > itemIndex && e.clientY > itemData.top) {
               itemData.item.style.transform = `translate(0, -${item.offsetHeight}px)`;
               currentItem = itemData;
             } else {
               itemData.item.style.transform = 'translate(0, 0)';
             }
 
-            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === aboveItems.length - 1 && e.clientY > itemData.bottom)) {
+            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === listItemDatas.length - 1 && e.clientY > itemData.bottom)) {
               tempItem.style.transform = `translate(0, -${top - itemData.top}px)`;
             }
           });
-
-          resetPositions(aboveItems);
-        } else {
-          currentItem = { item: tempItem, top, bottom, left, isAbove: true };
+        }
+        // know the dragged item is at its original position
+        else {
+          currentItem = tempListItemData;
           // reset all positions
-          resetPositions(aboveItems);
-          resetPositions(belowItems);
+          listItemDatas.forEach(i => {
+            i.item.style.transform = 'translate(0, 0)';
+          });
         }
       }
     };
@@ -248,23 +244,25 @@ export class DashList {
         item.style.removeProperty('width');
         item.style.removeProperty('height');
 
-        // remove the temporary item
-        if (currentItem.isAbove) {
-          tempItem.parentElement.insertBefore(item, currentItem.item);
+        if (currentItem.index <= itemIndex) {
+          console.log('insert before', currentItem.index);
+
+          currentItem.item.parentElement.insertBefore(item, currentItem.item);
         } else {
           // get next sibling
           const nextSibling = currentItem.item.nextElementSibling;
           if (nextSibling) {
-            tempItem.parentElement.insertBefore(item, nextSibling);
+            currentItem.item.parentElement.insertBefore(item, nextSibling);
           } else {
-            tempItem.parentElement.appendChild(item);
+            currentItem.item.parentElement.appendChild(item);
           }
         }
+
+        // remove the temporary item
         tempItem.remove();
 
         // remove any properties used for dragging from other items
-        aboveItems.forEach(i => i.item.style.removeProperty('transform'));
-        belowItems.forEach(i => i.item.style.removeProperty('transform'));
+        listItemDatas.forEach(i => i.item.style.removeProperty('transform'));
 
         this.dragging = false;
       },
