@@ -95,13 +95,7 @@ export class DashListItem implements Focusable {
    * Emitted when list-item is starting to be dragged
    * @internal
    */
-  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<void>;
-
-  /**
-   * Emitted when list-itemhas stopped being dragged
-   * @internal
-   */
-  @Event({ eventName: 'dashInternalListItemEndedDrag' }) endedDrag: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<MouseEvent>;
 
   //#endregion
 
@@ -215,12 +209,12 @@ export class DashListItem implements Focusable {
   /**
    * Starts drag, emits internal event
    */
-  startDrag() {
+  startDrag(e: MouseEvent) {
     if (!this.dragEnabled) {
       return;
     }
 
-    this.startedDrag.emit();
+    this.startedDrag.emit(e);
   }
 
   /**
@@ -258,10 +252,9 @@ export class DashListItem implements Focusable {
               onKeyDown={this.stopPropagation.bind(this)}
               onKeyUp={this.stopPropagation.bind(this)}
               onClick={this.stopPropagation.bind(this)}
-              onPointerUp={this.stopPropagation.bind(this)}
               onPointerLeave={this.stopPropagation.bind(this)}
-              onPointerDown={() => {
-                this.startDrag();
+              onPointerDown={e => {
+                this.startDrag(e);
               }}
             ></dash-icon>
           )}

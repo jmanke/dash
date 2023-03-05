@@ -40,6 +40,12 @@
   }
 }
 
+:host([drag-enabled][selection-mode='no-selection']) {
+  .list-item-wrapper {
+    padding-inline-start: var(--dash-spacing-6);
+  }
+}
+
 ::slotted([slot='actions-start']) {
   padding-inline-end: var(--dash-spacing-2);
 }

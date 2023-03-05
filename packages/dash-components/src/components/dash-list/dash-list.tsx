@@ -1,4 +1,4 @@
-import { isNone } from '@didyoumeantoast/dash-utils';
+import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { Scale } from '../../types';
 
@@ -33,6 +33,11 @@ export class DashList {
    * Maximum height of the list
    */
   @State() maxHeight?: number;
+
+  /**
+   * Whether a list item is currently being dragged
+   */
+  @State() dragging: boolean;
 
   //#endregion
 
@@ -111,9 +116,44 @@ export class DashList {
   //#region Listeners
 
   @Listen('dashInternalListItemStartDrag')
-  listItemStartedDrag(e: CustomEvent) {
+  listItemStartedDrag(e: CustomEvent<PointerEvent>) {
+    this.dragging = true;
     const item = e.target as HTMLDashListItemElement;
-    console.log(item);
+    const { left, top } = item.getBoundingClientRect();
+    const offsetX = e.detail.clientX - left;
+    const offsetY = e.detail.clientY - top;
+
+    // create a temporary item to fill the space of the dragged item
+    const tempItem = document.createElement('div');
+    tempItem.classList.add('temp-item');
+    tempItem.style.width = `${item.offsetWidth}px`;
+    tempItem.style.height = `${item.offsetHeight}px`;
+    item.parentElement.insertBefore(tempItem, item);
+
+    // ensure item size if preserved during drag
+    item.classList.add('dash-list-item--dragging');
+    item.style.width = `${item.offsetWidth}px`;
+    item.style.height = `${item.offsetHeight}px`;
+    item.style.position = 'fixed';
+
+    const pointerMove = (e: PointerEvent) => {
+      item.style.left = `${e.clientX - offsetX}px`;
+      item.style.top = `${e.clientY - offsetY}px`;
+    };
+    pointerMove(e.detail);
+
+    window.addEventListener('pointermove', pointerMove);
+    window.addEventListener('pointerup', () => {
+      window.removeEventListener('pointermove', pointerMove);
+      item.style.position = 'relative';
+      item.style.removeProperty('left');
+      item.style.removeProperty('top');
+      item.style.removeProperty('width');
+      item.style.removeProperty('height');
+      tempItem.remove();
+      this.dragging = false;
+      item.classList.remove('dash-list-item--dragging');
+    });
   }
 
   //#endregion
@@ -241,7 +281,7 @@ export class DashList {
   render() {
     return (
       <Host role='list' onDashInternalListItemMoveNext={e => this.focusNextListItem(e.target)} onDashInternalListItemMovePrevious={e => this.focusPreviousListItem(e.target)}>
-        <div class='container' style={typeof this.maxHeight === 'number' ? { maxHeight: `${this.maxHeight}px` } : null}>
+        <div class={spaceConcat('container', this.dragging && 'dragging')} style={typeof this.maxHeight === 'number' ? { maxHeight: `${this.maxHeight}px` } : null}>
           <slot></slot>
         </div>
       </Host>
