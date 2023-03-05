@@ -167,16 +167,18 @@ export class DashList {
 
     let currentItem = tempListItemData;
 
-    const pointerMove = (e: PointerEvent) => {
-      item.style.transform = `translate(${e.clientX - offsetX}px, ${e.clientY - offsetY}px)`;
+    const dragMove = (e: PointerEvent | TouchEvent) => {
+      const { clientX, clientY } = e instanceof PointerEvent ? e : e.touches[0];
 
-      const outsideBoundary = e.clientY < currentItem.top || e.clientY > currentItem.bottom;
+      item.style.transform = `translate(${clientX - offsetX}px, ${clientY - offsetY}px)`;
+
+      const outsideBoundary = clientY < currentItem.top || clientY > currentItem.bottom;
       if (outsideBoundary) {
         // know the dragged item is above its original position
-        if (e.clientY < top) {
+        if (clientY < top) {
           let nextItem = currentItem;
           listItemDatas.forEach((itemData, i) => {
-            if (itemData.index < itemIndex && e.clientY < itemData.bottom) {
+            if (itemData.index < itemIndex && clientY < itemData.bottom) {
               itemData.item.style.transform = `translate(0, ${item.offsetHeight}px)`;
 
               // since we're going top to bottom, the first item we need to translate will be the next item
@@ -188,7 +190,7 @@ export class DashList {
               itemData.item.style.transform = 'translate(0, 0)';
             }
 
-            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === 0 && e.clientY < itemData.top)) {
+            if ((clientY <= itemData.bottom && clientY >= itemData.top) || (i === 0 && clientY < itemData.top)) {
               tempItem.style.transform = `translate(0, ${top - itemData.top}px)`;
             }
           });
@@ -196,16 +198,16 @@ export class DashList {
           currentItem = nextItem;
         }
         // know the dragged item is below its original position
-        else if (e.clientY > bottom) {
+        else if (clientY > bottom) {
           listItemDatas.forEach((itemData, i) => {
-            if (itemData.index > itemIndex && e.clientY > itemData.top) {
+            if (itemData.index > itemIndex && clientY > itemData.top) {
               itemData.item.style.transform = `translate(0, -${item.offsetHeight}px)`;
               currentItem = itemData;
             } else {
               itemData.item.style.transform = 'translate(0, 0)';
             }
 
-            if ((e.clientY <= itemData.bottom && e.clientY >= itemData.top) || (i === listItemDatas.length - 1 && e.clientY > itemData.bottom)) {
+            if ((clientY <= itemData.bottom && clientY >= itemData.top) || (i === listItemDatas.length - 1 && clientY > itemData.bottom)) {
               tempItem.style.transform = `translate(0, -${top - itemData.top}px)`;
             }
           });
@@ -220,54 +222,56 @@ export class DashList {
         }
       }
     };
-    pointerMove(e.detail);
+    dragMove(e.detail);
 
-    window.addEventListener('pointermove', pointerMove);
-    window.addEventListener(
-      'pointerup',
-      async () => {
-        window.removeEventListener('pointermove', pointerMove);
+    const dragEnd = async () => {
+      window.removeEventListener('pointermove', dragMove);
+      window.removeEventListener('touchmove', dragMove);
+      window.removeEventListener('pointerup', dragEnd);
+      window.removeEventListener('touchend', dragEnd);
 
-        // move the item back to its new position with a transition
-        const transitionTime = 0.25;
-        item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
-        item.style.transform = `translate(${currentItem.left}px, ${currentItem.top}px)`;
-        item.isDragging = false;
+      // move the item back to its new position with a transition
+      const transitionTime = 0.25;
+      item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
+      item.style.transform = `translate(${currentItem.left}px, ${currentItem.top}px)`;
+      item.isDragging = false;
 
-        // wait for the transition to finish
-        await wait(transitionTime * 1000);
+      // wait for the transition to finish
+      await wait(transitionTime * 1000);
 
-        // remove any properties used for dragging
-        item.style.removeProperty('transition');
-        item.style.position = 'relative';
-        item.style.removeProperty('transform');
-        item.style.removeProperty('width');
-        item.style.removeProperty('height');
+      // remove any properties used for dragging
+      item.style.removeProperty('transition');
+      item.style.position = 'relative';
+      item.style.removeProperty('transform');
+      item.style.removeProperty('width');
+      item.style.removeProperty('height');
 
-        if (currentItem.index <= itemIndex) {
-          console.log('insert before', currentItem.index);
-
-          currentItem.item.parentElement.insertBefore(item, currentItem.item);
+      if (currentItem.index <= itemIndex) {
+        currentItem.item.parentElement.insertBefore(item, currentItem.item);
+      } else {
+        // get next sibling
+        const nextSibling = currentItem.item.nextElementSibling;
+        if (nextSibling) {
+          currentItem.item.parentElement.insertBefore(item, nextSibling);
         } else {
-          // get next sibling
-          const nextSibling = currentItem.item.nextElementSibling;
-          if (nextSibling) {
-            currentItem.item.parentElement.insertBefore(item, nextSibling);
-          } else {
-            currentItem.item.parentElement.appendChild(item);
-          }
+          currentItem.item.parentElement.appendChild(item);
         }
+      }
 
-        // remove the temporary item
-        tempItem.remove();
+      // remove the temporary item
+      tempItem.remove();
 
-        // remove any properties used for dragging from other items
-        listItemDatas.forEach(i => i.item.style.removeProperty('transform'));
+      // remove any properties used for dragging from other items
+      listItemDatas.forEach(i => i.item.style.removeProperty('transform'));
 
-        this.dragging = false;
-      },
-      { once: true },
-    );
+      this.dragging = false;
+    };
+
+    window.addEventListener('pointermove', dragMove);
+    window.addEventListener('touchmove', dragMove);
+
+    window.addEventListener('pointerup', dragEnd);
+    window.addEventListener('touchend', dragEnd);
   }
 
   //#endregion

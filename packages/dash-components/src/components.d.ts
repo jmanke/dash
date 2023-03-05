@@ -1462,7 +1462,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when list-item is starting to be dragged
          */
-        "onDashInternalListItemStartDrag"?: (event: DashListItemCustomEvent<MouseEvent>) => void;
+        "onDashInternalListItemStartDrag"?: (event: DashListItemCustomEvent<PointerEvent>) => void;
         /**
           * Emitted when selected has changed
          */

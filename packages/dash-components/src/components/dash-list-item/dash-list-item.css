@@ -36,6 +36,7 @@
 
 :host([drag-enabled]) {
   .list-item-wrapper {
+    touch-action: none;
     padding-inline-start: var(--dash-spacing-3);
   }
 }

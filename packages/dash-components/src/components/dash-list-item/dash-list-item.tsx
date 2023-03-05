@@ -101,7 +101,7 @@ export class DashListItem implements Focusable {
    * Emitted when list-item is starting to be dragged
    * @internal
    */
-  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<MouseEvent>;
+  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<PointerEvent>;
 
   //#endregion
 
@@ -215,7 +215,7 @@ export class DashListItem implements Focusable {
   /**
    * Starts drag, emits internal event
    */
-  startDrag(e: MouseEvent) {
+  startDrag(e: PointerEvent) {
     if (!this.dragEnabled) {
       return;
     }
