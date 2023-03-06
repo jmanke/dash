@@ -82,7 +82,7 @@ export class Sortable {
 
     // To calculate relative positions of the items, we need to know the bounding rect of the first item.
     // This is to reduce the amount of getBoundingClientRect() calls we make during the drag.
-    const initialFirstItemBounds = this.items[0].getBoundingClientRect();
+    const initialFirstItemBounds = this.items[0] === item ? tempItem.getBoundingClientRect() : this.items[0].getBoundingClientRect();
 
     // get a reference to all other items to move them when dragging
     this.dragItemIndex = this.items.indexOf(item);
@@ -114,69 +114,6 @@ export class Sortable {
   }
 
   /**
-   * Ends the drag
-   */
-  async endDrag() {
-    clearTimeout(this.scrollTimeout);
-    window.removeEventListener('pointermove', this.performDragCb);
-    window.removeEventListener('touchmove', this.performDragCb);
-    window.removeEventListener('pointerup', this.endDragCb);
-    window.removeEventListener('touchend', this.endDragCb);
-
-    const firstItemBounds = this.items[0].getBoundingClientRect();
-
-    // move the item back to its new position with a transition
-    const transitionTime = 0.25;
-    const item = this.dragItem;
-    const currentItemData = this.currentItemData;
-    item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
-    item.style.transform = `translate(${currentItemData.left}px, ${firstItemBounds.top + currentItemData.relTop}px)`;
-
-    // wait for the transition to finish
-    await wait(transitionTime * 1000);
-
-    // remove any properties used for dragging
-    item.style.removeProperty('transition');
-    item.style.position = 'relative';
-    item.style.removeProperty('transform');
-    item.style.removeProperty('width');
-    item.style.removeProperty('height');
-    item.style.removeProperty('top');
-    item.style.removeProperty('left');
-    item.style.removeProperty('position');
-
-    if (currentItemData.index <= this.dragItemIndex) {
-      currentItemData.item.parentElement.insertBefore(item, currentItemData.item);
-    } else {
-      // get next sibling
-      const nextSibling = currentItemData.item.nextElementSibling;
-      if (nextSibling) {
-        currentItemData.item.parentElement.insertBefore(item, nextSibling);
-      } else {
-        currentItemData.item.parentElement.appendChild(item);
-      }
-    }
-
-    // remove the temporary item
-    this.tempItem.remove();
-
-    // remove any properties used for dragging from other items
-    this.itemDatas.forEach(i => i.item.style.removeProperty('transform'));
-
-    // call the drag end callback
-    this.dragEndCb?.(this.currentItemData.index !== this.dragItemIndex);
-
-    // reset all properties
-    this.pointerOffset = { x: 0, y: 0 };
-    this.dragItemIndex = 0;
-    this.dragItem = null;
-    this.tempItem = null;
-    this.itemDatas = [];
-    this.currentItemData = null;
-    this.scrollTimeout = null;
-  }
-
-  /**
    * Perform the drag
    * @param e Mouse or Pointer event that triggered the drag
    * @returns void
@@ -186,13 +123,20 @@ export class Sortable {
       return;
     }
 
-    const relativeBounds = this.items[0].getBoundingClientRect();
+    const relativeBounds = this.itemDatas[0].item.getBoundingClientRect();
     const { clientX, clientY } = e instanceof PointerEvent ? e : e.touches[0];
     const relClientY = clientY - relativeBounds.top;
 
     this.dragItem.style.transform = `translate(${clientX - this.pointerOffset.x}px, ${clientY - this.pointerOffset.y}px)`;
 
-    const outsideBoundary = relClientY < this.currentItemData.relTop || relClientY > this.currentItemData.relBottom;
+    let outsideBoundary = false;
+    if (this.currentItemData.index === 0) {
+      outsideBoundary = relClientY > this.currentItemData.relBottom;
+    } else if (this.currentItemData.index === this.itemDatas.length - 1) {
+      outsideBoundary = relClientY < this.currentItemData.relTop;
+    } else {
+      outsideBoundary = relClientY < this.currentItemData.relTop || relClientY > this.currentItemData.relBottom;
+    }
     if (outsideBoundary) {
       // know the dragged item is above its original position
       if (relClientY < this.itemDatas[this.dragItemIndex].relTop) {
@@ -243,6 +187,74 @@ export class Sortable {
     }
 
     this.scrollIntoView(clientY);
+  }
+
+  /**
+   * Ends the drag
+   */
+  async endDrag() {
+    clearTimeout(this.scrollTimeout);
+    window.removeEventListener('pointermove', this.performDragCb);
+    window.removeEventListener('touchmove', this.performDragCb);
+    window.removeEventListener('pointerup', this.endDragCb);
+    window.removeEventListener('touchend', this.endDragCb);
+
+    let { top, left } = this.currentItemData.item.getBoundingClientRect();
+    if (this.dragItemIndex < this.currentItemData.index) {
+      top += this.dragItem.offsetHeight;
+    } else if (this.dragItemIndex > this.currentItemData.index) {
+      top -= this.dragItem.offsetHeight;
+    }
+
+    // move the item back to its new position with a transition
+    const transitionTime = 0.25;
+    const item = this.dragItem;
+    const currentItemData = this.currentItemData;
+    item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
+    item.style.transform = `translate(${left}px, ${top}px)`;
+
+    // wait for the transition to finish
+    await wait(transitionTime * 1000);
+
+    // remove any properties used for dragging
+    item.style.removeProperty('transition');
+    item.style.position = 'relative';
+    item.style.removeProperty('transform');
+    item.style.removeProperty('width');
+    item.style.removeProperty('height');
+    item.style.removeProperty('top');
+    item.style.removeProperty('left');
+    item.style.removeProperty('position');
+
+    if (currentItemData.index <= this.dragItemIndex) {
+      currentItemData.item.parentElement.insertBefore(item, currentItemData.item);
+    } else {
+      // get next sibling
+      const nextSibling = currentItemData.item.nextElementSibling;
+      if (nextSibling) {
+        currentItemData.item.parentElement.insertBefore(item, nextSibling);
+      } else {
+        currentItemData.item.parentElement.appendChild(item);
+      }
+    }
+
+    // remove the temporary item
+    this.tempItem.remove();
+
+    // remove any properties used for dragging from other items
+    this.itemDatas.forEach(i => i.item.style.removeProperty('transform'));
+
+    // call the drag end callback
+    this.dragEndCb?.(this.currentItemData.index !== this.dragItemIndex);
+
+    // reset all properties
+    this.pointerOffset = { x: 0, y: 0 };
+    this.dragItemIndex = 0;
+    this.dragItem = null;
+    this.tempItem = null;
+    this.itemDatas = [];
+    this.currentItemData = null;
+    this.scrollTimeout = null;
   }
 
   /**
