@@ -445,6 +445,7 @@ export namespace Components {
         "disableDeselect": boolean;
         /**
           * When `true`, interaction is disabled
+          * @default false
          */
         "disabled": boolean;
         /**
@@ -454,6 +455,7 @@ export namespace Components {
         "dragEnabled": boolean;
         /**
           * When `true`, list-item is being dragged. Used for styling purposes
+          * @default false
          */
         "isDragging": boolean;
         /**
@@ -475,6 +477,10 @@ export namespace Components {
           * Sets focus on this element
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Value of the list-item
+         */
+        "value": any;
     }
     interface DashLoader {
         /**
@@ -755,6 +761,10 @@ export interface DashInlineEditCustomEvent<T> extends CustomEvent<T> {
 export interface DashInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashInputElement;
+}
+export interface DashListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashListElement;
 }
 export interface DashListItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1422,6 +1432,10 @@ declare namespace LocalJSX {
          */
         "maxItems"?: number;
         /**
+          * Emitted when the list items are reordered
+         */
+        "onDashListItemsReordered"?: (event: DashListCustomEvent<HTMLDashListItemElement[]>) => void;
+        /**
           * Size of the list and its items
           * @default 'm'
          */
@@ -1440,6 +1454,7 @@ declare namespace LocalJSX {
         "disableDeselect"?: boolean;
         /**
           * When `true`, interaction is disabled
+          * @default false
          */
         "disabled"?: boolean;
         /**
@@ -1449,6 +1464,7 @@ declare namespace LocalJSX {
         "dragEnabled"?: boolean;
         /**
           * When `true`, list-item is being dragged. Used for styling purposes
+          * @default false
          */
         "isDragging"?: boolean;
         /**
@@ -1482,6 +1498,10 @@ declare namespace LocalJSX {
           * @default 'single'
          */
         "selectionMode"?: SelectionMode1;
+        /**
+          * Value of the list-item
+         */
+        "value"?: any;
     }
     interface DashLoader {
         /**

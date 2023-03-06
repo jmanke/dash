@@ -1,5 +1,5 @@
 import { isNone, spaceConcat, wait } from '@didyoumeantoast/dash-utils';
-import { Component, Element, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
@@ -96,6 +96,12 @@ export class DashList {
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when the list items are reordered
+   */
+  @Event({ eventName: 'dashListItemsReordered' }) listItemsReordered: EventEmitter<HTMLDashListItemElement[]>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -265,6 +271,11 @@ export class DashList {
       listItemDatas.forEach(i => i.item.style.removeProperty('transform'));
 
       this.dragging = false;
+
+      if (currentItem.index !== itemIndex) {
+        this.updateChildProps();
+        this.listItemsReordered.emit(this.listItems);
+      }
     };
 
     window.addEventListener('pointermove', dragMove);
@@ -363,6 +374,10 @@ export class DashList {
    * Updates properties that need to be set on child dash-list-items
    */
   updateChildProps() {
+    if (this.dragging) {
+      return;
+    }
+
     this.listItems = Array.from(this.element.childNodes).filter(child => child.nodeName === 'DASH-LIST-ITEM') as HTMLDashListItemElement[];
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
       element.selectionMode = this.selectionMode;

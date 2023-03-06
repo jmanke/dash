@@ -31,10 +31,11 @@ const template = (args, updateArg) => {
     disable-deselect=${args.disableDeselect}
     scale=${args.scale}
     drag-enabled=${args.dragEnabled}
+    @dashListItemsReordered=${(e: CustomEvent) => console.log('dashListItemsReordered', e)}
   >
     ${items.map(
       item =>
-        html` <dash-list-item selected=${args.selected.includes(item)} @dashListItemSelectedChanged=${() => itemSelected(item)}>
+        html` <dash-list-item selected=${args.selected.includes(item)} .value=${item} @dashListItemSelectedChanged=${() => itemSelected(item)}>
           ${item} <dash-icon-button slot="actions-end" icon="pencil" scale="s"></dash-icon-button
         ></dash-list-item>`,
     )}

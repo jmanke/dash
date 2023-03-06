@@ -61,6 +61,7 @@ export class DashListItem implements Focusable {
 
   /**
    * When `true`, interaction is disabled
+   * @default false
    */
   @Prop({ reflect: true }) disabled: boolean;
 
@@ -72,8 +73,14 @@ export class DashListItem implements Focusable {
 
   /**
    * When `true`, list-item is being dragged. Used for styling purposes
+   * @default false
    */
   @Prop({ reflect: true }) isDragging: boolean;
+
+  /**
+   * Value of the list-item
+   */
+  @Prop() value: any;
 
   //#endregion
 

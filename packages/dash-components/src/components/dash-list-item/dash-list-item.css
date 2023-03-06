@@ -47,6 +47,12 @@
   }
 }
 
+:host([drag-enabled][selection-mode='none']) {
+  .list-item-wrapper {
+    padding-inline-start: var(--dash-spacing-6);
+  }
+}
+
 :host([is-dragging]) {
   .list-item-wrapper {
     box-shadow: var(--dash-box-shadow);
