@@ -10,9 +10,22 @@ interface ItemData {
 }
 
 export class Sortable {
+  /**
+   * Items to be sorted
+   * @required
+   */
   items: HTMLElement[];
+
+  /**
+   * Container to scroll when dragging
+   * @optional
+   */
   scrollContainer: HTMLElement;
 
+  /**
+   * Callback to be called when drag ends
+   * @optional
+   */
   dragEndCb: (orderChanged: boolean) => void;
 
   private pointerOffset = { x: 0, y: 0 };
@@ -31,6 +44,12 @@ export class Sortable {
     this.scrollContainer = scrollContainer;
   }
 
+  /**
+   * Start dragging an item
+   * @param e Mouse or Pointer event that triggered the drag
+   * @param item Item to be dragged
+   * @returns void
+   */
   startDrag(e: PointerEvent, item: HTMLElement) {
     if (!this.items?.length) {
       return;
@@ -94,6 +113,9 @@ export class Sortable {
     this.performDrag(e);
   }
 
+  /**
+   * Ends the drag
+   */
   async endDrag() {
     clearTimeout(this.scrollTimeout);
     window.removeEventListener('pointermove', this.performDragCb);
@@ -154,6 +176,11 @@ export class Sortable {
     this.scrollTimeout = null;
   }
 
+  /**
+   * Perform the drag
+   * @param e Mouse or Pointer event that triggered the drag
+   * @returns void
+   */
   private performDrag(e: PointerEvent | TouchEvent) {
     if (!this.items?.length) {
       return;
@@ -218,6 +245,11 @@ export class Sortable {
     this.scrollIntoView(clientY);
   }
 
+  /**
+   * Scroll the container into view if the pointer is outside the container
+   * @param clientY The y position of the pointer
+   * @returns void
+   */
   private scrollIntoView(clientY: number) {
     if (!this.scrollContainer) {
       return;
