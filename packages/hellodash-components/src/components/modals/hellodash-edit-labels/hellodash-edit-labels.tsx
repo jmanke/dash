@@ -125,17 +125,20 @@ export class HellodashEditLabels implements Modal {
           {this.canAddLabel && <dash-tooltip target={this.addLabelButton} text='Add label' placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>}
         </form>
 
-        <div class='labels-container'>
+        <dash-list class='labels-container' selection-mode='no-selection' drag-enabled>
           {this.labels.map(label => (
-            <hellodash-label-edit
-              key={label.id}
-              label={{ ...label }}
-              allLabels={this.labels}
-              onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
-              onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
-            ></hellodash-label-edit>
+            <dash-list-item style={{ '--dash-list-item-background-color': 'var(--dash-background-2)' }}>
+              <hellodash-label-edit
+                key={label.id}
+                style={{ flex: '1 1 auto' }}
+                label={{ ...label }}
+                allLabels={this.labels}
+                onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
+                onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
+              ></hellodash-label-edit>
+            </dash-list-item>
           ))}
-        </div>
+        </dash-list>
       </dash-modal>
     );
   }

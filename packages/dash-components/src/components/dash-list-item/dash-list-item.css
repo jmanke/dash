@@ -2,6 +2,7 @@
 
 :host {
   display: flex;
+  --dash-list-item-background-color: none;
 }
 
 :host(:focus-visible) {
@@ -54,6 +55,8 @@
 }
 
 :host([is-dragging]) {
+  z-index: 9999;
+
   .list-item-wrapper {
     box-shadow: var(--dash-box-shadow);
   }
@@ -68,7 +71,7 @@
   display: flex;
   flex: auto;
   align-items: center;
-  background-color: var(--dash-background-1);
+  background-color: var(--dash-list-item-background-color);
   border-radius: var(--dash-border-radius);
   transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition), color ease-in-out var(--dash-transition-time-fast);
   border: var(--dash-border-style-focus-hidden);

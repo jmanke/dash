@@ -123,6 +123,10 @@ export class DashList {
 
   @Listen('dashInternalListItemStartDrag')
   listItemStartedDrag(e: CustomEvent<PointerEvent>) {
+    if (!this.listItems?.length) {
+      return;
+    }
+
     this.dragging = true;
     const item = e.target as HTMLDashListItemElement;
     const { left, top, bottom } = item.getBoundingClientRect();
@@ -131,7 +135,7 @@ export class DashList {
 
     // create a temporary item to fill the space of the dragged item
     const tempItem = document.createElement('div');
-    tempItem.classList.add('temp-item');
+    tempItem.classList.add('list-item-placeholder');
     tempItem.style.width = `${item.offsetWidth}px`;
     tempItem.style.height = `${item.offsetHeight}px`;
     item.parentElement.insertBefore(tempItem, item);
@@ -147,13 +151,21 @@ export class DashList {
     item.style.left = `${0}px`;
     item.isDragging = true;
 
+    // To calculate relative positions of the items, we need to know the bounding rect of the first item.
+    // This is to reduce the amount of getBoundingClientRect() calls we make during the drag.
+    const container = this.element.shadowRoot.querySelector('.container') as HTMLElement;
+    const containerBounds = container.getBoundingClientRect();
+    const initialBounds = this.listItems[0]?.getBoundingClientRect();
+
     // get a reference to all other items to move them when dragging
     const itemIndex = this.listItems.indexOf(item);
     const tempListItemData = {
       item: tempItem as HTMLElement,
       top,
       bottom,
-      left,
+      left: left,
+      relTop: top - initialBounds.top,
+      relBottom: bottom - initialBounds.top,
       index: itemIndex,
     };
     const listItemDatas = this.listItems.map((listItem, i) => {
@@ -166,29 +178,64 @@ export class DashList {
         item: listItem,
         top,
         bottom,
-        left,
+        left: left,
+        relTop: top - initialBounds.top,
+        relBottom: bottom - initialBounds.top,
         index: i,
       };
     });
 
     let currentItem = tempListItemData;
 
+    let scrollTimeout: number;
+
+    const scrollIntoView = (clientY: number, containerTop: number, containerBottom: number) => {
+      clearTimeout(scrollTimeout);
+      let scroll = 0;
+      let diff = 0;
+      if (clientY < containerTop) {
+        scroll = -1;
+        diff = containerTop - clientY;
+      } else if (clientY > containerBottom) {
+        scroll = 1;
+        diff = clientY - containerBottom;
+      }
+
+      if (scroll) {
+        diff = Math.min(Math.max(diff / 5, 5), 20);
+        const speed = (20 / diff) * 1.5;
+        container.scrollTop += scroll;
+
+        scrollTimeout = setTimeout(() => {
+          scrollIntoView(clientY, containerTop, containerBottom);
+        }, speed);
+      }
+    };
+
     const dragMove = (e: PointerEvent | TouchEvent) => {
+      if (!this.listItems?.length) {
+        return;
+      }
+
+      const relativeBounds = this.listItems[0].getBoundingClientRect();
       const { clientX, clientY } = e instanceof PointerEvent ? e : e.touches[0];
+      const relClientY = clientY - relativeBounds.top;
 
       item.style.transform = `translate(${clientX - offsetX}px, ${clientY - offsetY}px)`;
 
-      const outsideBoundary = clientY < currentItem.top || clientY > currentItem.bottom;
+      /// TODO: make a convert function for label sort order
+
+      const outsideBoundary = relClientY < currentItem.relTop || relClientY > currentItem.relBottom;
       if (outsideBoundary) {
         // know the dragged item is above its original position
-        if (clientY < top) {
+        if (relClientY < tempListItemData.relTop) {
           let nextItem = currentItem;
           listItemDatas.forEach((itemData, i) => {
-            if (itemData.index < itemIndex && clientY < itemData.bottom) {
+            if (itemData.index < itemIndex && relClientY < itemData.relBottom) {
               itemData.item.style.transform = `translate(0, ${item.offsetHeight}px)`;
 
               // since we're going top to bottom, the first item we need to translate will be the next item
-              // when nextItem === currentItem, we know th next item has not been found yet, so we set it
+              // when nextItem === currentItem, we know the next item has not been found yet, so we set it
               if (nextItem === currentItem) {
                 nextItem = itemData;
               }
@@ -196,7 +243,7 @@ export class DashList {
               itemData.item.style.transform = 'translate(0, 0)';
             }
 
-            if ((clientY <= itemData.bottom && clientY >= itemData.top) || (i === 0 && clientY < itemData.top)) {
+            if ((relClientY <= itemData.relBottom && relClientY >= itemData.relTop) || (i === 0 && relClientY < itemData.relTop)) {
               tempItem.style.transform = `translate(0, ${top - itemData.top}px)`;
             }
           });
@@ -204,16 +251,16 @@ export class DashList {
           currentItem = nextItem;
         }
         // know the dragged item is below its original position
-        else if (clientY > bottom) {
+        else if (relClientY > tempListItemData.relBottom) {
           listItemDatas.forEach((itemData, i) => {
-            if (itemData.index > itemIndex && clientY > itemData.top) {
+            if (itemData.index > itemIndex && relClientY > itemData.relTop) {
               itemData.item.style.transform = `translate(0, -${item.offsetHeight}px)`;
               currentItem = itemData;
             } else {
               itemData.item.style.transform = 'translate(0, 0)';
             }
 
-            if ((clientY <= itemData.bottom && clientY >= itemData.top) || (i === listItemDatas.length - 1 && clientY > itemData.bottom)) {
+            if ((relClientY <= itemData.relBottom && relClientY >= itemData.relTop) || (i === listItemDatas.length - 1 && relClientY > itemData.relBottom)) {
               tempItem.style.transform = `translate(0, -${top - itemData.top}px)`;
             }
           });
@@ -227,23 +274,29 @@ export class DashList {
           });
         }
       }
+
+      scrollIntoView(clientY, containerBounds.top, containerBounds.bottom);
     };
     dragMove(e.detail);
 
     const dragEnd = async () => {
+      clearTimeout(scrollTimeout);
       window.removeEventListener('pointermove', dragMove);
       window.removeEventListener('touchmove', dragMove);
       window.removeEventListener('pointerup', dragEnd);
       window.removeEventListener('touchend', dragEnd);
 
+      const firstItemBounds = this.listItems[0].getBoundingClientRect();
+
       // move the item back to its new position with a transition
       const transitionTime = 0.25;
       item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
-      item.style.transform = `translate(${currentItem.left}px, ${currentItem.top}px)`;
-      item.isDragging = false;
+      item.style.transform = `translate(${currentItem.left}px, ${firstItemBounds.top + currentItem.relTop}px)`;
 
       // wait for the transition to finish
       await wait(transitionTime * 1000);
+
+      item.isDragging = false;
 
       // remove any properties used for dragging
       item.style.removeProperty('transition');
@@ -251,6 +304,9 @@ export class DashList {
       item.style.removeProperty('transform');
       item.style.removeProperty('width');
       item.style.removeProperty('height');
+      item.style.removeProperty('top');
+      item.style.removeProperty('left');
+      item.style.removeProperty('position');
 
       if (currentItem.index <= itemIndex) {
         currentItem.item.parentElement.insertBefore(item, currentItem.item);
@@ -384,7 +440,10 @@ export class DashList {
       element.disableDeselect = this.disableDeselect;
       element.dragEnabled = this.dragEnabled;
       element.scale = this.scale;
-      element.tabIndex = index === 0 ? 0 : -1;
+
+      if (this.selectionMode !== 'no-selection') {
+        element.tabIndex = index === 0 ? 0 : -1;
+      }
     });
   }
 

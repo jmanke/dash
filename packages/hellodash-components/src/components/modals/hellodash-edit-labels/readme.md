@@ -45,6 +45,8 @@ Type: `Promise<void>`
 - dash-input
 - dash-icon-button
 - dash-tooltip
+- dash-list
+- dash-list-item
 - [hellodash-label-edit](../../hellodash-label-edit)
 
 ### Graph
@@ -54,6 +56,8 @@ graph TD;
   hellodash-edit-labels --> dash-input
   hellodash-edit-labels --> dash-icon-button
   hellodash-edit-labels --> dash-tooltip
+  hellodash-edit-labels --> dash-list
+  hellodash-edit-labels --> dash-list-item
   hellodash-edit-labels --> hellodash-label-edit
   dash-modal --> dash-scrim
   dash-modal --> dash-focus-trap
@@ -66,6 +70,7 @@ graph TD;
   dash-button --> dash-icon
   dash-input --> dash-icon
   dash-input --> dash-icon-button
+  dash-list-item --> dash-icon
   hellodash-label-edit --> dash-dropdown
   hellodash-label-edit --> dash-color-swatch
   hellodash-label-edit --> hellodash-label-color-picker

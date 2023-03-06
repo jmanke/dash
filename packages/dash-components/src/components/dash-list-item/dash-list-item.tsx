@@ -89,8 +89,7 @@ export class DashListItem implements Focusable {
   /**
    * Emitted when selected has changed
    */
-  @Event({ eventName: 'dashListItemSelectedChanged', composed: true })
-  selectedChanged: EventEmitter<void>;
+  @Event({ eventName: 'dashListItemSelectedChanged', composed: true }) selectedChanged: EventEmitter<void>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the next list-item
