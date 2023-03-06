@@ -1,5 +1,6 @@
-import { isNone, spaceConcat, wait } from '@didyoumeantoast/dash-utils';
+import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
+import { Sortable } from '../../common/sortable';
 import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
@@ -127,218 +128,22 @@ export class DashList {
       return;
     }
 
-    this.dragging = true;
-    const item = e.target as HTMLDashListItemElement;
-    const { left, top, bottom } = item.getBoundingClientRect();
-    const offsetX = e.detail.clientX - left;
-    const offsetY = e.detail.clientY - top;
-
-    // create a temporary item to fill the space of the dragged item
-    const tempItem = document.createElement('div');
-    tempItem.classList.add('list-item-placeholder');
-    tempItem.style.width = `${item.offsetWidth}px`;
-    tempItem.style.height = `${item.offsetHeight}px`;
-    item.parentElement.insertBefore(tempItem, item);
-
-    // ensure item size if preserved during drag
-    item.style.width = `${item.offsetWidth}px`;
-    item.style.height = `${item.offsetHeight}px`;
-
-    // move the item to the end of the body so it is on top of all other items
-    document.body.appendChild(item);
-    item.style.position = 'fixed';
-    item.style.top = `${0}px`;
-    item.style.left = `${0}px`;
-    item.isDragging = true;
-
-    // To calculate relative positions of the items, we need to know the bounding rect of the first item.
-    // This is to reduce the amount of getBoundingClientRect() calls we make during the drag.
     const container = this.element.shadowRoot.querySelector('.container') as HTMLElement;
-    const containerBounds = container.getBoundingClientRect();
-    const initialBounds = this.listItems[0]?.getBoundingClientRect();
+    const sortable = new Sortable(this.listItems, container);
+    const item = e.target as HTMLDashListItemElement;
 
-    // get a reference to all other items to move them when dragging
-    const itemIndex = this.listItems.indexOf(item);
-    const tempListItemData = {
-      item: tempItem as HTMLElement,
-      top,
-      bottom,
-      left: left,
-      relTop: top - initialBounds.top,
-      relBottom: bottom - initialBounds.top,
-      index: itemIndex,
-    };
-    const listItemDatas = this.listItems.map((listItem, i) => {
-      if (listItem === item) {
-        return tempListItemData;
-      }
-
-      const { top, bottom, left } = listItem.getBoundingClientRect();
-      return {
-        item: listItem,
-        top,
-        bottom,
-        left: left,
-        relTop: top - initialBounds.top,
-        relBottom: bottom - initialBounds.top,
-        index: i,
-      };
-    });
-
-    let currentItem = tempListItemData;
-
-    let scrollTimeout: number;
-
-    const scrollIntoView = (clientY: number, containerTop: number, containerBottom: number) => {
-      clearTimeout(scrollTimeout);
-      let scroll = 0;
-      let diff = 0;
-      if (clientY < containerTop) {
-        scroll = -1;
-        diff = containerTop - clientY;
-      } else if (clientY > containerBottom) {
-        scroll = 1;
-        diff = clientY - containerBottom;
-      }
-
-      if (scroll) {
-        diff = Math.min(Math.max(diff / 5, 5), 20);
-        const speed = (20 / diff) * 1.5;
-        container.scrollTop += scroll;
-
-        scrollTimeout = setTimeout(() => {
-          scrollIntoView(clientY, containerTop, containerBottom);
-        }, speed);
-      }
-    };
-
-    const dragMove = (e: PointerEvent | TouchEvent) => {
-      if (!this.listItems?.length) {
-        return;
-      }
-
-      const relativeBounds = this.listItems[0].getBoundingClientRect();
-      const { clientX, clientY } = e instanceof PointerEvent ? e : e.touches[0];
-      const relClientY = clientY - relativeBounds.top;
-
-      item.style.transform = `translate(${clientX - offsetX}px, ${clientY - offsetY}px)`;
-
-      /// TODO: make a convert function for label sort order
-
-      const outsideBoundary = relClientY < currentItem.relTop || relClientY > currentItem.relBottom;
-      if (outsideBoundary) {
-        // know the dragged item is above its original position
-        if (relClientY < tempListItemData.relTop) {
-          let nextItem = currentItem;
-          listItemDatas.forEach((itemData, i) => {
-            if (itemData.index < itemIndex && relClientY < itemData.relBottom) {
-              itemData.item.style.transform = `translate(0, ${item.offsetHeight}px)`;
-
-              // since we're going top to bottom, the first item we need to translate will be the next item
-              // when nextItem === currentItem, we know the next item has not been found yet, so we set it
-              if (nextItem === currentItem) {
-                nextItem = itemData;
-              }
-            } else {
-              itemData.item.style.transform = 'translate(0, 0)';
-            }
-
-            if ((relClientY <= itemData.relBottom && relClientY >= itemData.relTop) || (i === 0 && relClientY < itemData.relTop)) {
-              tempItem.style.transform = `translate(0, ${top - itemData.top}px)`;
-            }
-          });
-
-          currentItem = nextItem;
-        }
-        // know the dragged item is below its original position
-        else if (relClientY > tempListItemData.relBottom) {
-          listItemDatas.forEach((itemData, i) => {
-            if (itemData.index > itemIndex && relClientY > itemData.relTop) {
-              itemData.item.style.transform = `translate(0, -${item.offsetHeight}px)`;
-              currentItem = itemData;
-            } else {
-              itemData.item.style.transform = 'translate(0, 0)';
-            }
-
-            if ((relClientY <= itemData.relBottom && relClientY >= itemData.relTop) || (i === listItemDatas.length - 1 && relClientY > itemData.relBottom)) {
-              tempItem.style.transform = `translate(0, -${top - itemData.top}px)`;
-            }
-          });
-        }
-        // know the dragged item is at its original position
-        else {
-          currentItem = tempListItemData;
-          // reset all positions
-          listItemDatas.forEach(i => {
-            i.item.style.transform = 'translate(0, 0)';
-          });
-        }
-      }
-
-      scrollIntoView(clientY, containerBounds.top, containerBounds.bottom);
-    };
-    dragMove(e.detail);
-
-    const dragEnd = async () => {
-      clearTimeout(scrollTimeout);
-      window.removeEventListener('pointermove', dragMove);
-      window.removeEventListener('touchmove', dragMove);
-      window.removeEventListener('pointerup', dragEnd);
-      window.removeEventListener('touchend', dragEnd);
-
-      const firstItemBounds = this.listItems[0].getBoundingClientRect();
-
-      // move the item back to its new position with a transition
-      const transitionTime = 0.25;
-      item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
-      item.style.transform = `translate(${currentItem.left}px, ${firstItemBounds.top + currentItem.relTop}px)`;
-
-      // wait for the transition to finish
-      await wait(transitionTime * 1000);
-
+    sortable.dragEndCb = (orderChanged: boolean) => {
+      this.dragging = false;
       item.isDragging = false;
 
-      // remove any properties used for dragging
-      item.style.removeProperty('transition');
-      item.style.position = 'relative';
-      item.style.removeProperty('transform');
-      item.style.removeProperty('width');
-      item.style.removeProperty('height');
-      item.style.removeProperty('top');
-      item.style.removeProperty('left');
-      item.style.removeProperty('position');
-
-      if (currentItem.index <= itemIndex) {
-        currentItem.item.parentElement.insertBefore(item, currentItem.item);
-      } else {
-        // get next sibling
-        const nextSibling = currentItem.item.nextElementSibling;
-        if (nextSibling) {
-          currentItem.item.parentElement.insertBefore(item, nextSibling);
-        } else {
-          currentItem.item.parentElement.appendChild(item);
-        }
-      }
-
-      // remove the temporary item
-      tempItem.remove();
-
-      // remove any properties used for dragging from other items
-      listItemDatas.forEach(i => i.item.style.removeProperty('transform'));
-
-      this.dragging = false;
-
-      if (currentItem.index !== itemIndex) {
-        this.updateChildProps();
+      if (orderChanged) {
         this.listItemsReordered.emit(this.listItems);
+        this.updateChildProps();
       }
     };
-
-    window.addEventListener('pointermove', dragMove);
-    window.addEventListener('touchmove', dragMove);
-
-    window.addEventListener('pointerup', dragEnd);
-    window.addEventListener('touchend', dragEnd);
+    this.dragging = true;
+    item.isDragging = true;
+    sortable.startDrag(e.detail, e.target as HTMLElement);
   }
 
   //#endregion
