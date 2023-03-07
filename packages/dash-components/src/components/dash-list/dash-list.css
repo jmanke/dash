@@ -6,4 +6,11 @@
 
 .container {
   overflow: auto;
+
+  &.dragging {
+    ::slotted(dash-list-item) {
+      transition: transform var(--dash-transition-time-fast) ease-out;
+      pointer-events: none;
+    }
+  }
 }

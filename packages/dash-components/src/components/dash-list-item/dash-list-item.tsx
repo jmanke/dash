@@ -61,8 +61,26 @@ export class DashListItem implements Focusable {
 
   /**
    * When `true`, interaction is disabled
+   * @default false
    */
   @Prop({ reflect: true }) disabled: boolean;
+
+  /**
+   * Whether the list item can be dragged
+   * @default false
+   */
+  @Prop({ reflect: true }) dragEnabled: boolean;
+
+  /**
+   * When `true`, list-item is being dragged. Used for styling purposes
+   * @default false
+   */
+  @Prop({ reflect: true }) isDragging: boolean;
+
+  /**
+   * Value of the list-item
+   */
+  @Prop() value: any;
 
   //#endregion
 
@@ -84,6 +102,12 @@ export class DashListItem implements Focusable {
    * @internal
    */
   @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<void>;
+
+  /**
+   * Emitted when list-item is starting to be dragged
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<PointerEvent>;
 
   //#endregion
 
@@ -121,6 +145,10 @@ export class DashListItem implements Focusable {
    * @param e - mouse click event
    */
   click(e: MouseEvent | KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     if (this.isClick(e) && !this.disabled && !(this.disableDeselect && this.selected)) {
       this.selected = !this.selected;
       this.selectedChanged.emit();
@@ -132,6 +160,10 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyDown(e: KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     const sourceNode = e.composedPath()[0];
     if (sourceNode !== this.element && !contains(this.listItem, sourceNode as HTMLElement)) {
       return;
@@ -156,6 +188,10 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyUp(e: KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     if (this.isClick(e)) {
       this.updateIsActive(false);
     }
@@ -180,6 +216,17 @@ export class DashListItem implements Focusable {
    */
   stopPropagation(e: Event) {
     e.stopPropagation();
+  }
+
+  /**
+   * Starts drag, emits internal event
+   */
+  startDrag(e: PointerEvent) {
+    if (!this.dragEnabled) {
+      return;
+    }
+
+    this.startedDrag.emit(e);
   }
 
   /**
@@ -209,10 +256,36 @@ export class DashListItem implements Focusable {
           onPointerLeave={this.updateIsActive.bind(this, false)}
           onFocusout={this.updateIsActive.bind(this, false)}
         >
-          <slot name='actions-start'></slot>
+          {this.dragEnabled && (
+            <dash-icon
+              class='grip'
+              icon='grip-vertical'
+              scale='s'
+              onKeyDown={this.stopPropagation.bind(this)}
+              onKeyUp={this.stopPropagation.bind(this)}
+              onClick={this.stopPropagation.bind(this)}
+              onPointerLeave={this.stopPropagation.bind(this)}
+              onPointerDown={e => {
+                this.startDrag(e);
+              }}
+            ></dash-icon>
+          )}
 
           <div class='list-item' ref={e => (this.listItem = e)}>
-            {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+            {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+
+            <div
+              class='actions-start-wrapper'
+              onKeyDown={this.stopPropagation.bind(this)}
+              onKeyUp={this.stopPropagation.bind(this)}
+              onClick={this.stopPropagation.bind(this)}
+              onPointerDown={this.stopPropagation.bind(this)}
+              onPointerUp={this.stopPropagation.bind(this)}
+              onPointerLeave={this.stopPropagation.bind(this)}
+            >
+              <slot name='actions-start'></slot>
+            </div>
+
             <slot></slot>
           </div>
 

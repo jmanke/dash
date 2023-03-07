@@ -394,6 +394,7 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
         "onHellodashEditLabelsCreateLabel"?: (event: HellodashEditLabelsCustomEvent<Pick<Label, 'color' | 'text'>>) => void;
         "onHellodashEditLabelsDeleteLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
+        "onHellodashEditLabelsLabelsReordered"?: (event: HellodashEditLabelsCustomEvent<Label[]>) => void;
         "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }
     interface HellodashLabelColorPicker {

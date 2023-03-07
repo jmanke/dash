@@ -2,6 +2,7 @@
 
 :host {
   display: flex;
+  --dash-list-item-background-color: none;
 }
 
 :host(:focus-visible) {
@@ -19,7 +20,7 @@
   }
 }
 
-:host(:not([disabled])) {
+:host(:not([disabled]):not([selection-mode='no-selection']):not([is-dragging])) {
   .list-item-wrapper {
     cursor: pointer;
 
@@ -34,13 +35,76 @@
   }
 }
 
+:host([drag-enabled]) {
+  .list-item-wrapper {
+    touch-action: none;
+    padding-inline-start: var(--dash-spacing-3);
+  }
+}
+
+:host([drag-enabled][selection-mode='no-selection']) {
+  .list-item-wrapper {
+    padding-inline-start: var(--dash-spacing-6);
+  }
+}
+
+:host([drag-enabled][selection-mode='none']) {
+  .list-item-wrapper {
+    padding-inline-start: var(--dash-spacing-6);
+  }
+}
+
+:host([is-dragging]) {
+  z-index: 9999;
+
+  .list-item-wrapper {
+    box-shadow: var(--dash-box-shadow);
+  }
+}
+
+::slotted([slot='actions-start']) {
+  padding-inline-end: var(--dash-spacing-2);
+}
+
 .list-item-wrapper {
+  position: relative;
   display: flex;
   flex: auto;
   align-items: center;
+  background-color: var(--dash-list-item-background-color);
   border-radius: var(--dash-border-radius);
   transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition), color ease-in-out var(--dash-transition-time-fast);
   border: var(--dash-border-style-focus-hidden);
+  transition: box-shadow ease-out 75ms;
+
+  .grip {
+    visibility: hidden;
+    cursor: move;
+    height: calc(100% + 4px);
+    border-radius: var(--dash-border-radius);
+    position: absolute;
+    left: -2px;
+    padding: 0 var(--dash-spacing-half);
+    user-select: none;
+
+    &:hover {
+      background-color: var(--dash-bg-darken-1);
+    }
+
+    &:active {
+      background-color: var(--dash-bg-darken-2);
+    }
+
+    @media (pointer: coarse) {
+      visibility: visible;
+    }
+  }
+
+  &:hover {
+    .grip {
+      visibility: visible;
+    }
+  }
 }
 
 .list-item {

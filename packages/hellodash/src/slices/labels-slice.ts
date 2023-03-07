@@ -23,14 +23,18 @@ const Colors = {
  */
 export const getLabels = createAsyncThunk('labels/fetchLabels', async (_, { dispatch }) => {
   const labels = (await fetchLabels()) ?? [];
+
   labels.forEach(label => {
+    // check if labels have legacy colors and convert them to the new format
     if (label.color in Colors) {
       // @ts-ignore
       label.color = Colors[label.color];
     }
   });
 
-  dispatch(setLabels(sortBy(labels, 'id')));
+  const sortedLabels = sortBy(labels, 'sortOrder', 'id');
+
+  dispatch(setLabels(sortedLabels));
 
   return labels;
 });
@@ -56,8 +60,18 @@ export const getLabelById = createAsyncThunk('labels/fetchLabel', async (id: num
 /**
  * Creates a new label and stores it in the store.
  */
-export const createLabel = createAsyncThunk('labels/createLabel', async (label: Pick<Label, 'color' | 'text'>, { dispatch }) => {
-  const id = await createLabelApi(label as Label);
+export const createLabel = createAsyncThunk('labels/createLabel', async (label: Pick<Label, 'color' | 'text'>, { dispatch, getState }) => {
+  const labels = (getState() as RootState).labels;
+  // sort order is the last label's sort order + 1
+  const lastLabel = labels[labels.length - 1];
+  // if there are no labels, the sort order is 0
+  const sortOrder = lastLabel ? lastLabel.sortOrder + 1 : 0;
+
+  const sortedLabel = {
+    ...label,
+    sortOrder,
+  } as Label;
+  const id = await createLabelApi(sortedLabel);
   const newLabel = (await fetchLabel(id)) as Label;
 
   if (newLabel) {
@@ -75,6 +89,35 @@ export const updateLabel = createAsyncThunk('labels/updateLabel', async (label: 
   await updateLabelApi(label);
 
   return label;
+});
+
+/**
+ * Reorders labels and stores it in the store.
+ * @param labels Labels that will replace the current labels with the new sort order
+ */
+export const reorderLabels = createAsyncThunk('labels/updateLabels', async (labels: Label[] = [], { dispatch }) => {
+  let labelsToUpdate: Label[] = [];
+  const sortedLabels = labels.map((label, index) => {
+    // update any labels with a different sort order
+    const sortedLabel = {
+      ...label,
+      sortOrder: index,
+    };
+
+    // only need to update the label in API if the sort order has changed
+    if (label.sortOrder !== index) {
+      labelsToUpdate.push(sortedLabel);
+    }
+
+    return sortedLabel;
+  });
+
+  dispatch(setLabels(sortedLabels));
+
+  const updatePromises = labelsToUpdate.map(label => updateLabelApi(label));
+  await Promise.all(updatePromises);
+
+  return sortedLabels;
 });
 
 /**

@@ -417,6 +417,11 @@ export namespace Components {
          */
         "disableDeselect": boolean;
         /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled": boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
@@ -440,8 +445,19 @@ export namespace Components {
         "disableDeselect": boolean;
         /**
           * When `true`, interaction is disabled
+          * @default false
          */
         "disabled": boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled": boolean;
+        /**
+          * When `true`, list-item is being dragged. Used for styling purposes
+          * @default false
+         */
+        "isDragging": boolean;
         /**
           * Size of the list-item
           * @default 'm'
@@ -461,6 +477,10 @@ export namespace Components {
           * Sets focus on this element
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Value of the list-item
+         */
+        "value": any;
     }
     interface DashLoader {
         /**
@@ -741,6 +761,10 @@ export interface DashInlineEditCustomEvent<T> extends CustomEvent<T> {
 export interface DashInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashInputElement;
+}
+export interface DashListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashListElement;
 }
 export interface DashListItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -1398,10 +1422,19 @@ declare namespace LocalJSX {
          */
         "disableDeselect"?: boolean;
         /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled"?: boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
         "maxItems"?: number;
+        /**
+          * Emitted when the list items are reordered
+         */
+        "onDashListItemsReordered"?: (event: DashListCustomEvent<HTMLDashListItemElement[]>) => void;
         /**
           * Size of the list and its items
           * @default 'm'
@@ -1421,8 +1454,19 @@ declare namespace LocalJSX {
         "disableDeselect"?: boolean;
         /**
           * When `true`, interaction is disabled
+          * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * When `true`, list-item is being dragged. Used for styling purposes
+          * @default false
+         */
+        "isDragging"?: boolean;
         /**
           * Emitted when list-item indicates focus should be moved to the next list-item
          */
@@ -1431,6 +1475,10 @@ declare namespace LocalJSX {
           * Emitted when list-item indicates focus should be moved to the previous list-item
          */
         "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<void>) => void;
+        /**
+          * Emitted when list-item is starting to be dragged
+         */
+        "onDashInternalListItemStartDrag"?: (event: DashListItemCustomEvent<PointerEvent>) => void;
         /**
           * Emitted when selected has changed
          */
@@ -1450,6 +1498,10 @@ declare namespace LocalJSX {
           * @default 'single'
          */
         "selectionMode"?: SelectionMode1;
+        /**
+          * Value of the list-item
+         */
+        "value"?: any;
     }
     interface DashLoader {
         /**
