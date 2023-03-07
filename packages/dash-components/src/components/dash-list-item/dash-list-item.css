@@ -85,6 +85,7 @@
     position: absolute;
     left: -2px;
     padding: 0 var(--dash-spacing-half);
+    user-select: none;
 
     &:hover {
       background-color: var(--dash-bg-darken-1);
