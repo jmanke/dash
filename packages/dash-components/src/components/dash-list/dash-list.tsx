@@ -137,8 +137,8 @@ export class DashList {
       item.isDragging = false;
 
       if (orderChanged) {
-        this.listItemsReordered.emit(this.listItems);
         this.updateChildProps();
+        this.listItemsReordered.emit(this.listItems);
       }
     };
     this.dragging = true;

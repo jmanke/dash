@@ -53,6 +53,8 @@ export class HellodashEditLabels implements Modal {
 
   @Event({ eventName: 'hellodashEditLabelsCreateLabel' }) createLabel: EventEmitter<Pick<Label, 'color' | 'text'>>;
 
+  @Event({ eventName: 'hellodashEditLabelsLabelsReordered' }) labelsReordered: EventEmitter<Label[]>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -94,6 +96,16 @@ export class HellodashEditLabels implements Modal {
     this.createLabel.emit(label);
   }
 
+  /**
+   * Called when the user has finished reordering the labels
+   * @param event
+   */
+  itemsSorted(e: CustomEvent<HTMLDashListItemElement[]>) {
+    // Get the new order of the labels
+    const sortedLabels = e.detail.map(item => item.value as Label);
+    this.labelsReordered.emit(sortedLabels);
+  }
+
   //#endregion
 
   render() {
@@ -125,11 +137,10 @@ export class HellodashEditLabels implements Modal {
           {this.canAddLabel && <dash-tooltip target={this.addLabelButton} text='Add label' placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>}
         </form>
 
-        <dash-list class='labels-container' selection-mode='no-selection' drag-enabled>
+        <dash-list class='labels-container' selection-mode='no-selection' drag-enabled onDashListItemsReordered={this.itemsSorted.bind(this)}>
           {this.labels.map(label => (
-            <dash-list-item style={{ '--dash-list-item-background-color': 'var(--dash-background-2)' }}>
+            <dash-list-item key={label.id} style={{ '--dash-list-item-background-color': 'var(--dash-background-2)' }} value={label}>
               <hellodash-label-edit
-                key={label.id}
                 style={{ flex: '1 1 auto' }}
                 label={{ ...label }}
                 allLabels={this.labels}
