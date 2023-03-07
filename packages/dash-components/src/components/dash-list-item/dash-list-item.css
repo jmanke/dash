@@ -81,7 +81,7 @@
     visibility: hidden;
     cursor: move;
     height: calc(100% + 4px);
-    border-radius: var(--dash-border-radius) 0 0 var(--dash-border-radius);
+    border-radius: var(--dash-border-radius);
     position: absolute;
     left: -2px;
     padding: 0 var(--dash-spacing-half);
