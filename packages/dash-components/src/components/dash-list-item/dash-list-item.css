@@ -89,6 +89,7 @@
     height: calc(100% + 4px);
     left: -2px;
     user-select: none;
+    transition: opacity ease-in-out var(--dash-transition-time-fast);
     opacity: 0;
 
     @media (pointer: coarse) {
