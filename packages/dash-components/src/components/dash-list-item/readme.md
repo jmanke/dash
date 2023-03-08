@@ -42,11 +42,17 @@ Type: `Promise<void>`
 ### Depends on
 
 - [dash-icon](../dash-icon)
+- [dash-icon-button](../dash-icon-button)
 
 ### Graph
 ```mermaid
 graph TD;
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
+  dash-icon-button --> dash-icon
+  dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   style dash-list-item fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

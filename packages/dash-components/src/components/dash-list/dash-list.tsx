@@ -147,12 +147,14 @@ export class DashList {
   startPointerDrag(e: PointerEvent, item: HTMLDashListItemElement) {
     const container = this.element.shadowRoot.querySelector('.container') as HTMLElement;
     const sortable = new SortablePointer(this.listItems, container);
+    item.style.zIndex = '9999';
 
     sortable.onBeforeDragEnd = () => {
       item.isDragging = false;
     };
     sortable.onDragEnd = (orderChanged: boolean) => {
       this.dragging = false;
+      item.style.removeProperty('z-index');
 
       if (orderChanged) {
         this.updateChildProps();

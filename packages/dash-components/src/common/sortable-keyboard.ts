@@ -20,6 +20,8 @@ export class SortableKeyboard extends Sortable {
     this.originalIndex = this.items.indexOf(item);
     this.currentIndex = this.originalIndex;
     this.currentItemOrder = this.items.map((_, index) => index);
+    this.dragItem.style.zIndex = '1';
+    this.dragItem.style.position = 'relative';
   }
 
   moveItemUp() {
@@ -39,18 +41,13 @@ export class SortableKeyboard extends Sortable {
       return item;
     });
 
-    let ret: DragEnd;
-    if (this.currentIndex === this.originalIndex) {
-      ret = {
-        orderChanged: false,
-        items: this.items,
-      };
-    } else {
-      ret = {
-        orderChanged: true,
-        items: this.currentItemOrder.map(index => this.items[index]),
-      };
-    }
+    const ret: DragEnd = {
+      orderChanged: this.currentIndex !== this.originalIndex,
+      items: this.items,
+    };
+
+    this.dragItem.style.removeProperty('z-index');
+    this.dragItem.style.removeProperty('position');
 
     this.dragItem = null;
     this.currentIndex = -1;

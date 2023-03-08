@@ -53,12 +53,13 @@ graph TD;
   hellodash-label-select --> dash-filter
   hellodash-label-select --> hellodash-label-color-picker
   dash-list-item --> dash-icon
-  dash-color-swatch --> dash-icon-button
-  dash-color-swatch --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-icon-button --> dash-icon
   dash-icon-button --> dash-loader
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
+  dash-color-swatch --> dash-icon-button
+  dash-color-swatch --> dash-icon
   dash-button --> dash-icon
   dash-drill-menu --> dash-icon-button
   dash-filter --> dash-input
