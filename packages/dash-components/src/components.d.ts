@@ -1468,6 +1468,18 @@ declare namespace LocalJSX {
          */
         "isDragging"?: boolean;
         /**
+          * Emitted when list-item drag moves down
+         */
+        "onDashInternalListItemDragEnd"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
+        /**
+          * Emitted when list-item drag moves down
+         */
+        "onDashInternalListItemDragMoveDown"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
+        /**
+          * Emitted when list-item drag moves up
+         */
+        "onDashInternalListItemDragMoveUp"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
+        /**
           * Emitted when list-item indicates focus should be moved to the next list-item
          */
         "onDashInternalListItemMoveNext"?: (event: DashListItemCustomEvent<void>) => void;
@@ -1478,7 +1490,7 @@ declare namespace LocalJSX {
         /**
           * Emitted when list-item is starting to be dragged
          */
-        "onDashInternalListItemStartDrag"?: (event: DashListItemCustomEvent<PointerEvent>) => void;
+        "onDashInternalListItemStartDrag"?: (event: DashListItemCustomEvent<PointerEvent | KeyboardEvent>) => void;
         /**
           * Emitted when selected has changed
          */

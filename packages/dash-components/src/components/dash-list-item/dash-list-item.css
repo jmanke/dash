@@ -10,6 +10,10 @@
 
   .list-item-wrapper {
     border: var(--dash-border-style-focus-visible);
+
+    .grip {
+      opacity: 1;
+    }
   }
 }
 
@@ -78,31 +82,29 @@
   transition: box-shadow ease-out 75ms;
 
   .grip {
-    visibility: hidden;
-    cursor: move;
-    height: calc(100% + 4px);
-    border-radius: var(--dash-border-radius);
+    --dash-icon-button-height: 100%;
+    --dash-icon-button-padding: 0;
+    --dash-focus-outline-offset-0: -3px;
+    --dash-focus-outline-offset-100: -2px;
+    --dash-focus-outline-offset-50: -2px;
     position: absolute;
+    height: calc(100% + 4px);
     left: -2px;
-    padding: 0 var(--dash-spacing-half);
     user-select: none;
-
-    &:hover {
-      background-color: var(--dash-bg-darken-1);
-    }
-
-    &:active {
-      background-color: var(--dash-bg-darken-2);
-    }
+    opacity: 0;
 
     @media (pointer: coarse) {
-      visibility: visible;
+      opacity: 1;
+    }
+
+    &.grip-focused {
+      opacity: 1;
     }
   }
 
   &:hover {
     .grip {
-      visibility: visible;
+      opacity: 1;
     }
   }
 }

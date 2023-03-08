@@ -1,6 +1,7 @@
 import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
-import { Sortable } from '../../common/sortable';
+import { SortableKeyboard } from '../../common/sortable-keyboard';
+import { SortablePointer } from '../../common/sortable-pointer';
 import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
@@ -123,14 +124,29 @@ export class DashList {
   //#region Listeners
 
   @Listen('dashInternalListItemStartDrag')
-  listItemStartedDrag(e: CustomEvent<PointerEvent>) {
+  listItemStartedDrag(e: CustomEvent<PointerEvent | KeyboardEvent>) {
     if (!this.listItems?.length) {
       return;
     }
 
+    if (e.detail instanceof PointerEvent) {
+      this.startPointerDrag(e.detail, e.target as HTMLDashListItemElement);
+      return;
+    }
+
+    this.startKeyboardDrag(e.target as HTMLDashListItemElement);
+  }
+
+  //#endregion
+
+  //#region @Method
+  //#endregion
+
+  //#region Local methods
+
+  startPointerDrag(e: PointerEvent, item: HTMLDashListItemElement) {
     const container = this.element.shadowRoot.querySelector('.container') as HTMLElement;
-    const sortable = new Sortable(this.listItems, container);
-    const item = e.target as HTMLDashListItemElement;
+    const sortable = new SortablePointer(this.listItems, container);
 
     sortable.dragEndCb = (orderChanged: boolean) => {
       this.dragging = false;
@@ -143,15 +159,43 @@ export class DashList {
     };
     this.dragging = true;
     item.isDragging = true;
-    sortable.startDrag(e.detail, e.target as HTMLElement);
+
+    sortable.startDrag(e, item);
   }
 
-  //#endregion
+  startKeyboardDrag(item: HTMLDashListItemElement) {
+    if (this.dragging) {
+      return;
+    }
 
-  //#region @Method
-  //#endregion
+    const sortable = new SortableKeyboard(this.listItems);
 
-  //#region Local methods
+    this.dragging = true;
+    item.isDragging = true;
+
+    const moveUp = () => sortable.moveItemUp();
+    const moveDown = () => sortable.moveItemDown();
+
+    item.addEventListener('dashInternalListItemDragMoveUp', moveUp);
+    item.addEventListener('dashInternalListItemDragMoveDown', moveDown);
+    item.addEventListener(
+      'dashInternalListItemDragEnd',
+      () => {
+        this.dragging = false;
+        item.isDragging = false;
+        item.removeEventListener('dashInternalListItemDragMoveUp', moveUp);
+        item.removeEventListener('dashInternalListItemDragMoveDown', moveDown);
+        const { orderChanged, items } = sortable.endDrag();
+        if (orderChanged) {
+          this.updateChildProps();
+          this.listItemsReordered.emit(items as HTMLDashListItemElement[]);
+        }
+      },
+      { once: true },
+    );
+
+    sortable.startDrag(item);
+  }
 
   /**
    * Updates the resize observer

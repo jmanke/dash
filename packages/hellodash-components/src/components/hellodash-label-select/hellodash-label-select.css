@@ -12,8 +12,8 @@ hellodash-label-select {
       overflow-y: auto;
 
       dash-color-swatch {
-        --dash-focus-outline-offset: 0px;
-        --dash-focus-outline-max-offset: 1px;
+        --dash-focus-outline-offset-100: 0px;
+        --dash-focus-outline-offset-50: 1px;
       }
     }
 

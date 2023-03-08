@@ -25,7 +25,7 @@ const template = (args, updateArg) => {
   };
 
   return html`<dash-list
-    style="width: 10rem;"
+    style="width: 10rem; margin: 1rem;"
     max-items=${args.maxItems}
     selection-mode=${args.selectionMode}
     disable-deselect=${args.disableDeselect}

@@ -29,6 +29,11 @@ export class DashListItem implements Focusable {
    */
   @State() isActive: boolean;
 
+  /**
+   * When `true`, list item visually indicates it's focused. CSS doesn't seem to work here due to the shadow DOM interaction.
+   */
+  @State() gripFocused: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -107,7 +112,25 @@ export class DashListItem implements Focusable {
    * Emitted when list-item is starting to be dragged
    * @internal
    */
-  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<PointerEvent>;
+  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<PointerEvent | KeyboardEvent>;
+
+  /**
+   * Emitted when list-item drag moves up
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemDragMoveUp', bubbles: true }) dragMovedUp: EventEmitter<KeyboardEvent>;
+
+  /**
+   * Emitted when list-item drag moves down
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemDragMoveDown', bubbles: true }) dragMovedDown: EventEmitter<KeyboardEvent>;
+
+  /**
+   * Emitted when list-item drag moves down
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemDragEnd', bubbles: true }) endedDrag: EventEmitter<KeyboardEvent>;
 
   //#endregion
 
@@ -229,6 +252,31 @@ export class DashListItem implements Focusable {
     this.startedDrag.emit(e);
   }
 
+  gripKeyDown(e: KeyboardEvent) {
+    switch (e.code) {
+      case 'ArrowUp':
+        this.dragMovedUp.emit(e);
+        break;
+      case 'ArrowDown':
+        this.dragMovedDown.emit(e);
+        break;
+      case 'Space':
+        this.startedDrag.emit(e);
+        break;
+    }
+
+    e.stopPropagation();
+  }
+
+  gripKeyUp(e: KeyboardEvent) {
+    if (e.code === 'Space') {
+      this.endedDrag.emit(e);
+      (e.target as HTMLDashIconButtonElement).setFocus();
+    }
+
+    e.stopPropagation();
+  }
+
   /**
    * JSX checkmark element
    */
@@ -257,18 +305,20 @@ export class DashListItem implements Focusable {
           onFocusout={this.updateIsActive.bind(this, false)}
         >
           {this.dragEnabled && (
-            <dash-icon
-              class='grip'
+            <dash-icon-button
+              class={spaceConcat('grip', this.gripFocused ? 'grip-focused' : undefined)}
               icon='grip-vertical'
               scale='s'
-              onKeyDown={this.stopPropagation.bind(this)}
-              onKeyUp={this.stopPropagation.bind(this)}
+              onKeyDown={this.gripKeyDown.bind(this)}
+              onKeyUp={this.gripKeyUp.bind(this)}
               onClick={this.stopPropagation.bind(this)}
               onPointerLeave={this.stopPropagation.bind(this)}
               onPointerDown={e => {
                 this.startDrag(e);
               }}
-            ></dash-icon>
+              onFocusin={() => (this.gripFocused = true)}
+              onFocusout={() => (this.gripFocused = false)}
+            ></dash-icon-button>
           )}
 
           <div class='list-item' ref={e => (this.listItem = e)}>
