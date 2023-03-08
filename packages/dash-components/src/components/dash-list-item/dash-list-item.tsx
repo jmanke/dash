@@ -256,9 +256,11 @@ export class DashListItem implements Focusable {
     switch (e.code) {
       case 'ArrowUp':
         this.dragMovedUp.emit(e);
+        e.preventDefault();
         break;
       case 'ArrowDown':
         this.dragMovedDown.emit(e);
+        e.preventDefault();
         break;
       case 'Space':
         this.startedDrag.emit(e);

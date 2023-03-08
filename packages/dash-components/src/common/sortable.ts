@@ -11,8 +11,7 @@ export abstract class Sortable {
     this.items = items;
   }
 
-  protected insertNode(items: HTMLElement[], originalIndex: number, currentIndex: number) {
-    const item = items[originalIndex];
+  protected insertElement(items: HTMLElement[], item: HTMLElement, originalIndex: number, currentIndex: number) {
     if (currentIndex <= originalIndex) {
       items[currentIndex].parentElement.insertBefore(item, items[currentIndex]);
     } else {

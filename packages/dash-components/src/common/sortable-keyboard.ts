@@ -9,6 +9,7 @@ export class SortableKeyboard extends Sortable {
   dragItem: HTMLElement;
   originalIndex: number;
   currentIndex: number;
+  currentItemOrder: number[];
 
   constructor(items: HTMLElement[] = []) {
     super(items);
@@ -18,37 +19,25 @@ export class SortableKeyboard extends Sortable {
     this.dragItem = item;
     this.originalIndex = this.items.indexOf(item);
     this.currentIndex = this.originalIndex;
+    this.currentItemOrder = this.items.map((_, index) => index);
   }
 
   moveItemUp() {
-    if (!this.dragItem) {
-      return;
-    }
-
-    this.currentIndex -= 1;
-    if (this.currentIndex < 0) {
-      this.currentIndex = this.items.length - 1;
-    }
-
-    this.reorderItems();
+    this.moveDragItem(-1);
   }
 
   moveItemDown() {
-    if (!this.dragItem) {
-      return;
-    }
-
-    this.currentIndex += 1;
-    if (this.currentIndex >= this.items.length) {
-      this.currentIndex = 0;
-    }
-
-    this.reorderItems();
+    this.moveDragItem(1);
   }
 
   endDrag() {
-    this.insertNode(this.items, this.originalIndex, this.currentIndex);
-    this.items.forEach(item => item.style.removeProperty('transform'));
+    this.insertElement(this.items, this.dragItem, this.originalIndex, this.currentIndex);
+    this.items = this.currentItemOrder.map(index => {
+      const item = this.items[index];
+      item.style.removeProperty('transform');
+
+      return item;
+    });
 
     let ret: DragEnd;
     if (this.currentIndex === this.originalIndex) {
@@ -57,20 +46,44 @@ export class SortableKeyboard extends Sortable {
         items: this.items,
       };
     } else {
-      this.items.splice(this.originalIndex, 1);
-      this.items.splice(this.currentIndex, 0, this.dragItem);
-
       ret = {
         orderChanged: true,
-        items: this.items,
+        items: this.currentItemOrder.map(index => this.items[index]),
       };
     }
 
-
     this.dragItem = null;
     this.currentIndex = -1;
+    this.currentItemOrder = this.items.map((_, index) => index);
 
     return ret;
+  }
+
+  private moveDragItem(increment: number) {
+    if (!this.dragItem) {
+      return;
+    }
+
+    let currentIndex = this.currentIndex + increment;
+    if (currentIndex >= this.items.length) {
+      currentIndex = 0;
+    } else if (currentIndex < 0) {
+      currentIndex = this.items.length - 1;
+    }
+
+    // scroll to target item
+    const targetIndex = this.currentItemOrder[currentIndex];
+    this.items[targetIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    this.moveOrder(this.currentIndex, currentIndex);
+    this.currentIndex = currentIndex;
+
+    this.reorderItems();
+  }
+
+  private moveOrder(fromIndex: number, toIndex: number) {
+    const index = this.currentItemOrder[fromIndex];
+    this.currentItemOrder.splice(fromIndex, 1);
+    this.currentItemOrder.splice(toIndex, 0, index);
   }
 
   private reorderItems() {

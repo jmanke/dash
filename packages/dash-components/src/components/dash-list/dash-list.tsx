@@ -148,9 +148,11 @@ export class DashList {
     const container = this.element.shadowRoot.querySelector('.container') as HTMLElement;
     const sortable = new SortablePointer(this.listItems, container);
 
-    sortable.dragEndCb = (orderChanged: boolean) => {
-      this.dragging = false;
+    sortable.onBeforeDragEnd = () => {
       item.isDragging = false;
+    };
+    sortable.onDragEnd = (orderChanged: boolean) => {
+      this.dragging = false;
 
       if (orderChanged) {
         this.updateChildProps();

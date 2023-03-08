@@ -18,10 +18,16 @@ export class SortablePointer extends Sortable {
   scrollContainer: HTMLElement;
 
   /**
+   * Callback to be called before drag ends. This is called before the transition starts
+   * @optional
+   */
+  onBeforeDragEnd: (orderChanged: boolean) => void;
+
+  /**
    * Callback to be called when drag ends
    * @optional
    */
-  dragEndCb: (orderChanged: boolean) => void;
+  onDragEnd: (orderChanged: boolean) => void;
 
   private pointerOffset = { x: 0, y: 0 };
   private dragItemIndex: number;
@@ -132,6 +138,9 @@ export class SortablePointer extends Sortable {
     item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
     item.style.transform = `translate(${left}px, ${top}px)`;
 
+    const orderChanged = this.dragItemIndex !== this.currentItemData.index;
+    this.onBeforeDragEnd?.(orderChanged);
+
     // wait for the transition to finish
     await wait(transitionTime * 1000);
 
@@ -145,7 +154,13 @@ export class SortablePointer extends Sortable {
     item.style.removeProperty('left');
     item.style.removeProperty('position');
 
-    this.insertNode(this.items, this.dragItemIndex, currentItemData.index);
+    // Not working when replacing same item, fix this
+    this.insertElement(
+      this.itemDatas.map(id => id.item),
+      item,
+      this.dragItemIndex,
+      currentItemData.index,
+    );
 
     // remove the temporary item
     this.tempItem.remove();
@@ -154,7 +169,7 @@ export class SortablePointer extends Sortable {
     this.itemDatas.forEach(i => i.item.style.removeProperty('transform'));
 
     // call the drag end callback
-    this.dragEndCb?.(this.currentItemData.index !== this.dragItemIndex);
+    this.onDragEnd?.(orderChanged);
 
     // reset all properties
     this.pointerOffset = { x: 0, y: 0 };
