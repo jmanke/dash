@@ -1,22 +1,7 @@
-import { replaceAt, wait } from '@didyoumeantoast/dash-utils';
-import { Sortable } from './sortable';
-
-interface ItemData {
-  item: HTMLElement;
-  left: number;
-  top: number;
-  relTop: number;
-  relBottom: number;
-  index: number;
-}
+import { wait } from '@didyoumeantoast/dash-utils';
+import { DragEnd, Sortable } from './sortable';
 
 export class SortablePointer extends Sortable {
-  /**
-   * Container to scroll when dragging
-   * @optional
-   */
-  scrollContainer: HTMLElement;
-
   /**
    * Callback to be called before drag ends. This is called before the transition starts
    * @optional
@@ -27,22 +12,15 @@ export class SortablePointer extends Sortable {
    * Callback to be called when drag ends
    * @optional
    */
-  onDragEnd: (orderChanged: boolean) => void;
+  onDragEnd: (result: DragEnd) => void;
 
   private pointerOffset = { x: 0, y: 0 };
-  private dragItemIndex: number;
-  private dragItem: HTMLElement;
-  private tempItem: HTMLElement;
-  private itemDatas: ItemData[] = [];
-  private currentItemData: ItemData;
-  private scrollTimeout: number;
 
   private performDragCb: (e: PointerEvent | MouseEvent) => void;
   private endDragCb: (e: PointerEvent | MouseEvent) => void;
 
-  constructor(items: HTMLElement[] = [], scrollContainer?: HTMLElement) {
+  constructor(items: HTMLElement[] = []) {
     super(items);
-    this.scrollContainer = scrollContainer;
   }
 
   /**
@@ -56,6 +34,8 @@ export class SortablePointer extends Sortable {
       return;
     }
 
+    this.currentItemOrder = this.items.map((_, index) => index);
+
     const itemBounds = item.getBoundingClientRect();
     this.pointerOffset = {
       x: e.clientX - itemBounds.left,
@@ -67,8 +47,8 @@ export class SortablePointer extends Sortable {
     tempItem.classList.add('list-item-placeholder');
     tempItem.style.width = `${item.offsetWidth}px`;
     tempItem.style.height = `${item.offsetHeight}px`;
+    tempItem.style.transition = 'unset';
     item.parentElement.insertBefore(tempItem, item);
-    this.tempItem = tempItem;
     this.dragItem = item;
 
     // ensure item size is preserved during drag
@@ -81,26 +61,11 @@ export class SortablePointer extends Sortable {
     item.style.top = `${0}px`;
     item.style.left = `${0}px`;
 
-    // To calculate relative positions of the items, we need to know the bounding rect of the first item.
-    // This is to reduce the amount of getBoundingClientRect() calls we make during the drag.
-    const initialFirstItemBounds = this.items[0] === item ? tempItem.getBoundingClientRect() : this.items[0].getBoundingClientRect();
-
     // get a reference to all other items to move them when dragging
-    this.dragItemIndex = this.items.indexOf(item);
-    this.itemDatas = replaceAt(this.items, listItem => listItem === item, tempItem).map((listItem, i) => {
-      const { top, bottom, left } = listItem.getBoundingClientRect();
-      return {
-        item: listItem,
-        top,
-        bottom,
-        left: left,
-        relTop: top - initialFirstItemBounds.top,
-        relBottom: bottom - initialFirstItemBounds.top,
-        index: i,
-      };
-    });
-
-    this.currentItemData = this.itemDatas[this.dragItemIndex];
+    this.originalIndex = this.items.indexOf(item);
+    this.currentIndex = this.originalIndex;
+    // replace the item with the temporary item for transition purposes
+    this.items[this.currentIndex] = tempItem;
 
     this.performDragCb = this.performDrag.bind(this);
     this.endDragCb = this.endDrag.bind(this);
@@ -118,27 +83,20 @@ export class SortablePointer extends Sortable {
    * Ends the drag
    */
   async endDrag() {
-    clearTimeout(this.scrollTimeout);
     window.removeEventListener('pointermove', this.performDragCb);
     window.removeEventListener('touchmove', this.performDragCb);
     window.removeEventListener('pointerup', this.endDragCb);
     window.removeEventListener('touchend', this.endDragCb);
 
-    let { top, left } = this.currentItemData.item.getBoundingClientRect();
-    if (this.dragItemIndex < this.currentItemData.index) {
-      top += this.dragItem.offsetHeight;
-    } else if (this.dragItemIndex > this.currentItemData.index) {
-      top -= this.dragItem.offsetHeight;
-    }
+    let { top, left } = this.items[this.originalIndex].getBoundingClientRect();
 
     // move the item back to its new position with a transition
     const transitionTime = 0.25;
     const item = this.dragItem;
-    const currentItemData = this.currentItemData;
     item.style.transition = `transform ${transitionTime}s cubic-bezier(0.2, 1, 0.1, 1)`;
     item.style.transform = `translate(${left}px, ${top}px)`;
 
-    const orderChanged = this.dragItemIndex !== this.currentItemData.index;
+    const orderChanged = this.currentIndex !== this.originalIndex;
     this.onBeforeDragEnd?.(orderChanged);
 
     // wait for the transition to finish
@@ -154,31 +112,28 @@ export class SortablePointer extends Sortable {
     item.style.removeProperty('left');
     item.style.removeProperty('position');
 
-    // Not working when replacing same item, fix this
-    this.insertElement(
-      this.itemDatas.map(id => id.item),
-      item,
-      this.dragItemIndex,
-      currentItemData.index,
-    );
+    this.insertElement(this.items, this.dragItem, this.originalIndex, this.currentIndex);
 
-    // remove the temporary item
-    this.tempItem.remove();
+    // remove the temporary item and put the drag item back in its place
+    this.items[this.originalIndex].remove();
+    this.items[this.originalIndex] = this.dragItem;
 
-    // remove any properties used for dragging from other items
-    this.itemDatas.forEach(i => i.item.style.removeProperty('transform'));
+    // remove any properties used for dragging from other items and make sure order is reflected
+    this.items = this.currentItemOrder.map(index => {
+      const item = this.items[index];
+      item.style.removeProperty('transform');
+
+      return item;
+    });
 
     // call the drag end callback
-    this.onDragEnd?.(orderChanged);
+    this.onDragEnd?.({ orderChanged, items: this.items });
 
     // reset all properties
     this.pointerOffset = { x: 0, y: 0 };
-    this.dragItemIndex = 0;
+    this.currentIndex = -1;
     this.dragItem = null;
-    this.tempItem = null;
-    this.itemDatas = [];
-    this.currentItemData = null;
-    this.scrollTimeout = null;
+    this.currentItemOrder = this.items.map((_, index) => index);
   }
 
   /**
@@ -191,103 +146,18 @@ export class SortablePointer extends Sortable {
       return;
     }
 
-    const relativeBounds = this.itemDatas[0].item.getBoundingClientRect();
+    const currentBounds = this.items[this.originalIndex].getBoundingClientRect();
     const { clientX, clientY } = e instanceof PointerEvent ? e : e.touches[0];
-    const relClientY = clientY - relativeBounds.top;
 
     this.dragItem.style.transform = `translate(${clientX - this.pointerOffset.x}px, ${clientY - this.pointerOffset.y}px)`;
 
-    let outsideBoundary = false;
-    if (this.currentItemData.index === 0) {
-      outsideBoundary = relClientY > this.currentItemData.relBottom;
-    } else if (this.currentItemData.index === this.itemDatas.length - 1) {
-      outsideBoundary = relClientY < this.currentItemData.relTop;
-    } else {
-      outsideBoundary = relClientY < this.currentItemData.relTop || relClientY > this.currentItemData.relBottom;
-    }
-    if (outsideBoundary) {
-      // know the dragged item is above its original position
-      if (relClientY < this.itemDatas[this.dragItemIndex].relTop) {
-        let nextItemData = this.currentItemData;
-        this.itemDatas.forEach((itemData, i) => {
-          if (itemData.index < this.dragItemIndex && relClientY < itemData.relBottom) {
-            itemData.item.style.transform = `translate(0, ${itemData.item.offsetHeight}px)`;
-
-            // since we're going top to bottom, the first item we need to translate will be the next item
-            // when nextItem === currentItem, we know the next item has not been found yet, so we set it
-            if (nextItemData === this.currentItemData) {
-              nextItemData = itemData;
-            }
-          } else {
-            itemData.item.style.transform = 'translate(0, 0)';
-          }
-
-          if ((relClientY <= itemData.relBottom && relClientY >= itemData.relTop) || (i === 0 && relClientY < itemData.relTop)) {
-            this.tempItem.style.transform = `translate(0, ${relativeBounds.top - itemData.top}px)`;
-          }
-        });
-
-        this.currentItemData = nextItemData;
-      }
-      // know the dragged item is below its original position
-      else if (relClientY > this.itemDatas[this.dragItemIndex].relBottom) {
-        this.itemDatas.forEach((itemData, i) => {
-          if (itemData.index > this.dragItemIndex && relClientY > itemData.relTop) {
-            itemData.item.style.transform = `translate(0, -${itemData.item.offsetHeight}px)`;
-            this.currentItemData = itemData;
-          } else {
-            itemData.item.style.transform = 'translate(0, 0)';
-          }
-
-          if ((relClientY <= itemData.relBottom && relClientY >= itemData.relTop) || (i === this.itemDatas.length - 1 && relClientY > itemData.relBottom)) {
-            this.tempItem.style.transform = `translate(0, -${relativeBounds.top - itemData.top}px)`;
-          }
-        });
-      }
-      // know the dragged item is at its original position
-      else {
-        this.currentItemData = this.itemDatas[this.dragItemIndex];
-        // reset all positions
-        this.itemDatas.forEach(i => {
-          i.item.style.transform = 'translate(0, 0)';
-        });
-      }
-    }
-
-    this.scrollIntoView(clientY);
-  }
-
-  /**
-   * Scroll the container into view if the pointer is outside the container
-   * @param clientY The y position of the pointer
-   * @returns void
-   */
-  private scrollIntoView(clientY: number) {
-    if (!this.scrollContainer) {
-      return;
-    }
-
-    const { top, bottom } = this.scrollContainer.getBoundingClientRect();
-
-    clearTimeout(this.scrollTimeout);
-    let scroll = 0;
-    let diff = 0;
-    if (clientY < top) {
-      scroll = -1;
-      diff = top - clientY;
-    } else if (clientY > bottom) {
-      scroll = 1;
-      diff = clientY - bottom;
-    }
-
-    if (scroll) {
-      diff = Math.min(Math.max(diff / 5, 5), 20);
-      const speed = (20 / diff) * 1.5;
-      this.scrollContainer.scrollTop += scroll;
-
-      this.scrollTimeout = setTimeout(() => {
-        this.scrollIntoView(clientY);
-      }, speed);
+    // move the item up or down the list if it is above or below the current item
+    if ((clientY < currentBounds.top && this.currentIndex > 0) || (clientY > currentBounds.bottom && this.currentIndex < this.items.length - 1)) {
+      const targetIndex = this.currentIndex + (clientY < currentBounds.top ? -1 : 1);
+      this.adjustOrder(this.currentIndex, targetIndex);
+      this.currentIndex = targetIndex;
+      this.reorderItems();
+      this.items[this.originalIndex].scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     }
   }
 }
