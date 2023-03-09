@@ -49,12 +49,13 @@ export class SortablePointer extends Sortable {
     tempItem.style.width = `${item.offsetWidth}px`;
     tempItem.style.height = `${item.offsetHeight}px`;
     tempItem.style.transition = 'unset';
-    item.parentElement.insertBefore(tempItem, item);
-    this.dragItem = item;
 
     // ensure item size is preserved during drag
     item.style.width = `${item.offsetWidth}px`;
     item.style.height = `${item.offsetHeight}px`;
+
+    item.parentElement.insertBefore(tempItem, item);
+    this.dragItem = item;
 
     // move the item to the end of the body so it is on top of all other items
     document.body.appendChild(item);
