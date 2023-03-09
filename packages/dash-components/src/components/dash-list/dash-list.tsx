@@ -107,12 +107,12 @@ export class DashList {
   /**
    * Emitted when the list items start to be reordered
    */
-  @Event({ eventName: 'dashListDragStart' }) reorderStarted: EventEmitter<void>;
+  @Event({ eventName: 'dashListReorderStart' }) reorderStarted: EventEmitter<void>;
 
   /**
    * Emitted when the list items stop being reordered
    */
-  @Event({ eventName: 'dashListDragEnd' }) reorderEnded: EventEmitter<void>;
+  @Event({ eventName: 'dashListReorderEnd' }) reorderEnded: EventEmitter<void>;
 
   //#endregion
 

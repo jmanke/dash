@@ -145,8 +145,8 @@ export class HellodashEditLabels implements Modal {
           selection-mode='no-selection'
           drag-enabled
           onDashListItemsReordered={this.itemsSorted.bind(this)}
-          onDashListDragStart={() => (this.areLabelsReordering = true)}
-          onDashListDragEnd={() => (this.areLabelsReordering = false)}
+          onDashListReorderStart={() => (this.areLabelsReordering = true)}
+          onDashListReorderEnd={() => (this.areLabelsReordering = false)}
         >
           {this.labels.map(label => (
             <dash-list-item key={label.id} style={{ '--dash-list-item-background-color': 'var(--dash-background-2)' }} value={label}>

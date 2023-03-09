@@ -1432,17 +1432,17 @@ declare namespace LocalJSX {
          */
         "maxItems"?: number;
         /**
-          * Emitted when the list items stop being reordered
-         */
-        "onDashListDragEnd"?: (event: DashListCustomEvent<void>) => void;
-        /**
-          * Emitted when the list items start to be reordered
-         */
-        "onDashListDragStart"?: (event: DashListCustomEvent<void>) => void;
-        /**
           * Emitted when the list items are reordered
          */
         "onDashListItemsReordered"?: (event: DashListCustomEvent<HTMLDashListItemElement[]>) => void;
+        /**
+          * Emitted when the list items stop being reordered
+         */
+        "onDashListReorderEnd"?: (event: DashListCustomEvent<void>) => void;
+        /**
+          * Emitted when the list items start to be reordered
+         */
+        "onDashListReorderStart"?: (event: DashListCustomEvent<void>) => void;
         /**
           * Size of the list and its items
           * @default 'm'
