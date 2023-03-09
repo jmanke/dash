@@ -1,7 +1,7 @@
 import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
-import { SortableKeyboard } from '../../common/sortable-keyboard';
-import { SortablePointer } from '../../common/sortable-pointer';
+import { SortableKeyboard } from '../../common/sortable/sortable-keyboard';
+import { SortablePointer } from '../../common/sortable/sortable-pointer';
 import { Scale } from '../../types';
 
 export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
@@ -156,12 +156,17 @@ export class DashList {
 
   //#region Local methods
 
+  /**
+   * Start a pointer drag with list-item
+   * @param e Pointer event that started drag
+   * @param item List item to be dragged
+   */
   startPointerDrag(e: PointerEvent, item: HTMLDashListItemElement) {
     const sortable = new SortablePointer(this.listItems);
     item.style.zIndex = '9999';
 
     sortable.onBeforeDragEnd = () => {
-      item.isDragging = false;
+      item.internalIsDragging = false;
     };
     sortable.onDragEnd = ({ orderChanged }) => {
       this.dragging = false;
@@ -174,11 +179,15 @@ export class DashList {
       }
     };
     this.dragging = true;
-    item.isDragging = true;
+    item.internalIsDragging = true;
 
     sortable.startDrag(e, item);
   }
 
+  /**
+   * Start a keyboard drag with list-item
+   * @param item List item to be dragged
+   */
   startKeyboardDrag(item: HTMLDashListItemElement) {
     if (this.dragging) {
       return;
@@ -187,7 +196,7 @@ export class DashList {
     const sortable = new SortableKeyboard(this.listItems);
 
     this.dragging = true;
-    item.isDragging = true;
+    item.internalIsDragging = true;
 
     const moveUp = () => sortable.moveItemUp();
     const moveDown = () => sortable.moveItemDown();
@@ -198,7 +207,7 @@ export class DashList {
       'dashInternalListItemDragEnd',
       () => {
         this.dragging = false;
-        item.isDragging = false;
+        item.internalIsDragging = false;
         this.reorderEnded.emit();
         item.removeEventListener('dashInternalListItemDragMoveUp', moveUp);
         item.removeEventListener('dashInternalListItemDragMoveDown', moveDown);
@@ -211,6 +220,8 @@ export class DashList {
       { once: true },
     );
 
+    item.style.zIndex = '1';
+    item.style.position = 'relative';
     sortable.startDrag(item);
   }
 

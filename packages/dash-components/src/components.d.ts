@@ -457,7 +457,7 @@ export namespace Components {
           * When `true`, list-item is being dragged. Used for styling purposes
           * @default false
          */
-        "isDragging": boolean;
+        "internalIsDragging": boolean;
         /**
           * Size of the list-item
           * @default 'm'
@@ -1474,7 +1474,7 @@ declare namespace LocalJSX {
           * When `true`, list-item is being dragged. Used for styling purposes
           * @default false
          */
-        "isDragging"?: boolean;
+        "internalIsDragging"?: boolean;
         /**
           * Emitted when list-item drag moves down
          */

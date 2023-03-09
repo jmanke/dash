@@ -78,9 +78,10 @@ export class DashListItem implements Focusable {
 
   /**
    * When `true`, list-item is being dragged. Used for styling purposes
+   * @internal
    * @default false
    */
-  @Prop({ reflect: true }) isDragging: boolean;
+  @Prop({ reflect: true }) internalIsDragging: boolean;
 
   /**
    * Value of the list-item

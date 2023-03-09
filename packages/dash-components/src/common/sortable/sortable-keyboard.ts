@@ -14,8 +14,6 @@ export class SortableKeyboard extends Sortable {
     this.originalIndex = this.items.indexOf(item);
     this.currentIndex = this.originalIndex;
     this.currentItemOrder = this.items.map((_, index) => index);
-    this.dragItem.style.zIndex = '1';
-    this.dragItem.style.position = 'relative';
   }
 
   /**
