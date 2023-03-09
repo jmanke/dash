@@ -7,6 +7,10 @@
   flex-direction: column;
   overflow-y: auto;
   padding: var(--dash-spacing-3) var(--dash-spacing-1);
+
+  &.reordering {
+    overflow-y: hidden;
+  }
 }
 
 .new-label-container {

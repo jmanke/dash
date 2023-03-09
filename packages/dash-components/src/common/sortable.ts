@@ -10,9 +10,16 @@ export abstract class Sortable {
    */
   items: HTMLElement[];
 
+  /** Item to be dragged */
   protected dragItem: HTMLElement;
+
+  /** Index of drag item when dragging starts */
   protected originalIndex: number;
+
+  /** Current index of drag item. Represents current position in items. */
   protected currentIndex: number;
+
+  /** Keeps track of current visual order of the items */
   protected currentItemOrder: number[];
 
   // keyboard drag properties
@@ -21,12 +28,24 @@ export abstract class Sortable {
     this.items = items;
   }
 
+  /**
+   * Adjust the currentItem order
+   * @param fromIndex index of item to be moved
+   * @param toIndex index of item to be moved to
+   */
   protected adjustOrder(fromIndex: number, toIndex: number) {
     const index = this.currentItemOrder[fromIndex];
     this.currentItemOrder.splice(fromIndex, 1);
     this.currentItemOrder.splice(toIndex, 0, index);
   }
 
+  /**
+   * Insert element into DOM
+   * @param items items in sortable
+   * @param item item to be inserted
+   * @param originalIndex original index of item
+   * @param currentIndex current index of item
+   */
   protected insertElement(items: HTMLElement[], item: HTMLElement, originalIndex: number, currentIndex: number) {
     if (currentIndex <= originalIndex) {
       items[currentIndex].parentElement.insertBefore(item, items[currentIndex]);
@@ -41,6 +60,9 @@ export abstract class Sortable {
     }
   }
 
+  /**
+   * Reorder items by adjusting their transform property, visual only
+   */
   protected reorderItems() {
     // case 1: item is at original position
     if (this.currentIndex === this.originalIndex) {

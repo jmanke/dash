@@ -5,6 +5,10 @@ export class SortableKeyboard extends Sortable {
     super(items);
   }
 
+  /**
+   * Start dragging an item
+   * @param item Item to be dragged
+   */
   startDrag(item: HTMLElement) {
     this.dragItem = item;
     this.originalIndex = this.items.indexOf(item);
@@ -14,14 +18,24 @@ export class SortableKeyboard extends Sortable {
     this.dragItem.style.position = 'relative';
   }
 
+  /**
+   * Move item up in the list
+   */
   moveItemUp() {
     this.moveDragItem(-1);
   }
 
+  /**
+   * Move item down in the list
+   */
   moveItemDown() {
     this.moveDragItem(1);
   }
 
+  /**
+   * End dragging an item
+   * @returns DragEnd
+   */
   endDrag() {
     this.insertElement(this.items, this.dragItem, this.originalIndex, this.currentIndex);
     this.items = this.currentItemOrder.map(index => {
@@ -46,6 +60,10 @@ export class SortableKeyboard extends Sortable {
     return ret;
   }
 
+  /**
+   * Move drag item
+   * @param increment increment to move item by
+   */
   private moveDragItem(increment: number) {
     if (!this.dragItem) {
       return;

@@ -13,3 +13,9 @@ dash-button {
 .hidden {
   display: none;
 }
+
+.input-value {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}

@@ -18,9 +18,11 @@
 
 ## Events
 
-| Event                    | Description                               | Type                                     |
-| ------------------------ | ----------------------------------------- | ---------------------------------------- |
-| `dashListItemsReordered` | Emitted when the list items are reordered | `CustomEvent<HTMLDashListItemElement[]>` |
+| Event                    | Description                                       | Type                                     |
+| ------------------------ | ------------------------------------------------- | ---------------------------------------- |
+| `dashListDragEnd`        | Emitted when the list items stop being reordered  | `CustomEvent<void>`                      |
+| `dashListDragStart`      | Emitted when the list items start to be reordered | `CustomEvent<void>`                      |
+| `dashListItemsReordered` | Emitted when the list items are reordered         | `CustomEvent<HTMLDashListItemElement[]>` |
 
 
 ----------------------------------------------

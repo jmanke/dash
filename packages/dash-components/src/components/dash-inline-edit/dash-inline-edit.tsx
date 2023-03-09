@@ -152,7 +152,7 @@ export class DashInlineEdit {
           disabled={this.disabled}
           onClick={this.switchToInputMode.bind(this)}
         >
-          {this.value}
+          <div class='input-value'>{this.value}</div>
         </dash-button>
 
         <dash-input

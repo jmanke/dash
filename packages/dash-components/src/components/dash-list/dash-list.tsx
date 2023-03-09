@@ -104,6 +104,16 @@ export class DashList {
    */
   @Event({ eventName: 'dashListItemsReordered' }) listItemsReordered: EventEmitter<HTMLDashListItemElement[]>;
 
+  /**
+   * Emitted when the list items start to be reordered
+   */
+  @Event({ eventName: 'dashListDragStart' }) reorderStarted: EventEmitter<void>;
+
+  /**
+   * Emitted when the list items stop being reordered
+   */
+  @Event({ eventName: 'dashListDragEnd' }) reorderEnded: EventEmitter<void>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -128,6 +138,8 @@ export class DashList {
     if (!this.listItems?.length) {
       return;
     }
+
+    this.reorderStarted.emit();
 
     if (e.detail instanceof PointerEvent) {
       this.startPointerDrag(e.detail, e.target as HTMLDashListItemElement);
@@ -154,6 +166,7 @@ export class DashList {
     sortable.onDragEnd = ({ orderChanged }) => {
       this.dragging = false;
       item.style.removeProperty('z-index');
+      this.reorderEnded.emit();
 
       if (orderChanged) {
         this.updateChildProps();
@@ -186,6 +199,7 @@ export class DashList {
       () => {
         this.dragging = false;
         item.isDragging = false;
+        this.reorderEnded.emit();
         item.removeEventListener('dashInternalListItemDragMoveUp', moveUp);
         item.removeEventListener('dashInternalListItemDragMoveDown', moveDown);
         const { orderChanged, items } = sortable.endDrag();

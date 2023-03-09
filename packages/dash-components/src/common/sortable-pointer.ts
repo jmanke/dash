@@ -14,6 +14,7 @@ export class SortablePointer extends Sortable {
    */
   onDragEnd: (result: DragEnd) => void;
 
+  /** Offset of pointer when dragging starts */
   private pointerOffset = { x: 0, y: 0 };
 
   private performDragCb: (e: PointerEvent | MouseEvent) => void;
