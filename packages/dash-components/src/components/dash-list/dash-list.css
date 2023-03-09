@@ -4,9 +4,11 @@
   display: block;
 }
 
-.container {
+:host([max-items]) {
   overflow: auto;
+}
 
+.container {
   &.dragging {
     ::slotted(dash-list-item) {
       transition: transform var(--dash-transition-time-fast) ease-out;

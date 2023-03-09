@@ -98,7 +98,9 @@ body {
   --dash-transition-time-default: 250ms;
 
   /* focus outline */
-  --dash-focus-outline-max-offset: 3px;
+  --dash-focus-outline-offset-0: 1px;
+  --dash-focus-outline-offset-50: 3px;
+  --dash-focus-outline-offset-100: 1px;
 
   @media (prefers-reduced-motion) {
     --dash-transition-time-fast: 0ms;
@@ -182,7 +184,6 @@ body {
   /* outline */
   --dash-focus-outline-thin: 1px solid var(--dash-brand);
   --dash-focus-outline: 2px solid var(--dash-brand);
-  --dash-focus-outline-offset: 1px;
 
   /* colors */
   --dash-color-red: #af6566;

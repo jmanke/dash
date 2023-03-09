@@ -85,6 +85,7 @@ graph TD;
   hellodash-label-select --> dash-filter
   hellodash-label-select --> hellodash-label-color-picker
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-color-swatch --> dash-icon-button
   dash-color-swatch --> dash-icon
   dash-drill-menu --> dash-icon-button

@@ -1,17 +1,17 @@
 .focus-outline {
   animation: focusanim var(--dash-transition-time-fast);
   outline: var(--dash-focus-outline);
-  outline-offset: var(--dash-focus-outline-offset);
+  outline-offset: var(--dash-focus-outline-offset-100);
 }
 
 @keyframes focusanim {
   0% {
-    outline-offset: var(--dash-focus-outline-offset-thin);
+    outline-offset: var(--dash-focus-outline-offset-0);
   }
   50% {
-    outline-offset: var(--dash-focus-outline-max-offset);
+    outline-offset: var(--dash-focus-outline-offset-50);
   }
   100% {
-    outline-offset: var(--dash-focus-outline-offset);
+    outline-offset: var(--dash-focus-outline-offset-100);
   }
 }

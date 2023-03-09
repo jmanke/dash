@@ -1,4 +1,5 @@
 import { Modal } from '@didyoumeantoast/dash-components';
+import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Label } from '@didyoumeantoast/hellodash-models';
 import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 
@@ -30,6 +31,8 @@ export class HellodashEditLabels implements Modal {
   }
 
   @State() canAddLabel: boolean;
+
+  @State() areLabelsReordering: boolean;
 
   //#endregion
 
@@ -137,7 +140,14 @@ export class HellodashEditLabels implements Modal {
           {this.canAddLabel && <dash-tooltip target={this.addLabelButton} text='Add label' placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>}
         </form>
 
-        <dash-list class='labels-container' selection-mode='no-selection' drag-enabled onDashListItemsReordered={this.itemsSorted.bind(this)}>
+        <dash-list
+          class={spaceConcat('labels-container', this.areLabelsReordering && 'reordering')}
+          selection-mode='no-selection'
+          drag-enabled
+          onDashListItemsReordered={this.itemsSorted.bind(this)}
+          onDashListDragStart={() => (this.areLabelsReordering = true)}
+          onDashListDragEnd={() => (this.areLabelsReordering = false)}
+        >
           {this.labels.map(label => (
             <dash-list-item key={label.id} style={{ '--dash-list-item-background-color': 'var(--dash-background-2)' }} value={label}>
               <hellodash-label-edit

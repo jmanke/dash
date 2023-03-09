@@ -72,6 +72,7 @@ graph TD;
   dash-input --> dash-icon
   dash-input --> dash-icon-button
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   hellodash-label-edit --> dash-dropdown
   hellodash-label-edit --> dash-color-swatch
   hellodash-label-edit --> hellodash-label-color-picker
