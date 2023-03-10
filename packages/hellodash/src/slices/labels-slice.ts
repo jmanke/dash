@@ -71,8 +71,7 @@ export const createLabel = createAsyncThunk('labels/createLabel', async (label: 
     ...label,
     sortOrder,
   } as Label;
-  const id = await createLabelApi(sortedLabel);
-  const newLabel = (await fetchLabel(id)) as Label;
+  const newLabel = await createLabelApi(sortedLabel);
 
   if (newLabel) {
     dispatch(addLabel(newLabel));
