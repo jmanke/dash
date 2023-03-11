@@ -16,7 +16,7 @@ importers:
   packages/dash-components:
     specifiers:
       '@babel/core': ^7.19.3
-      '@didyoumeantoast/component-forge': ^0.6.0
+      '@didyoumeantoast/component-forge': ^0.6.2
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@popperjs/core': ^2.11.5
       '@stencil/core': ^3.0.0
@@ -49,7 +49,7 @@ importers:
       lodash: 4.17.21
     devDependencies:
       '@babel/core': 7.20.5
-      '@didyoumeantoast/component-forge': 0.6.0
+      '@didyoumeantoast/component-forge': 0.6.2
       '@stencil/postcss': 2.1.0_@stencil+core@3.0.0
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.191
@@ -67,9 +67,6 @@ importers:
       rollup: 1.20.0
       rollup-plugin-dotenv: 0.3.0_rollup@1.20.0
       webpack: 5.75.0
-
-  packages/dash-components/dist/loader:
-    specifiers: {}
 
   packages/dash-components/loader:
     specifiers: {}
@@ -709,8 +706,8 @@ packages:
       esbuild: 0.15.17
     dev: true
 
-  /@didyoumeantoast/component-forge/0.6.0:
-    resolution: {integrity: sha512-IOR+9Wla9axAP+EgxXWL6xFeNM3z1kqAV/FPVodVg+Ed59QXY6VUoUngh6z1NBf5FWs+0SB7BDOi/8cwb2srtA==}
+  /@didyoumeantoast/component-forge/0.6.2:
+    resolution: {integrity: sha512-CGiqrpzorDF7oR5p1nex9pkv648hH25WVRrkLjiDZ7NPA77nffPxANtFCdliNK2FsCccfv9+aXOnkZ9eqXJ3HQ==}
     engines: {node: 18.x, pnpm: 7.x}
     hasBin: true
     dependencies:
