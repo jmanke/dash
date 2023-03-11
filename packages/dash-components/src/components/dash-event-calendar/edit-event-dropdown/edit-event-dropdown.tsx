@@ -6,6 +6,7 @@ interface EditEventDropdownProps {
   active: boolean;
   event: CalendarEvent | CalendarEventInternal;
   onClose?: () => void;
+  onCancel?: () => void;
   onEventUpdate?: (event: CalendarEvent | CalendarEventInternal) => void;
 }
 
@@ -23,7 +24,7 @@ const headerStyle = {
   marginBlockEnd: 'var(--dash-spacing-3)',
 };
 
-export const EditEventDropdown: FunctionalComponent<EditEventDropdownProps> = ({ target, active, event, onClose, onEventUpdate }) => {
+export const EditEventDropdown: FunctionalComponent<EditEventDropdownProps> = ({ target, active, event, onClose, onCancel, onEventUpdate }) => {
   return (
     <dash-popover class='edit-event-dropdown' target={target} active={active} placement='left-start' onDashPopoverClose={onClose} stayInView autoClose>
       <div class='edit-event-popover' style={editEventPopoverStyle}>
@@ -35,7 +36,7 @@ export const EditEventDropdown: FunctionalComponent<EditEventDropdownProps> = ({
             onEventUpdate?.(e.target.event);
             onClose?.();
           }}
-          onDashEventCalendarEditEventEventCancel={onClose}
+          onDashEventCalendarEditEventEventCancel={onCancel}
         ></dash-event-calendar-edit-event>
       </div>
     </dash-popover>

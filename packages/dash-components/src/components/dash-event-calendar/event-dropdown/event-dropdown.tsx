@@ -20,13 +20,26 @@ const eventPopoverStyle = {
   maxWidth: '80vw',
 };
 
-const headerStyle = {
+const headerWrapperStyle = {
   display: 'flex',
+  flex: '1 1 auto',
   alignItems: 'center',
-  justifyContent: 'space-between',
-  columnGap: 'var(--dash-spacing-3)',
+  minWidth: '0',
+};
+
+const headerStyle = {
   fontSize: 'var(--dash-font-size-3)',
-  marginBlockEnd: 'var(--dash-spacing-3)',
+  whiteSpace: 'nowrap',
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
+};
+
+const actionBarStyle = {
+  display: 'flex',
+  flex: '1 1 auto',
+  columnGap: 'var(--dash-spacing-half)',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
 };
 
 export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target, active, event, onEdit, onClose, onDelete }) => {
@@ -34,13 +47,18 @@ export const EventDropdown: FunctionalComponent<EventDropdownProps> = ({ target,
   return (
     <dash-popover target={target} active={active} autoClose={true} placement='left-start' onDashPopoverClose={onClose} stayInView={true}>
       <div class='event-popover' style={eventPopoverStyle}>
-        <div style={{ display: 'flex', justifyContent: 'flex-end', marginBlockEnd: 'var(--dash-spacing-1)' }}>
-          <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='pencil-square' rounded onClick={onEdit}></dash-icon-button>
-          <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='trash3' rounded onClick={onDelete}></dash-icon-button>
-          <dash-icon-button icon='x' rounded onClick={onClose}></dash-icon-button>
-        </div>
-        <div class='event-header' style={headerStyle}>
-          <div>{event?.name}</div>
+        <div style={{ display: 'flex', marginBlockEnd: 'var(--dash-spacing-3)' }}>
+          <div class='event-header-wrapper' style={headerWrapperStyle}>
+            <div class='event-header' style={headerStyle} title={event?.name}>
+              {event?.name}
+            </div>
+          </div>
+
+          <div style={actionBarStyle}>
+            <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='pencil-square' rounded onClick={onEdit}></dash-icon-button>
+            <dash-icon-button style={{ '--dash-icon-button-padding': 'var(--dash-spacing-2)' }} icon='trash3' rounded onClick={onDelete}></dash-icon-button>
+            <dash-icon-button icon='x' rounded onClick={onClose}></dash-icon-button>
+          </div>
         </div>
         <div style={{ fontSize: 'var(--dash-font-size-0)' }}>
           <div>

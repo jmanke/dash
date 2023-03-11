@@ -1,6 +1,6 @@
-import { Component, Host, h, State, Watch, Prop, Event, EventEmitter, Element } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 import { processEventLayouts } from '../../../common/event-calendar';
-import { CalendarEventInternal, CalendarEvent } from '../../../interfaces/calendar-event';
+import { CalendarEvent, CalendarEventInternal } from '../../../interfaces/calendar-event';
 import { EventLayout } from '../../../interfaces/event-layout';
 import { addDuration, formatDate, isSameDay, minusDuration, startOfDay, toLocaleString } from '../../../utils/date-time';
 import { EditEventDropdown } from '../edit-event-dropdown/edit-event-dropdown';
@@ -252,6 +252,10 @@ export class DashEventCalendarDay {
               event={this.selectedEditingEvent?.event}
               active={!!this.selectedEditingEvent}
               onClose={() => (this.selectedEditingEvent = null)}
+              onCancel={() => {
+                this.selectedEvent = this.selectedEditingEvent;
+                this.selectedEditingEvent = null;
+              }}
               onEventUpdate={e => console.log(e)}
             ></EditEventDropdown>
           </div>
