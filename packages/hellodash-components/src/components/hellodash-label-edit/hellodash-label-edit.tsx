@@ -1,6 +1,6 @@
-import { Color, DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components';
+import { DashDropdownCustomEvent, DashInlineEditCustomEvent } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
-import { Component, Event, EventEmitter, h, Listen, Prop } from '@stencil/core';
+import { Component, Event, EventEmitter, h, Listen, Prop, State } from '@stencil/core';
 
 @Component({
   tag: 'hellodash-label-edit',
@@ -19,11 +19,16 @@ export class HellodashLabelEdit {
   //#endregion
 
   //#region @State
+
+  @State() dropdownOpen: boolean;
+
   //#endregion
 
   //#region @Prop
 
   @Prop() label: Label;
+
+  @Prop() allLabels: Label[];
 
   //#endregion
 
@@ -40,8 +45,12 @@ export class HellodashLabelEdit {
 
   //#region Listeners
 
+  /**
+   * Handles color picker color changed event
+   * @param e Color picker color changed event
+   */
   @Listen('hellodashLabelColorPickerColorChanged')
-  colorPicked(e: CustomEvent<Color>) {
+  colorPicked(e: CustomEvent<string>) {
     this.labelUpdated.emit({
       ...this.label,
       color: e.detail,
@@ -56,12 +65,22 @@ export class HellodashLabelEdit {
 
   //#region Local methods
 
+  /**
+   * Handles dropdown visible changed event
+   * @param e Dropdown visible changed event
+   */
   dropdownVisibleChanged(e: DashDropdownCustomEvent<void>) {
     if (e.target.open) {
       this.confirmDeleteButton?.setFocus();
     }
+
+    this.dropdownOpen = e.target.open;
   }
 
+  /**
+   * Handles label text changed event
+   * @param e Label text changed event
+   */
   updateLabelText(e: DashInlineEditCustomEvent<void>) {
     const value = e.target.value;
     if (!value || !value.length) {
@@ -80,13 +99,14 @@ export class HellodashLabelEdit {
         <dash-dropdown
           ref={element => (this.labelColorPickerDropdown = element)}
           placement='bottom'
+          open={this.dropdownOpen}
           placementStrategy='fixed'
           onDashDropdownOpenChange={this.dropdownVisibleChanged.bind(this)}
           autoClose
         >
           <dash-color-swatch slot='dropdown-trigger' color={this.label.color}></dash-color-swatch>
 
-          <hellodash-label-color-picker color={this.label.color as Color}></hellodash-label-color-picker>
+          {this.dropdownOpen && <hellodash-label-color-picker color={this.label.color}></hellodash-label-color-picker>}
         </dash-dropdown>
         <dash-inline-edit value={this.label.text} onDashInlineEditValueChanged={this.updateLabelText.bind(this)}></dash-inline-edit>
 

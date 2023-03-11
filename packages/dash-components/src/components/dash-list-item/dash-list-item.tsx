@@ -29,6 +29,11 @@ export class DashListItem implements Focusable {
    */
   @State() isActive: boolean;
 
+  /**
+   * When `true`, list item visually indicates it's focused. CSS doesn't seem to work here due to the shadow DOM interaction.
+   */
+  @State() gripFocused: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -39,6 +44,12 @@ export class DashListItem implements Focusable {
    * @default 'single'
    */
   @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
+
+  /**
+   * Whether the list item can be deselected
+   * @default false
+   */
+  @Prop({ reflect: true }) disableDeselect: boolean;
 
   /**
    * Size of the list-item
@@ -55,8 +66,27 @@ export class DashListItem implements Focusable {
 
   /**
    * When `true`, interaction is disabled
+   * @default false
    */
   @Prop({ reflect: true }) disabled: boolean;
+
+  /**
+   * Whether the list item can be dragged
+   * @default false
+   */
+  @Prop({ reflect: true }) dragEnabled: boolean;
+
+  /**
+   * When `true`, list-item is being dragged. Used for styling purposes
+   * @internal
+   * @default false
+   */
+  @Prop({ reflect: true }) internalIsDragging: boolean;
+
+  /**
+   * Value of the list-item
+   */
+  @Prop() value: any;
 
   //#endregion
 
@@ -78,6 +108,30 @@ export class DashListItem implements Focusable {
    * @internal
    */
   @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<void>;
+
+  /**
+   * Emitted when list-item is starting to be dragged
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemStartDrag', bubbles: true }) startedDrag: EventEmitter<PointerEvent | KeyboardEvent>;
+
+  /**
+   * Emitted when list-item drag moves up
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemDragMoveUp', bubbles: true }) dragMovedUp: EventEmitter<KeyboardEvent>;
+
+  /**
+   * Emitted when list-item drag moves down
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemDragMoveDown', bubbles: true }) dragMovedDown: EventEmitter<KeyboardEvent>;
+
+  /**
+   * Emitted when list-item drag moves down
+   * @internal
+   */
+  @Event({ eventName: 'dashInternalListItemDragEnd', bubbles: true }) endedDrag: EventEmitter<KeyboardEvent>;
 
   //#endregion
 
@@ -114,8 +168,12 @@ export class DashListItem implements Focusable {
    * Handles mouse click
    * @param e - mouse click event
    */
-  click(e: MouseEvent) {
-    if (this.isClick(e) && !this.disabled) {
+  click(e: MouseEvent | KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
+    if (this.isClick(e) && !this.disabled && !(this.disableDeselect && this.selected)) {
       this.selected = !this.selected;
       this.selectedChanged.emit();
     }
@@ -126,16 +184,16 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyDown(e: KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     const sourceNode = e.composedPath()[0];
     if (sourceNode !== this.element && !contains(this.listItem, sourceNode as HTMLElement)) {
       return;
     }
 
-    if (this.isClick(e) && !this.disabled) {
-      this.updateIsActive(true);
-      this.selected = !this.selected;
-      this.selectedChanged.emit();
-    }
+    this.click(e);
 
     if (e.code === 'ArrowDown' || e.code === 'ArrowUp' || e.code === 'Space') {
       e.preventDefault();
@@ -154,6 +212,10 @@ export class DashListItem implements Focusable {
    * @param e - keyboard event
    */
   keyUp(e: KeyboardEvent) {
+    if (this.selectionMode === 'no-selection') {
+      return;
+    }
+
     if (this.isClick(e)) {
       this.updateIsActive(false);
     }
@@ -177,6 +239,44 @@ export class DashListItem implements Focusable {
    * @param e - Event to top propagating
    */
   stopPropagation(e: Event) {
+    e.stopPropagation();
+  }
+
+  /**
+   * Starts drag, emits internal event
+   */
+  startDrag(e: PointerEvent) {
+    if (!this.dragEnabled) {
+      return;
+    }
+
+    this.startedDrag.emit(e);
+  }
+
+  gripKeyDown(e: KeyboardEvent) {
+    switch (e.code) {
+      case 'ArrowUp':
+        this.dragMovedUp.emit(e);
+        e.preventDefault();
+        break;
+      case 'ArrowDown':
+        this.dragMovedDown.emit(e);
+        e.preventDefault();
+        break;
+      case 'Space':
+        this.startedDrag.emit(e);
+        break;
+    }
+
+    e.stopPropagation();
+  }
+
+  gripKeyUp(e: KeyboardEvent) {
+    if (e.code === 'Space') {
+      this.endedDrag.emit(e);
+      (e.target as HTMLDashIconButtonElement).setFocus();
+    }
+
     e.stopPropagation();
   }
 
@@ -207,10 +307,38 @@ export class DashListItem implements Focusable {
           onPointerLeave={this.updateIsActive.bind(this, false)}
           onFocusout={this.updateIsActive.bind(this, false)}
         >
-          <slot name='actions-start'></slot>
+          {this.dragEnabled && (
+            <dash-icon-button
+              class={spaceConcat('grip', this.gripFocused ? 'grip-focused' : undefined)}
+              icon='grip-vertical'
+              scale='s'
+              onKeyDown={this.gripKeyDown.bind(this)}
+              onKeyUp={this.gripKeyUp.bind(this)}
+              onClick={this.stopPropagation.bind(this)}
+              onPointerLeave={this.stopPropagation.bind(this)}
+              onPointerDown={e => {
+                this.startDrag(e);
+              }}
+              onFocusin={() => (this.gripFocused = true)}
+              onFocusout={() => (this.gripFocused = false)}
+            ></dash-icon-button>
+          )}
 
           <div class='list-item' ref={e => (this.listItem = e)}>
-            {this.selectionMode !== 'none' && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+            {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
+
+            <div
+              class='actions-start-wrapper'
+              onKeyDown={this.stopPropagation.bind(this)}
+              onKeyUp={this.stopPropagation.bind(this)}
+              onClick={this.stopPropagation.bind(this)}
+              onPointerDown={this.stopPropagation.bind(this)}
+              onPointerUp={this.stopPropagation.bind(this)}
+              onPointerLeave={this.stopPropagation.bind(this)}
+            >
+              <slot name='actions-start'></slot>
+            </div>
+
             <slot></slot>
           </div>
 

@@ -23,7 +23,7 @@ export const chipDefinition = {
   args: {
     heading: 'Chip',
     dismissTooltipText: 'Dismiss',
-    color: 'red',
+    color: '#af6566',
     selectable: true,
     dismissible: true,
   },

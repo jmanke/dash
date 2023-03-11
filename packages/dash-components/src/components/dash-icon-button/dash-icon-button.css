@@ -5,28 +5,24 @@
   display: inline-block;
   --dash-icon-button-padding: var(--dash-spacing-1);
   --dash-icon-color: var(--dash-text-color-1);
+  --dash-icon-button-height: var(--dash-spacing-8);
+  --dash-icon-button-width: var(--dash-spacing-8);
   line-height: 1;
 }
 
 :host([scale='s']) {
-  button {
-    width: var(--dash-spacing-6);
-    height: var(--dash-spacing-6);
-  }
+  --dash-icon-button-height: var(--dash-spacing-6);
+  --dash-icon-button-width: var(--dash-spacing-6);
 }
 
 :host([scale='l']) {
-  button {
-    width: var(--dash-spacing-12);
-    height: var(--dash-spacing-12);
-  }
+  --dash-icon-button-height: var(--dash-spacing-12);
+  --dash-icon-button-width: var(--dash-spacing-12);
 }
 
 :host([scale='xl']) {
-  button {
-    width: var(--dash-spacing-16);
-    height: var(--dash-spacing-16);
-  }
+  --dash-icon-button-height: var(--dash-spacing-16);
+  --dash-icon-button-width: var(--dash-spacing-16);
 }
 
 :host([loading]) {
@@ -37,9 +33,11 @@
 }
 
 :host([disabled]) {
+  --dash-icon-color: var(--dash-text-color-3);
+
   button {
     cursor: initial;
-    color: var(--dash-text-color-3);
+    filter: brightness(0.9);
   }
 }
 
@@ -77,8 +75,8 @@ button {
   border-color: transparent;
   border-width: 1px;
   background-color: transparent;
-  width: var(--dash-spacing-8);
-  height: var(--dash-spacing-8);
+  width: var(--dash-icon-button-width);
+  height: var(--dash-icon-button-height);
 }
 
 dash-icon {

@@ -101,8 +101,7 @@
       flex-grow: 1;
       display: flex;
       flex-direction: column;
-      padding-left: var(--dash-modal-content-padding-x);
-      padding-right: var(--dash-modal-content-padding-x);
+      padding: var(--dash-modal-content-padding-x) var(--dash-modal-content-padding-x) 0 var(--dash-modal-content-padding-x);
       overflow: hidden;
     }
 

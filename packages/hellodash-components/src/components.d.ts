@@ -6,23 +6,51 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { Auth0Client } from "@auth0/auth0-spa-js";
-import { Color, Status } from "@didyoumeantoast/dash-components";
+import { Status } from "@didyoumeantoast/dash-components";
 import { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 import { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export { Auth0Client } from "@auth0/auth0-spa-js";
-export { Color, Status } from "@didyoumeantoast/dash-components";
+export { Status } from "@didyoumeantoast/dash-components";
 export { Label, Note, Theme, User } from "@didyoumeantoast/hellodash-models";
 export { NoteCardMode } from "./components/hellodash-note-card/hellodash-note-card";
 export namespace Components {
     interface HellodashAuth0Provider {
+        /**
+          * Auth0 client
+         */
         "authClient": Auth0Client;
     }
     interface HellodashConfirm {
+        /**
+          * Modal content
+          * @required
+         */
         "cancelText": string;
+        /**
+          * Closes the modal
+          * @returns Promise for closing the modal
+         */
         "close": () => Promise<void>;
+        /**
+          * Status of confirm button
+          * @default 'error'
+         */
         "confirmButtonStatus": Status;
+        /**
+          * Confirm button text
+          * @required
+         */
         "confirmText": string;
+        /**
+          * Modal heading
+          * @required
+         */
         "heading": string;
+        /**
+          * When `true`, the modal is open
+          * @default false
+         */
+        "open": boolean;
     }
     interface HellodashEditLabels {
         "close": () => Promise<void>;
@@ -30,15 +58,31 @@ export namespace Components {
         "labels": Label[];
     }
     interface HellodashLabelColorPicker {
-        "color": Color;
+        /**
+          * Color as hex value
+         */
+        "color": string;
     }
     interface HellodashLabelEdit {
+        "allLabels": Label[];
         "label": Label;
     }
     interface HellodashLabelSelect {
+        /**
+          * All labels to choose from
+         */
         "allLabels": Label[];
+        /**
+          * When true, the dropdown will be focused on open
+         */
         "autoFocus": boolean;
+        /**
+          * When true, the user can create new labels
+         */
         "canCreateLabel": boolean;
+        /**
+          * Labels to display
+         */
         "labels": Label[];
     }
     interface HellodashModalNote {
@@ -48,15 +92,35 @@ export namespace Components {
         "loading": boolean;
         "mobileView": boolean;
         "note": Note;
+        /**
+          * When `true`, the modal is open
+         */
+        "open": boolean;
         "theme": Theme;
     }
     interface HellodashNavBar {
+        /**
+          * Sets focus on the menu button
+         */
         "setFocus": () => Promise<void>;
     }
     interface HellodashNoteCard {
+        /**
+          * Mode of the note card
+          * @default 'edit'
+         */
         "mode": NoteCardMode;
+        /**
+          * Note
+         */
         "note": Note;
+        /**
+          * Labels for note
+         */
         "noteLabels": Label[];
+        /**
+          * Whether the note card is selected
+         */
         "selected": boolean;
     }
     interface HellodashNoteEditDropdown {
@@ -67,21 +131,84 @@ export namespace Components {
         "user": User;
     }
     interface HellodashTextEditor {
+        /**
+          * The content of the editor
+         */
         "content": string;
+        /**
+          * The debounce time in milliseconds for content changes
+          * @default 3000
+         */
         "debounce": number;
-        "deferLoadTime"?: number;
+        /**
+          * Returns the editor content
+          * @returns the editor content
+         */
         "getContent": () => Promise<string>;
+        /**
+          * Returns the editor content as text
+          * @returns the editor content as text
+         */
         "getTextContent": () => Promise<string>;
+        /**
+          * The heading of the editor
+         */
         "heading": string;
+        /**
+          * Returns true if the editor is dirty
+          * @returns true if the editor is dirty
+         */
         "isEditorDirty": () => Promise<boolean>;
+        /**
+          * When `true`, the editor is loading and will show a loading indicator
+         */
         "loading": boolean;
+        /**
+          * When `true`, the editor will be readonly
+         */
         "readonly": boolean;
+        /**
+          * When `true`, the editor will resize to fit the content
+          * @default true
+         */
         "resize"?: boolean;
+        /**
+          * Saves the editor content
+          * @param emitEvent whether to emit the contentChanged event
+         */
         "save": (emitEvent?: boolean) => Promise<void>;
+        /**
+          * Selects the title input
+         */
         "selectTitle": () => Promise<void>;
+        /**
+          * Sets the editor content
+          * @param content the content to set
+         */
+        "setContent": (content: string) => Promise<void>;
+        /**
+          * Focuses the editor
+         */
         "setFocus": () => Promise<void>;
+        /**
+          * Sets the editor heading
+          * @param heading the heading to set
+         */
+        "setHeading": (heading: string) => Promise<void>;
+        /**
+          * When `true`, the editor will show the fullscreen button
+          * @default false
+         */
         "showFullscreen": boolean;
+        /**
+          * When `true`, the editor will show the title input
+          * @default false
+         */
         "showTitleInput": boolean;
+        /**
+          * The theme of the editor
+          * @default 'dark'
+         */
         "theme": Theme;
     }
 }
@@ -223,18 +350,42 @@ declare global {
 }
 declare namespace LocalJSX {
     interface HellodashAuth0Provider {
+        /**
+          * Auth0 client
+         */
         "authClient"?: Auth0Client;
         "onHellodashAuth0ProviderRefreshToken"?: (event: HellodashAuth0ProviderCustomEvent<void>) => void;
         "onHellodashAuth0ProviderSignedIn"?: (event: HellodashAuth0ProviderCustomEvent<void>) => void;
     }
     interface HellodashConfirm {
+        /**
+          * Modal content
+          * @required
+         */
         "cancelText"?: string;
+        /**
+          * Status of confirm button
+          * @default 'error'
+         */
         "confirmButtonStatus"?: Status;
+        /**
+          * Confirm button text
+          * @required
+         */
         "confirmText"?: string;
+        /**
+          * Modal heading
+          * @required
+         */
         "heading"?: string;
         "onDashModalBeforeClose"?: (event: HellodashConfirmCustomEvent<any>) => void;
         "onDashModalClosed"?: (event: HellodashConfirmCustomEvent<any>) => void;
         "onHellodashConfirmConfirmed"?: (event: HellodashConfirmCustomEvent<any>) => void;
+        /**
+          * When `true`, the modal is open
+          * @default false
+         */
+        "open"?: boolean;
     }
     interface HellodashEditLabels {
         "creatingLabel"?: boolean;
@@ -243,21 +394,38 @@ declare namespace LocalJSX {
         "onDashModalClosed"?: (event: HellodashEditLabelsCustomEvent<any>) => void;
         "onHellodashEditLabelsCreateLabel"?: (event: HellodashEditLabelsCustomEvent<Pick<Label, 'color' | 'text'>>) => void;
         "onHellodashEditLabelsDeleteLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
+        "onHellodashEditLabelsLabelsReordered"?: (event: HellodashEditLabelsCustomEvent<Label[]>) => void;
         "onHellodashEditLabelsUpdateLabel"?: (event: HellodashEditLabelsCustomEvent<Label>) => void;
     }
     interface HellodashLabelColorPicker {
-        "color"?: Color;
-        "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<Color>) => void;
+        /**
+          * Color as hex value
+         */
+        "color"?: string;
+        "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<string>) => void;
     }
     interface HellodashLabelEdit {
+        "allLabels"?: Label[];
         "label"?: Label;
         "onHellodashLabelEditLabelDeleted"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
         "onHellodashLabelEditLabelUpdated"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
     }
     interface HellodashLabelSelect {
+        /**
+          * All labels to choose from
+         */
         "allLabels"?: Label[];
+        /**
+          * When true, the dropdown will be focused on open
+         */
         "autoFocus"?: boolean;
+        /**
+          * When true, the user can create new labels
+         */
         "canCreateLabel"?: boolean;
+        /**
+          * Labels to display
+         */
         "labels"?: Label[];
         "onHellodashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
         "onHellodashLabelSelectLabelCreated"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;
@@ -275,16 +443,33 @@ declare namespace LocalJSX {
         "onHellodashModalNoteLabelCreated"?: (event: HellodashModalNoteCustomEvent<Label>) => void;
         "onHellodashModalNoteLabelUpdated"?: (event: HellodashModalNoteCustomEvent<Label>) => void;
         "onHellodashModalNoteUpdateNote"?: (event: HellodashModalNoteCustomEvent<Note>) => void;
+        /**
+          * When `true`, the modal is open
+         */
+        "open"?: boolean;
         "theme"?: Theme;
     }
     interface HellodashNavBar {
         "onHellodashMenuToggled"?: (event: HellodashNavBarCustomEvent<any>) => void;
     }
     interface HellodashNoteCard {
+        /**
+          * Mode of the note card
+          * @default 'edit'
+         */
         "mode"?: NoteCardMode;
+        /**
+          * Note
+         */
         "note"?: Note;
+        /**
+          * Labels for note
+         */
         "noteLabels"?: Label[];
         "onHellodashNoteCardNoteSelected"?: (event: HellodashNoteCardCustomEvent<void>) => void;
+        /**
+          * Whether the note card is selected
+         */
         "selected"?: boolean;
     }
     interface HellodashNoteEditDropdown {
@@ -303,10 +488,22 @@ declare namespace LocalJSX {
         "user"?: User;
     }
     interface HellodashTextEditor {
+        /**
+          * The content of the editor
+         */
         "content"?: string;
+        /**
+          * The debounce time in milliseconds for content changes
+          * @default 3000
+         */
         "debounce"?: number;
-        "deferLoadTime"?: number;
+        /**
+          * The heading of the editor
+         */
         "heading"?: string;
+        /**
+          * When `true`, the editor is loading and will show a loading indicator
+         */
         "loading"?: boolean;
         "onHellodashTextEditorBeforeUnload"?: (event: HellodashTextEditorCustomEvent<Promise<unknown>[]>) => void;
         "onHellodashTextEditorContentChanged"?: (event: HellodashTextEditorCustomEvent<string>) => void;
@@ -316,10 +513,29 @@ declare namespace LocalJSX {
         "onHellodashTextEditorIsDirty"?: (event: HellodashTextEditorCustomEvent<any>) => void;
         "onHellodashTextEditorNodeChanged"?: (event: HellodashTextEditorCustomEvent<object>) => void;
         "onHellodashTextEditorUnload"?: (event: HellodashTextEditorCustomEvent<any>) => void;
+        /**
+          * When `true`, the editor will be readonly
+         */
         "readonly"?: boolean;
+        /**
+          * When `true`, the editor will resize to fit the content
+          * @default true
+         */
         "resize"?: boolean;
+        /**
+          * When `true`, the editor will show the fullscreen button
+          * @default false
+         */
         "showFullscreen"?: boolean;
+        /**
+          * When `true`, the editor will show the title input
+          * @default false
+         */
         "showTitleInput"?: boolean;
+        /**
+          * The theme of the editor
+          * @default 'dark'
+         */
         "theme"?: Theme;
     }
     interface IntrinsicElements {

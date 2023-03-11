@@ -207,6 +207,14 @@ function updateSortBy(v: SortOption) {
   sortBy.value = v;
 }
 
+function notesModalClosed() {
+  if (isEmpty(router.options.history.state.back)) {
+    return;
+  }
+
+  router.back();
+}
+
 //#endregion
 </script>
 
@@ -218,7 +226,7 @@ function updateSortBy(v: SortOption) {
         <dash-dropdown class="sort-dropdown" placement="bottom-end" auto-close>
           <dash-icon-button slot="dropdown-trigger" icon="filter" scale="l" tooltip-text="Filter notes" tooltip-placement="right"></dash-icon-button>
 
-          <dash-list selection-mode="single">
+          <dash-list selection-mode="single" disable-deselect>
             <dash-list-item :selected="sortBy === 'last-modified'" @dashListItemSelectedChanged="() => updateSortBy('last-modified')"> Sort by last modified </dash-list-item>
             <dash-list-item :selected="sortBy === 'date'" @dashListItemSelectedChanged="() => updateSortBy('date')"> Sort by date created </dash-list-item>
             <dash-list-item :selected="sortBy === 'title'" @dashListItemSelectedChanged="updateSortBy('title')"> Sort by title </dash-list-item>
@@ -247,7 +255,7 @@ function updateSortBy(v: SortOption) {
             @hellodashNoteEditLabelRemoved="(e: any) => dispatch(removeLabelFromNote({ note, label: e.detail }))"
             @hellodashNoteEditLabelUpdated="(e: any) => dispatch(updateLabel(e.detail))"
             @hellodashNoteEditLabelCreated="(e: any) => createLabelForNote(e.detail, note)"
-            @focusin="() => (focusedNote = note)"
+            @hellodashNoteEditDropdownVisibleChanged="(e: any) => focusedNote = e.detail ? note : undefined"
           ></hellodash-note-edit-dropdown>
         </hellodash-note-card>
       </dash-grid>
@@ -262,7 +270,7 @@ function updateSortBy(v: SortOption) {
   </dash-section>
 
   <hellodash-modal-note
-    v-if="selectedNote || isLoadingNote"
+    :open="!!selectedNote || isLoadingNote"
     :note="selectedNote"
     :loading="isLoadingNote"
     :allLabels="labels"
@@ -275,7 +283,7 @@ function updateSortBy(v: SortOption) {
     "
     @hellodashModalNoteLabelUpdated="(e: any) => dispatch(updateLabel(e.detail))"
     @hellodashModalNoteUpdateNote="(e: any) => dispatch(updateNote(e.detail))"
-    @dashModalClosed="router.back()"
+    @dashModalClosed="notesModalClosed"
   ></hellodash-modal-note>
 </template>
 
@@ -286,6 +294,10 @@ hellodash-nav-bar .theme-toggle {
 
 dash-card-icon {
   width: 100%;
+}
+
+hellodash-note-card {
+  height: 100%;
 }
 
 .notes-filter {

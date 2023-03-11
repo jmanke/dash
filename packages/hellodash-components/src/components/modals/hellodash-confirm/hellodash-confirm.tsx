@@ -22,12 +22,34 @@ export class HellodashConfirm implements Modal {
 
   //#region @Prop
 
+  /**
+   * When `true`, the modal is open
+   * @default false
+   */
+  @Prop({ reflect: true }) open: boolean;
+
+  /**
+   * Modal heading
+   * @required
+   */
   @Prop({ reflect: true }) heading: string;
 
+  /**
+   * Confirm button text
+   * @required
+   */
   @Prop({ reflect: true }) confirmText: string;
 
+  /**
+   * Modal content
+   * @required
+   */
   @Prop({ reflect: true }) cancelText: string;
 
+  /**
+   * Status of confirm button
+   * @default 'error'
+   */
   @Prop({ reflect: true }) confirmButtonStatus: Status = 'error';
 
   //#endregion
@@ -55,6 +77,10 @@ export class HellodashConfirm implements Modal {
 
   //#region @Method
 
+  /**
+   * Closes the modal
+   * @returns Promise for closing the modal
+   */
   @Method()
   async close() {
     return this.modal.close();
@@ -64,6 +90,9 @@ export class HellodashConfirm implements Modal {
 
   //#region Local methods
 
+  /**
+   * Confirms the modal
+   */
   confirm() {
     this.modalConfirmed.emit();
     this.close();
@@ -73,7 +102,14 @@ export class HellodashConfirm implements Modal {
 
   render() {
     return (
-      <dash-modal ref={element => (this.modal = element)} heading={this.heading ? this.heading : 'Are you sure?'} scale='s' hideCloseButton disableFullscreenMobileView open>
+      <dash-modal
+        ref={element => (this.modal = element)}
+        heading={this.heading ? this.heading : 'Are you sure?'}
+        scale='s'
+        hideCloseButton
+        disableFullscreenMobileView
+        open={this.open}
+      >
         <slot></slot>
 
         <div class='footer' slot='footer-end'>

@@ -7,12 +7,13 @@
 
 ## Properties
 
-| Property              | Attribute               | Description | Type                   | Default     |
-| --------------------- | ----------------------- | ----------- | ---------------------- | ----------- |
-| `cancelText`          | `cancel-text`           |             | `string`               | `undefined` |
-| `confirmButtonStatus` | `confirm-button-status` |             | `"error" \| "success"` | `'error'`   |
-| `confirmText`         | `confirm-text`          |             | `string`               | `undefined` |
-| `heading`             | `heading`               |             | `string`               | `undefined` |
+| Property              | Attribute               | Description                    | Type                   | Default     |
+| --------------------- | ----------------------- | ------------------------------ | ---------------------- | ----------- |
+| `cancelText`          | `cancel-text`           | Modal content                  | `string`               | `undefined` |
+| `confirmButtonStatus` | `confirm-button-status` | Status of confirm button       | `"error" \| "success"` | `'error'`   |
+| `confirmText`         | `confirm-text`          | Confirm button text            | `string`               | `undefined` |
+| `heading`             | `heading`               | Modal heading                  | `string`               | `undefined` |
+| `open`                | `open`                  | When `true`, the modal is open | `boolean`              | `undefined` |
 
 
 ## Events
@@ -28,13 +29,13 @@
 
 ### `close() => Promise<void>`
 
-
+Closes the modal
 
 #### Returns
 
 Type: `Promise<void>`
 
-
+Promise for closing the modal
 
 
 ## Dependencies

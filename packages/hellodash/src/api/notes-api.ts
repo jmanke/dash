@@ -29,7 +29,7 @@ export async function fetchNote(id: number, cancelationToken?: CancelationToken)
  * @returns id of the created note
  */
 export async function createNote(note: Note) {
-  return post<Note, number>(`${noteBaseUrl}`, note as Note);
+  return post<Note, Note>(`${noteBaseUrl}`, note as Note);
 }
 
 /**

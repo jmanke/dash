@@ -54,6 +54,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [dash-color-picker](../dash-color-picker)
  - [dash-date-picker](../dash-date-picker)
  - [dash-event-calendar-edit-event](../dash-event-calendar/dash-event-calendar-edit-event)
  - [dash-filter](../dash-filter)
@@ -74,6 +75,7 @@ graph TD;
   dash-icon-button --> dash-loader
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
+  dash-color-picker --> dash-input
   dash-date-picker --> dash-input
   dash-event-calendar-edit-event --> dash-input
   dash-filter --> dash-input

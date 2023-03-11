@@ -15,13 +15,14 @@
 
 ## Events
 
-| Event                            | Description | Type                                            |
-| -------------------------------- | ----------- | ----------------------------------------------- |
-| `dashModalBeforeClose`           |             | `CustomEvent<any>`                              |
-| `dashModalClosed`                |             | `CustomEvent<any>`                              |
-| `hellodashEditLabelsCreateLabel` |             | `CustomEvent<{ color: string; text: string; }>` |
-| `hellodashEditLabelsDeleteLabel` |             | `CustomEvent<Label>`                            |
-| `hellodashEditLabelsUpdateLabel` |             | `CustomEvent<Label>`                            |
+| Event                                | Description | Type                                            |
+| ------------------------------------ | ----------- | ----------------------------------------------- |
+| `dashModalBeforeClose`               |             | `CustomEvent<any>`                              |
+| `dashModalClosed`                    |             | `CustomEvent<any>`                              |
+| `hellodashEditLabelsCreateLabel`     |             | `CustomEvent<{ color: string; text: string; }>` |
+| `hellodashEditLabelsDeleteLabel`     |             | `CustomEvent<Label>`                            |
+| `hellodashEditLabelsLabelsReordered` |             | `CustomEvent<Label[]>`                          |
+| `hellodashEditLabelsUpdateLabel`     |             | `CustomEvent<Label>`                            |
 
 
 ## Methods
@@ -45,6 +46,8 @@ Type: `Promise<void>`
 - dash-input
 - dash-icon-button
 - dash-tooltip
+- dash-list
+- dash-list-item
 - [hellodash-label-edit](../../hellodash-label-edit)
 
 ### Graph
@@ -54,6 +57,8 @@ graph TD;
   hellodash-edit-labels --> dash-input
   hellodash-edit-labels --> dash-icon-button
   hellodash-edit-labels --> dash-tooltip
+  hellodash-edit-labels --> dash-list
+  hellodash-edit-labels --> dash-list-item
   hellodash-edit-labels --> hellodash-label-edit
   dash-modal --> dash-scrim
   dash-modal --> dash-focus-trap
@@ -66,6 +71,8 @@ graph TD;
   dash-button --> dash-icon
   dash-input --> dash-icon
   dash-input --> dash-icon-button
+  dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   hellodash-label-edit --> dash-dropdown
   hellodash-label-edit --> dash-color-swatch
   hellodash-label-edit --> hellodash-label-color-picker
@@ -75,6 +82,10 @@ graph TD;
   dash-color-swatch --> dash-icon-button
   dash-color-swatch --> dash-icon
   hellodash-label-color-picker --> dash-color-picker
+  hellodash-label-color-picker --> dash-button
+  dash-color-picker --> dash-color-hue-picker
+  dash-color-picker --> dash-button
+  dash-color-picker --> dash-input
   dash-color-picker --> dash-color-swatch
   dash-inline-edit --> dash-button
   dash-inline-edit --> dash-input

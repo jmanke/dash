@@ -7,14 +7,15 @@
 
 ## Properties
 
-| Property              | Attribute               | Description | Type                | Default     |
-| --------------------- | ----------------------- | ----------- | ------------------- | ----------- |
-| `allLabels`           | --                      |             | `Label[]`           | `undefined` |
-| `createLabelDisabled` | `create-label-disabled` |             | `boolean`           | `undefined` |
-| `loading`             | `loading`               |             | `boolean`           | `undefined` |
-| `mobileView`          | `mobile-view`           |             | `boolean`           | `undefined` |
-| `note`                | --                      |             | `Note`              | `undefined` |
-| `theme`               | `theme`                 |             | `"dark" \| "light"` | `'dark'`    |
+| Property              | Attribute               | Description                    | Type                | Default     |
+| --------------------- | ----------------------- | ------------------------------ | ------------------- | ----------- |
+| `allLabels`           | --                      |                                | `Label[]`           | `undefined` |
+| `createLabelDisabled` | `create-label-disabled` |                                | `boolean`           | `undefined` |
+| `loading`             | `loading`               |                                | `boolean`           | `undefined` |
+| `mobileView`          | `mobile-view`           |                                | `boolean`           | `undefined` |
+| `note`                | --                      |                                | `Note`              | `undefined` |
+| `open`                | `open`                  | When `true`, the modal is open | `boolean`           | `undefined` |
+| `theme`               | `theme`                 |                                | `"dark" \| "light"` | `'dark'`    |
 
 
 ## Events
@@ -84,6 +85,7 @@ graph TD;
   hellodash-label-select --> dash-filter
   hellodash-label-select --> hellodash-label-color-picker
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-color-swatch --> dash-icon-button
   dash-color-swatch --> dash-icon
   dash-drill-menu --> dash-icon-button
@@ -91,6 +93,10 @@ graph TD;
   dash-input --> dash-icon
   dash-input --> dash-icon-button
   hellodash-label-color-picker --> dash-color-picker
+  hellodash-label-color-picker --> dash-button
+  dash-color-picker --> dash-color-hue-picker
+  dash-color-picker --> dash-button
+  dash-color-picker --> dash-input
   dash-color-picker --> dash-color-swatch
   style hellodash-modal-note fill:#f9f,stroke:#333,stroke-width:4px
 ```

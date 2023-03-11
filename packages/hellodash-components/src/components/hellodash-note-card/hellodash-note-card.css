@@ -18,11 +18,14 @@
 .note-card {
   position: relative;
   display: flex;
-  height: 100%;
-  width: 100%;
+  height: inherit;
+  width: inherit;
+
+  dash-chip {
+    --dash-text-color-2: var(--dash-text-color-2-dark);
+  }
 
   button {
-    position: relative;
     padding-top: var(--dash-spacing-4);
     padding-bottom: var(--dash-spacing-4);
     padding-left: var(--dash-spacing-6);
@@ -33,6 +36,14 @@
     display: flex;
     flex-direction: column;
     flex: auto;
+    min-width: 0;
+    transition: box-shadow 75ms ease-in-out;
+
+    @media only screen and (min-width: 600px) {
+      &:hover {
+        box-shadow: rgba(var(--dash-rgb-brand)) 0px 0px 3px;
+      }
+    }
 
     &:focus-visible {
       @extend .focus-outline;
@@ -57,6 +68,8 @@
   }
 
   .title {
+    word-break: normal;
+    overflow-wrap: anywhere;
     font-size: var(--dash-font-size-3);
     margin-top: var(--dash-spacing-1);
     margin-bottom: var(--dash-spacing-3);
@@ -85,11 +98,7 @@
     margin-top: auto;
     display: flex;
     flex-wrap: wrap;
-
-    dash-chip {
-      padding-right: var(--dash-spacing-2);
-      padding-top: var(--dash-spacing-1);
-    }
+    grid-gap: var(--dash-spacing-2);
   }
 
   .no-labels {

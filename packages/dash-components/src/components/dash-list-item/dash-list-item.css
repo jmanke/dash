@@ -2,6 +2,7 @@
 
 :host {
   display: flex;
+  --dash-list-item-background-color: none;
 }
 
 :host(:focus-visible) {
@@ -9,16 +10,21 @@
 
   .list-item-wrapper {
     border: var(--dash-border-style-focus-visible);
+
+    .grip {
+      opacity: 1;
+    }
   }
 }
 
 :host([disabled]) {
   .list-item {
     color: var(--dash-text-color-3);
+    filter: brightness(0.9);
   }
 }
 
-:host(:not([disabled])) {
+:host(:not([disabled]):not([selection-mode='no-selection']):not([is-dragging])) {
   .list-item-wrapper {
     cursor: pointer;
 
@@ -33,13 +39,73 @@
   }
 }
 
+:host([drag-enabled]) {
+  .list-item-wrapper {
+    touch-action: none;
+    padding-inline-start: var(--dash-spacing-4);
+  }
+}
+
+:host([drag-enabled][selection-mode='no-selection']) {
+  .list-item-wrapper {
+    padding-inline-start: var(--dash-spacing-6);
+  }
+}
+
+:host([drag-enabled][selection-mode='none']) {
+  .list-item-wrapper {
+    padding-inline-start: var(--dash-spacing-6);
+  }
+}
+
+:host([is-dragging]) {
+  .list-item-wrapper {
+    box-shadow: var(--dash-box-shadow);
+  }
+}
+
+::slotted([slot='actions-start']) {
+  padding-inline-end: var(--dash-spacing-2);
+}
+
 .list-item-wrapper {
+  position: relative;
   display: flex;
   flex: auto;
   align-items: center;
+  background-color: var(--dash-list-item-background-color);
   border-radius: var(--dash-border-radius);
-  transition: background-color ease-in-out var(--dash-transition-time-fast), var(--dash-focus-border-transition), color ease-in-out var(--dash-transition-time-fast);
+  transition: background-color ease-in-out var(--dash-transition-time-very-fast), var(--dash-focus-border-transition), color ease-in-out var(--dash-transition-time-very-fast);
   border: var(--dash-border-style-focus-hidden);
+  transition: box-shadow ease-out 75ms;
+
+  .grip {
+    --dash-icon-button-height: 100%;
+    --dash-icon-button-padding: 0;
+    --dash-focus-outline-offset-0: -3px;
+    --dash-focus-outline-offset-100: -2px;
+    --dash-focus-outline-offset-50: -2px;
+    position: absolute;
+    height: calc(100% + 4px);
+    left: -2px;
+    user-select: none;
+    transition: opacity ease-in-out var(--dash-transition-time-very-fast);
+    opacity: 0;
+
+    @media (pointer: coarse) {
+      opacity: 1;
+    }
+
+    &.grip-focused {
+      opacity: 1;
+    }
+  }
+
+  &:hover {
+    .grip {
+      opacity: 1;
+    }
+  }
 }
 
 .list-item {

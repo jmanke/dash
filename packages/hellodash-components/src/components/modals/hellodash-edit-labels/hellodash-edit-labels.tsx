@@ -1,4 +1,5 @@
 import { Modal } from '@didyoumeantoast/dash-components';
+import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Label } from '@didyoumeantoast/hellodash-models';
 import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 
@@ -31,6 +32,8 @@ export class HellodashEditLabels implements Modal {
 
   @State() canAddLabel: boolean;
 
+  @State() areLabelsReordering: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -52,6 +55,8 @@ export class HellodashEditLabels implements Modal {
   @Event({ eventName: 'hellodashEditLabelsUpdateLabel' }) updateLabel: EventEmitter<Label>;
 
   @Event({ eventName: 'hellodashEditLabelsCreateLabel' }) createLabel: EventEmitter<Pick<Label, 'color' | 'text'>>;
+
+  @Event({ eventName: 'hellodashEditLabelsLabelsReordered' }) labelsReordered: EventEmitter<Label[]>;
 
   //#endregion
 
@@ -87,11 +92,21 @@ export class HellodashEditLabels implements Modal {
     }
 
     const label = {
-      color: 'red',
+      color: '#af6566',
       text: this.newLabelText,
     };
     this.newLabelText = undefined;
     this.createLabel.emit(label);
+  }
+
+  /**
+   * Called when the user has finished reordering the labels
+   * @param event
+   */
+  itemsSorted(e: CustomEvent<HTMLDashListItemElement[]>) {
+    // Get the new order of the labels
+    const sortedLabels = e.detail.map(item => item.value as Label);
+    this.labelsReordered.emit(sortedLabels);
   }
 
   //#endregion
@@ -125,16 +140,26 @@ export class HellodashEditLabels implements Modal {
           {this.canAddLabel && <dash-tooltip target={this.addLabelButton} text='Add label' placement='right' placementStrategy='fixed' offsetX={5}></dash-tooltip>}
         </form>
 
-        <div class='labels-container'>
+        <dash-list
+          class={spaceConcat('labels-container', this.areLabelsReordering && 'reordering')}
+          selection-mode='no-selection'
+          drag-enabled
+          onDashListItemsReordered={this.itemsSorted.bind(this)}
+          onDashListReorderStart={() => (this.areLabelsReordering = true)}
+          onDashListReorderEnd={() => (this.areLabelsReordering = false)}
+        >
           {this.labels.map(label => (
-            <hellodash-label-edit
-              key={label.id}
-              label={{ ...label }}
-              onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
-              onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
-            ></hellodash-label-edit>
+            <dash-list-item key={label.id} style={{ '--dash-list-item-background-color': 'var(--dash-background-2)' }} value={label}>
+              <hellodash-label-edit
+                style={{ flex: '1 1 auto' }}
+                label={{ ...label }}
+                allLabels={this.labels}
+                onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
+                onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
+              ></hellodash-label-edit>
+            </dash-list-item>
           ))}
-        </div>
+        </dash-list>
       </dash-modal>
     );
   }

@@ -1,4 +1,3 @@
-import { Color } from '@didyoumeantoast/dash-components';
 import { Label } from '@didyoumeantoast/hellodash-models';
 import { Component, Element, Event, EventEmitter, h, Listen, Prop, State, Watch } from '@stencil/core';
 import { isEmpty } from 'lodash';
@@ -14,6 +13,7 @@ export class HellodashLabelEdit {
 
   colorSwatches = new Map<number, HTMLDashColorSwatchElement>();
 
+  /** Label being edited */
   editingLabel: Label;
 
   //#endregion
@@ -26,12 +26,16 @@ export class HellodashLabelEdit {
 
   //#region @State
 
+  /** Map of label id to label */
   @State() labelsMap: Map<number, Label>;
 
+  /** Ids of filtered labels */
   @State() filteredLabelsIds: Set<number> = new Set();
 
+  /** Value to filter labels by */
   @State() filterValue: string;
 
+  /** Whether the drill menu is active */
   @State() drillMenuActive: boolean;
   @Watch('drillMenuActive')
   drillMenuActiveChanged(drillMenuActive) {
@@ -45,16 +49,28 @@ export class HellodashLabelEdit {
 
   //#region @Prop
 
+  /**
+   * Labels to display
+   */
   @Prop() labels: Label[] = [];
   @Watch('labels')
   labelsChanged() {
     this.updateLabelsMap();
   }
 
+  /**
+   * All labels to choose from
+   */
   @Prop() allLabels: Label[] = [];
 
+  /**
+   * When true, the user can create new labels
+   */
   @Prop({ reflect: true }) canCreateLabel: boolean;
 
+  /**
+   * When true, the dropdown will be focused on open
+   */
   @Prop({ reflect: true }) autoFocus: boolean;
 
   //#endregion
@@ -93,10 +109,18 @@ export class HellodashLabelEdit {
 
   //#region Local methods
 
+  /**
+   * Updates the labels map
+   */
   updateLabelsMap() {
     this.labelsMap = this.labels.reduce((map, label) => map.set(label.id, { ...label }), new Map<number, Label>());
   }
 
+  /**
+   * Handles when the selected label changes
+   * @param label Label that was changed
+   * @param isSelected Whether the label is selected
+   */
   selectedLabelChanged(label: Label, isSelected: Boolean) {
     if (isSelected) {
       this.labelAdded.emit(label);
@@ -106,24 +130,36 @@ export class HellodashLabelEdit {
     this.labelRemoved.emit(label);
   }
 
+  /**
+   * Creates a new label
+   */
   async createLabel() {
     if (!this.canCreateLabel) {
       return;
     }
 
-    const createdLabel = { id: -1, text: this.filterValue, color: 'red' } as Label;
+    const createdLabel = { id: -1, text: this.filterValue, color: '#af6566' } as Label;
     this.labelCreated.emit(createdLabel);
     this.filterElement?.clear();
     this.filterElement?.select();
   }
 
-  labelColorChanged(label: Label, color: Color) {
+  /**
+   * Handles when label color changed
+   * @param label Label that was changed
+   * @param color New color
+   */
+  labelColorChanged(label: Label, color: string) {
     this.labelUpdated.emit({
       ...label,
       color,
     });
   }
 
+  /**
+   * Start editing label
+   * @param label Label to edit
+   */
   editLabel(label: Label) {
     this.editingLabel = label;
     this.drillMenuActive = true;
@@ -189,8 +225,8 @@ export class HellodashLabelEdit {
         {listContent}
         <hellodash-label-color-picker
           slot='drill-content'
-          color={this.editingLabel?.color as Color}
-          onHellodashLabelColorPickerColorChanged={(e: CustomEvent<Color>) => {
+          color={this.editingLabel?.color}
+          onHellodashLabelColorPickerColorChanged={(e: CustomEvent<string>) => {
             this.labelColorChanged(this.editingLabel, e.detail);
             this.drillMenuActive = false;
           }}

@@ -8,8 +8,9 @@
   overflow-y: auto;
   padding: var(--dash-spacing-3) var(--dash-spacing-1);
 
-  hellodash-label-edit:not(:last-child) {
-    border-bottom: var(--dash-border-style-1);
+  &.reordering {
+    overflow-y: hidden;
+    overflow-x: hidden;
   }
 }
 

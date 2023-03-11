@@ -7,12 +7,12 @@
 
 ## Properties
 
-| Property         | Attribute          | Description | Type      | Default     |
-| ---------------- | ------------------ | ----------- | --------- | ----------- |
-| `allLabels`      | --                 |             | `Label[]` | `[]`        |
-| `autoFocus`      | `auto-focus`       |             | `boolean` | `undefined` |
-| `canCreateLabel` | `can-create-label` |             | `boolean` | `undefined` |
-| `labels`         | --                 |             | `Label[]` | `[]`        |
+| Property         | Attribute          | Description                                     | Type      | Default     |
+| ---------------- | ------------------ | ----------------------------------------------- | --------- | ----------- |
+| `allLabels`      | --                 | All labels to choose from                       | `Label[]` | `[]`        |
+| `autoFocus`      | `auto-focus`       | When true, the dropdown will be focused on open | `boolean` | `undefined` |
+| `canCreateLabel` | `can-create-label` | When true, the user can create new labels       | `boolean` | `undefined` |
+| `labels`         | --                 | Labels to display                               | `Label[]` | `[]`        |
 
 
 ## Events
@@ -53,18 +53,23 @@ graph TD;
   hellodash-label-select --> dash-filter
   hellodash-label-select --> hellodash-label-color-picker
   dash-list-item --> dash-icon
-  dash-color-swatch --> dash-icon-button
-  dash-color-swatch --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-icon-button --> dash-icon
   dash-icon-button --> dash-loader
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
+  dash-color-swatch --> dash-icon-button
+  dash-color-swatch --> dash-icon
   dash-button --> dash-icon
   dash-drill-menu --> dash-icon-button
   dash-filter --> dash-input
   dash-input --> dash-icon
   dash-input --> dash-icon-button
   hellodash-label-color-picker --> dash-color-picker
+  hellodash-label-color-picker --> dash-button
+  dash-color-picker --> dash-color-hue-picker
+  dash-color-picker --> dash-button
+  dash-color-picker --> dash-input
   dash-color-picker --> dash-color-swatch
   hellodash-modal-note --> hellodash-label-select
   hellodash-note-edit-dropdown --> hellodash-label-select

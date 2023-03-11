@@ -1,6 +1,4 @@
-import { isHex } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State } from '@stencil/core';
-import { Color } from '../../types';
 
 @Component({
   tag: 'dash-chip',
@@ -56,7 +54,7 @@ export class DashChip {
    * Background color of the chip
    * @required
    */
-  @Prop({ reflect: true }) color: Color | string;
+  @Prop({ reflect: true }) color: string;
 
   //#endregion
 
@@ -92,7 +90,7 @@ export class DashChip {
   //#endregion
 
   render() {
-    const style = this.color ? { '--dash-chip-background-color': `${isHex(this.color) ? this.color : `var(--dash-color-${this.color})`}` } : null;
+    const style = this.color ? { '--dash-chip-background-color': this.color } : null;
 
     return (
       <Host style={style}>

@@ -33,6 +33,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [dash-color-picker](../dash-color-picker)
  - [dash-date-picker](../dash-date-picker)
  - [dash-event-calendar-edit-event](../dash-event-calendar/dash-event-calendar-edit-event)
  - [dash-event-calendar-month](../dash-event-calendar/dash-event-calendar-month)
@@ -47,6 +48,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   dash-button --> dash-icon
+  dash-color-picker --> dash-button
   dash-date-picker --> dash-button
   dash-event-calendar-edit-event --> dash-button
   dash-event-calendar-month --> dash-button

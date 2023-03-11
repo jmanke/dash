@@ -50,6 +50,7 @@ graph TD;
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   hellodash-label-select --> dash-list
   hellodash-label-select --> dash-list-item
   hellodash-label-select --> dash-color-swatch
@@ -65,6 +66,10 @@ graph TD;
   dash-input --> dash-icon
   dash-input --> dash-icon-button
   hellodash-label-color-picker --> dash-color-picker
+  hellodash-label-color-picker --> dash-button
+  dash-color-picker --> dash-color-hue-picker
+  dash-color-picker --> dash-button
+  dash-color-picker --> dash-input
   dash-color-picker --> dash-color-swatch
   style hellodash-note-edit-dropdown fill:#f9f,stroke:#333,stroke-width:4px
 ```

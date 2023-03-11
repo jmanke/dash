@@ -1,8 +1,10 @@
-import { isNone } from '@didyoumeantoast/dash-utils';
-import { Component, Element, h, Host, Prop, State, Watch } from '@stencil/core';
+import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
+import { Component, Element, Event, EventEmitter, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
+import { SortableKeyboard } from '../../common/sortable/sortable-keyboard';
+import { SortablePointer } from '../../common/sortable/sortable-pointer';
 import { Scale } from '../../types';
 
-export type SelectionMode = 'single' | 'multiple' | 'none';
+export type SelectionMode = 'single' | 'multiple' | 'none' | 'no-selection';
 
 @Component({
   tag: 'dash-list',
@@ -34,6 +36,11 @@ export class DashList {
    */
   @State() maxHeight?: number;
 
+  /**
+   * Whether a list item is currently being dragged
+   */
+  @State() dragging: boolean;
+
   //#endregion
 
   //#region @Prop
@@ -45,6 +52,16 @@ export class DashList {
   @Prop({ reflect: true }) selectionMode: SelectionMode = 'single';
   @Watch('selectionMode')
   selectionModeChanged() {
+    this.updateChildProps();
+  }
+
+  /**
+   * Whether the list items can be deselected
+   * @default false
+   */
+  @Prop({ reflect: true }) disableDeselect: boolean;
+  @Watch('disableDeselect')
+  disableDeselectChanged() {
     this.updateChildProps();
   }
 
@@ -67,9 +84,36 @@ export class DashList {
   maxItemsChanged() {
     this.updateResizeObserver();
   }
+
+  /**
+   * Whether the list item can be dragged
+   * @default false
+   */
+  @Prop() dragEnabled: boolean;
+  @Watch('dragEnabled')
+  dragEnabledChanged() {
+    this.updateChildProps();
+  }
+
   //#endregion
 
   //#region @Event
+
+  /**
+   * Emitted when the list items are reordered
+   */
+  @Event({ eventName: 'dashListItemsReordered' }) listItemsReordered: EventEmitter<HTMLDashListItemElement[]>;
+
+  /**
+   * Emitted when the list items start to be reordered
+   */
+  @Event({ eventName: 'dashListReorderStart' }) reorderStarted: EventEmitter<void>;
+
+  /**
+   * Emitted when the list items stop being reordered
+   */
+  @Event({ eventName: 'dashListReorderEnd' }) reorderEnded: EventEmitter<void>;
+
   //#endregion
 
   //#region Component lifecycle
@@ -88,12 +132,98 @@ export class DashList {
   //#endregion
 
   //#region Listeners
+
+  @Listen('dashInternalListItemStartDrag')
+  listItemStartedDrag(e: CustomEvent<PointerEvent | KeyboardEvent>) {
+    if (!this.listItems?.length) {
+      return;
+    }
+
+    this.reorderStarted.emit();
+
+    if (e.detail instanceof PointerEvent) {
+      this.startPointerDrag(e.detail, e.target as HTMLDashListItemElement);
+      return;
+    }
+
+    this.startKeyboardDrag(e.target as HTMLDashListItemElement);
+  }
+
   //#endregion
 
   //#region @Method
   //#endregion
 
   //#region Local methods
+
+  /**
+   * Start a pointer drag with list-item
+   * @param e Pointer event that started drag
+   * @param item List item to be dragged
+   */
+  startPointerDrag(e: PointerEvent, item: HTMLDashListItemElement) {
+    const sortable = new SortablePointer(this.listItems);
+    item.style.zIndex = '9999';
+
+    sortable.onBeforeDragEnd = () => {
+      item.internalIsDragging = false;
+    };
+    sortable.onDragEnd = ({ orderChanged }) => {
+      this.dragging = false;
+      item.style.removeProperty('z-index');
+      this.reorderEnded.emit();
+
+      if (orderChanged) {
+        this.updateChildProps();
+        this.listItemsReordered.emit(this.listItems);
+      }
+    };
+    this.dragging = true;
+    item.internalIsDragging = true;
+
+    sortable.startDrag(e, item);
+  }
+
+  /**
+   * Start a keyboard drag with list-item
+   * @param item List item to be dragged
+   */
+  startKeyboardDrag(item: HTMLDashListItemElement) {
+    if (this.dragging) {
+      return;
+    }
+
+    const sortable = new SortableKeyboard(this.listItems);
+
+    this.dragging = true;
+    item.internalIsDragging = true;
+
+    const moveUp = () => sortable.moveItemUp();
+    const moveDown = () => sortable.moveItemDown();
+
+    item.addEventListener('dashInternalListItemDragMoveUp', moveUp);
+    item.addEventListener('dashInternalListItemDragMoveDown', moveDown);
+    item.addEventListener(
+      'dashInternalListItemDragEnd',
+      () => {
+        this.dragging = false;
+        item.internalIsDragging = false;
+        this.reorderEnded.emit();
+        item.removeEventListener('dashInternalListItemDragMoveUp', moveUp);
+        item.removeEventListener('dashInternalListItemDragMoveDown', moveDown);
+        const { orderChanged, items } = sortable.endDrag();
+        if (orderChanged) {
+          this.updateChildProps();
+          this.listItemsReordered.emit(items as HTMLDashListItemElement[]);
+        }
+      },
+      { once: true },
+    );
+
+    item.style.zIndex = '1';
+    item.style.position = 'relative';
+    sortable.startDrag(item);
+  }
 
   /**
    * Updates the resize observer
@@ -177,11 +307,20 @@ export class DashList {
    * Updates properties that need to be set on child dash-list-items
    */
   updateChildProps() {
+    if (this.dragging) {
+      return;
+    }
+
     this.listItems = Array.from(this.element.childNodes).filter(child => child.nodeName === 'DASH-LIST-ITEM') as HTMLDashListItemElement[];
     this.listItems.forEach((element: HTMLDashListItemElement, index: number) => {
       element.selectionMode = this.selectionMode;
+      element.disableDeselect = this.disableDeselect;
+      element.dragEnabled = this.dragEnabled;
       element.scale = this.scale;
-      element.tabIndex = index === 0 ? 0 : -1;
+
+      if (this.selectionMode !== 'no-selection') {
+        element.tabIndex = index === 0 ? 0 : -1;
+      }
     });
   }
 
@@ -211,7 +350,7 @@ export class DashList {
   render() {
     return (
       <Host role='list' onDashInternalListItemMoveNext={e => this.focusNextListItem(e.target)} onDashInternalListItemMovePrevious={e => this.focusPreviousListItem(e.target)}>
-        <div class='container' style={typeof this.maxHeight === 'number' ? { maxHeight: `${this.maxHeight}px` } : null}>
+        <div class={spaceConcat('container', this.dragging && 'dragging')} style={typeof this.maxHeight === 'number' ? { maxHeight: `${this.maxHeight}px` } : null}>
           <slot></slot>
         </div>
       </Host>

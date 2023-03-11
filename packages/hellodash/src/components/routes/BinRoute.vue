@@ -150,7 +150,7 @@ function deselectAll() {
   </dash-section>
 
   <hellodash-confirm
-    v-if="showDeleteConfirmation"
+    :open="showDeleteConfirmation"
     @hellodashConfirmConfirmed="
       () => {
         selectedNotes.forEach(note => {

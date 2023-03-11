@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
+import { Appearance, Scale, ScaleExtended, Status, Theme } from "./types";
 import { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 import { CalendarEvent, CalendarEventInternal } from "./interfaces/calendar-event";
 import { IconColor } from "./components/dash-icon/dash-icon";
@@ -14,7 +14,7 @@ import { SelectionMode } from "./components/dash-list/dash-list";
 import { SelectionMode as SelectionMode1 } from "./components/dash-list/dash-list";
 import { Placement as Placement1, PlacementStrategy as PlacementStrategy1, PopoverCloseEvent } from "./components/dash-popover/dash-popover";
 import { Resize } from "./components/dash-textarea/dash-textarea";
-export { Appearance, Color, Scale, ScaleExtended, Status, Theme } from "./types";
+export { Appearance, Scale, ScaleExtended, Status, Theme } from "./types";
 export { Placement, PlacementStrategy } from "./components/dash-popover/dash-popover";
 export { CalendarEvent, CalendarEventInternal } from "./interfaces/calendar-event";
 export { IconColor } from "./components/dash-icon/dash-icon";
@@ -60,7 +60,7 @@ export namespace Components {
           * Background color of the chip
           * @required
          */
-        "color": Color | string;
+        "color": string;
         /**
           * Text to display when user focuses or hovers over dismiss button
           * @optional
@@ -82,29 +82,34 @@ export namespace Components {
          */
         "selectable": boolean;
     }
+    interface DashColorHuePicker {
+        /**
+          * Hue value from [0, 360]
+          * @default 0
+         */
+        "hue": number;
+        /**
+          * Width of hue picker (in pixels)
+          * @default 200
+         */
+        "width": number;
+    }
     interface DashColorPicker {
         /**
-          * Currently selected color
-          * @optional
+          * Color as hex value
          */
-        "color": Color;
+        "color": string;
         /**
-          * Colors to pick from
-          * @required
+          * Default colors
          */
-        "colors": Color[];
-        /**
-          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-          * @default colors.length
-         */
-        "cols": number;
+        "defaultColors": string[];
     }
     interface DashColorSwatch {
         /**
           * Color of the swatch
           * @required
          */
-        "color": Color | string;
+        "color": string;
         /**
           * Size of swatch
           * @default 'm'
@@ -440,6 +445,16 @@ export namespace Components {
     }
     interface DashList {
         /**
+          * Whether the list items can be deselected
+          * @default false
+         */
+        "disableDeselect": boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled": boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
@@ -457,9 +472,25 @@ export namespace Components {
     }
     interface DashListItem {
         /**
+          * Whether the list item can be deselected
+          * @default false
+         */
+        "disableDeselect": boolean;
+        /**
           * When `true`, interaction is disabled
+          * @default false
          */
         "disabled": boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled": boolean;
+        /**
+          * When `true`, list-item is being dragged. Used for styling purposes
+          * @default false
+         */
+        "internalIsDragging": boolean;
         /**
           * Size of the list-item
           * @default 'm'
@@ -479,6 +510,10 @@ export namespace Components {
           * Sets focus on this element
          */
         "setFocus": () => Promise<void>;
+        /**
+          * Value of the list-item
+         */
+        "value": any;
     }
     interface DashLoader {
         /**
@@ -736,6 +771,10 @@ export interface DashChipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashChipElement;
 }
+export interface DashColorHuePickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashColorHuePickerElement;
+}
 export interface DashColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashColorPickerElement;
@@ -784,6 +823,10 @@ export interface DashInputCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashInputElement;
 }
+export interface DashListCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashListElement;
+}
 export interface DashListItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashListItemElement;
@@ -828,6 +871,12 @@ declare global {
     var HTMLDashChipElement: {
         prototype: HTMLDashChipElement;
         new (): HTMLDashChipElement;
+    };
+    interface HTMLDashColorHuePickerElement extends Components.DashColorHuePicker, HTMLStencilElement {
+    }
+    var HTMLDashColorHuePickerElement: {
+        prototype: HTMLDashColorHuePickerElement;
+        new (): HTMLDashColorHuePickerElement;
     };
     interface HTMLDashColorPickerElement extends Components.DashColorPicker, HTMLStencilElement {
     }
@@ -1036,6 +1085,7 @@ declare global {
     interface HTMLElementTagNameMap {
         "dash-button": HTMLDashButtonElement;
         "dash-chip": HTMLDashChipElement;
+        "dash-color-hue-picker": HTMLDashColorHuePickerElement;
         "dash-color-picker": HTMLDashColorPickerElement;
         "dash-color-swatch": HTMLDashColorSwatchElement;
         "dash-confirm-button": HTMLDashConfirmButtonElement;
@@ -1105,7 +1155,7 @@ declare namespace LocalJSX {
           * Background color of the chip
           * @required
          */
-        "color"?: Color | string;
+        "color"?: string;
         /**
           * Text to display when user focuses or hovers over dismiss button
           * @optional
@@ -1131,22 +1181,31 @@ declare namespace LocalJSX {
          */
         "selectable"?: boolean;
     }
+    interface DashColorHuePicker {
+        /**
+          * Hue value from [0, 360]
+          * @default 0
+         */
+        "hue"?: number;
+        /**
+          * Emitted when hue has been changed
+         */
+        "onDashColorHuePickerHueChanged"?: (event: DashColorHuePickerCustomEvent<void>) => void;
+        /**
+          * Width of hue picker (in pixels)
+          * @default 200
+         */
+        "width"?: number;
+    }
     interface DashColorPicker {
         /**
-          * Currently selected color
-          * @optional
+          * Color as hex value
          */
-        "color"?: Color;
+        "color"?: string;
         /**
-          * Colors to pick from
-          * @required
+          * Default colors
          */
-        "colors"?: Color[];
-        /**
-          * Number of columns to display for colors - ex. 3 cols means colors will be split among 3 columns
-          * @default colors.length
-         */
-        "cols"?: number;
+        "defaultColors"?: string[];
         /**
           * Emitted when color has been selected
          */
@@ -1157,7 +1216,7 @@ declare namespace LocalJSX {
           * Color of the swatch
           * @required
          */
-        "color"?: Color | string;
+        "color"?: string;
         /**
           * Size of swatch
           * @default 'm'
@@ -1515,10 +1574,32 @@ declare namespace LocalJSX {
     }
     interface DashList {
         /**
+          * Whether the list items can be deselected
+          * @default false
+         */
+        "disableDeselect"?: boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled"?: boolean;
+        /**
           * Number of items to show in the list - a scrollbar appears for overflow
           * @optional
          */
         "maxItems"?: number;
+        /**
+          * Emitted when the list items are reordered
+         */
+        "onDashListItemsReordered"?: (event: DashListCustomEvent<HTMLDashListItemElement[]>) => void;
+        /**
+          * Emitted when the list items stop being reordered
+         */
+        "onDashListReorderEnd"?: (event: DashListCustomEvent<void>) => void;
+        /**
+          * Emitted when the list items start to be reordered
+         */
+        "onDashListReorderStart"?: (event: DashListCustomEvent<void>) => void;
         /**
           * Size of the list and its items
           * @default 'm'
@@ -1532,9 +1613,37 @@ declare namespace LocalJSX {
     }
     interface DashListItem {
         /**
+          * Whether the list item can be deselected
+          * @default false
+         */
+        "disableDeselect"?: boolean;
+        /**
           * When `true`, interaction is disabled
+          * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Whether the list item can be dragged
+          * @default false
+         */
+        "dragEnabled"?: boolean;
+        /**
+          * When `true`, list-item is being dragged. Used for styling purposes
+          * @default false
+         */
+        "internalIsDragging"?: boolean;
+        /**
+          * Emitted when list-item drag moves down
+         */
+        "onDashInternalListItemDragEnd"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
+        /**
+          * Emitted when list-item drag moves down
+         */
+        "onDashInternalListItemDragMoveDown"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
+        /**
+          * Emitted when list-item drag moves up
+         */
+        "onDashInternalListItemDragMoveUp"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
         /**
           * Emitted when list-item indicates focus should be moved to the next list-item
          */
@@ -1543,6 +1652,10 @@ declare namespace LocalJSX {
           * Emitted when list-item indicates focus should be moved to the previous list-item
          */
         "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<void>) => void;
+        /**
+          * Emitted when list-item is starting to be dragged
+         */
+        "onDashInternalListItemStartDrag"?: (event: DashListItemCustomEvent<PointerEvent | KeyboardEvent>) => void;
         /**
           * Emitted when selected has changed
          */
@@ -1562,6 +1675,10 @@ declare namespace LocalJSX {
           * @default 'single'
          */
         "selectionMode"?: SelectionMode1;
+        /**
+          * Value of the list-item
+         */
+        "value"?: any;
     }
     interface DashLoader {
         /**
@@ -1842,6 +1959,7 @@ declare namespace LocalJSX {
     interface IntrinsicElements {
         "dash-button": DashButton;
         "dash-chip": DashChip;
+        "dash-color-hue-picker": DashColorHuePicker;
         "dash-color-picker": DashColorPicker;
         "dash-color-swatch": DashColorSwatch;
         "dash-confirm-button": DashConfirmButton;
@@ -1884,6 +2002,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "dash-button": LocalJSX.DashButton & JSXBase.HTMLAttributes<HTMLDashButtonElement>;
             "dash-chip": LocalJSX.DashChip & JSXBase.HTMLAttributes<HTMLDashChipElement>;
+            "dash-color-hue-picker": LocalJSX.DashColorHuePicker & JSXBase.HTMLAttributes<HTMLDashColorHuePickerElement>;
             "dash-color-picker": LocalJSX.DashColorPicker & JSXBase.HTMLAttributes<HTMLDashColorPickerElement>;
             "dash-color-swatch": LocalJSX.DashColorSwatch & JSXBase.HTMLAttributes<HTMLDashColorSwatchElement>;
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;

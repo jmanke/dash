@@ -94,11 +94,14 @@ body {
   --dash-focus-border-transition: border ease-in-out var(--dash-transition-time-fast);
 
   /* transition time */
+  --dash-transition-time-very-fast: 75ms;
   --dash-transition-time-fast: 175ms;
   --dash-transition-time-default: 250ms;
 
   /* focus outline */
-  --dash-focus-outline-max-offset: 3px;
+  --dash-focus-outline-offset-0: 1px;
+  --dash-focus-outline-offset-50: 3px;
+  --dash-focus-outline-offset-100: 1px;
 
   @media (prefers-reduced-motion) {
     --dash-transition-time-fast: 0ms;
@@ -183,31 +186,18 @@ body {
   /* outline */
   --dash-focus-outline-thin: 1px solid var(--dash-brand);
   --dash-focus-outline: 2px solid var(--dash-brand);
-  --dash-focus-outline-offset: 1px;
-
-  /* colors rgb */
-  --dash-color-red-rgb: 255, 130, 130;
-  --dash-color-orange-rgb: 255, 177, 109;
-  --dash-color-yellow-rgb: 242, 211, 85;
-  --dash-color-green-apple-rgb: 154, 239, 71;
-  --dash-color-green-grass-rgb: 90, 236, 104;
-  --dash-color-baby-blue-rgb: 143, 203, 255;
-  --dash-color-dark-blue-rgb: 154, 164, 255;
-  --dash-color-purple-rgb: 203, 121, 212;
-  --dash-color-pink-rgb: 255, 154, 218;
-  --dash-color-gray-rgb: 176, 176, 176;
 
   /* colors */
-  --dash-color-red: rgba(var(--dash-color-red-rgb), 0.6);
-  --dash-color-orange: rgba(var(--dash-color-orange-rgb), 0.6);
-  --dash-color-yellow: rgba(var(--dash-color-yellow-rgb), 0.6);
-  --dash-color-green-apple: rgba(var(--dash-color-green-apple-rgb), 0.6);
-  --dash-color-green-grass: rgba(var(--dash-color-green-grass-rgb), 0.6);
-  --dash-color-baby-blue: rgba(var(--dash-color-baby-blue-rgb), 0.6);
-  --dash-color-dark-blue: rgba(var(--dash-color-dark-blue-rgb), 0.6);
-  --dash-color-purple: rgba(var(--dash-color-purple-rgb), 0.6);
-  --dash-color-pink: rgba(var(--dash-color-pink-rgb), 0.6);
-  --dash-color-gray: rgba(var(--dash-color-gray-rgb), 0.6);
+  --dash-color-red: #af6566;
+  --dash-color-orange: #af815a;
+  --dash-color-yellow: #a7954e;
+  --dash-color-green-apple: #73a647;
+  --dash-color-green-grass: #50a559;
+  --dash-color-baby-blue: #6c91b2;
+  --dash-color-dark-blue: #7379b1;
+  --dash-color-purple: #906098;
+  --dash-color-pink: #b0739b;
+  --dash-color-gray: #808182;
 }
 
 :root,

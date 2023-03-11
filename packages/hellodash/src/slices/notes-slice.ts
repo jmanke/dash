@@ -29,8 +29,7 @@ export const getNoteById = createAsyncThunk('notes/fetchNotePreviews', async (id
  * Creates a new note and stores it in the store.
  */
 export const createNote = createAsyncThunk('labels/createNote', async (note: Pick<Note, 'title' | 'labels' | 'status' | 'content' | 'previewContent'>, { dispatch }) => {
-  const id = await createNoteApi(note as Note);
-  const newNote = await fetchNote(id);
+  const newNote = await createNoteApi(note as Note);
 
   if (newNote) {
     dispatch(addNote(newNote));
@@ -78,8 +77,7 @@ export const duplicateNote = createAsyncThunk('notes/duplicateNote', async (note
     title: note.title + ' (copy)',
   };
 
-  const noteCopyId = await createNoteApi(noteCopy);
-  const newNote = await fetchNote(noteCopyId);
+  const newNote = await createNoteApi(noteCopy);
 
   if (newNote) {
     dispatch(addNote(newNote));

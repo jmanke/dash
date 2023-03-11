@@ -16,7 +16,7 @@ importers:
   packages/dash-components:
     specifiers:
       '@babel/core': ^7.19.3
-      '@didyoumeantoast/component-forge': ^0.5.2
+      '@didyoumeantoast/component-forge': ^0.6.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@popperjs/core': ^2.11.5
       '@stencil/core': ^3.0.0
@@ -26,6 +26,7 @@ importers:
       '@types/luxon': ^2.3.2
       autoprefixer: ^10.4.7
       babel-loader: ^8.2.5
+      color-convert: ^2.0.1
       concurrently: ^7.4.0
       cross-env: ^7.0.3
       jest: ^27.4.5
@@ -45,10 +46,11 @@ importers:
       '@popperjs/core': 2.11.6
       '@stencil/core': 3.0.0
       '@types/luxon': 2.4.0
+      color-convert: 2.0.1
       lodash: 4.17.21
     devDependencies:
       '@babel/core': 7.20.5
-      '@didyoumeantoast/component-forge': 0.5.2
+      '@didyoumeantoast/component-forge': 0.6.0
       '@stencil/postcss': 2.1.0_@stencil+core@3.0.0
       '@types/jest': 27.5.2
       '@types/lodash': 4.14.191
@@ -140,7 +142,7 @@ importers:
       '@didyoumeantoast/dash-components': ^1.3.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
-      '@didyoumeantoast/tinymce-plugins': ^1.1.4
+      '@didyoumeantoast/tinymce-plugins': ^1.1.6
       '@popperjs/core': ^2.11.0
       '@reduxjs/toolkit': ^1.9.2
       '@stencil/core': ^3.0.0
@@ -171,7 +173,7 @@ importers:
       '@didyoumeantoast/dash-components': link:../dash-components
       '@didyoumeantoast/dash-utils': link:../dash-utils
       '@didyoumeantoast/hellodash-models': link:../hellodash-models
-      '@didyoumeantoast/tinymce-plugins': 1.1.4
+      '@didyoumeantoast/tinymce-plugins': 1.1.6
       '@popperjs/core': 2.11.6
       '@reduxjs/toolkit': 1.9.2
       '@types/qs': 6.9.7
@@ -709,8 +711,8 @@ packages:
       esbuild: 0.15.17
     dev: true
 
-  /@didyoumeantoast/component-forge/0.5.2:
-    resolution: {integrity: sha512-RjWhtaePZfwNdhyBRZXYlPCWvcSwTYuu1xACu6ijmjYsNV6cOS1yvXhnOHEbNfTMPBTkWeLYhL/xftWz+kD14w==}
+  /@didyoumeantoast/component-forge/0.6.0:
+    resolution: {integrity: sha512-IOR+9Wla9axAP+EgxXWL6xFeNM3z1kqAV/FPVodVg+Ed59QXY6VUoUngh6z1NBf5FWs+0SB7BDOi/8cwb2srtA==}
     engines: {node: 18.x, pnpm: 7.x}
     hasBin: true
     dependencies:
@@ -734,8 +736,8 @@ packages:
       - terser
     dev: true
 
-  /@didyoumeantoast/tinymce-plugins/1.1.4:
-    resolution: {integrity: sha512-NDFhP96MhOLivnblGiNnzNRV6lG7whPqjaqkMoPoZnjxsUiS93Ar4V6NfATrG1E7ib5ezUfo02Pqd7I+7VEOuA==}
+  /@didyoumeantoast/tinymce-plugins/1.1.6:
+    resolution: {integrity: sha512-gIp4ql00JgzFgJNYB6D3Y/YH/mErdFbPwIaiH7MOQ/Bi8wEQUSroiEp1YUbw8JbwX8TFNqK8cwTS7sNnetuRdQ==}
     dev: false
 
   /@esbuild/android-arm/0.15.17:

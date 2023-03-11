@@ -27,7 +27,7 @@ export interface PagedResponse<T> {
 
 //#endregion
 
-export const baseApiUrl = (): string => (CONSTANTS.LIVE_SERVER ? 'https://hellodash-server-2x.herokuapp.com/api' : 'http://localhost:5000/api');
+export const baseApiUrl = (): string => (CONSTANTS.LIVE_SERVER ? 'https://hellodash-server-2x.herokuapp.com/api' : 'http://localhost:5001/api');
 
 //#region REST functions
 

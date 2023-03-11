@@ -7,10 +7,13 @@
 
 ## Properties
 
-| Property   | Attribute  | Description                          | Type      | Default     |
-| ---------- | ---------- | ------------------------------------ | --------- | ----------- |
-| `disabled` | `disabled` | When `true`, interaction is disabled | `boolean` | `undefined` |
-| `selected` | `selected` | When `true`, list-item is selected   | `boolean` | `false`     |
+| Property          | Attribute          | Description                             | Type      | Default     |
+| ----------------- | ------------------ | --------------------------------------- | --------- | ----------- |
+| `disableDeselect` | `disable-deselect` | Whether the list item can be deselected | `boolean` | `undefined` |
+| `disabled`        | `disabled`         | When `true`, interaction is disabled    | `boolean` | `undefined` |
+| `dragEnabled`     | `drag-enabled`     | Whether the list item can be dragged    | `boolean` | `undefined` |
+| `selected`        | `selected`         | When `true`, list-item is selected      | `boolean` | `false`     |
+| `value`           | `value`            | Value of the list-item                  | `any`     | `undefined` |
 
 
 ## Events
@@ -43,11 +46,17 @@ Type: `Promise<void>`
 ### Depends on
 
 - [dash-icon](../dash-icon)
+- [dash-icon-button](../dash-icon-button)
 
 ### Graph
 ```mermaid
 graph TD;
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
+  dash-icon-button --> dash-icon
+  dash-icon-button --> dash-loader
+  dash-icon-button --> dash-tooltip
+  dash-tooltip --> dash-popover
   dash-event-calendar-month --> dash-list-item
   dash-time-picker --> dash-list-item
   style dash-list-item fill:#f9f,stroke:#333,stroke-width:4px

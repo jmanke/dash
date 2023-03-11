@@ -29,7 +29,7 @@ export async function fetchLabel(id: number, cancelationToken?: CancelationToken
  * @returns id of the created label
  */
 export async function createLabel(label: Label) {
-  return post<Label, number>(`${labelBaseUrl}`, label);
+  return post<Label, Label>(`${labelBaseUrl}`, label);
 }
 
 /**

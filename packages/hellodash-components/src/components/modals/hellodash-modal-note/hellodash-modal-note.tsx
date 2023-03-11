@@ -1,6 +1,6 @@
 import { Modal } from '@didyoumeantoast/dash-components';
 import { Label, Note, Theme } from '@didyoumeantoast/hellodash-models';
-import { Component, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Method, Prop, State, Watch } from '@stencil/core';
 import produce from 'immer';
 import { noteLabels } from '../../../utils/note-labels';
 
@@ -23,37 +23,62 @@ export class HellodashModalNote implements Modal {
   //#endregion
 
   //#region @Element
+
+  @Element() element: HTMLHellodashModalNoteElement;
+
   //#endregion
 
   //#region @State
 
   @State() noteDraft: Note;
   @Watch('noteDraft')
-  noteDraftChaged(noteDraft: Note) {
-    this.noteDraftLabels = noteLabels(noteDraft, this.allLabels);
+  noteDraftChaged(noteDraft: Note, prevNoteDraft: Note) {
+    if (noteDraft && noteDraft.id !== prevNoteDraft?.id) {
+      this.textEditor.setHeading(noteDraft.title);
+      this.textEditor.setContent(noteDraft.content);
+    } else if (!noteDraft) {
+      this.textEditor?.setHeading('');
+      this.textEditor?.setContent('');
+    }
+
+    this.noteDraftLabels = noteDraft ? noteLabels(noteDraft, this.allLabels) : [];
   }
 
   @State() noteDraftLabels: Label[];
 
   @State() isFullscreen: boolean;
 
-  @State() noteEditorLoaded: boolean;
-
-  @State() disableReadonly: boolean = true;
+  @State() mode: 'edit' | 'preview' = 'edit';
 
   //#endregion
 
   //#region @Prop
 
+  /**
+   * When `true`, the modal is open
+   */
+  @Prop({ reflect: true }) open: boolean;
+  @Watch('open')
+  openChanged(open: boolean) {
+    this.mode = open && this.mobileView ? 'preview' : 'edit';
+    if (open) {
+      this.textEditor?.setFocus();
+    }
+  }
+
   @Prop() note: Note;
   @Watch('note')
   noteChanged(note: Note) {
-    this.noteDraft = { ...note };
+    this.noteDraft = !!note ? { ...note } : null;
   }
 
   @Prop() allLabels: Label[];
   @Watch('allLabels')
   allLabelsChanged(allLabels: Label[]) {
+    if (!this.noteDraft) {
+      return;
+    }
+
     this.noteDraftLabels = noteLabels(this.noteDraft, allLabels);
   }
 
@@ -62,6 +87,10 @@ export class HellodashModalNote implements Modal {
   @Prop({ reflect: true }) theme: Theme = 'dark';
 
   @Prop({ reflect: true }) mobileView: boolean;
+  @Watch('mobileView')
+  mobileViewChanged(mobileView: boolean) {
+    this.mode = mobileView && !this.open ? 'preview' : 'edit';
+  }
 
   @Prop({ reflect: true }) createLabelDisabled: boolean;
 
@@ -85,6 +114,10 @@ export class HellodashModalNote implements Modal {
 
   componentWillLoad() {
     this.noteChanged(this.note);
+  }
+
+  componentDidLoad() {
+    this.textEditor = this.element.querySelector('hellodash-text-editor');
   }
 
   //#endregion
@@ -147,12 +180,6 @@ export class HellodashModalNote implements Modal {
     }, SAVE_DELAY);
   }
 
-  textEditorInit(textEditor: HTMLHellodashTextEditorElement) {
-    this.noteEditorLoaded = true;
-
-    textEditor.setFocus();
-  }
-
   textEditorNodeChanged() {
     this.dropdownElement?.close();
   }
@@ -196,12 +223,16 @@ export class HellodashModalNote implements Modal {
   }
 
   beforeTextEditorUnload(e: CustomEvent<Promise<unknown>[]>) {
-    if (!this.mobileView || this.disableReadonly) {
+    if (this.mode === 'edit') {
       return;
     }
 
     const promises = e.detail;
     promises.push(this.saveNote());
+  }
+
+  toggleMode() {
+    this.mode = this.mode === 'edit' ? 'preview' : 'edit';
   }
 
   //#endregion
@@ -210,30 +241,24 @@ export class HellodashModalNote implements Modal {
     const labels = this.noteDraftLabels ?? [];
 
     return (
-      <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
+      <dash-modal fullscreen={this.isFullscreen} ref={element => (this.modal = element)} open={this.open} onDashModalBeforeClose={this.beforeModalClose.bind(this)}>
         <hellodash-text-editor
-          ref={element => (this.textEditor = element)}
           theme={this.theme}
           heading={this.noteDraft?.title ?? ''}
           content={this.noteDraft?.content ?? ''}
           resize={false}
           showTitleInput={true}
           loading={this.loading}
-          deferLoadTime={250}
-          readonly={!this.disableReadonly ?? false}
+          readonly={this.mode === 'preview'}
           onHellodashTextEditorContentChanged={e => this.textEditorContentChanged(e.detail)}
           onHellodashTextEditorHeadingChanged={e => this.textEditorHeadingChanged(e.detail)}
           onHellodashTextEditorFullscreenChanged={e => (this.isFullscreen = e.detail)}
           onHellodashTextEditorNodeChanged={this.textEditorNodeChanged.bind(this)}
-          onHellodashTextEditorInit={e => this.textEditorInit(e.detail)}
-          onHellodashTextEditorBeforeUnload={this.beforeTextEditorUnload.bind(this)}
-          onHellodashTextEditorUnload={() => (this.noteEditorLoaded = false)}
           showFullscreen
         ></hellodash-text-editor>
 
         <div class='labels-container'>
           {this.noteDraft &&
-            this.noteEditorLoaded &&
             labels.map(l => (
               <dash-chip
                 key={l.id}
@@ -266,8 +291,8 @@ export class HellodashModalNote implements Modal {
         </dash-dropdown>
 
         {this.mobileView && (
-          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={() => (this.disableReadonly = !this.disableReadonly)} disabled={!this.noteEditorLoaded}>
-            {this.disableReadonly ? 'View' : 'Edit'}
+          <dash-button class='edit-note-btn' slot='footer-end' scale='l' onClick={this.toggleMode.bind(this)}>
+            {this.mode === 'edit' ? 'View' : 'Edit'}
           </dash-button>
         )}
       </dash-modal>

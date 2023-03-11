@@ -1,5 +1,5 @@
 import { Focusable } from '@didyoumeantoast/dash-components';
-import { spaceConcat } from '@didyoumeantoast/dash-utils';
+import { spaceConcat, wait } from '@didyoumeantoast/dash-utils';
 import { Theme } from '@didyoumeantoast/hellodash-models';
 import { checklist } from '@didyoumeantoast/tinymce-plugins';
 import { Component, Element, Event, EventEmitter, getAssetPath, h, Host, Method, Prop, State, Watch } from '@stencil/core';
@@ -16,11 +16,21 @@ const MIN_EDITOR_HEIGHT = 230;
 export class HellodashTextEditor implements Focusable {
   //#region Own properties
 
+  /** TinyMCE editor instance */
   editor: Editor;
+
+  /** Unique ID for the editor */
   id: string;
+
+  /** Input element reference */
   headingInput: HTMLInputElement;
+
+  /** Debounced function to handle content changes */
   contentChangedHandler: DebouncedFunc<() => void>;
 
+  /**
+   * Returns `true` if loading
+   */
   get isLoading() {
     return this.isEditorLoading || this.loading;
   }
@@ -35,32 +45,67 @@ export class HellodashTextEditor implements Focusable {
 
   //#region @State
 
+  /** `true` when the editor is in fullscreen mode */
   @State() isFullscreen = false;
 
+  /** `true` when the editor is loading */
   @State() isEditorLoading = true;
 
   //#endregion
 
   //#region @Prop
 
+  /**
+   * The content of the editor
+   */
   @Prop() content: string;
 
-  @Prop({ reflect: true }) theme: Theme;
+  /**
+   * The theme of the editor
+   * @default 'dark'
+   */
+  @Prop({ reflect: true }) theme: Theme = 'dark';
+  @Watch('theme')
+  themeChanged(theme: Theme, prevTheme: Theme) {
+    if (theme === prevTheme) {
+      return;
+    }
 
+    this.loadTinyMce();
+  }
+
+  /**
+   * The heading of the editor
+   */
   @Prop({ reflect: true }) heading: string;
 
+  /**
+   * The debounce time in milliseconds for content changes
+   * @default 3000
+   */
   @Prop({ reflect: true }) debounce: number = 3000;
 
+  /**
+   * When `true`, the editor will resize to fit the content
+   * @default true
+   */
   @Prop({ reflect: true }) resize?: boolean = true;
 
+  /**
+   * When `true`, the editor will show the title input
+   * @default false
+   */
   @Prop({ reflect: true }) showTitleInput: boolean;
 
+  /**
+   * When `true`, the editor will show the fullscreen button
+   * @default false
+   */
   @Prop({ reflect: true }) showFullscreen: boolean;
 
-  // Defer the inital loading of the editor in milliseconds. Use this value to ensure an animation can play without
-  // the editor freezing the app (tinymce is extremely heavy when it loads)
-  @Prop({ reflect: true }) deferLoadTime?: number;
-
+  /**
+   * When `true`, the editor is loading and will show a loading indicator
+   */
   @Prop({ reflect: true }) loading: boolean;
   @Watch('loading')
   loadingChanged() {
@@ -71,12 +116,13 @@ export class HellodashTextEditor implements Focusable {
     this.loadTinyMce();
   }
 
+  /**
+   * When `true`, the editor will be readonly
+   */
   @Prop({ reflect: true }) readonly: boolean;
   @Watch('readonly')
   readonlyChanged() {
-    if (!this.loading) {
-      this.loadTinyMce();
-    }
+    this.loadTinyMce();
   }
 
   //#endregion
@@ -133,8 +179,13 @@ export class HellodashTextEditor implements Focusable {
 
   //#region @Method
 
+  /**
+   * Focuses the editor
+   */
   @Method()
   async setFocus() {
+    // wait for elements to be rendered
+    await wait(60);
     if (this.headingInput) {
       this.headingInput.focus();
     } else {
@@ -142,6 +193,9 @@ export class HellodashTextEditor implements Focusable {
     }
   }
 
+  /**
+   * Selects the title input
+   */
   @Method()
   async selectTitle() {
     if (this.headingInput) {
@@ -149,6 +203,10 @@ export class HellodashTextEditor implements Focusable {
     }
   }
 
+  /**
+   * Returns true if the editor is dirty
+   * @returns true if the editor is dirty
+   */
   @Method()
   async isEditorDirty() {
     if (!this.editor) {
@@ -158,6 +216,10 @@ export class HellodashTextEditor implements Focusable {
     return !this.editor.isNotDirty;
   }
 
+  /**
+   * Saves the editor content
+   * @param emitEvent whether to emit the contentChanged event
+   */
   @Method()
   async save(emitEvent: boolean = true) {
     if (!this.editor) {
@@ -176,6 +238,33 @@ export class HellodashTextEditor implements Focusable {
     }
   }
 
+  /**
+   * Sets the editor heading
+   * @param heading the heading to set
+   */
+  @Method()
+  async setHeading(heading: string) {
+    if (!this.headingInput) {
+      return;
+    }
+
+    this.headingInput.value = heading;
+  }
+
+  /**
+   * Sets the editor content
+   * @param content the content to set
+   */
+  @Method()
+  async setContent(content: string) {
+    this.editor.setContent(content);
+    this.editor.undoManager.clear();
+  }
+
+  /**
+   * Returns the editor content
+   * @returns the editor content
+   */
   @Method()
   async getContent() {
     if (!this.editor) {
@@ -185,6 +274,10 @@ export class HellodashTextEditor implements Focusable {
     return this.editor.getContent();
   }
 
+  /**
+   * Returns the editor content as text
+   * @returns the editor content as text
+   */
   @Method()
   async getTextContent() {
     if (!this.editor) {
@@ -198,6 +291,9 @@ export class HellodashTextEditor implements Focusable {
 
   //#region Local methods
 
+  /**
+   * Unloads the current editor
+   */
   async unloadEditor() {
     if (this.editor) {
       const listeners = [];
@@ -221,33 +317,40 @@ export class HellodashTextEditor implements Focusable {
     }
   }
 
+  /**
+   * Loads the TinyMCE editor
+   */
   async loadTinyMce() {
     this.isEditorLoading = true;
     await this.unloadEditor();
 
-    setTimeout(async () => {
-      const theme = this.theme;
-      const editors = await this.initTinyMce(theme);
-      this.editor = editors[0];
-      this.editor.setContent(this.content);
-      this.editor.on('input', () => this.contentChangedHandler());
+    const theme = this.theme;
+    const editors = await this.initTinyMce(theme);
+    this.editor = editors[0];
+    this.editor.setContent(this.content);
+    this.editor.undoManager.clear();
+    this.editor.on('input', () => this.contentChangedHandler());
 
-      const tinyMceEditorElement = this.element.querySelector('.tox-tinymce') as HTMLElement;
-      tinyMceEditorElement.style.height = '100%';
+    const tinyMceEditorElement = this.element.querySelector('.tox-tinymce') as HTMLElement;
+    tinyMceEditorElement.style.height = '100%';
 
-      if (this.showTitleInput) {
-        this.createHeadingInput();
-      }
+    if (this.showTitleInput) {
+      this.createHeadingInput();
+    }
 
-      if (this.showFullscreen) {
-        this.createFullscreenButton();
-      }
+    if (this.showFullscreen) {
+      this.createFullscreenButton();
+    }
 
-      this.isEditorLoading = false;
-      this.editorInit.emit(this.element);
-    }, this.deferLoadTime ?? 0);
+    this.isEditorLoading = false;
+    this.editorInit.emit(this.element);
   }
 
+  /**
+   * Initialises the TinyMCE editor
+   * @param theme the theme to use
+   * @returns the TinyMCE editor
+   */
   initTinyMce(theme: string) {
     // add custom plugins
     tinymce.PluginManager.add('checklist', checklist);
@@ -347,6 +450,9 @@ export class HellodashTextEditor implements Focusable {
     return tinymce.init(config);
   }
 
+  /**
+   * Creates the heading input
+   */
   createHeadingInput() {
     const tinyMceHeaderElement = this.element.querySelector('.tox-editor-header');
     // create custom input for heading
@@ -372,6 +478,9 @@ export class HellodashTextEditor implements Focusable {
     this.headingInput = headingInput;
   }
 
+  /**
+   * Creates the fullscreen button
+   */
   createFullscreenButton() {
     const menuBarElement = this.element.querySelector('.tox-menubar');
 

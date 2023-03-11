@@ -6,14 +6,14 @@ hellodash-label-select {
     flex-direction: column;
     background-color: var(--dash-background-2);
     border-radius: var(--dash-border-radius);
-    overflow: hidden;
+    overflow-x: hidden;
 
     .labels-list {
       overflow-y: auto;
 
       dash-color-swatch {
-        --dash-focus-outline-offset: 0px;
-        --dash-focus-outline-max-offset: 1px;
+        --dash-focus-outline-offset-100: 0px;
+        --dash-focus-outline-offset-50: 1px;
       }
     }
 

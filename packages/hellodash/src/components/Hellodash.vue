@@ -7,7 +7,7 @@ import { Routes } from '../common/routes';
 import { hellodashService } from '../services/hellodash-service';
 import { setSidebarCollapsed, setTheme, toggleSidebarCollapsed } from '../slices/app-settings-slice';
 import { setError } from '../slices/app-state-slice';
-import { createLabel as createLabelAction, deleteLabel, getLabels, updateLabel } from '../slices/labels-slice';
+import { createLabel as createLabelAction, deleteLabel, getLabels, reorderLabels, updateLabel } from '../slices/labels-slice';
 import { getNotePreviews } from '../slices/notes-slice';
 import { dispatch, RootState } from '../store';
 import { logout } from '../utils/logout';
@@ -202,6 +202,7 @@ async function createLabel(label: Label) {
     @hellodashEditLabelsCreateLabel="(e: any) => createLabel(e.detail)"
     @hellodashEditLabelsDeleteLabel="(e: any) => dispatch(deleteLabel(e.detail))"
     @hellodashEditLabelsUpdateLabel="(e: any) => dispatch(updateLabel(e.detail))"
+    @hellodashEditLabelsLabelsReordered="(e: any) => dispatch(reorderLabels(e.detail))"
   ></hellodash-edit-labels>
 </template>
 

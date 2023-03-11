@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property     | Attribute | Description | Type          | Default     |
-| ------------ | --------- | ----------- | ------------- | ----------- |
-| `authClient` | --        |             | `Auth0Client` | `undefined` |
+| Property     | Attribute | Description  | Type          | Default     |
+| ------------ | --------- | ------------ | ------------- | ----------- |
+| `authClient` | --        | Auth0 client | `Auth0Client` | `undefined` |
 
 
 ## Events

@@ -16,7 +16,7 @@
 
 ### `setFocus() => Promise<void>`
 
-
+Sets focus on the menu button
 
 #### Returns
 
