@@ -63,6 +63,7 @@ graph TD;
   dash-time-picker --> dash-list
   dash-time-picker --> dash-list-item
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-event-calendar-day --> dash-event-calendar-edit-event
   dash-event-calendar-month --> dash-event-calendar-edit-event
   dash-event-calendar-week --> dash-event-calendar-edit-event

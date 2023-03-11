@@ -47,6 +47,7 @@ graph TD;
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-event-calendar-edit-event --> dash-time-picker
   style dash-time-picker fill:#f9f,stroke:#333,stroke-width:4px
 ```

@@ -60,6 +60,7 @@ graph TD;
   dash-time-picker --> dash-list
   dash-time-picker --> dash-list-item
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   style dash-event-calendar-week fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

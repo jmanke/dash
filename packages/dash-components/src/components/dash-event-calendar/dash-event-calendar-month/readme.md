@@ -49,6 +49,7 @@ graph TD;
   dash-tooltip --> dash-popover
   dash-button --> dash-icon
   dash-list-item --> dash-icon
+  dash-list-item --> dash-icon-button
   dash-event-calendar-edit-event --> dash-label
   dash-event-calendar-edit-event --> dash-input
   dash-event-calendar-edit-event --> dash-textarea
