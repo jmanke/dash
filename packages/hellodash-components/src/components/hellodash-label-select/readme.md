@@ -12,7 +12,7 @@
 | `allLabels`      | --                 | All labels to choose from                       | `Label[]` | `[]`        |
 | `autoFocus`      | `auto-focus`       | When true, the dropdown will be focused on open | `boolean` | `undefined` |
 | `canCreateLabel` | `can-create-label` | When true, the user can create new labels       | `boolean` | `undefined` |
-| `labels`         | --                 | Labels to display                               | `Label[]` | `[]`        |
+| `labels`         | --                 | Selected labels                                 | `Label[]` | `[]`        |
 
 
 ## Events

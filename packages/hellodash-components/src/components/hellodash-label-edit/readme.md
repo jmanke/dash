@@ -7,10 +7,9 @@
 
 ## Properties
 
-| Property    | Attribute | Description | Type      | Default     |
-| ----------- | --------- | ----------- | --------- | ----------- |
-| `allLabels` | --        |             | `Label[]` | `undefined` |
-| `label`     | --        |             | `Label`   | `undefined` |
+| Property | Attribute | Description | Type    | Default     |
+| -------- | --------- | ----------- | ------- | ----------- |
+| `label`  | --        |             | `Label` | `undefined` |
 
 
 ## Events

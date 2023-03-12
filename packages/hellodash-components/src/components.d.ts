@@ -80,7 +80,7 @@ export namespace Components {
          */
         "canCreateLabel": boolean;
         /**
-          * Labels to display
+          * Selected labels
          */
         "labels": Label[];
     }
@@ -422,7 +422,7 @@ declare namespace LocalJSX {
          */
         "canCreateLabel"?: boolean;
         /**
-          * Labels to display
+          * Selected labels
          */
         "labels"?: Label[];
         "onHellodashLabelSelectLabelAdded"?: (event: HellodashLabelSelectCustomEvent<Label>) => void;

@@ -19,7 +19,7 @@
 | ------------------------------------ | ----------- | ----------------------------------------------- |
 | `dashModalBeforeClose`               |             | `CustomEvent<any>`                              |
 | `dashModalClosed`                    |             | `CustomEvent<any>`                              |
-| `hellodashEditLabelsCreateLabel`     |             | `CustomEvent<{ color: string; text: string; }>` |
+| `hellodashEditLabelsCreateLabel`     |             | `CustomEvent<{ text: string; color: string; }>` |
 | `hellodashEditLabelsDeleteLabel`     |             | `CustomEvent<Label>`                            |
 | `hellodashEditLabelsLabelsReordered` |             | `CustomEvent<Label[]>`                          |
 | `hellodashEditLabelsUpdateLabel`     |             | `CustomEvent<Label>`                            |
