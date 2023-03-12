@@ -153,7 +153,6 @@ export class HellodashEditLabels implements Modal {
               <hellodash-label-edit
                 style={{ flex: '1 1 auto' }}
                 label={{ ...label }}
-                allLabels={this.labels}
                 onHellodashLabelEditLabelDeleted={e => this.deleteLabel.emit(e.detail)}
                 onHellodashLabelEditLabelUpdated={e => this.updateLabel.emit(e.detail)}
               ></hellodash-label-edit>
