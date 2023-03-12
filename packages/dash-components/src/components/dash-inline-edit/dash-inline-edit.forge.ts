@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { scaleControl } from '../../../.forge/common/controls';
+import { scaleControl } from '../../../../../.forge/common/controls';
 
 const template = (args, updateArg) =>
   html`<dash-inline-edit

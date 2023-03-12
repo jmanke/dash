@@ -1,5 +1,5 @@
 {
-  "name": "Dash components",
+  "name": "Hellodash components",
   "root": "./src/components",
   "staticDirs": ["./www/**"]
 }

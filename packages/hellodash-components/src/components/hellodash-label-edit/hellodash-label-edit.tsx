@@ -28,8 +28,6 @@ export class HellodashLabelEdit {
 
   @Prop() label: Label;
 
-  @Prop() allLabels: Label[];
-
   //#endregion
 
   //#region @Event

@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { placementControl, placementStrategyControl, scaleControl } from '../../../.forge/common/controls';
+import { placementControl, placementStrategyControl, scaleControl } from '../../../../../.forge/common/controls';
 
 const template = args => html`<div style="margin: 5rem;">
   <dash-icon-button id="dash-tooltip-test" icon="plus"></dash-icon-button>

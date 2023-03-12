@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { scaleExtendedControl, iconControl } from '../../../.forge/common/controls';
+import { iconControl, scaleExtendedControl } from '../../../../../.forge/common/controls';
 
 const template = args => html`<dash-icon scale=${args.scale} icon=${args.icon} icon-url=${args.iconUrl}></dash-icon>`;
 

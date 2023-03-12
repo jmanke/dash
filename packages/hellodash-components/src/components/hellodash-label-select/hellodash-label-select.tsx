@@ -50,7 +50,7 @@ export class HellodashLabelEdit {
   //#region @Prop
 
   /**
-   * Labels to display
+   * Selected labels
    */
   @Prop() labels: Label[] = [];
   @Watch('labels')

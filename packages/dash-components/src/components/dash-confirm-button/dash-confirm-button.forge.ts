@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { iconControl, scaleControl } from '../../../.forge/common/controls';
+import { iconControl, scaleControl } from '../../../../../.forge/common/controls';
 
 const template = args => html`<dash-confirm-button scale=${args.scale} icon=${args.icon}></dash-confirm-button>`;
 

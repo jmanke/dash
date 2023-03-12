@@ -16,6 +16,7 @@
     "build:hellodash-models": "turbo run build:hellodash-models",
     "start:hellodash": "turbo run start:hellodash",
     "start:hellodash-components": "turbo run start:hellodash-components",
+    "start:hellodash-components:forge": "turbo run start:hellodash-components:forge",
     "start:dash-components": "turbo run start:dash-components",
     "start:dash-components:forge": "turbo run start:dash-components:forge"
   },

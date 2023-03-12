@@ -64,7 +64,6 @@ export namespace Components {
         "color": string;
     }
     interface HellodashLabelEdit {
-        "allLabels": Label[];
         "label": Label;
     }
     interface HellodashLabelSelect {
@@ -405,7 +404,6 @@ declare namespace LocalJSX {
         "onHellodashLabelColorPickerColorChanged"?: (event: HellodashLabelColorPickerCustomEvent<string>) => void;
     }
     interface HellodashLabelEdit {
-        "allLabels"?: Label[];
         "label"?: Label;
         "onHellodashLabelEditLabelDeleted"?: (event: HellodashLabelEditCustomEvent<Label>) => void;
         "onHellodashLabelEditLabelUpdated"?: (event: HellodashLabelEditCustomEvent<Label>) => void;

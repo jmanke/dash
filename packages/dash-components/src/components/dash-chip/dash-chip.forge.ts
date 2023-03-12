@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { colorControl } from '../../../.forge/common/controls';
+import { colorControl } from '../../../../../.forge/common/controls';
 
 const template = args =>
   html`<dash-chip

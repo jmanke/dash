@@ -32,6 +32,7 @@
     "start:hellodash-components": {
       "dependsOn": ["^build:dash-components", "^build:hellodash-models"]
     },
-    "start:dash-components:forge": {}
+    "start:dash-components:forge": {},
+    "start:hellodash-components:forge": {}
   }
 }

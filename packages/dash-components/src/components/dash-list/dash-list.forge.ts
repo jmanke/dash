@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { scaleControl } from '../../../.forge/common/controls';
+import { scaleControl } from '../../../../../.forge/common/controls';
 
 const items = ['Item 0', 'Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 

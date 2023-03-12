@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { scaleExtendedControl, iconControl, placementControl } from '../../../.forge/common/controls';
+import { iconControl, placementControl, scaleExtendedControl } from '../../../../../.forge/common/controls';
 
 const template = args =>
   html`<dash-icon-button

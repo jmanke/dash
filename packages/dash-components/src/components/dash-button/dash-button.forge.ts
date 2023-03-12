@@ -1,5 +1,5 @@
 import { html } from 'lit-html';
-import { scaleControl, iconControl, statusControl } from '../../../.forge/common/controls';
+import { iconControl, scaleControl, statusControl } from '../../../../../.forge/common/controls';
 
 const template = args =>
   html`
