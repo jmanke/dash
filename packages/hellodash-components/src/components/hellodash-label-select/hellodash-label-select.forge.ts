@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 
-const template = (args, updateArg) =>
+const template = args =>
   html`<hellodash-label-select
     .labels=${args.labels}
     .allLabels=${args.allLabels}

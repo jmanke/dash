@@ -4,7 +4,7 @@ const template = (args, updateArg) =>
   html`<hellodash-label-edit
     .label=${args.label}
     @hellodashLabelEditLabelUpdated="${e => updateArg('label', e.detail)}"
-    @hellodashLabelEditLabelDeleted=${e => console.log('Delete label')}
+    @hellodashLabelEditLabelDeleted=${() => console.log('Delete label')}
   ></hellodash-label-edit>`;
 
 export const labelEdit = {

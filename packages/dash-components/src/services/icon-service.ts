@@ -7,7 +7,7 @@ class IconService {
   /**
    * caches SVG values
    */
-  cache = new Map<string, Array<string>>();
+  cache = new Map<string, { paths: Array<string> }>();
 
   /**
    * Gets the raw SVG paths
@@ -16,14 +16,19 @@ class IconService {
    */
   async getIconPaths(icon: string) {
     const iconPathName = getAssetPath(`assets/icon-paths/${icon}.json`);
-    let paths = this.cache.get(iconPathName);
+    let { paths } = this.cache.get(iconPathName) ?? {};
     if (paths) {
       return paths;
     }
 
-    const resp = await fetch(iconPathName, { cache: 'force-cache' });
-    paths = JSON.parse(await resp.text()).paths;
-    this.cache.set(iconPathName, paths);
+    try {
+      const resp = await fetch(iconPathName, { cache: 'force-cache' });
+      const json = await resp.json();
+      paths = json.paths;
+      this.cache.set(iconPathName, json);
+    } catch (e) {
+      console.error(`Failed to load '${icon}' at path '${iconPathName}'`, e);
+    }
 
     return paths;
   }
