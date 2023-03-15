@@ -470,7 +470,7 @@ export class HellodashTextEditor implements Focusable {
     });
 
     if (this.readonly) {
-      headingInput.setAttribute('disabled', 'true');
+      headingInput.setAttribute('readonly', 'true');
     }
 
     headingInput.value = this.heading;
