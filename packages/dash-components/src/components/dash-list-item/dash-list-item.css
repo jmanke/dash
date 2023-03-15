@@ -1,4 +1,5 @@
 @import '../../assets/styles/_reset.css';
+@import '../../assets/styles/_focus-outline.css';
 
 :host {
   display: flex;
@@ -80,24 +81,41 @@
   transition: box-shadow ease-out 75ms;
 
   .grip {
-    --dash-icon-button-height: 100%;
-    --dash-icon-button-padding: 0;
     --dash-focus-outline-offset-0: -3px;
     --dash-focus-outline-offset-100: -2px;
     --dash-focus-outline-offset-50: -2px;
+    padding: 0 var(--dash-spacing-1);
     position: absolute;
     height: calc(100% + 4px);
     left: -2px;
     user-select: none;
-    transition: opacity ease-in-out var(--dash-transition-time-very-fast);
+    transition: background-color ease-in-out var(--dash-transition-time-very-fast);
     opacity: 0;
+    border-radius: var(--dash-border-radius);
+    cursor: move;
 
     @media (pointer: coarse) {
       opacity: 1;
     }
 
-    &.grip-focused {
+    &.grip-focused,
+    &:focus {
       opacity: 1;
+    }
+
+    &:hover {
+      opacity: 1;
+      background-color: var(--dash-bg-darken-1);
+    }
+
+    &:focus-visible {
+      @extend .focus-outline;
+    }
+
+    &:active,
+    &.grip-active {
+      opacity: 1;
+      background-color: var(--dash-bg-darken-2);
     }
   }
 

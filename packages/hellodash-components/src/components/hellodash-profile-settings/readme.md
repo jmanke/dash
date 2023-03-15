@@ -41,7 +41,6 @@ graph TD;
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
   dash-list-item --> dash-icon
-  dash-list-item --> dash-icon-button
   style hellodash-profile-settings fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

@@ -476,7 +476,7 @@ export namespace Components {
         /**
           * Sets focus on this element
          */
-        "setFocus": () => Promise<void>;
+        "setFocus": (target?: 'default' | 'grip') => Promise<void>;
         /**
           * Value of the list-item
          */

@@ -50,7 +50,6 @@ graph TD;
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
   dash-list-item --> dash-icon
-  dash-list-item --> dash-icon-button
   hellodash-label-select --> dash-list
   hellodash-label-select --> dash-list-item
   hellodash-label-select --> dash-color-swatch

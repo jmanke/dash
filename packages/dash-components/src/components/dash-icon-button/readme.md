@@ -42,7 +42,6 @@ Type: `Promise<void>`
  - [dash-drill-menu](../dash-drill-menu)
  - [dash-fab](../dash-fab)
  - [dash-input](../dash-input)
- - [dash-list-item](../dash-list-item)
  - [dash-modal](../dash-modal)
 
 ### Depends on
@@ -63,7 +62,6 @@ graph TD;
   dash-drill-menu --> dash-icon-button
   dash-fab --> dash-icon-button
   dash-input --> dash-icon-button
-  dash-list-item --> dash-icon-button
   dash-modal --> dash-icon-button
   style dash-icon-button fill:#f9f,stroke:#333,stroke-width:4px
 ```

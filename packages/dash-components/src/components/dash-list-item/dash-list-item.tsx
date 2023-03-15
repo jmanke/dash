@@ -29,11 +29,6 @@ export class DashListItem implements Focusable {
    */
   @State() isActive: boolean;
 
-  /**
-   * When `true`, list item visually indicates it's focused. CSS doesn't seem to work here due to the shadow DOM interaction.
-   */
-  @State() gripFocused: boolean;
-
   //#endregion
 
   //#region @Prop
@@ -147,8 +142,13 @@ export class DashListItem implements Focusable {
    * Sets focus on this element
    */
   @Method()
-  async setFocus() {
-    this.element.focus();
+  async setFocus(target: 'default' | 'grip' = 'default') {
+    if (target === 'default') {
+      this.element.focus();
+      return;
+    }
+
+    (this.element.shadowRoot.querySelector('.grip') as HTMLElement)?.focus();
   }
 
   //#endregion
@@ -265,6 +265,7 @@ export class DashListItem implements Focusable {
         break;
       case 'Space':
         this.startedDrag.emit(e);
+        e.preventDefault();
         break;
     }
 
@@ -274,7 +275,6 @@ export class DashListItem implements Focusable {
   gripKeyUp(e: KeyboardEvent) {
     if (e.code === 'Space') {
       this.endedDrag.emit(e);
-      (e.target as HTMLDashIconButtonElement).setFocus();
     }
 
     e.stopPropagation();
@@ -308,8 +308,9 @@ export class DashListItem implements Focusable {
           onFocusout={this.updateIsActive.bind(this, false)}
         >
           {this.dragEnabled && (
-            <dash-icon-button
-              class={spaceConcat('grip', this.gripFocused ? 'grip-focused' : undefined)}
+            <dash-icon
+              tabIndex={0}
+              class={spaceConcat('grip', this.internalIsDragging ? 'grip-active' : undefined)}
               icon='grip-vertical'
               scale='s'
               onKeyDown={this.gripKeyDown.bind(this)}
@@ -319,9 +320,7 @@ export class DashListItem implements Focusable {
               onPointerDown={e => {
                 this.startDrag(e);
               }}
-              onFocusin={() => (this.gripFocused = true)}
-              onFocusout={() => (this.gripFocused = false)}
-            ></dash-icon-button>
+            ></dash-icon>
           )}
 
           <div class='list-item' ref={e => (this.listItem = e)}>

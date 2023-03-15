@@ -216,6 +216,10 @@ export class DashList {
           this.updateChildProps();
           this.listItemsReordered.emit(items as HTMLDashListItemElement[]);
         }
+
+        setTimeout(() => {
+          item.setFocus('grip');
+        }, 10);
       },
       { once: true },
     );
