@@ -79,12 +79,14 @@ importers:
       '@a11y/focus-trap': ^1.0.5
       esbuild: ^0.15.17
       esbuild-plugin-d.ts: ^1.1.0
+      esbuild-plugin-glob: ^2.2.1
       typescript: ^4.7.4
     dependencies:
       '@a11y/focus-trap': 1.0.5
     devDependencies:
       esbuild: 0.15.17
       esbuild-plugin-d.ts: 1.1.0_typescript@4.9.3
+      esbuild-plugin-glob: 2.2.1_esbuild@0.15.17
       typescript: 4.9.3
 
   packages/hellodash:
@@ -2996,6 +2998,20 @@ packages:
       - ts-node
     dev: true
 
+  /esbuild-plugin-glob/2.2.1_esbuild@0.15.17:
+    resolution: {integrity: sha512-ZuUxY9sdp78dA7a2mGpHypMYvsaObitJnPX4l676pfbSSBPJK8yx8VkxxK+SvznZvkDHXHWdorxWrDknjHSLEA==}
+    engines: {node: '>=14'}
+    peerDependencies:
+      esbuild: ^0.x.x
+    dependencies:
+      chokidar: 3.5.3
+      esbuild: 0.15.17
+      fast-glob: 3.2.12
+      minimatch: 5.1.6
+      tiny-invariant: 1.3.1
+      unixify: 1.0.0
+    dev: true
+
   /esbuild-sunos-64/0.14.54:
     resolution: {integrity: sha512-28GZ24KmMSeKi5ueWzMcco6EBHStL3B6ubM7M51RmPwXQGLe0teBGJocmWhgwccA1GeFXqxzILIxXpHbl9Q/Kw==}
     engines: {node: '>=12'}
@@ -4593,6 +4609,13 @@ packages:
     dependencies:
       brace-expansion: 2.0.1
 
+  /minimatch/5.1.6:
+    resolution: {integrity: sha512-lKwV/1brpG6mBUFHtb7NUmtABCb2WZZmm2wNiOA5hAb8VdCS4B3dtMWyvcoViccwAW/COERjXLt0zP1zXUN26g==}
+    engines: {node: '>=10'}
+    dependencies:
+      brace-expansion: 2.0.1
+    dev: true
+
   /minimatch/6.2.0:
     resolution: {integrity: sha512-sauLxniAmvnhhRjFwPNnJKaPFYyddAgbYdeUpHULtCT/GhzdCx/MDNy+Y40lBxTQUrMzDE8e0S43Z5uqfO0REg==}
     engines: {node: '>=10'}
@@ -4670,6 +4693,13 @@ packages:
 
   /node-releases/2.0.6:
     resolution: {integrity: sha512-PiVXnNuFm5+iYkLBNeq5211hvO38y63T0i2KKh2KnUs3RpzJ+JtODFjkD8yjLwnDkTYF1eKXheUwdssR+NRZdg==}
+    dev: true
+
+  /normalize-path/2.1.1:
+    resolution: {integrity: sha512-3pKJwH184Xo/lnH6oyP1q2pMd7HcypqqmRs91/6/i2CGtWwIKGCkOOMTm/zXbgTEWHw1uNpNi/igc3ePOYHb6w==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      remove-trailing-separator: 1.1.0
     dev: true
 
   /normalize-path/3.0.0:
@@ -5129,6 +5159,10 @@ packages:
     dependencies:
       rc: 1.2.8
     dev: false
+
+  /remove-trailing-separator/1.1.0:
+    resolution: {integrity: sha512-/hS+Y0u3aOfIETiaiirUFwDBDzmXPvO+jAfKTitUngIPzdKc6Z0LoFjM/CK5PL4C+eKwHohlHAb6H0VFfmmUsw==}
+    dev: true
 
   /require-directory/2.1.1:
     resolution: {integrity: sha512-fGxEI7+wsG9xrvdjsrlmL22OMTTiHRwAMroiEeMgq8gzoLC/PQr7RsRDSTLUg/bZAZtF+TVIkHc6/4RIKrui+Q==}
@@ -5661,6 +5695,10 @@ packages:
     resolution: {integrity: sha512-w89qg7PI8wAdvX60bMDP+bFoD5Dvhm9oLheFp5O4a2QF0cSBGsBX4qZmadPMvVqlLJBBci+WqGGOAPvcDeNSVg==}
     dev: true
 
+  /tiny-invariant/1.3.1:
+    resolution: {integrity: sha512-AD5ih2NlSssTCwsMznbvwMZpJ1cbhkGd2uueNxzv2jDlEeZdU04JQfRnggJQ8DrcVBGjAsCKwFBbDlVNtEMlzw==}
+    dev: true
+
   /tinymce/5.10.6:
     resolution: {integrity: sha512-bnF2LUoycDsoZZLQBNHbOijrmoJuEeR1rQdqgo4s77BedufpOVnDh00OZKbseHeTMCxhVH05wvOqxLsi6vpeZw==}
     dev: false
@@ -5882,6 +5920,13 @@ packages:
   /universalify/2.0.0:
     resolution: {integrity: sha512-hAZsKq7Yy11Zu1DE0OzWjw7nnLZmJZYTDZZyEFHZdUhV8FkH5MCfoU1XMaxXovpyW5nq5scPqq0ZDP9Zyl04oQ==}
     engines: {node: '>= 10.0.0'}
+
+  /unixify/1.0.0:
+    resolution: {integrity: sha512-6bc58dPYhCMHHuwxldQxO3RRNZ4eCogZ/st++0+fcC1nr0jiGUtAdBJ2qzmLQWSxbtz42pWt4QQMiZ9HvZf5cg==}
+    engines: {node: '>=0.10.0'}
+    dependencies:
+      normalize-path: 2.1.1
+    dev: true
 
   /unpipe/1.0.0:
     resolution: {integrity: sha512-pjy2bYhSsufwWlKwPc+l3cN7+wuJlK6uz0YdJEOlQDbl6jo/YlPi4mb8agUkVC8BF7V8NuzeyPNqRksA3hztKQ==}

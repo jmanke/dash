@@ -8,8 +8,8 @@
   "main": "dist/index.js",
   "scripts": {
     "build": "node build.js",
-    "build:dev": "pnpm build",
-    "build:dash-utils": "pnpm build"
+    "build:dev": "pnpm build --dev",
+    "build:dash-utils": "pnpm build --dev"
   },
   "files": [
     "dist/"
@@ -18,6 +18,7 @@
   "devDependencies": {
     "esbuild": "^0.15.17",
     "esbuild-plugin-d.ts": "^1.1.0",
+    "esbuild-plugin-glob": "^2.2.1",
     "typescript": "^4.7.4"
   },
   "dependencies": {

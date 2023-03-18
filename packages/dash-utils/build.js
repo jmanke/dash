@@ -1,27 +1,20 @@
 import { build } from 'esbuild';
 import { dtsPlugin } from 'esbuild-plugin-d.ts';
+import { globPlugin } from 'esbuild-plugin-glob';
 
-const entryPoints = [
-  'src/index.ts',
-  'src/class-exists.ts',
-  'src/contains.ts',
-  'src/deep-copy.ts',
-  'src/event-emitter.ts',
-  'src/focus.ts',
-  'src/is-hex.ts',
-  'src/replace-at.ts',
-  'src/space-concat.ts',
-  'src/string-search.ts',
-  'src/wait.ts',
-  'src/is-none.ts',
-];
+const devMode = process.argv.slice(2)?.[0] === '--dev';
 
-build({
-  entryPoints,
+const sharedConfig = {
   bundle: false,
-  minify: true,
-  outdir: 'dist',
   platform: 'node',
   format: 'esm',
-  plugins: [dtsPlugin()],
+  minify: !devMode,
+  plugins: [dtsPlugin(), globPlugin()],
+};
+
+// build all files in src
+build({
+  ...sharedConfig,
+  entryPoints: ['src/**/*.ts'],
+  outdir: 'dist',
 });
