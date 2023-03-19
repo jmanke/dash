@@ -332,7 +332,7 @@ export class HellodashTextEditor implements Focusable {
     this.editor.on('input', () => this.contentChangedHandler());
 
     const tinyMceEditorElement = this.element.querySelector('.tox-tinymce') as HTMLElement;
-    tinyMceEditorElement.style.height = '100%';
+    tinyMceEditorElement.style.removeProperty('height');
 
     if (this.showTitleInput) {
       this.createHeadingInput();

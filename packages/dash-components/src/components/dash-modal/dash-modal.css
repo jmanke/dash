@@ -14,8 +14,8 @@
 }
 
 :host(:not([fullscreen])) .modal .body {
-  max-height: 60vh;
-  max-width: min(90vw, 48rem);
+  max-height: 60%;
+  max-width: min(90%, 48rem);
 }
 
 :host([scale='s']) .modal .body {
@@ -28,20 +28,20 @@
 
 :host(:not([fullscreen]):not([disable-fullscreen-mobile-view])) .modal .body {
   @media only screen and (max-width: 768px) {
-    height: 95vh;
-    max-height: 95vh;
+    height: 95%;
+    max-height: 95%;
   }
 }
 
 :host([scale='l']) .modal .body {
   width: 1200px;
-  max-width: min(90vw, 1200px);
+  max-width: min(90%, 1200px);
 }
 
 :host([fullscreen][open]) .modal .body {
-  width: calc(100vw - var(--dash-spacing-12));
-  height: calc(100vh - var(--dash-spacing-12));
-  max-height: calc(100vh - var(--dash-spacing-12));
+  width: calc(100% - var(--dash-spacing-12));
+  height: calc(100% - var(--dash-spacing-12));
+  max-height: calc(100% - var(--dash-spacing-12));
   animation: fadeInModalFullscreen ease-out var(--dash-transition-time-default);
 }
 
