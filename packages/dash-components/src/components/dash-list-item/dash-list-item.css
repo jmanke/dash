@@ -72,6 +72,8 @@
 a {
   color: inherit; /* blue colors for links too */
   text-decoration: inherit; /* no underline */
+  display: flex;
+  flex: auto;
 }
 
 .list-item-wrapper {
