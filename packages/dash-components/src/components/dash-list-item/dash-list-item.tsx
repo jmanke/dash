@@ -72,6 +72,11 @@ export class DashListItem implements Focusable {
   @Prop({ reflect: true }) dragEnabled: boolean;
 
   /**
+   * When provided, list-item is rendered as an anchor
+   */
+  @Prop({ reflect: true }) href: string;
+
+  /**
    * When `true`, list-item is being dragged. Used for styling purposes
    * @internal
    * @default false
@@ -294,55 +299,37 @@ export class DashListItem implements Focusable {
     return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='dot' scale='s'></dash-icon>;
   }
 
-  //#endregion
-
-  render() {
+  itemElement() {
     return (
-      <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
-        <div
-          class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}
-          onClick={e => this.click(e)}
-          onPointerDown={this.updateIsActive.bind(this, true)}
-          onPointerUp={this.updateIsActive.bind(this, false)}
-          onPointerLeave={this.updateIsActive.bind(this, false)}
-          onFocusout={this.updateIsActive.bind(this, false)}
-        >
-          {this.dragEnabled && (
-            <dash-icon
-              tabIndex={0}
-              class={spaceConcat('grip', this.internalIsDragging ? 'grip-active' : undefined)}
-              icon='grip-vertical'
-              scale='s'
-              onKeyDown={this.gripKeyDown.bind(this)}
-              onKeyUp={this.gripKeyUp.bind(this)}
-              onClick={this.stopPropagation.bind(this)}
-              onPointerLeave={this.stopPropagation.bind(this)}
-              onPointerDown={e => {
-                this.startDrag(e);
-              }}
-            ></dash-icon>
-          )}
+      <div
+        class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}
+        onClick={e => this.click(e)}
+        onPointerDown={this.updateIsActive.bind(this, true)}
+        onPointerUp={this.updateIsActive.bind(this, false)}
+        onPointerLeave={this.updateIsActive.bind(this, false)}
+        onFocusout={this.updateIsActive.bind(this, false)}
+      >
+        {this.dragEnabled && (
+          <dash-icon
+            tabIndex={0}
+            class={spaceConcat('grip', this.internalIsDragging ? 'grip-active' : undefined)}
+            icon='grip-vertical'
+            scale='s'
+            onKeyDown={this.gripKeyDown.bind(this)}
+            onKeyUp={this.gripKeyUp.bind(this)}
+            onClick={this.stopPropagation.bind(this)}
+            onPointerLeave={this.stopPropagation.bind(this)}
+            onPointerDown={e => {
+              this.startDrag(e);
+            }}
+          ></dash-icon>
+        )}
 
-          <div class='list-item' ref={e => (this.listItem = e)}>
-            {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
-
-            <div
-              class='actions-start-wrapper'
-              onKeyDown={this.stopPropagation.bind(this)}
-              onKeyUp={this.stopPropagation.bind(this)}
-              onClick={this.stopPropagation.bind(this)}
-              onPointerDown={this.stopPropagation.bind(this)}
-              onPointerUp={this.stopPropagation.bind(this)}
-              onPointerLeave={this.stopPropagation.bind(this)}
-            >
-              <slot name='actions-start'></slot>
-            </div>
-
-            <slot></slot>
-          </div>
+        <div class='list-item' ref={e => (this.listItem = e)}>
+          {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
 
           <div
-            class='actions-end-wrapper'
+            class='actions-start-wrapper'
             onKeyDown={this.stopPropagation.bind(this)}
             onKeyUp={this.stopPropagation.bind(this)}
             onClick={this.stopPropagation.bind(this)}
@@ -350,9 +337,33 @@ export class DashListItem implements Focusable {
             onPointerUp={this.stopPropagation.bind(this)}
             onPointerLeave={this.stopPropagation.bind(this)}
           >
-            <slot name='actions-end'></slot>
+            <slot name='actions-start'></slot>
           </div>
+
+          <slot></slot>
         </div>
+
+        <div
+          class='actions-end-wrapper'
+          onKeyDown={this.stopPropagation.bind(this)}
+          onKeyUp={this.stopPropagation.bind(this)}
+          onClick={this.stopPropagation.bind(this)}
+          onPointerDown={this.stopPropagation.bind(this)}
+          onPointerUp={this.stopPropagation.bind(this)}
+          onPointerLeave={this.stopPropagation.bind(this)}
+        >
+          <slot name='actions-end'></slot>
+        </div>
+      </div>
+    );
+  }
+
+  //#endregion
+
+  render() {
+    return (
+      <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
+        {this.href ? <a href={this.href}>{this.itemElement()}</a> : this.itemElement()}
       </Host>
     );
   }

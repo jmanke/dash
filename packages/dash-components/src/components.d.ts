@@ -454,6 +454,10 @@ export namespace Components {
          */
         "dragEnabled": boolean;
         /**
+          * When provided, list-item is rendered as an anchor
+         */
+        "href": string;
+        /**
           * When `true`, list-item is being dragged. Used for styling purposes
           * @default false
          */
@@ -1470,6 +1474,10 @@ declare namespace LocalJSX {
           * @default false
          */
         "dragEnabled"?: boolean;
+        /**
+          * When provided, list-item is rendered as an anchor
+         */
+        "href"?: string;
         /**
           * When `true`, list-item is being dragged. Used for styling purposes
           * @default false

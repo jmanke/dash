@@ -3,8 +3,9 @@ import { html } from 'lit-html';
 const template = (args, updateArg) =>
   html`<dash-list-item
     selection-mode=${args.selectionMode}
-    disable-deselect=${args.disableDeselect}
-    drag-enabled=${args.dragEnabled}
+    href=${args.href}
+    ?disable-deselect=${args.disableDeselect}
+    ?drag-enabled=${args.dragEnabled}
     ?selected=${args.selected}
     ?disabled=${args.disabled}
     @dashListItemSelectedChanged=${() => updateArg('selected', !args.selected)}
@@ -19,6 +20,7 @@ export const listItemDefinition = {
     dragEnabled: { type: 'boolean' },
     selectionMode: { type: 'select', options: ['single', 'multiple', 'none'] },
     disableDeselect: { type: 'boolean' },
+    href: { type: 'text' },
   },
   template,
   args: {
@@ -27,6 +29,7 @@ export const listItemDefinition = {
     disableDeselect: false,
     dragEnabled: false,
     selectionMode: 'single',
+    href: null,
   },
 };
 
