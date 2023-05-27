@@ -9,6 +9,11 @@
       "dependsOn": ["^build:dash-utils"],
       "outputs": ["dist/**", "www/**"]
     },
+    "build:dash-components-react": {
+      "dependsOn": ["^build:dash-components"],
+      "outputs": ["dist/**"],
+      "cache": false
+    },
     "build:hellodash-components": {
       "dependsOn": ["^build:dash-components", "^build:hellodash-models"],
       "outputs": ["dist/**", "www/**"]

@@ -11,6 +11,7 @@
     "preinstall": "npx only-allow pnpm",
     "build": "turbo run build",
     "build:dash-components": "turbo run build:dash-components",
+    "build:dash-components-react": "turbo run build:dash-components-react --no-cache",
     "build:dash-utils": "turbo run build:dash-utils",
     "build:hellodash-components": "turbo run build:hellodash-components",
     "build:hellodash-models": "turbo run build:hellodash-models",
