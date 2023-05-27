@@ -7,13 +7,14 @@
 
 ## Properties
 
-| Property          | Attribute          | Description                             | Type      | Default     |
-| ----------------- | ------------------ | --------------------------------------- | --------- | ----------- |
-| `disableDeselect` | `disable-deselect` | Whether the list item can be deselected | `boolean` | `undefined` |
-| `disabled`        | `disabled`         | When `true`, interaction is disabled    | `boolean` | `undefined` |
-| `dragEnabled`     | `drag-enabled`     | Whether the list item can be dragged    | `boolean` | `undefined` |
-| `selected`        | `selected`         | When `true`, list-item is selected      | `boolean` | `false`     |
-| `value`           | `value`            | Value of the list-item                  | `any`     | `undefined` |
+| Property          | Attribute          | Description                                       | Type      | Default     |
+| ----------------- | ------------------ | ------------------------------------------------- | --------- | ----------- |
+| `disableDeselect` | `disable-deselect` | Whether the list item can be deselected           | `boolean` | `undefined` |
+| `disabled`        | `disabled`         | When `true`, interaction is disabled              | `boolean` | `undefined` |
+| `dragEnabled`     | `drag-enabled`     | Whether the list item can be dragged              | `boolean` | `undefined` |
+| `href`            | `href`             | When provided, list-item is rendered as an anchor | `string`  | `undefined` |
+| `selected`        | `selected`         | When `true`, list-item is selected                | `boolean` | `false`     |
+| `value`           | `value`            | Value of the list-item                            | `any`     | `undefined` |
 
 
 ## Events
