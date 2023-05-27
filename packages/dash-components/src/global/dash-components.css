@@ -135,6 +135,8 @@ body {
   --dash-bg-darken-4-light: rgba(0, 0, 0, 0.24);
 
   --dash-brand-light: #4da0ff;
+  --dash-brand-hover-light: #3d8ce5;
+  --dash-brand-active-light: #317fd8;
   --dash-brand-light-faded: #4da0ff3d;
 
   --dash-text-color-1-light: #293241;
@@ -162,6 +164,8 @@ body {
   --dash-bg-darken-4-dark: rgba(255, 255, 255, 0.24);
 
   --dash-brand-dark: #4da0ff;
+  --dash-brand-hover-dark: #3d8ce5;
+  --dash-brand-active-dark: #317fd8;
   --dash-brand-dark-faded: #4da0ff3d;
 
   --dash-text-color-1-dark: #fff;
@@ -202,6 +206,8 @@ body {
 :root,
 .light-theme {
   --dash-brand: var(--dash-brand-light);
+  --dash-brand-hover: var(--dash-brand-hover-light);
+  --dash-brand-active: var(--dash-brand-active-light);
   --dash-brand-faded: var(--dash-brand-light-faded);
 
   --dash-text-color-1: var(--dash-text-color-1-light);
@@ -241,6 +247,8 @@ body {
 :root[data-theme='dark'],
 .dark-theme {
   --dash-brand: var(--dash-brand-dark);
+  --dash-brand-hover: var(--dash-brand-hover-dark);
+  --dash-brand-active: var(--dash-brand-active-dark);
   --dash-brand-faded: var(--dash-brand-dark-faded);
 
   --dash-text-color-1: var(--dash-text-color-1-dark);

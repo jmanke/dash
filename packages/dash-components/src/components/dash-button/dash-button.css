@@ -3,6 +3,8 @@
 
 :host {
   display: inline-block;
+  --dash-button-text-color: var(--dash-text-color-1);
+  --dash-button-text-color-disabled: var(--dash-text-color-3);
   --dash-button-background-color: unset;
   --dash-button-background-color-hover: var(--dash-bg-darken-1);
   --dash-button-background-color-active: var(--dash-bg-darken-2);
@@ -24,7 +26,7 @@
 :host([disabled]) {
   button {
     cursor: initial;
-    color: var(--dash-text-color-3);
+    color: var(--dash-button-text-color-disabled);
     filter: brightness(0.9);
   }
 }
@@ -77,6 +79,14 @@
   }
 }
 
+:host([appearance='solid']) {
+  --dash-button-text-color: var(--dash-text-color-1-dark);
+  --dash-button-text-color-disabled: var(--dash-text-color-2-dark);
+  --dash-button-background-color: var(--dash-brand);
+  --dash-button-background-color-hover: var(--dash-brand-hover);
+  --dash-button-background-color-active: var(--dash-brand-active);
+}
+
 button {
   background-color: var(--dash-button-background-color);
   padding: var(--dash-button-padding);
@@ -87,7 +97,7 @@ button {
   align-items: center;
   justify-content: flex-start;
   flex: none;
-  color: var(--dash-text-color-1);
+  color: var(--dash-button-text-color);
   text-align: left;
   overflow: hidden;
   transition: background-color var(--dash-transition-time-fast) ease-out;

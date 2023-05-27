@@ -19,7 +19,7 @@ export const buttonDefinition = {
       type: 'boolean',
     },
     appearance: {
-      options: ['clear', 'outline'],
+      options: ['clear', 'outline', 'solid'],
       type: 'radio',
     },
   },
