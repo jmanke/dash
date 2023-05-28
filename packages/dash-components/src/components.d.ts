@@ -463,6 +463,10 @@ export namespace Components {
          */
         "internalIsDragging": boolean;
         /**
+          * Tabindex of the list-item
+         */
+        "internalTabIndex"?: number;
+        /**
           * Size of the list-item
           * @default 'm'
          */
@@ -1484,6 +1488,10 @@ declare namespace LocalJSX {
          */
         "internalIsDragging"?: boolean;
         /**
+          * Tabindex of the list-item
+         */
+        "internalTabIndex"?: number;
+        /**
           * Emitted when list-item drag moves down
          */
         "onDashInternalListItemDragEnd"?: (event: DashListItemCustomEvent<KeyboardEvent>) => void;
@@ -1498,11 +1506,11 @@ declare namespace LocalJSX {
         /**
           * Emitted when list-item indicates focus should be moved to the next list-item
          */
-        "onDashInternalListItemMoveNext"?: (event: DashListItemCustomEvent<void>) => void;
+        "onDashInternalListItemMoveNext"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
         /**
           * Emitted when list-item indicates focus should be moved to the previous list-item
          */
-        "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<void>) => void;
+        "onDashInternalListItemMovePrevious"?: (event: DashListItemCustomEvent<HTMLDashListItemElement>) => void;
         /**
           * Emitted when list-item is starting to be dragged
          */

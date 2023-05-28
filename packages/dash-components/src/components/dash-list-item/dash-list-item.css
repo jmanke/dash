@@ -6,15 +6,12 @@
   --dash-list-item-background-color: none;
 }
 
-:host(:focus-visible) {
+.list-item-wrapper:focus-visible {
   outline: none;
+  border: var(--dash-border-style-focus-visible);
 
-  .list-item-wrapper {
-    border: var(--dash-border-style-focus-visible);
-
-    .grip {
-      opacity: 1;
-    }
+  .grip {
+    opacity: 1;
   }
 }
 

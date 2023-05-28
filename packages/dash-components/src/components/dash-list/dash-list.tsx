@@ -1,4 +1,4 @@
-import { isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
+import { focus, isNone, spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Listen, Prop, State, Watch } from '@stencil/core';
 import { SortableKeyboard } from '../../common/sortable/sortable-keyboard';
 import { SortablePointer } from '../../common/sortable/sortable-pointer';
@@ -274,7 +274,7 @@ export class DashList {
    * @param element - reference element
    */
   focusNextListItem(element: HTMLDashListItemElement) {
-    element.tabIndex = -1;
+    element.internalTabIndex = -1;
     let nextSibling = this.nextSibling(element);
     while (isNone(nextSibling.getAttribute) || !isNone(nextSibling.getAttribute('disabled'))) {
       nextSibling = this.nextSibling(nextSibling);
@@ -284,8 +284,8 @@ export class DashList {
       }
     }
 
-    nextSibling.focus();
-    nextSibling.tabIndex = 0;
+    focus(nextSibling);
+    nextSibling.internalTabIndex = 0;
   }
 
   /**
@@ -293,7 +293,7 @@ export class DashList {
    * @param element - reference element
    */
   focusPreviousListItem(e: HTMLDashListItemElement) {
-    e.tabIndex = -1;
+    e.internalTabIndex = -1;
     let prevSibling = this.prevSibling(e);
     while (isNone(prevSibling.getAttribute) || !isNone(prevSibling.getAttribute('disabled'))) {
       prevSibling = this.prevSibling(prevSibling);
@@ -303,8 +303,8 @@ export class DashList {
       }
     }
 
-    prevSibling.focus();
-    prevSibling.tabIndex = 0;
+    focus(prevSibling);
+    prevSibling.internalTabIndex = 0;
   }
 
   /**
@@ -323,7 +323,7 @@ export class DashList {
       element.scale = this.scale;
 
       if (this.selectionMode !== 'no-selection') {
-        element.tabIndex = index === 0 ? 0 : -1;
+        element.internalTabIndex = index === 0 ? 0 : -1;
       }
     });
   }
@@ -353,7 +353,7 @@ export class DashList {
 
   render() {
     return (
-      <Host role='list' onDashInternalListItemMoveNext={e => this.focusNextListItem(e.target)} onDashInternalListItemMovePrevious={e => this.focusPreviousListItem(e.target)}>
+      <Host role='list' onDashInternalListItemMoveNext={e => this.focusNextListItem(e.detail)} onDashInternalListItemMovePrevious={e => this.focusPreviousListItem(e.detail)}>
         <div class={spaceConcat('container', this.dragging && 'dragging')} style={typeof this.maxHeight === 'number' ? { maxHeight: `${this.maxHeight}px` } : null}>
           <slot></slot>
         </div>

@@ -7,7 +7,9 @@ import { SelectionMode } from '../dash-list/dash-list';
 @Component({
   tag: 'dash-list-item',
   styleUrl: 'dash-list-item.css',
-  shadow: true,
+  shadow: {
+    delegatesFocus: true,
+  },
 })
 export class DashListItem implements Focusable {
   //#region Own properties
@@ -84,6 +86,11 @@ export class DashListItem implements Focusable {
   @Prop({ reflect: true }) internalIsDragging: boolean;
 
   /**
+   * Tabindex of the list-item
+   */
+  @Prop() internalTabIndex?: number;
+
+  /**
    * Value of the list-item
    */
   @Prop() value: any;
@@ -101,13 +108,13 @@ export class DashListItem implements Focusable {
    * Emitted when list-item indicates focus should be moved to the next list-item
    * @internal
    */
-  @Event({ eventName: 'dashInternalListItemMoveNext' }) internalMoveNext: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemMoveNext' }) internalMoveNext: EventEmitter<HTMLDashListItemElement>;
 
   /**
    * Emitted when list-item indicates focus should be moved to the previous list-item
    * @internal
    */
-  @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<void>;
+  @Event({ eventName: 'dashInternalListItemMovePrevious' }) internalMovePrevious: EventEmitter<HTMLDashListItemElement>;
 
   /**
    * Emitted when list-item is starting to be dragged
@@ -194,7 +201,7 @@ export class DashListItem implements Focusable {
     }
 
     const sourceNode = e.composedPath()[0];
-    if (sourceNode !== this.element && !contains(this.listItem, sourceNode as HTMLElement)) {
+    if (sourceNode !== this.element && !contains(sourceNode as HTMLElement, this.listItem)) {
       return;
     }
 
@@ -206,9 +213,9 @@ export class DashListItem implements Focusable {
     }
 
     if (e.code === 'ArrowUp') {
-      this.internalMovePrevious.emit();
+      this.internalMovePrevious.emit(this.element);
     } else if (e.code === 'ArrowDown') {
-      this.internalMoveNext.emit();
+      this.internalMoveNext.emit(this.element);
     }
   }
 
@@ -299,52 +306,29 @@ export class DashListItem implements Focusable {
     return <dash-icon class={`check ${!this.selected ? 'check-invisible' : ''}`} icon='dot' scale='s'></dash-icon>;
   }
 
-  itemElement() {
-    return (
-      <div
-        class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)}
-        onClick={e => this.click(e)}
-        onPointerDown={this.updateIsActive.bind(this, true)}
-        onPointerUp={this.updateIsActive.bind(this, false)}
-        onPointerLeave={this.updateIsActive.bind(this, false)}
-        onFocusout={this.updateIsActive.bind(this, false)}
-      >
-        {this.dragEnabled && (
-          <dash-icon
-            tabIndex={0}
-            class={spaceConcat('grip', this.internalIsDragging ? 'grip-active' : undefined)}
-            icon='grip-vertical'
-            scale='s'
-            onKeyDown={this.gripKeyDown.bind(this)}
-            onKeyUp={this.gripKeyUp.bind(this)}
-            onClick={this.stopPropagation.bind(this)}
-            onPointerLeave={this.stopPropagation.bind(this)}
-            onPointerDown={e => {
-              this.startDrag(e);
-            }}
-          ></dash-icon>
-        )}
+  itemContent() {
+    return [
+      this.dragEnabled && (
+        <dash-icon
+          tabIndex={0}
+          class={spaceConcat('grip', this.internalIsDragging ? 'grip-active' : undefined)}
+          icon='grip-vertical'
+          scale='s'
+          onKeyDown={this.gripKeyDown.bind(this)}
+          onKeyUp={this.gripKeyUp.bind(this)}
+          onClick={this.stopPropagation.bind(this)}
+          onPointerLeave={this.stopPropagation.bind(this)}
+          onPointerDown={e => {
+            this.startDrag(e);
+          }}
+        ></dash-icon>
+      ),
 
-        <div class='list-item' ref={e => (this.listItem = e)}>
-          {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
-
-          <div
-            class='actions-start-wrapper'
-            onKeyDown={this.stopPropagation.bind(this)}
-            onKeyUp={this.stopPropagation.bind(this)}
-            onClick={this.stopPropagation.bind(this)}
-            onPointerDown={this.stopPropagation.bind(this)}
-            onPointerUp={this.stopPropagation.bind(this)}
-            onPointerLeave={this.stopPropagation.bind(this)}
-          >
-            <slot name='actions-start'></slot>
-          </div>
-
-          <slot></slot>
-        </div>
+      <div class='list-item' ref={e => (this.listItem = e)}>
+        {!['none', 'no-selection'].includes(this.selectionMode) && (this.selectionMode === 'multiple' ? this.checkElement : this.bulletElement)}
 
         <div
-          class='actions-end-wrapper'
+          class='actions-start-wrapper'
           onKeyDown={this.stopPropagation.bind(this)}
           onKeyUp={this.stopPropagation.bind(this)}
           onClick={this.stopPropagation.bind(this)}
@@ -352,18 +336,48 @@ export class DashListItem implements Focusable {
           onPointerUp={this.stopPropagation.bind(this)}
           onPointerLeave={this.stopPropagation.bind(this)}
         >
-          <slot name='actions-end'></slot>
+          <slot name='actions-start'></slot>
         </div>
-      </div>
-    );
+
+        <slot></slot>
+      </div>,
+
+      <div
+        class='actions-end-wrapper'
+        onKeyDown={this.stopPropagation.bind(this)}
+        onKeyUp={this.stopPropagation.bind(this)}
+        onClick={this.stopPropagation.bind(this)}
+        onPointerDown={this.stopPropagation.bind(this)}
+        onPointerUp={this.stopPropagation.bind(this)}
+        onPointerLeave={this.stopPropagation.bind(this)}
+      >
+        <slot name='actions-end'></slot>
+      </div>,
+    ];
   }
 
   //#endregion
 
   render() {
     return (
-      <Host onKeyDown={(e: KeyboardEvent) => this.keyDown(e)} onKeyUp={this.keyUp.bind(this)}>
-        {this.href ? <a href={this.href}>{this.itemElement()}</a> : this.itemElement()}
+      <Host
+        onKeyDown={this.keyDown.bind(this)}
+        onKeyUp={this.keyUp.bind(this)}
+        onClick={this.click.bind(this)}
+        onPointerDown={this.updateIsActive.bind(this, true)}
+        onPointerUp={this.updateIsActive.bind(this, false)}
+        onPointerLeave={this.updateIsActive.bind(this, false)}
+        onFocusout={this.updateIsActive.bind(this, false)}
+      >
+        {this.href ? (
+          <a class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)} href={this.href} tabIndex={this.internalTabIndex ?? 0}>
+            {this.itemContent()}
+          </a>
+        ) : (
+          <div class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)} tabIndex={this.internalTabIndex ?? 0}>
+            {this.itemContent()}
+          </div>
+        )}
       </Host>
     );
   }
