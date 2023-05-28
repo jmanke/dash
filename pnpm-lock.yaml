@@ -72,7 +72,7 @@ importers:
 
   packages/dash-components-react:
     specifiers:
-      '@didyoumeantoast/dash-components': ^1.4.1
+      '@didyoumeantoast/dash-components': ^1.4.2
       '@types/node': ^20.2.5
       '@types/react': ^16.14.42
       '@types/react-dom': ^16.0.9
@@ -93,7 +93,7 @@ importers:
 
   packages/dash-components-react/package:
     specifiers:
-      '@didyoumeantoast/dash-components': ^1.4.1
+      '@didyoumeantoast/dash-components': ^1.4.2
       '@types/node': ~15.12.1
       '@types/react': ^16.7.6
       '@types/react-dom': ^16.0.9
@@ -137,7 +137,7 @@ importers:
     specifiers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@babel/core': ^7.21.0
-      '@didyoumeantoast/dash-components': ^1.4.1
+      '@didyoumeantoast/dash-components': ^1.4.2
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-components': ^1.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
@@ -184,7 +184,7 @@ importers:
     specifiers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@didyoumeantoast/component-forge': ^0.6.2
-      '@didyoumeantoast/dash-components': ^1.4.1
+      '@didyoumeantoast/dash-components': ^1.4.2
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
       '@didyoumeantoast/tinymce-plugins': ^1.1.6
