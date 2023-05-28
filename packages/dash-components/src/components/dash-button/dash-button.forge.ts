@@ -3,7 +3,9 @@ import { iconControl, scaleControl, statusControl } from '../../../../../.forge/
 
 const template = args =>
   html`
-    <dash-button scale=${args.scale} start-icon=${args.startIcon} status=${args.status} appearance=${args.appearance} ?disabled=${args.disabled}>${args.content}</dash-button>
+    <dash-button scale=${args.scale} start-icon=${args.startIcon} status=${args.status} appearance=${args.appearance} href=${args.href} ?disabled=${args.disabled}
+      >${args.content}</dash-button
+    >
   `;
 
 export const buttonDefinition = {
@@ -22,6 +24,9 @@ export const buttonDefinition = {
       options: ['clear', 'outline', 'solid'],
       type: 'radio',
     },
+    href: {
+      type: 'text',
+    },
   },
   template,
   args: {
@@ -31,6 +36,7 @@ export const buttonDefinition = {
     status: null,
     disabled: false,
     appearance: 'clear',
+    href: null,
   },
 };
 

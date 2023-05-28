@@ -11,7 +11,7 @@ import { Appearance, Scale, Status } from '../../types';
 export class DashButton implements Focusable {
   //#region Own properties
 
-  button: HTMLButtonElement;
+  button: HTMLButtonElement | HTMLAnchorElement;
 
   //#endregion
 
@@ -56,6 +56,16 @@ export class DashButton implements Focusable {
    */
   @Prop({ reflect: true }) appearance: Appearance = 'clear';
 
+  /**
+   * When provided, button will behave as a link
+   */
+  @Prop({ reflect: true }) href?: string;
+
+  /**
+   * Target location of the link. Only functional if `href` is provided
+   */
+  @Prop({ reflect: true }) target?: string;
+
   //#endregion
 
   //#region @Event
@@ -97,8 +107,13 @@ export class DashButton implements Focusable {
   render() {
     const startIcon = this.startIcon ? <dash-icon icon={this.startIcon}></dash-icon> : null;
 
-    return (
-      <button ref={element => (this.button = element)} disabled={this.disabled} onClick={this.buttonClicked.bind(this)}>
+    return this.href ? (
+      <a class='button' ref={element => (this.button = element)} href={this.href} target={this.target} onClick={this.buttonClicked.bind(this)}>
+        {startIcon}
+        <slot />
+      </a>
+    ) : (
+      <button class='button' ref={element => (this.button = element)} disabled={this.disabled} onClick={this.buttonClicked.bind(this)}>
         {startIcon}
         <slot />
       </button>

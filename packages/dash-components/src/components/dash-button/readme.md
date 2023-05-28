@@ -7,13 +7,15 @@
 
 ## Properties
 
-| Property     | Attribute    | Description                                    | Type                   | Default     |
-| ------------ | ------------ | ---------------------------------------------- | ---------------------- | ----------- |
-| `appearance` | `appearance` | Visible appearance of the button               | `"clear" \| "outline"` | `'clear'`   |
-| `disabled`   | `disabled`   | When `true`, disables interaction              | `boolean`              | `false`     |
-| `scale`      | `scale`      | Size of button                                 | `"l" \| "m" \| "s"`    | `'m'`       |
-| `startIcon`  | `start-icon` | Icon displayed at the start of the button      | `string`               | `undefined` |
-| `status`     | `status`     | Status of the button shown with various styles | `"error" \| "success"` | `undefined` |
+| Property     | Attribute    | Description                                                        | Type                   | Default     |
+| ------------ | ------------ | ------------------------------------------------------------------ | ---------------------- | ----------- |
+| `appearance` | `appearance` | Visible appearance of the button                                   | `"clear" \| "outline"` | `'clear'`   |
+| `disabled`   | `disabled`   | When `true`, disables interaction                                  | `boolean`              | `false`     |
+| `href`       | `href`       | When provided, button will behave as a link                        | `string`               | `undefined` |
+| `scale`      | `scale`      | Size of button                                                     | `"l" \| "m" \| "s"`    | `'m'`       |
+| `startIcon`  | `start-icon` | Icon displayed at the start of the button                          | `string`               | `undefined` |
+| `status`     | `status`     | Status of the button shown with various styles                     | `"error" \| "success"` | `undefined` |
+| `target`     | `target`     | Target location of the link. Only functional if `href` is provided | `string`               | `undefined` |
 
 
 ## Methods

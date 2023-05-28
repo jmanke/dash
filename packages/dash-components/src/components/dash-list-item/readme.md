@@ -15,6 +15,7 @@
 | `href`             | `href`               | When provided, list-item is rendered as an anchor | `string`  | `undefined` |
 | `internalTabIndex` | `internal-tab-index` | Tabindex of the list-item                         | `number`  | `undefined` |
 | `selected`         | `selected`           | When `true`, list-item is selected                | `boolean` | `false`     |
+| `target`           | `target`             | Target of the anchor when href is provided        | `string`  | `undefined` |
 | `value`            | `value`              | Value of the list-item                            | `any`     | `undefined` |
 
 

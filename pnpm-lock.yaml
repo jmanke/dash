@@ -72,7 +72,7 @@ importers:
 
   packages/dash-components-react:
     specifiers:
-      '@didyoumeantoast/dash-components': ^1.4.2
+      '@didyoumeantoast/dash-components': ^1.5.0
       '@types/node': ^20.2.5
       '@types/react': ^16.14.42
       '@types/react-dom': ^16.0.9
@@ -84,27 +84,6 @@ importers:
       '@didyoumeantoast/dash-components': link:../dash-components
     devDependencies:
       '@types/node': 20.2.5
-      '@types/react': 16.14.42
-      '@types/react-dom': 16.9.19
-      react: 16.14.0
-      react-dom: 16.14.0_react@16.14.0
-      rimraf: 2.7.1
-      typescript: 4.7.4
-
-  packages/dash-components-react/package:
-    specifiers:
-      '@didyoumeantoast/dash-components': ^1.4.2
-      '@types/node': ~15.12.1
-      '@types/react': ^16.7.6
-      '@types/react-dom': ^16.0.9
-      react: ^16.13.1
-      react-dom: ^16.13.1
-      rimraf: ^2.6.3
-      typescript: 4.7.4
-    dependencies:
-      '@didyoumeantoast/dash-components': link:../../dash-components
-    devDependencies:
-      '@types/node': 15.12.5
       '@types/react': 16.14.42
       '@types/react-dom': 16.9.19
       react: 16.14.0
@@ -137,7 +116,7 @@ importers:
     specifiers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@babel/core': ^7.21.0
-      '@didyoumeantoast/dash-components': ^1.4.2
+      '@didyoumeantoast/dash-components': ^1.5.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-components': ^1.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
@@ -184,7 +163,7 @@ importers:
     specifiers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@didyoumeantoast/component-forge': ^0.6.2
-      '@didyoumeantoast/dash-components': ^1.4.2
+      '@didyoumeantoast/dash-components': ^1.5.0
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
       '@didyoumeantoast/tinymce-plugins': ^1.1.6
@@ -1515,10 +1494,6 @@ packages:
 
   /@types/node/12.20.55:
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
-    dev: true
-
-  /@types/node/15.12.5:
-    resolution: {integrity: sha512-se3yX7UHv5Bscf8f1ERKvQOD6sTyycH3hdaoozvaLxgUiY5lIGEeH37AD0G0Qi9kPqihPn0HOfd2yaIEN9VwEg==}
     dev: true
 
   /@types/node/17.0.45:

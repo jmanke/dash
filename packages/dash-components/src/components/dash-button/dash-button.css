@@ -23,8 +23,12 @@
   --dash-button-background-color-active: var(--dash-danger-active);
 }
 
+a {
+  text-decoration: inherit; /* no underline */
+}
+
 :host([disabled]) {
-  button {
+  .button {
     cursor: initial;
     color: var(--dash-button-text-color-disabled);
     filter: brightness(0.9);
@@ -32,7 +36,7 @@
 }
 
 :host(:not([disabled])) {
-  button {
+  .button {
     &:hover {
       background-color: var(--dash-button-background-color-hover);
     }
@@ -48,7 +52,7 @@
 }
 
 :host([scale='s']) {
-  button {
+  .button {
     height: var(--dash-spacing-6);
     --dash-button-padding: var(--dash-spacing-half) var(--dash-spacing-1-half);
     font-size: var(--dash-font-size-1);
@@ -61,7 +65,7 @@
 }
 
 :host([scale='l']) {
-  button {
+  .button {
     height: var(--dash-spacing-12);
     --dash-button-padding: var(--dash-spacing-2) var(--dash-spacing-4);
     font-size: var(--dash-font-size-4);
@@ -74,7 +78,7 @@
 }
 
 :host([appearance='outline']) {
-  button {
+  .button {
     border: 1px solid var(--dash-border-1);
   }
 }
@@ -87,7 +91,8 @@
   --dash-button-background-color-active: var(--dash-brand-active);
 }
 
-button {
+.button {
+  box-sizing: border-box;
   background-color: var(--dash-button-background-color);
   padding: var(--dash-button-padding);
   height: var(--dash-spacing-8);

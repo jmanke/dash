@@ -34,6 +34,10 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * When provided, button will behave as a link
+         */
+        "href"?: string;
+        /**
           * Size of button
           * @default 'm'
          */
@@ -52,6 +56,10 @@ export namespace Components {
           * @optional
          */
         "status"?: Status;
+        /**
+          * Target location of the link. Only functional if `href` is provided
+         */
+        "target"?: string;
     }
     interface DashChip {
         /**
@@ -456,7 +464,7 @@ export namespace Components {
         /**
           * When provided, list-item is rendered as an anchor
          */
-        "href": string;
+        "href"?: string;
         /**
           * When `true`, list-item is being dragged. Used for styling purposes
           * @default false
@@ -485,6 +493,10 @@ export namespace Components {
           * Sets focus on this element
          */
         "setFocus": (target?: 'default' | 'grip') => Promise<void>;
+        /**
+          * Target of the anchor when href is provided
+         */
+        "target"?: string;
         /**
           * Value of the list-item
          */
@@ -1036,6 +1048,10 @@ declare namespace LocalJSX {
          */
         "disabled"?: boolean;
         /**
+          * When provided, button will behave as a link
+         */
+        "href"?: string;
+        /**
           * Size of button
           * @default 'm'
          */
@@ -1050,6 +1066,10 @@ declare namespace LocalJSX {
           * @optional
          */
         "status"?: Status;
+        /**
+          * Target location of the link. Only functional if `href` is provided
+         */
+        "target"?: string;
     }
     interface DashChip {
         /**
@@ -1534,6 +1554,10 @@ declare namespace LocalJSX {
           * @default 'single'
          */
         "selectionMode"?: SelectionMode1;
+        /**
+          * Target of the anchor when href is provided
+         */
+        "target"?: string;
         /**
           * Value of the list-item
          */

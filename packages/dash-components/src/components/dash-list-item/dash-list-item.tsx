@@ -76,7 +76,12 @@ export class DashListItem implements Focusable {
   /**
    * When provided, list-item is rendered as an anchor
    */
-  @Prop({ reflect: true }) href: string;
+  @Prop({ reflect: true }) href?: string;
+
+  /**
+   * Target of the anchor when href is provided
+   */
+  @Prop({ reflect: true }) target?: string;
 
   /**
    * When `true`, list-item is being dragged. Used for styling purposes
@@ -370,7 +375,7 @@ export class DashListItem implements Focusable {
         onFocusout={this.updateIsActive.bind(this, false)}
       >
         {this.href ? (
-          <a class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)} href={this.href} tabIndex={this.internalTabIndex ?? 0}>
+          <a class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)} href={this.href} target={this.target} tabIndex={this.internalTabIndex ?? 0}>
             {this.itemContent()}
           </a>
         ) : (
