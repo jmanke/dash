@@ -81,6 +81,7 @@ a {
   transition: background-color ease-in-out var(--dash-transition-time-very-fast), var(--dash-focus-border-transition), color ease-in-out var(--dash-transition-time-very-fast);
   border: var(--dash-border-style-focus-hidden);
   transition: box-shadow ease-out 75ms;
+  max-width: 100%;
 
   .grip {
     --dash-focus-outline-offset-0: -3px;
