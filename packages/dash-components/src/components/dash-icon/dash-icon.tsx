@@ -84,8 +84,8 @@ export class DashIcon {
 
   //#region Component lifecycle
 
-  componentWillLoad() {
-    this.updateSvg();
+  async componentWillLoad() {
+    return this.updateSvg();
   }
 
   //#endregion
@@ -106,7 +106,9 @@ export class DashIcon {
       return;
     }
 
-    this.paths = await iconService.getIconPaths(this.icon);
+    iconService.getIconPaths(this.icon).then(paths => {
+      this.paths = paths;
+    });
   }
 
   //#endregion
