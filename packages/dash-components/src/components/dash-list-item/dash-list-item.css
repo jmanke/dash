@@ -31,7 +31,7 @@
       background-color: var(--dash-bg-darken-1);
     }
 
-    &.active {
+    &:active {
       background-color: var(--dash-bg-darken-2);
     }
   }

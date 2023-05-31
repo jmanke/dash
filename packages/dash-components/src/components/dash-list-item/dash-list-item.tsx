@@ -1,5 +1,5 @@
 import { contains, spaceConcat } from '@didyoumeantoast/dash-utils';
-import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State } from '@stencil/core';
+import { Component, Element, Event, EventEmitter, h, Host, Method, Prop } from '@stencil/core';
 import { Focusable } from '../../interfaces/focusable';
 import { Scale } from '../../types';
 import { SelectionMode } from '../dash-list/dash-list';
@@ -25,12 +25,6 @@ export class DashListItem implements Focusable {
   //#endregion
 
   //#region @State
-
-  /**
-   * When `true`, list item visually indicates it's active
-   */
-  @State() isActive: boolean;
-
   //#endregion
 
   //#region @Prop
@@ -225,33 +219,6 @@ export class DashListItem implements Focusable {
   }
 
   /**
-   * Handles keyup event
-   * @param e - keyboard event
-   */
-  keyUp(e: KeyboardEvent) {
-    if (this.selectionMode === 'no-selection') {
-      return;
-    }
-
-    if (this.isClick(e)) {
-      this.updateIsActive(false);
-    }
-  }
-
-  /**
-   * Updates the isActive property
-   * @param active - active value
-   */
-  updateIsActive(active: boolean) {
-    if (this.disabled) {
-      this.isActive = false;
-      return;
-    }
-
-    this.isActive = active;
-  }
-
-  /**
    * Stops event propagation
    * @param e - Event to top propagating
    */
@@ -365,21 +332,13 @@ export class DashListItem implements Focusable {
 
   render() {
     return (
-      <Host
-        onKeyDown={this.keyDown.bind(this)}
-        onKeyUp={this.keyUp.bind(this)}
-        onClick={this.click.bind(this)}
-        onPointerDown={this.updateIsActive.bind(this, true)}
-        onPointerUp={this.updateIsActive.bind(this, false)}
-        onPointerLeave={this.updateIsActive.bind(this, false)}
-        onFocusout={this.updateIsActive.bind(this, false)}
-      >
+      <Host onKeyDown={this.keyDown.bind(this)} onClick={this.click.bind(this)}>
         {this.href ? (
-          <a class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)} href={this.href} target={this.target} tabIndex={this.internalTabIndex ?? 0}>
+          <a class='list-item-wrapper' href={this.href} target={this.target} tabIndex={this.internalTabIndex ?? 0}>
             {this.itemContent()}
           </a>
         ) : (
-          <div class={spaceConcat('list-item-wrapper', this.isActive ? 'active' : undefined)} tabIndex={this.internalTabIndex ?? 0}>
+          <div class='list-item-wrapper' tabIndex={this.internalTabIndex ?? 0}>
             {this.itemContent()}
           </div>
         )}
