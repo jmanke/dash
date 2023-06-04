@@ -9,15 +9,35 @@
   --dash-button-background-color-hover: var(--dash-bg-darken-1);
   --dash-button-background-color-active: var(--dash-bg-darken-2);
   --dash-button-padding: var(--dash-spacing-1) var(--dash-spacing-2);
+
+  .button {
+    border: 1px solid transparent;
+  }
+}
+
+:host([appearance='outline']) {
+  .button {
+    border: 1px solid var(--dash-border-1);
+  }
+}
+
+:host([appearance='solid']) {
+  --dash-button-text-color: var(--dash-text-color-1-dark);
+  --dash-button-text-color-disabled: var(--dash-text-color-2-dark);
+  --dash-button-background-color: var(--dash-brand);
+  --dash-button-background-color-hover: var(--dash-brand-hover);
+  --dash-button-background-color-active: var(--dash-brand-active);
 }
 
 :host([status='success']) {
+  --dash-button-text-color: var(--dash-text-color-1-dark);
   --dash-button-background-color: var(--dash-success);
   --dash-button-background-color-hover: var(--dash-success-hover);
   --dash-button-background-color-active: var(--dash-success-active);
 }
 
 :host([status='error']) {
+  --dash-button-text-color: var(--dash-text-color-1-dark);
   --dash-button-background-color: var(--dash-danger);
   --dash-button-background-color-hover: var(--dash-danger-hover);
   --dash-button-background-color-active: var(--dash-danger-active);
@@ -75,20 +95,6 @@ a {
     --dash-icon-size: 18px;
     margin-inline-end: var(--dash-spacing-3);
   }
-}
-
-:host([appearance='outline']) {
-  .button {
-    border: 1px solid var(--dash-border-1);
-  }
-}
-
-:host([appearance='solid']) {
-  --dash-button-text-color: var(--dash-text-color-1-dark);
-  --dash-button-text-color-disabled: var(--dash-text-color-2-dark);
-  --dash-button-background-color: var(--dash-brand);
-  --dash-button-background-color-hover: var(--dash-brand-hover);
-  --dash-button-background-color-active: var(--dash-brand-active);
 }
 
 .button {
