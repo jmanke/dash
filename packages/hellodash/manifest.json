@@ -1,7 +1,7 @@
 {
   "name": "Hellodash",
   "short_name": "Hellodash",
-  "start_url": "/",
+  "start_url": "https://hellodash.ca",
   "display": "standalone",
   "icons": [
     {
