@@ -1,6 +1,7 @@
 import { wait } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Method, Prop, State, Watch } from '@stencil/core';
 import { Modal } from '../../interfaces/modal';
+import '../../services/global-service';
 import { Scale } from '../../types';
 
 @Component({
@@ -149,7 +150,7 @@ export class DashModal implements Modal {
    */
   convertToMilliseconds(str: string) {
     const regex = /^(\d*\.?\d+)(ms|s)$/; // regex pattern for the time string
-    const match = str.match(regex); // match the input string with the regex pattern
+    const match = str?.trim().match(regex); // match the input string with the regex pattern
 
     if (!match) {
       throw new Error('Invalid time string specified.');
