@@ -394,6 +394,7 @@ export class HellodashTextEditor implements Focusable {
         plugins:
           'paste nonbreaking importcss searchreplace autolink directionality code visualblocks visualchars image link media template codesample table charmap hr pagebreak nonbreaking toc insertdatetime advlist lists checklist wordcount imagetools textpattern noneditable help charmap quickbars emoticons code',
         nonbreaking_force_tab: true,
+        fontsize_formats: '8px 10px 12px 14px 18px 24px 36px',
         file_picker_callback: function (cb) {
           const input = document.createElement('input');
           input.setAttribute('type', 'file');
