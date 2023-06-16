@@ -1,0 +1,58 @@
+@import '../../assets/styles/_focus-outline.css';
+
+:host {
+  display: block;
+}
+
+.slider {
+  position: relative;
+  height: 25px;
+  width: 100%;
+
+  .min-max-label-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: var(--dash-spacing-3);
+  }
+
+  .slider-background {
+    flex: auto;
+    position: relative;
+    background-color: var(--dash-brand);
+    height: 10px;
+    border-radius: var(--dash-spacing-full);
+
+    &:focus-visible {
+      @extend .focus-outline;
+    }
+  }
+
+  .control {
+    position: absolute;
+    cursor: pointer;
+    top: -7.5px;
+    width: 20px;
+    height: 20px;
+    border-radius: var(--dash-spacing-full);
+    border: 2px solid var(--dash-background-1);
+    box-shadow: 0px 0px 1px rgba(var(--dash-rgb-box-shadow-primary), 0.4);
+    background-color: var(--dash-brand);
+
+    .value-label {
+      pointer-events: none;
+      user-select: none;
+      margin-top: 22px;
+      font-size: var(--dash-font-size-2);
+      color: var(--dash-text-color-1);
+      text-align: center;
+    }
+
+    &:hover {
+      background-color: var(--dash-brand-hover);
+    }
+
+    &:active {
+      background-color: var(--dash-brand-active);
+    }
+  }
+}

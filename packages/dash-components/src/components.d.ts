@@ -642,6 +642,38 @@ export namespace Components {
          */
         "text": string;
     }
+    interface DashSlider {
+        /**
+          * Maximum value of slider
+          * @default 100
+         */
+        "max": number;
+        /**
+          * Minimum value of slider
+          * @default 0
+         */
+        "min": number;
+        /**
+          * When `true`, the slider labels for min, max are visible
+          * @default false
+         */
+        "minMaxLabelsVisible"?: boolean;
+        /**
+          * Step value of slider
+          * @default 1
+         */
+        "step"?: number;
+        /**
+          * Value of the slider
+          * @default 0
+         */
+        "value": number;
+        /**
+          * When `true`, the slider label for value are visible
+          * @default false
+         */
+        "valueLabelVisible"?: boolean;
+    }
     interface DashTextarea {
         /**
           * text-area cols
@@ -801,6 +833,10 @@ export interface DashPopoverCustomEvent<T> extends CustomEvent<T> {
 export interface DashSideBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashSideBarElement;
+}
+export interface DashSliderCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashSliderElement;
 }
 export interface DashTextareaCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -977,6 +1013,12 @@ declare global {
         prototype: HTMLDashSidebarButtonElement;
         new (): HTMLDashSidebarButtonElement;
     };
+    interface HTMLDashSliderElement extends Components.DashSlider, HTMLStencilElement {
+    }
+    var HTMLDashSliderElement: {
+        prototype: HTMLDashSliderElement;
+        new (): HTMLDashSliderElement;
+    };
     interface HTMLDashTextareaElement extends Components.DashTextarea, HTMLStencilElement {
     }
     var HTMLDashTextareaElement: {
@@ -1029,6 +1071,7 @@ declare global {
         "dash-shell": HTMLDashShellElement;
         "dash-side-bar": HTMLDashSideBarElement;
         "dash-sidebar-button": HTMLDashSidebarButtonElement;
+        "dash-slider": HTMLDashSliderElement;
         "dash-textarea": HTMLDashTextareaElement;
         "dash-theme-toggle": HTMLDashThemeToggleElement;
         "dash-toggle-switch": HTMLDashToggleSwitchElement;
@@ -1719,6 +1762,42 @@ declare namespace LocalJSX {
          */
         "text"?: string;
     }
+    interface DashSlider {
+        /**
+          * Maximum value of slider
+          * @default 100
+         */
+        "max"?: number;
+        /**
+          * Minimum value of slider
+          * @default 0
+         */
+        "min"?: number;
+        /**
+          * When `true`, the slider labels for min, max are visible
+          * @default false
+         */
+        "minMaxLabelsVisible"?: boolean;
+        /**
+          * Emitted when hue has been changed
+         */
+        "onDashSliderValueChanged"?: (event: DashSliderCustomEvent<void>) => void;
+        /**
+          * Step value of slider
+          * @default 1
+         */
+        "step"?: number;
+        /**
+          * Value of the slider
+          * @default 0
+         */
+        "value"?: number;
+        /**
+          * When `true`, the slider label for value are visible
+          * @default false
+         */
+        "valueLabelVisible"?: boolean;
+    }
     interface DashTextarea {
         /**
           * text-area cols
@@ -1858,6 +1937,7 @@ declare namespace LocalJSX {
         "dash-shell": DashShell;
         "dash-side-bar": DashSideBar;
         "dash-sidebar-button": DashSidebarButton;
+        "dash-slider": DashSlider;
         "dash-textarea": DashTextarea;
         "dash-theme-toggle": DashThemeToggle;
         "dash-toggle-switch": DashToggleSwitch;
@@ -1895,6 +1975,7 @@ declare module "@stencil/core" {
             "dash-shell": LocalJSX.DashShell & JSXBase.HTMLAttributes<HTMLDashShellElement>;
             "dash-side-bar": LocalJSX.DashSideBar & JSXBase.HTMLAttributes<HTMLDashSideBarElement>;
             "dash-sidebar-button": LocalJSX.DashSidebarButton & JSXBase.HTMLAttributes<HTMLDashSidebarButtonElement>;
+            "dash-slider": LocalJSX.DashSlider & JSXBase.HTMLAttributes<HTMLDashSliderElement>;
             "dash-textarea": LocalJSX.DashTextarea & JSXBase.HTMLAttributes<HTMLDashTextareaElement>;
             "dash-theme-toggle": LocalJSX.DashThemeToggle & JSXBase.HTMLAttributes<HTMLDashThemeToggleElement>;
             "dash-toggle-switch": LocalJSX.DashToggleSwitch & JSXBase.HTMLAttributes<HTMLDashToggleSwitchElement>;
