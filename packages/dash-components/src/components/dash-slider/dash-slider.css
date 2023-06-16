@@ -13,6 +13,12 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: var(--dash-spacing-3);
+
+    .min-label,
+    .max-label {
+      user-select: none;
+      pointer-events: none;
+    }
   }
 
   .slider-background {

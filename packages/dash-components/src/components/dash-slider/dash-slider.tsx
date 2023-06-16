@@ -101,10 +101,6 @@ export class DashSlider {
     this.updateControlPosition();
   }
 
-  componentDidLoad() {
-    this.backgroundElement = this.element.shadowRoot.querySelector('.slider-background');
-  }
-
   //#endregion
 
   //#region Listeners
@@ -127,6 +123,10 @@ export class DashSlider {
    * @param event Pointer event
    */
   pointerInput(event: PointerEvent) {
+    if (!this.backgroundElement) {
+      this.backgroundElement = this.element.shadowRoot.querySelector('.slider-background');
+    }
+
     const rect = this.backgroundElement.getBoundingClientRect();
     const x = event.clientX - rect.left;
     const width = rect.width;
@@ -212,7 +212,6 @@ export class DashSlider {
 
           <div
             class='slider-background'
-            ref={el => (this.backgroundElement = el)}
             tabindex='0'
             onKeyDown={this.keydown.bind(this)}
             onPointerDown={this.startSliderDrag.bind(this)}
