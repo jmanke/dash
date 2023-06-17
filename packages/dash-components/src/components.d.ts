@@ -649,10 +649,20 @@ export namespace Components {
          */
         "max": number;
         /**
+          * If provided, max label will have a constant width
+          * @default null
+         */
+        "maxLabelWidth"?: number;
+        /**
           * Minimum value of slider
           * @default 0
          */
         "min": number;
+        /**
+          * If provided, min label will have a constant width
+          * @default null
+         */
+        "minLabelWidth"?: number;
         /**
           * When `true`, the slider labels for min, max are visible
           * @default false
@@ -1769,10 +1779,20 @@ declare namespace LocalJSX {
          */
         "max"?: number;
         /**
+          * If provided, max label will have a constant width
+          * @default null
+         */
+        "maxLabelWidth"?: number;
+        /**
           * Minimum value of slider
           * @default 0
          */
         "min"?: number;
+        /**
+          * If provided, min label will have a constant width
+          * @default null
+         */
+        "minLabelWidth"?: number;
         /**
           * When `true`, the slider labels for min, max are visible
           * @default false

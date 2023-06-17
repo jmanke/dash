@@ -8,48 +8,70 @@
   position: relative;
   height: 25px;
   width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--dash-spacing-4);
 
-  .min-max-label-container {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: var(--dash-spacing-3);
+  .min-label,
+  .max-label {
+    font-size: var(--dash-font-size-1);
+    color: var(--dash-text-color-3);
+    user-select: none;
+    pointer-events: none;
+  }
+  .min-label {
+    text-align: start;
+  }
+  .max-label {
+    text-align: end;
+  }
 
-    .min-label,
-    .max-label {
-      user-select: none;
-      pointer-events: none;
+  &.dragging {
+    .slider-background .slider-background-fill {
+      background-color: var(--dash-brand-hover);
     }
   }
 
   .slider-background {
     flex: auto;
     position: relative;
-    background-color: var(--dash-brand);
-    height: 10px;
+    background-color: var(--dash-background-3);
+    box-shadow: var(--dash-box-shadow-line);
+    height: 6px;
     border-radius: var(--dash-spacing-full);
+    cursor: pointer;
 
     &:focus-visible {
       @extend .focus-outline;
     }
+
+    .slider-background-fill {
+      pointer-events: none;
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      background-color: var(--dash-brand);
+      border-radius: var(--dash-spacing-full);
+    }
   }
 
   .control {
-    position: absolute;
     cursor: pointer;
-    top: -7.5px;
+    position: absolute;
+    top: -9px;
     width: 20px;
     height: 20px;
     border-radius: var(--dash-spacing-full);
-    border: 2px solid var(--dash-background-1);
-    box-shadow: 0px 0px 1px rgba(var(--dash-rgb-box-shadow-primary), 0.4);
+    border: 2px solid var(--dash-background-2);
     background-color: var(--dash-brand);
 
     .value-label {
       pointer-events: none;
       user-select: none;
-      margin-top: 22px;
-      font-size: var(--dash-font-size-2);
-      color: var(--dash-text-color-1);
+      margin-top: -18px;
+      font-size: var(--dash-font-size-0);
+      color: var(--dash-text-color-2);
       text-align: center;
     }
 

@@ -1,3 +1,4 @@
+import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, h, Host, Prop, State, Watch } from '@stencil/core';
 
 const ControlWidth = '20px';
@@ -84,6 +85,18 @@ export class DashSlider {
    */
   @Prop({ reflect: true }) valueLabelVisible?: boolean = false;
 
+  /**
+   * If provided, min label will have a constant width
+   * @default null
+   */
+  @Prop({ reflect: true }) minLabelWidth?: number;
+
+  /**
+   * If provided, max label will have a constant width
+   * @default null
+   */
+  @Prop({ reflect: true }) maxLabelWidth?: number;
+
   //#endregion
 
   //#region @Event
@@ -129,8 +142,8 @@ export class DashSlider {
 
     const rect = this.backgroundElement.getBoundingClientRect();
     const x = event.clientX - rect.left;
-    const width = rect.width;
 
+    const width = rect.width;
     let newValue = (x / width) * (this.max - this.min) + this.min;
 
     // ensure value only changes on step intervals if defined
@@ -141,7 +154,7 @@ export class DashSlider {
 
     newValue = Math.min(Math.max(newValue, this.min), this.max);
 
-    if (newValue === this.value) {
+    if (newValue === this.value || isNaN(newValue)) {
       return;
     }
 
@@ -200,26 +213,32 @@ export class DashSlider {
   //#endregion
 
   render() {
+    const controlPosition = `calc(${this.controlPosition}% - ${ControlWidth} / 2)`;
+
     return (
       <Host>
-        <div class='slider'>
+        <div class={spaceConcat('slider', !!this.sliderDragHandler && 'dragging')}>
           {this.minMaxLabelsVisible && (
-            <div class='min-max-label-container'>
-              <div class='min-label'>{this.min}</div>
-              <div class='max-label'>{this.max}</div>
-            </div>
+            <span class='min-label' style={{ width: this.minLabelWidth ? `${this.minLabelWidth}px` : 'unset' }}>
+              {this.min}
+            </span>
           )}
-
           <div
             class='slider-background'
             tabindex='0'
             onKeyDown={this.keydown.bind(this)}
             onPointerDown={this.startSliderDrag.bind(this)}
           >
-            <div class='control' style={{ left: `calc(${this.controlPosition}% - ${ControlWidth} / 2)` }}>
+            <div class='slider-background-fill' style={{ width: controlPosition }}></div>
+            <div class='control' style={{ left: controlPosition }}>
               {this.valueLabelVisible && <div class='value-label'>{this.value}</div>}
             </div>
           </div>
+          {this.minMaxLabelsVisible && (
+            <span class='max-label' style={{ width: this.maxLabelWidth ? `${this.maxLabelWidth}px` : 'unset' }}>
+              {this.max}
+            </span>
+          )}
         </div>
       </Host>
     );
