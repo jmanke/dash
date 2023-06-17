@@ -31,7 +31,7 @@ export class DashSlider {
   /**
    * Handles position of the slider control
    */
-  @State() controlPosition = 50;
+  @State() controlPosition = 0;
 
   //#endregion
 
