@@ -35,6 +35,7 @@ export const DashSection = /*@__PURE__*/createReactComponent<JSX.DashSection, HT
 export const DashShell = /*@__PURE__*/createReactComponent<JSX.DashShell, HTMLDashShellElement>('dash-shell');
 export const DashSideBar = /*@__PURE__*/createReactComponent<JSX.DashSideBar, HTMLDashSideBarElement>('dash-side-bar');
 export const DashSidebarButton = /*@__PURE__*/createReactComponent<JSX.DashSidebarButton, HTMLDashSidebarButtonElement>('dash-sidebar-button');
+export const DashSlider = /*@__PURE__*/createReactComponent<JSX.DashSlider, HTMLDashSliderElement>('dash-slider');
 export const DashTextarea = /*@__PURE__*/createReactComponent<JSX.DashTextarea, HTMLDashTextareaElement>('dash-textarea');
 export const DashThemeToggle = /*@__PURE__*/createReactComponent<JSX.DashThemeToggle, HTMLDashThemeToggleElement>('dash-theme-toggle');
 export const DashToggleSwitch = /*@__PURE__*/createReactComponent<JSX.DashToggleSwitch, HTMLDashToggleSwitchElement>('dash-toggle-switch');

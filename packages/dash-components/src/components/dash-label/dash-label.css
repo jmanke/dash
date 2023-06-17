@@ -9,6 +9,9 @@
     line-height: var(--dash-spacing-4);
     font-size: var(--dash-font-size-1);
   }
+  ::slotted(*) {
+    margin-block-start: var(--dash-spacing-1);
+  }
 }
 
 :host([layout='inline-space-between']) label {
