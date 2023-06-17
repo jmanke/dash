@@ -33,6 +33,12 @@ export class DashButton implements Focusable {
   @Prop({ reflect: true }) startIcon?: string;
 
   /**
+   * Icon displayed at the end of the button
+   * @optional
+   */
+  @Prop({ reflect: true }) endIcon?: string;
+
+  /**
    * Status of the button shown with various styles
    * @optional
    */
@@ -105,17 +111,31 @@ export class DashButton implements Focusable {
   //#endregion
 
   render() {
-    const startIcon = this.startIcon ? <dash-icon icon={this.startIcon}></dash-icon> : null;
+    const startIcon = this.startIcon ? <dash-icon class='start-icon' icon={this.startIcon}></dash-icon> : null;
+    const endIcon = this.endIcon ? <dash-icon class='end-icon' icon={this.endIcon}></dash-icon> : null;
 
     return this.href ? (
-      <a class='button' ref={element => (this.button = element)} href={this.href} target={this.target} onClick={this.buttonClicked.bind(this)}>
+      <a
+        class='button'
+        ref={element => (this.button = element)}
+        href={this.href}
+        target={this.target}
+        onClick={this.buttonClicked.bind(this)}
+      >
         {startIcon}
         <slot />
+        {endIcon}
       </a>
     ) : (
-      <button class='button' ref={element => (this.button = element)} disabled={this.disabled} onClick={this.buttonClicked.bind(this)}>
+      <button
+        class='button'
+        ref={element => (this.button = element)}
+        disabled={this.disabled}
+        onClick={this.buttonClicked.bind(this)}
+      >
         {startIcon}
         <slot />
+        {endIcon}
       </button>
     );
   }

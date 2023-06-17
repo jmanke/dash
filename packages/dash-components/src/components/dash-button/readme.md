@@ -11,6 +11,7 @@
 | ------------ | ------------ | ------------------------------------------------------------------ | ---------------------- | ----------- |
 | `appearance` | `appearance` | Visible appearance of the button                                   | `"clear" \| "outline"` | `'clear'`   |
 | `disabled`   | `disabled`   | When `true`, disables interaction                                  | `boolean`              | `false`     |
+| `endIcon`    | `end-icon`   | Icon displayed at the end of the button                            | `string`               | `undefined` |
 | `href`       | `href`       | When provided, button will behave as a link                        | `string`               | `undefined` |
 | `scale`      | `scale`      | Size of button                                                     | `"l" \| "m" \| "s"`    | `'m'`       |
 | `startIcon`  | `start-icon` | Icon displayed at the start of the button                          | `string`               | `undefined` |

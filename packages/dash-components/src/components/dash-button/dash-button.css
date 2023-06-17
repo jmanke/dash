@@ -116,6 +116,13 @@ a {
 
 dash-icon {
   --dash-icon-size: 16px;
-  margin-inline-end: var(--dash-spacing-2);
   align-self: center;
+}
+
+.start-icon {
+  margin-inline-end: var(--dash-spacing-2);
+}
+
+.end-icon {
+  margin-inline-start: var(--dash-spacing-2);
 }

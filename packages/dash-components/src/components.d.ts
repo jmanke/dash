@@ -34,6 +34,11 @@ export namespace Components {
          */
         "disabled": boolean;
         /**
+          * Icon displayed at the end of the button
+          * @optional
+         */
+        "endIcon"?: string;
+        /**
           * When provided, button will behave as a link
          */
         "href"?: string;
@@ -1100,6 +1105,11 @@ declare namespace LocalJSX {
           * @default false
          */
         "disabled"?: boolean;
+        /**
+          * Icon displayed at the end of the button
+          * @optional
+         */
+        "endIcon"?: string;
         /**
           * When provided, button will behave as a link
          */
