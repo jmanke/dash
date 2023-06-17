@@ -20,10 +20,10 @@
     pointer-events: none;
   }
   .min-label {
-    text-align: start;
+    text-align: end;
   }
   .max-label {
-    text-align: end;
+    text-align: start;
   }
 
   &.dragging {
