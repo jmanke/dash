@@ -27,6 +27,7 @@
  - [dash-icon-button](../dash-icon-button)
  - [dash-input](../dash-input)
  - [dash-list-item](../dash-list-item)
+ - [dash-select](../dash-select)
  - [dash-sidebar-button](../dash-sidebar-button)
 
 ### Graph
@@ -38,6 +39,7 @@ graph TD;
   dash-icon-button --> dash-icon
   dash-input --> dash-icon
   dash-list-item --> dash-icon
+  dash-select --> dash-icon
   dash-sidebar-button --> dash-icon
   style dash-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```

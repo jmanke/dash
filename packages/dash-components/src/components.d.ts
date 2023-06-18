@@ -611,6 +611,29 @@ export namespace Components {
          */
         "stickyHeader": boolean;
     }
+    interface DashSelect {
+        /**
+          * This Boolean attribute indicates that the user cannot interact with the control.  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+         */
+        "disabled"?: boolean;
+        /**
+          * The <form> element to associate the <select> with (its form owner). The value of this attribute must be the id of a <form> in the same document. (If this attribute is not set, the <select> is associated with its ancestor <form> element, if any.)  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+          * @optional
+         */
+        "form"?: string;
+        /**
+          * This attribute is used to specify the name of the control.  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+         */
+        "name": string;
+        /**
+          * A Boolean attribute indicating that an option with a non-empty string value must be selected. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+         */
+        "required"?: boolean;
+        /**
+          * Scale of select
+         */
+        "scale": Scale;
+    }
     interface DashShell {
     }
     interface DashSideBar {
@@ -845,6 +868,10 @@ export interface DashPopoverCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashPopoverElement;
 }
+export interface DashSelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashSelectElement;
+}
 export interface DashSideBarCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashSideBarElement;
@@ -1010,6 +1037,12 @@ declare global {
         prototype: HTMLDashSectionElement;
         new (): HTMLDashSectionElement;
     };
+    interface HTMLDashSelectElement extends Components.DashSelect, HTMLStencilElement {
+    }
+    var HTMLDashSelectElement: {
+        prototype: HTMLDashSelectElement;
+        new (): HTMLDashSelectElement;
+    };
     interface HTMLDashShellElement extends Components.DashShell, HTMLStencilElement {
     }
     var HTMLDashShellElement: {
@@ -1083,6 +1116,7 @@ declare global {
         "dash-popover": HTMLDashPopoverElement;
         "dash-scrim": HTMLDashScrimElement;
         "dash-section": HTMLDashSectionElement;
+        "dash-select": HTMLDashSelectElement;
         "dash-shell": HTMLDashShellElement;
         "dash-side-bar": HTMLDashSideBarElement;
         "dash-sidebar-button": HTMLDashSidebarButtonElement;
@@ -1742,6 +1776,30 @@ declare namespace LocalJSX {
          */
         "stickyHeader"?: boolean;
     }
+    interface DashSelect {
+        /**
+          * This Boolean attribute indicates that the user cannot interact with the control.  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+         */
+        "disabled"?: boolean;
+        /**
+          * The <form> element to associate the <select> with (its form owner). The value of this attribute must be the id of a <form> in the same document. (If this attribute is not set, the <select> is associated with its ancestor <form> element, if any.)  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+          * @optional
+         */
+        "form"?: string;
+        /**
+          * This attribute is used to specify the name of the control.  https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+         */
+        "name"?: string;
+        "onDashSelectValueChange"?: (event: DashSelectCustomEvent<void>) => void;
+        /**
+          * A Boolean attribute indicating that an option with a non-empty string value must be selected. https://developer.mozilla.org/en-US/docs/Web/HTML/Element/select
+         */
+        "required"?: boolean;
+        /**
+          * Scale of select
+         */
+        "scale"?: Scale;
+    }
     interface DashShell {
     }
     interface DashSideBar {
@@ -1964,6 +2022,7 @@ declare namespace LocalJSX {
         "dash-popover": DashPopover;
         "dash-scrim": DashScrim;
         "dash-section": DashSection;
+        "dash-select": DashSelect;
         "dash-shell": DashShell;
         "dash-side-bar": DashSideBar;
         "dash-sidebar-button": DashSidebarButton;
@@ -2002,6 +2061,7 @@ declare module "@stencil/core" {
             "dash-popover": LocalJSX.DashPopover & JSXBase.HTMLAttributes<HTMLDashPopoverElement>;
             "dash-scrim": LocalJSX.DashScrim & JSXBase.HTMLAttributes<HTMLDashScrimElement>;
             "dash-section": LocalJSX.DashSection & JSXBase.HTMLAttributes<HTMLDashSectionElement>;
+            "dash-select": LocalJSX.DashSelect & JSXBase.HTMLAttributes<HTMLDashSelectElement>;
             "dash-shell": LocalJSX.DashShell & JSXBase.HTMLAttributes<HTMLDashShellElement>;
             "dash-side-bar": LocalJSX.DashSideBar & JSXBase.HTMLAttributes<HTMLDashSideBarElement>;
             "dash-sidebar-button": LocalJSX.DashSidebarButton & JSXBase.HTMLAttributes<HTMLDashSidebarButtonElement>;
