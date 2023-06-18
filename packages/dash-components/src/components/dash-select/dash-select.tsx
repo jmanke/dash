@@ -75,9 +75,8 @@ export class DashSelect {
 
   //#region Local methods
 
-  selectChanged(e) {
-    console.log(e);
-    console.log(e.target.value);
+  selectChanged(e: any) {
+    this.valueChanged.emit(e.target.value);
   }
 
   //#endregion

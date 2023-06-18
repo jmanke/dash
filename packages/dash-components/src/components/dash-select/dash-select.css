@@ -27,6 +27,7 @@
 
 .select-container {
   position: relative;
+  display: flex;
 
   select {
     height: var(--dash-select-height);
@@ -37,6 +38,8 @@
     background-color: var(--dash-background-2);
     color: var(--dash-text-1);
     font-size: var(--dash-select-font-size);
+    margin: 0;
+    flex: auto;
 
     &:focus-visible {
       @extend .focus-outline;
