@@ -136,6 +136,8 @@ export class DashSlider {
    * @param event Pointer event
    */
   pointerInput(event: PointerEvent) {
+    event.preventDefault();
+
     if (!this.backgroundElement) {
       this.backgroundElement = this.element.shadowRoot.querySelector('.slider-background');
     }
@@ -166,7 +168,10 @@ export class DashSlider {
    * Starts the drag the slider
    */
   startSliderDrag(event: PointerEvent) {
+    event.preventDefault();
+
     this.pointerInput(event);
+
     if (this.sliderDragHandler) {
       window.removeEventListener('pointermove', this.sliderDragHandler);
       this.sliderDragHandler = null;
@@ -223,18 +228,17 @@ export class DashSlider {
 
     return (
       <Host>
-        <div class={spaceConcat('slider', !!this.sliderDragHandler && 'dragging')}>
+        <div
+          class={spaceConcat('slider', !!this.sliderDragHandler && 'dragging')}
+          onKeyDown={this.keydown.bind(this)}
+          onPointerDown={this.startSliderDrag.bind(this)}
+        >
           {this.minMaxLabelsVisible && (
             <span class='min-label' style={{ width: this.minLabelWidth ? `${this.minLabelWidth}px` : 'unset' }}>
               {this.min}
             </span>
           )}
-          <div
-            class='slider-background'
-            tabindex='0'
-            onKeyDown={this.keydown.bind(this)}
-            onPointerDown={this.startSliderDrag.bind(this)}
-          >
+          <div class='slider-background' tabindex='0'>
             <div class='slider-background-fill' style={{ width: controlPosition }}></div>
             <div class='control' style={{ left: controlPosition }}>
               {this.valueLabelVisible && <div class='value-label'>{this.value}</div>}

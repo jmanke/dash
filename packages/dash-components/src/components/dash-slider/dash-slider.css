@@ -11,6 +11,8 @@
   display: flex;
   align-items: center;
   gap: var(--dash-spacing-4);
+  touch-action: none;
+  cursor: pointer;
 
   .min-label,
   .max-label {
@@ -39,7 +41,6 @@
     box-shadow: var(--dash-box-shadow-line);
     height: 6px;
     border-radius: var(--dash-spacing-full);
-    cursor: pointer;
 
     &:focus-visible {
       @extend .focus-outline;
