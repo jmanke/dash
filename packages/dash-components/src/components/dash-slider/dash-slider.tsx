@@ -167,6 +167,10 @@ export class DashSlider {
    */
   startSliderDrag(event: PointerEvent) {
     this.pointerInput(event);
+    if (this.sliderDragHandler) {
+      window.removeEventListener('pointermove', this.sliderDragHandler);
+      this.sliderDragHandler = null;
+    }
     this.sliderDragHandler = (e: PointerEvent) => {
       this.pointerInput(e);
     };
@@ -193,9 +197,11 @@ export class DashSlider {
     switch (event.key) {
       case 'ArrowLeft':
         newValue = this.value - delta;
+        event.stopPropagation();
         break;
       case 'ArrowRight':
         newValue = this.value + delta;
+        event.stopPropagation();
         break;
       default:
         return;
