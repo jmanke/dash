@@ -14,6 +14,7 @@ export const DashColorHuePicker = /*@__PURE__*/createReactComponent<JSX.DashColo
 export const DashColorPicker = /*@__PURE__*/createReactComponent<JSX.DashColorPicker, HTMLDashColorPickerElement>('dash-color-picker');
 export const DashColorSwatch = /*@__PURE__*/createReactComponent<JSX.DashColorSwatch, HTMLDashColorSwatchElement>('dash-color-swatch');
 export const DashConfirmButton = /*@__PURE__*/createReactComponent<JSX.DashConfirmButton, HTMLDashConfirmButtonElement>('dash-confirm-button');
+export const DashDataTable = /*@__PURE__*/createReactComponent<JSX.DashDataTable, HTMLDashDataTableElement>('dash-data-table');
 export const DashDrillMenu = /*@__PURE__*/createReactComponent<JSX.DashDrillMenu, HTMLDashDrillMenuElement>('dash-drill-menu');
 export const DashDropdown = /*@__PURE__*/createReactComponent<JSX.DashDropdown, HTMLDashDropdownElement>('dash-dropdown');
 export const DashFab = /*@__PURE__*/createReactComponent<JSX.DashFab, HTMLDashFabElement>('dash-fab');
