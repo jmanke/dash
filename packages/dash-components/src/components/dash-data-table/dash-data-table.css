@@ -1,0 +1,60 @@
+table {
+  width: 100%;
+  table-layout: fixed;
+  border-radius: var(--dash-border-radius);
+  box-shadow: var(--dash-box-shadow);
+  border-spacing: 0;
+  border-collapse: separate;
+  border-style: hidden;
+  border: var(--dash-border-style-1);
+  overflow: hidden;
+
+  /* Apply a border to the right of all but the last column */
+  th:not(:last-child),
+  td:not(:last-child) {
+    border-right: 1px solid var(--dash-border-1);
+  }
+
+  /* Apply a border to the bottom of all but the last row */
+  thead > tr:not(:last-child) > th,
+  thead > tr:not(:last-child) > td,
+  tbody > tr:not(:last-child) > th,
+  tbody > tr:not(:last-child) > td,
+  tfoot > tr:not(:last-child) > th,
+  tfoot > tr:not(:last-child) > td,
+  tr:not(:last-child) > td,
+  tr:not(:last-child) > th,
+  thead:not(:last-child),
+  tbody:not(:last-child),
+  tfoot:not(:last-child) {
+    border-bottom: 1px solid var(--dash-border-1);
+  }
+
+  th,
+  td {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+
+  th {
+    font-weight: var(--dash-font-weight-bolder);
+    text-align: left;
+    padding: var(--dash-spacing-2);
+  }
+
+  td {
+    padding: var(--dash-spacing-2);
+  }
+}
+
+table {
+  tr {
+    background-color: var(--dash-background-2);
+  }
+}
+
+:host([striped]) table {
+  tr:nth-child(odd) {
+    background-color: var(--dash-background-3);
+  }
+}

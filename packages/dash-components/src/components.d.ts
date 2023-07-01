@@ -147,6 +147,22 @@ export namespace Components {
          */
         "scale": Scale;
     }
+    interface DashDataTable {
+        /**
+          * Width of each column
+          * @optional
+         */
+        "columnWidth"?: number;
+        /**
+          * JSON data for table
+         */
+        "json": Record<string, string | number | boolean>[];
+        /**
+          * Whether to display the table with alternating row colors
+          * @default false
+         */
+        "striped": boolean;
+    }
     interface DashDrillMenu {
         /**
           * When `true`, drill menu is activated
@@ -929,6 +945,12 @@ declare global {
         prototype: HTMLDashConfirmButtonElement;
         new (): HTMLDashConfirmButtonElement;
     };
+    interface HTMLDashDataTableElement extends Components.DashDataTable, HTMLStencilElement {
+    }
+    var HTMLDashDataTableElement: {
+        prototype: HTMLDashDataTableElement;
+        new (): HTMLDashDataTableElement;
+    };
     interface HTMLDashDrillMenuElement extends Components.DashDrillMenu, HTMLStencilElement {
     }
     var HTMLDashDrillMenuElement: {
@@ -1098,6 +1120,7 @@ declare global {
         "dash-color-picker": HTMLDashColorPickerElement;
         "dash-color-swatch": HTMLDashColorSwatchElement;
         "dash-confirm-button": HTMLDashConfirmButtonElement;
+        "dash-data-table": HTMLDashDataTableElement;
         "dash-drill-menu": HTMLDashDrillMenuElement;
         "dash-dropdown": HTMLDashDropdownElement;
         "dash-fab": HTMLDashFabElement;
@@ -1260,6 +1283,22 @@ declare namespace LocalJSX {
           * Size of the confirm button
          */
         "scale"?: Scale;
+    }
+    interface DashDataTable {
+        /**
+          * Width of each column
+          * @optional
+         */
+        "columnWidth"?: number;
+        /**
+          * JSON data for table
+         */
+        "json"?: Record<string, string | number | boolean>[];
+        /**
+          * Whether to display the table with alternating row colors
+          * @default false
+         */
+        "striped"?: boolean;
     }
     interface DashDrillMenu {
         /**
@@ -2004,6 +2043,7 @@ declare namespace LocalJSX {
         "dash-color-picker": DashColorPicker;
         "dash-color-swatch": DashColorSwatch;
         "dash-confirm-button": DashConfirmButton;
+        "dash-data-table": DashDataTable;
         "dash-drill-menu": DashDrillMenu;
         "dash-dropdown": DashDropdown;
         "dash-fab": DashFab;
@@ -2043,6 +2083,7 @@ declare module "@stencil/core" {
             "dash-color-picker": LocalJSX.DashColorPicker & JSXBase.HTMLAttributes<HTMLDashColorPickerElement>;
             "dash-color-swatch": LocalJSX.DashColorSwatch & JSXBase.HTMLAttributes<HTMLDashColorSwatchElement>;
             "dash-confirm-button": LocalJSX.DashConfirmButton & JSXBase.HTMLAttributes<HTMLDashConfirmButtonElement>;
+            "dash-data-table": LocalJSX.DashDataTable & JSXBase.HTMLAttributes<HTMLDashDataTableElement>;
             "dash-drill-menu": LocalJSX.DashDrillMenu & JSXBase.HTMLAttributes<HTMLDashDrillMenuElement>;
             "dash-dropdown": LocalJSX.DashDropdown & JSXBase.HTMLAttributes<HTMLDashDropdownElement>;
             "dash-fab": LocalJSX.DashFab & JSXBase.HTMLAttributes<HTMLDashFabElement>;
