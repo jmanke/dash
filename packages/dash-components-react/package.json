@@ -3,7 +3,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "version": "1.9.0",
+  "version": "1.9.1",
   "description": "React wrapper for dash-components by Jeff Manke",
   "license": "SEE LICENSE IN LICENSE.md",
   "scripts": {
@@ -26,7 +26,7 @@
     "@types/node": "^20.2.5"
   },
   "dependencies": {
-    "@didyoumeantoast/dash-components": "^1.9.0"
+    "@didyoumeantoast/dash-components": "^1.9.1"
   },
   "peerDependencies": {
     "react": ">=16.4",
