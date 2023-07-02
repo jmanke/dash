@@ -149,11 +149,6 @@ export namespace Components {
     }
     interface DashDataTable {
         /**
-          * Width of each column
-          * @optional
-         */
-        "columnWidth"?: number;
-        /**
           * JSON data for table
          */
         "json": Record<string, string | number | boolean>[];
@@ -1285,11 +1280,6 @@ declare namespace LocalJSX {
         "scale"?: Scale;
     }
     interface DashDataTable {
-        /**
-          * Width of each column
-          * @optional
-         */
-        "columnWidth"?: number;
         /**
           * JSON data for table
          */

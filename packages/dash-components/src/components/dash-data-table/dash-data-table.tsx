@@ -32,12 +32,6 @@ export class DashTable {
   }
 
   /**
-   * Width of each column
-   * @optional
-   */
-  @Prop({ reflect: true }) columnWidth?: number;
-
-  /**
    * Whether to display the table with alternating row colors
    * @default false
    */
