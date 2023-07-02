@@ -72,7 +72,7 @@ importers:
 
   packages/dash-components-react:
     specifiers:
-      '@didyoumeantoast/dash-components': ^1.9.2
+      '@didyoumeantoast/dash-components': ^1.9.3
       '@types/node': ^20.2.5
       '@types/react': ^16.14.42
       '@types/react-dom': ^16.0.9
@@ -90,9 +90,6 @@ importers:
       react-dom: 16.14.0_react@16.14.0
       rimraf: 2.7.1
       typescript: 4.7.4
-
-  packages/dash-components/dist/loader:
-    specifiers: {}
 
   packages/dash-components/loader:
     specifiers: {}
@@ -116,11 +113,11 @@ importers:
     specifiers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@babel/core': ^7.21.0
-      '@didyoumeantoast/dash-components': ^1.9.2
+      '@didyoumeantoast/dash-components': ^1.9.3
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-components': ^1.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
-      '@reduxjs/toolkit': ^1.9.2
+      '@reduxjs/toolkit': ^1.9.3
       '@types/lodash': ^4.14.177
       '@types/luxon': ^2.3.2
       '@types/qs': ^6.9.7
@@ -141,7 +138,7 @@ importers:
       '@didyoumeantoast/dash-utils': link:../dash-utils
       '@didyoumeantoast/hellodash-components': link:../hellodash-components
       '@didyoumeantoast/hellodash-models': link:../hellodash-models
-      '@reduxjs/toolkit': 1.9.2
+      '@reduxjs/toolkit': 1.9.5
       axios: 0.24.0
       lodash: 4.17.21
       luxon: 2.5.0
@@ -163,12 +160,12 @@ importers:
     specifiers:
       '@auth0/auth0-spa-js': ^1.19.4
       '@didyoumeantoast/component-forge': ^0.6.2
-      '@didyoumeantoast/dash-components': ^1.9.2
+      '@didyoumeantoast/dash-components': ^1.9.3
       '@didyoumeantoast/dash-utils': ^2.0.0
       '@didyoumeantoast/hellodash-models': ^1.0.0
       '@didyoumeantoast/tinymce-plugins': ^1.1.6
       '@popperjs/core': ^2.11.0
-      '@reduxjs/toolkit': ^1.9.2
+      '@reduxjs/toolkit': ^1.9.3
       '@stencil/core': ^3.0.0
       '@stencil/postcss': ^2.1.0
       '@stencil/store': ^1.4.1
@@ -201,7 +198,7 @@ importers:
       '@didyoumeantoast/hellodash-models': link:../hellodash-models
       '@didyoumeantoast/tinymce-plugins': 1.1.6
       '@popperjs/core': 2.11.6
-      '@reduxjs/toolkit': 1.9.2
+      '@reduxjs/toolkit': 1.9.5
       '@types/qs': 6.9.7
       immer: 9.0.19
       lodash: 4.17.21
@@ -1307,8 +1304,8 @@ packages:
     resolution: {integrity: sha512-50/17A98tWUfQ176raKiOGXuYpLyyVMkxxG6oylzL3BPOlA6ADGdK7EYunSa4I064xerltq9TGXs8HmOk5E+vw==}
     dev: false
 
-  /@reduxjs/toolkit/1.9.2:
-    resolution: {integrity: sha512-5ZAZ7hwAKWSii5T6NTPmgIBUqyVdlDs+6JjThz6J6dmHLDm6zCzv2OjHIFAi3Vvs1qjmXU0bm6eBojukYXjVMQ==}
+  /@reduxjs/toolkit/1.9.5:
+    resolution: {integrity: sha512-Rt97jHmfTeaxL4swLRNPD/zV4OxTes4la07Xc4hetpUW/vc75t5m1ANyxG6ymnEQ2FsLQsoMlYB2vV1sO3m8tQ==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18
       react-redux: ^7.2.1 || ^8.0.2
@@ -1318,10 +1315,10 @@ packages:
       react-redux:
         optional: true
     dependencies:
-      immer: 9.0.19
+      immer: 9.0.21
       redux: 4.2.1
       redux-thunk: 2.4.2_redux@4.2.1
-      reselect: 4.1.7
+      reselect: 4.1.8
     dev: false
 
   /@rollup/plugin-replace/2.4.2_rollup@1.20.0:
@@ -3767,6 +3764,10 @@ packages:
     resolution: {integrity: sha512-eY+Y0qcsB4TZKwgQzLaE/lqYMlKhv5J9dyd2RhhtGhNo2njPXDqU9XPfcNfa3MIDsdtZt5KlkIsirlo4dHsWdQ==}
     dev: false
 
+  /immer/9.0.21:
+    resolution: {integrity: sha512-bc4NBHqOqSfRW7POMkHd51LvClaeMXpm8dx0e8oE2GORbq5aRK7Bxl4FyzVLdGtLmvLKL7BTDBG5ACQm4HWjTA==}
+    dev: false
+
   /import-local/3.1.0:
     resolution: {integrity: sha512-ASB07uLtnDs1o6EHjKpX34BKYDSqnFerfTOJL2HvMqF70LnxpjkzDB8J44oT9pu4AMPkQwf8jl6szgvNd2tRIg==}
     engines: {node: '>=8'}
@@ -5269,8 +5270,8 @@ packages:
     resolution: {integrity: sha512-KigOCHcocU3XODJxsu8i/j8T9tzT4adHiecwORRQ0ZZFcp7ahwXuRU1m+yuO90C5ZUyGeGfocHDI14M3L3yDAQ==}
     dev: true
 
-  /reselect/4.1.7:
-    resolution: {integrity: sha512-Zu1xbUt3/OPwsXL46hvOOoQrap2azE7ZQbokq61BQfiXvhewsKDwhMeZjTX9sX0nvw1t/U5Audyn1I9P/m9z0A==}
+  /reselect/4.1.8:
+    resolution: {integrity: sha512-ab9EmR80F/zQTMNeneUr4cv+jSwPJgIlvEmVwLerwrWVbpLlBuls9XHzIeTFy4cegU2NHBp3va0LKOzU5qFEYQ==}
     dev: false
 
   /resolve-cwd/3.0.0:
