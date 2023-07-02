@@ -88,21 +88,27 @@ export class DashTable {
 
   render() {
     return (
-      <table>
-        <tr>
-          {this.headers.map(header => (
-            <th>{header}</th>
-          ))}
-        </tr>
+      <div class='data-table'>
+        <table>
+          <thead>
+            <tr>
+              {this.headers.map(header => (
+                <th>{header}</th>
+              ))}
+            </tr>
+          </thead>
 
-        {this.data.map(row => (
-          <tr>
-            {row.map(cell => (
-              <td>{cell}</td>
+          <tbody>
+            {this.data.map(row => (
+              <tr>
+                {row.map(cell => (
+                  <td>{cell}</td>
+                ))}
+              </tr>
             ))}
-          </tr>
-        ))}
-      </table>
+          </tbody>
+        </table>
+      </div>
     );
   }
 }

@@ -1,13 +1,25 @@
+:host {
+  display: block;
+}
+
+.data-table {
+  display: block;
+  width: inherit;
+  height: inherit;
+  max-width: inherit;
+  max-height: inherit;
+  overflow: auto;
+  border: var(--dash-border-style-1);
+  box-shadow: var(--dash-box-shadow);
+  border-radius: var(--dash-border-radius);
+}
+
 table {
-  width: 100%;
+  min-width: 100%;
   table-layout: fixed;
   border-radius: var(--dash-border-radius);
-  box-shadow: var(--dash-box-shadow);
   border-spacing: 0;
-  border-collapse: separate;
-  border-style: hidden;
-  border: var(--dash-border-style-1);
-  overflow: hidden;
+  border-collapse: collapse;
 
   /* Apply a border to the right of all but the last column */
   th:not(:last-child),
@@ -40,6 +52,7 @@ table {
     font-weight: var(--dash-font-weight-bolder);
     text-align: left;
     padding: var(--dash-spacing-2);
+    white-space: nowrap;
   }
 
   td {
@@ -54,7 +67,10 @@ table {
 }
 
 :host([striped]) table {
-  tr:nth-child(odd) {
+  thead tr {
+    background-color: var(--dash-background-3);
+  }
+  tbody tr:nth-child(even) {
     background-color: var(--dash-background-3);
   }
 }

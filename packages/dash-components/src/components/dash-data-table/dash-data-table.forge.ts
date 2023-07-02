@@ -2,6 +2,7 @@ import { html } from 'lit-html';
 
 const template = args =>
   html` <dash-data-table
+    style="width: 100%; max-height: 250px;"
     columnWidth=${args.columnWidth}
     .json=${args.data}
     ?striped=${args.striped}
@@ -24,6 +25,10 @@ export const dataTableDefinition = {
         FavoriteFood: 'Mayo',
         Age: '30',
         City: 'New York',
+        Namey: 'John',
+        FavoriteFoody: 'Mayo',
+        Agey: '30',
+        Cityy: 'New York',
       },
       {
         Name: 'Jane',
@@ -32,6 +37,16 @@ export const dataTableDefinition = {
       },
       {
         Name: 'Bob',
+        Age: '35',
+        City: 'Chicago',
+      },
+      {
+        Name: 'Jeff',
+        Age: '35',
+        City: 'Chicago',
+      },
+      {
+        Name: 'Ross',
         Age: '35',
         City: 'Chicago',
       },
