@@ -376,6 +376,13 @@ export namespace Components {
          */
         "type"?: string;
     }
+    interface DashIndicatorButton {
+        /**
+          * Whether the item is currently active
+          * @default false
+         */
+        "active": boolean;
+    }
     interface DashInlineEdit {
         /**
           * When `true`, disabled interaction
@@ -1030,6 +1037,12 @@ declare global {
         prototype: HTMLDashIconButtonElement;
         new (): HTMLDashIconButtonElement;
     };
+    interface HTMLDashIndicatorButtonElement extends Components.DashIndicatorButton, HTMLStencilElement {
+    }
+    var HTMLDashIndicatorButtonElement: {
+        prototype: HTMLDashIndicatorButtonElement;
+        new (): HTMLDashIndicatorButtonElement;
+    };
     interface HTMLDashInlineEditElement extends Components.DashInlineEdit, HTMLStencilElement {
     }
     var HTMLDashInlineEditElement: {
@@ -1162,6 +1175,7 @@ declare global {
         "dash-grid": HTMLDashGridElement;
         "dash-icon": HTMLDashIconElement;
         "dash-icon-button": HTMLDashIconButtonElement;
+        "dash-indicator-button": HTMLDashIndicatorButtonElement;
         "dash-inline-edit": HTMLDashInlineEditElement;
         "dash-input": HTMLDashInputElement;
         "dash-label": HTMLDashLabelElement;
@@ -1546,6 +1560,13 @@ declare namespace LocalJSX {
           * @optional
          */
         "type"?: string;
+    }
+    interface DashIndicatorButton {
+        /**
+          * Whether the item is currently active
+          * @default false
+         */
+        "active"?: boolean;
     }
     interface DashInlineEdit {
         /**
@@ -2100,6 +2121,7 @@ declare namespace LocalJSX {
         "dash-grid": DashGrid;
         "dash-icon": DashIcon;
         "dash-icon-button": DashIconButton;
+        "dash-indicator-button": DashIndicatorButton;
         "dash-inline-edit": DashInlineEdit;
         "dash-input": DashInput;
         "dash-label": DashLabel;
@@ -2142,6 +2164,7 @@ declare module "@stencil/core" {
             "dash-grid": LocalJSX.DashGrid & JSXBase.HTMLAttributes<HTMLDashGridElement>;
             "dash-icon": LocalJSX.DashIcon & JSXBase.HTMLAttributes<HTMLDashIconElement>;
             "dash-icon-button": LocalJSX.DashIconButton & JSXBase.HTMLAttributes<HTMLDashIconButtonElement>;
+            "dash-indicator-button": LocalJSX.DashIndicatorButton & JSXBase.HTMLAttributes<HTMLDashIndicatorButtonElement>;
             "dash-inline-edit": LocalJSX.DashInlineEdit & JSXBase.HTMLAttributes<HTMLDashInlineEditElement>;
             "dash-input": LocalJSX.DashInput & JSXBase.HTMLAttributes<HTMLDashInputElement>;
             "dash-label": LocalJSX.DashLabel & JSXBase.HTMLAttributes<HTMLDashLabelElement>;

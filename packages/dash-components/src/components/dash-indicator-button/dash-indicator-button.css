@@ -1,0 +1,21 @@
+:host {
+  display: block;
+}
+
+.indicator-button {
+  width: var(--dash-spacing-6);
+  height: var(--dash-spacing-6);
+}
+
+.indicator {
+  background-color: var(--dash-text-color-3);
+  width: var(--dash-spacing-3);
+  height: var(--dash-spacing-3);
+  border-radius: var(--dash-spacing-full);
+}
+
+.indicator.active {
+  outline: 1px solid var(--dash-brand);
+  outline-offset: 2px;
+  background-color: var(--dash-brand);
+}

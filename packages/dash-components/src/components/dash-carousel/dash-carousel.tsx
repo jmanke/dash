@@ -1,4 +1,3 @@
-import { spaceConcat } from '@didyoumeantoast/dash-utils';
 import { Component, Element, Event, EventEmitter, Host, Listen, Prop, State, h } from '@stencil/core';
 import { DashCarouselItemCustomEvent } from '../../components';
 
@@ -139,9 +138,10 @@ export class CarouselGallery {
           ></dash-icon-button>
 
           {this.items.map((_, index) => (
-            <dash-button class='indicator-button' scale='s' appearance='clear' onClick={this.moveTo.bind(this, index)}>
-              <div class={spaceConcat('indicator', this.currentItem === this.items[index] && 'active')}></div>
-            </dash-button>
+            <dash-indicator-button
+              active={this.currentItem === this.items[index]}
+              onClick={this.moveTo.bind(this, index)}
+            ></dash-indicator-button>
           ))}
 
           <dash-icon-button
