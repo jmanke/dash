@@ -37,6 +37,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [dash-carousel](../dash-carousel)
  - [dash-color-swatch](../dash-color-swatch)
  - [dash-confirm-button](../dash-confirm-button)
  - [dash-drill-menu](../dash-drill-menu)
@@ -57,6 +58,7 @@ graph TD;
   dash-icon-button --> dash-loader
   dash-icon-button --> dash-tooltip
   dash-tooltip --> dash-popover
+  dash-carousel --> dash-icon-button
   dash-color-swatch --> dash-icon-button
   dash-confirm-button --> dash-icon-button
   dash-drill-menu --> dash-icon-button

@@ -36,6 +36,7 @@ Type: `Promise<void>`
 
 ### Used by
 
+ - [dash-carousel](../dash-carousel)
  - [dash-color-picker](../dash-color-picker)
  - [dash-inline-edit](../dash-inline-edit)
  - [dash-modal](../dash-modal)
@@ -48,6 +49,7 @@ Type: `Promise<void>`
 ```mermaid
 graph TD;
   dash-button --> dash-icon
+  dash-carousel --> dash-button
   dash-color-picker --> dash-button
   dash-inline-edit --> dash-button
   dash-modal --> dash-button

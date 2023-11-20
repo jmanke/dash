@@ -66,6 +66,22 @@ export namespace Components {
          */
         "target"?: string;
     }
+    interface DashCarousel {
+        /**
+          * The carousel current item.
+         */
+        "currentItem": HTMLDashCarouselItemElement;
+    }
+    interface DashCarouselItem {
+        /**
+          * The item name.
+         */
+        "name": string;
+        /**
+          * Whether the item is currently visible
+         */
+        "visible": boolean;
+    }
     interface DashChip {
         /**
           * Background color of the chip
@@ -827,6 +843,14 @@ export namespace Components {
         "text": string;
     }
 }
+export interface DashCarouselCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashCarouselElement;
+}
+export interface DashCarouselItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDashCarouselItemElement;
+}
 export interface DashChipCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDashChipElement;
@@ -909,6 +933,18 @@ declare global {
     var HTMLDashButtonElement: {
         prototype: HTMLDashButtonElement;
         new (): HTMLDashButtonElement;
+    };
+    interface HTMLDashCarouselElement extends Components.DashCarousel, HTMLStencilElement {
+    }
+    var HTMLDashCarouselElement: {
+        prototype: HTMLDashCarouselElement;
+        new (): HTMLDashCarouselElement;
+    };
+    interface HTMLDashCarouselItemElement extends Components.DashCarouselItem, HTMLStencilElement {
+    }
+    var HTMLDashCarouselItemElement: {
+        prototype: HTMLDashCarouselItemElement;
+        new (): HTMLDashCarouselItemElement;
     };
     interface HTMLDashChipElement extends Components.DashChip, HTMLStencilElement {
     }
@@ -1110,6 +1146,8 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "dash-button": HTMLDashButtonElement;
+        "dash-carousel": HTMLDashCarouselElement;
+        "dash-carousel-item": HTMLDashCarouselItemElement;
         "dash-chip": HTMLDashChipElement;
         "dash-color-hue-picker": HTMLDashColorHuePickerElement;
         "dash-color-picker": HTMLDashColorPickerElement;
@@ -1185,6 +1223,24 @@ declare namespace LocalJSX {
           * Target location of the link. Only functional if `href` is provided
          */
         "target"?: string;
+    }
+    interface DashCarousel {
+        /**
+          * The carousel current item.
+         */
+        "currentItem"?: HTMLDashCarouselItemElement;
+        "onDashCarouselItemChange"?: (event: DashCarouselCustomEvent<void>) => void;
+    }
+    interface DashCarouselItem {
+        /**
+          * The item name.
+         */
+        "name"?: string;
+        "onDashCarouselItemVisibleChange"?: (event: DashCarouselItemCustomEvent<void>) => void;
+        /**
+          * Whether the item is currently visible
+         */
+        "visible"?: boolean;
     }
     interface DashChip {
         /**
@@ -2028,6 +2084,8 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "dash-button": DashButton;
+        "dash-carousel": DashCarousel;
+        "dash-carousel-item": DashCarouselItem;
         "dash-chip": DashChip;
         "dash-color-hue-picker": DashColorHuePicker;
         "dash-color-picker": DashColorPicker;
@@ -2068,6 +2126,8 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "dash-button": LocalJSX.DashButton & JSXBase.HTMLAttributes<HTMLDashButtonElement>;
+            "dash-carousel": LocalJSX.DashCarousel & JSXBase.HTMLAttributes<HTMLDashCarouselElement>;
+            "dash-carousel-item": LocalJSX.DashCarouselItem & JSXBase.HTMLAttributes<HTMLDashCarouselItemElement>;
             "dash-chip": LocalJSX.DashChip & JSXBase.HTMLAttributes<HTMLDashChipElement>;
             "dash-color-hue-picker": LocalJSX.DashColorHuePicker & JSXBase.HTMLAttributes<HTMLDashColorHuePickerElement>;
             "dash-color-picker": LocalJSX.DashColorPicker & JSXBase.HTMLAttributes<HTMLDashColorPickerElement>;

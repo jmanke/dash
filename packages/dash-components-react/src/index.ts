@@ -9,6 +9,8 @@ import { defineCustomElements } from '@didyoumeantoast/dash-components/dist/load
 
 defineCustomElements();
 export const DashButton = /*@__PURE__*/createReactComponent<JSX.DashButton, HTMLDashButtonElement>('dash-button');
+export const DashCarousel = /*@__PURE__*/createReactComponent<JSX.DashCarousel, HTMLDashCarouselElement>('dash-carousel');
+export const DashCarouselItem = /*@__PURE__*/createReactComponent<JSX.DashCarouselItem, HTMLDashCarouselItemElement>('dash-carousel-item');
 export const DashChip = /*@__PURE__*/createReactComponent<JSX.DashChip, HTMLDashChipElement>('dash-chip');
 export const DashColorHuePicker = /*@__PURE__*/createReactComponent<JSX.DashColorHuePicker, HTMLDashColorHuePickerElement>('dash-color-hue-picker');
 export const DashColorPicker = /*@__PURE__*/createReactComponent<JSX.DashColorPicker, HTMLDashColorPickerElement>('dash-color-picker');
