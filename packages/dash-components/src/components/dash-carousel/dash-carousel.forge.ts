@@ -1,6 +1,6 @@
 import { html } from 'lit-html';
 
-const template = args => html`<dash-carousel style="width: 20rem;">
+const template = () => html`<dash-carousel style="width: 20rem;">
   <dash-carousel-item>
     <img src="https://via.placeholder.com/150" />
   </dash-carousel-item>

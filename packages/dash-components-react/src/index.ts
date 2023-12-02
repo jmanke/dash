@@ -25,6 +25,7 @@ export const DashFocusTrap = /*@__PURE__*/createReactComponent<JSX.DashFocusTrap
 export const DashGrid = /*@__PURE__*/createReactComponent<JSX.DashGrid, HTMLDashGridElement>('dash-grid');
 export const DashIcon = /*@__PURE__*/createReactComponent<JSX.DashIcon, HTMLDashIconElement>('dash-icon');
 export const DashIconButton = /*@__PURE__*/createReactComponent<JSX.DashIconButton, HTMLDashIconButtonElement>('dash-icon-button');
+export const DashIndicatorButton = /*@__PURE__*/createReactComponent<JSX.DashIndicatorButton, HTMLDashIndicatorButtonElement>('dash-indicator-button');
 export const DashInlineEdit = /*@__PURE__*/createReactComponent<JSX.DashInlineEdit, HTMLDashInlineEditElement>('dash-inline-edit');
 export const DashInput = /*@__PURE__*/createReactComponent<JSX.DashInput, HTMLDashInputElement>('dash-input');
 export const DashLabel = /*@__PURE__*/createReactComponent<JSX.DashLabel, HTMLDashLabelElement>('dash-label');

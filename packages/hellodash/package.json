@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@auth0/auth0-spa-js": "^1.19.4",
-    "@didyoumeantoast/dash-components": "^1.9.3",
+    "@didyoumeantoast/dash-components": "^1.10.0",
     "@didyoumeantoast/dash-utils": "^2.0.0",
     "@didyoumeantoast/hellodash-components": "^1.0.0",
     "@didyoumeantoast/hellodash-models": "^1.0.0",
