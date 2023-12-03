@@ -3,8 +3,6 @@
 }
 
 .items-container {
-  display: flex;
-  justify-content: center;
   border: 1px solid var(--dash-border-1);
 }
 

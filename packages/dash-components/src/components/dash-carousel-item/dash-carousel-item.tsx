@@ -57,7 +57,9 @@ export class DashCarouselItem {
   render() {
     return (
       <Host class={!this.visible ? 'invisible' : ''}>
-        <slot></slot>
+        <div>
+          <slot></slot>
+        </div>
       </Host>
     );
   }
